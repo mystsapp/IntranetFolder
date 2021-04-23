@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Data.Models;
+using Data.Repository;
+using Data.Utilities;
+using GleamTech.FileUltimate.AspNet.UI;
+using IntranetFolder.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using IntranetFolder.Models;
-using Data.Repository;
-using GleamTech.FileUltimate.AspNet.UI;
-using Microsoft.AspNetCore.Http;
-using Data.Models;
-using Data.Utilities;
 
 namespace IntranetFolder.Controllers
 {
@@ -29,22 +27,20 @@ namespace IntranetFolder.Controllers
 
             HomeVM = new HomeViewModel()
             {
-                
                 FolderUser = new Data.Models.FolderUser(),
                 FileManager = new FileManager()
             };
         }
-        
+
         public async Task<IActionResult> Index()
         {
             User user = HttpContext.Session.Gets<User>("loginUser").FirstOrDefault();
             HomeVM.FolderUsers = await _unitOfWork.folderUserReprository.FindAsync(x => x.UserId == user.Username);
             return View(HomeVM);
         }
-        
+
         public IActionResult ExploreUrl(long folderUserId)
         {
-            
             HomeVM.FolderUser = _unitOfWork.folderUserReprository.GetById(folderUserId);
 
             var fileManager = new FileManager
@@ -52,26 +48,23 @@ namespace IntranetFolder.Controllers
                 Width = 800,
                 Height = 600,
                 Resizable = true,
-
             };
-            
+
             var rootFolder = new FileManagerRootFolder
             {
-
                 Name = "A Root Folder",
                 //Location = @"E:\softs"
                 Location = HomeVM.FolderUser.Path
                 //Location = @"\\192.168.4.153\Ghosts"
             };
 
-            if(HomeVM.FolderUser.Upload == true)
+            if (HomeVM.FolderUser.Upload == true)
             {
                 rootFolder.AccessControls.Add(new FileManagerAccessControl
                 {
                     Path = @"\",
                     AllowedPermissions = FileManagerPermissions.Full
                 });
-
             }
             else
             {
@@ -80,7 +73,6 @@ namespace IntranetFolder.Controllers
                     Path = @"\",
                     AllowedPermissions = FileManagerPermissions.ReadOnly
                 });
-
             }
 
             fileManager.RootFolders.Add(rootFolder);
