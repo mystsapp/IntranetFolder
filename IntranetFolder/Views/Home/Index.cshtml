@@ -1,0 +1,122 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout_1";
+}
+
+<style>
+    .faImg {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .folderImg :hover {
+        background-color: #3C8DBC;
+        cursor: pointer;
+    }
+
+    .cursor-pointer :hover {
+        /*background-color: #3E5C9A;*/
+        background-color: #ffc107 !important;
+        cursor: pointer;
+        /*color: white;*/
+    }
+
+    .cursor-pointer {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+@*<section class="content">*@
+
+<!-- Default box -->
+@*<div class="card card-solid">*@
+<div class="card-body pb-0">
+    <div class="row d-flex align-items-stretch">
+        @foreach (var item in Model.FolderUsers)
+        {
+            @*<div class="col-12 col-sm-6 col-md-4 align-items-stretch">*@
+            <div class="col-12 col-sm-6 col-md-3 align-items-stretch ">
+                <div class="card bg-light">
+
+                    @*<a asp-action="ExploreUrl" asp-route-path="@item.Path">*@
+                    <div class="card-body folderImg">
+                        <div class="row">
+                            <div class="col-12 text-center ">
+                                @*<button type="button" class="btn btn-outline-warning border-0 bg-transparent ">*@
+                                <a asp-action="ExploreUrl" asp-route-folderUserId="@item.Id" class="btn btn-outline-warning border-0 bg-transparent ">
+                                    <i class="fas fa-folder fa-10x text-warning"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    @*</a>*@
+
+                    <div class="card-footer">
+                        <div class="text-center">
+                            @item.Name
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- /.card-body -->
+@*<div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+            </ul>
+        </nav>
+    </div>*@
+<!-- /.card-footer -->
+@*</div>*@
+<!-- /.card -->
+@*</section>*@
+@*<section class="content">
+
+        <div class="card card-solid">
+
+            @foreach (var item in Model.FolderUsers)
+            {
+                <div class="card-body pb-0">
+                    <div class="row d-flex align-items-stretch">
+                        <div class="col-12 col-sm-6 col-md-3 align-items-stretch ">
+                            <div class="card bg-light">
+
+                                <a asp-action="ExploreUrl" asp-route-path="@item.Path">
+                                    <div class="card-body folderImg">
+                                        <div class="row">
+                                            <div class="col-12 text-center text-warning ">
+                                                <i class="fas fa-folder fa-10x "></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="card-footer">
+                                    <div class="text-center">
+                                        @item.Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+    </section>*@

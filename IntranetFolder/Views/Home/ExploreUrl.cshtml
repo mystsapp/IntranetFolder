@@ -1,0 +1,13 @@
+﻿@using GleamTech.AspNet.Core
+@using GleamTech.FileUltimate.AspNet.UI
+
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "ExploreUrl";
+    Layout = "_Layout_1";
+}
+
+@this.RenderHead(Model.FileManager)
+
+@this.RenderBody(Model.FileManager)
