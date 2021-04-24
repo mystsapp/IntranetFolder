@@ -30,9 +30,10 @@ namespace IntranetFolder.Controllers
             {
                 var result = await _unitOfWork.userRepository.Login(model.Username, model.Password);
 
-                if (result == -1)
+                if (result == 0)
                 {
                     ModelState.AddModelError("", "Tài khoản này không tồn tại");
+                    return View();
                 }
                 else
                 {
@@ -104,6 +105,12 @@ namespace IntranetFolder.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
