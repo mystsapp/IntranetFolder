@@ -45,8 +45,10 @@ namespace IntranetFolder.Controllers
 
             var fileManager = new FileManager
             {
-                Width = 800,
-                Height = 600,
+                //Width = 800,
+                //Height = 600,
+                Width = 1024,
+                Height = 768,
                 Resizable = true,
             };
 
@@ -63,7 +65,9 @@ namespace IntranetFolder.Controllers
                 rootFolder.AccessControls.Add(new FileManagerAccessControl
                 {
                     Path = @"\",
-                    AllowedPermissions = FileManagerPermissions.Full
+                    AllowedPermissions = FileManagerPermissions.Full,
+                    //DeniedFileTypes = new FileTypeSet(new[] { "*.exe" }) //or FileTypeSet.Parse("*.exe")
+                    AllowedFileTypes = FileTypeSet.Parse("*.doc|*.docx|*.xls|*.xlsx|*.pdf")
                 });
             }
             else
