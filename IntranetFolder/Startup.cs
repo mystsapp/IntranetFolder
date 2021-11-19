@@ -33,9 +33,8 @@ namespace IntranetFolder
             services.AddDbContext<qltaikhoanContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.EnableSensitiveDataLogging()*/);
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IFolderUserReprository, FolderUserReprository>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-
 
             services.AddSession(options =>
             {
@@ -67,18 +66,15 @@ namespace IntranetFolder
             //----------------------
             app.UseGleamTech();
             //----------------------
-            ////Set this property only if you have a valid license key, otherwise do not 
-            ////set it so FileUltimate runs in trial mode.  
+            ////Set this property only if you have a valid license key, otherwise do not
+            ////set it so FileUltimate runs in trial mode.
             //FileUltimateConfiguration.Current.LicenseKey = "QQJDJLJP34...";
-
 
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
-
 
             app.UseSession();
 

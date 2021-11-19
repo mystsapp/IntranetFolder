@@ -67,7 +67,7 @@ namespace IntranetFolder.Controllers
                     Path = @"\",
                     AllowedPermissions = FileManagerPermissions.Full,
                     //DeniedFileTypes = new FileTypeSet(new[] { "*.exe" }) //or FileTypeSet.Parse("*.exe")
-                    AllowedFileTypes = FileTypeSet.Parse("*.doc|*.docx|*.xls|*.xlsx|*.pdf")
+                    AllowedFileTypes = FileTypeSet.Parse("*.doc|*.docx|*.xls|*.xlsx|*.pdf|*.dbf|*.cdx|*.pptx")
                 });
             }
             else

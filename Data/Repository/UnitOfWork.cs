@@ -10,8 +10,11 @@ namespace Data.Repository
     {
         IUserRepository userRepository { get; }
         IFolderUserReprository folderUserReprository { get; }
+        ISupplierRepository supplierRepository { get; }
+
         Task<int> Complete();
     }
+
     public class UnitOfWork : IUnitOfWork
     {
         private readonly qltaikhoanContext _context;
@@ -21,11 +24,14 @@ namespace Data.Repository
             _context = context;
             userRepository = new UserRepository(_context);
             folderUserReprository = new FolderUserReprository(_context);
+            supplierRepository = new SupplierRepository(_context);
         }
 
         public IUserRepository userRepository { get; }
 
         public IFolderUserReprository folderUserReprository { get; }
+
+        public ISupplierRepository supplierRepository { get; }
 
         public async Task<int> Complete()
         {

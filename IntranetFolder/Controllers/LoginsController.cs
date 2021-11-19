@@ -18,6 +18,7 @@ namespace IntranetFolder.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -46,7 +47,6 @@ namespace IntranetFolder.Controllers
                     if (result == -2)
                     {
                         ModelState.AddModelError("", "Mật khẩu không đúng");
-
                     }
                     if (result == 1)
                     {
