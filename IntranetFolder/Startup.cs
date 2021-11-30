@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Data.Models;
 using Data.Repository;
 using GleamTech.AspNet.Core;
+using IntranetFolder.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +36,9 @@ namespace IntranetFolder
             services.AddTransient<IFolderUserReprository, FolderUserReprository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            // services
+            services.AddTransient<ISupplierService, SupplierService>();
 
             services.AddSession(options =>
             {

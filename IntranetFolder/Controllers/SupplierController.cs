@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using Data.Repository;
 using IntranetFolder.Models;
+using IntranetFolder.Services;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,15 +10,14 @@ namespace IntranetFolder.Controllers
 {
     public class SupplierController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISupplierService _supplierService;
 
         [BindProperty]
         public SupplierViewModel SupplierVM { get; set; }
 
-        public SupplierController(IUnitOfWork unitOfWork)
+        public SupplierController(ISupplierService supplierService)
         {
-            _unitOfWork = unitOfWork;
-
+            _supplierService = supplierService;
             SupplierVM = new SupplierViewModel()
             {
                 Supplier = new Supplier()
@@ -41,14 +41,14 @@ namespace IntranetFolder.Controllers
 
             if (!string.IsNullOrEmpty(id)) // for redirect with id
             {
-                SupplierVM.Supplier = await _unitOfWork.supplierRepository.GetByIdAsync(id);
+                SupplierVM.Supplier = await _supplierService.GetByIdAsync(id);
                 ViewBag.id = SupplierVM.Supplier.Code;
             }
             else
             {
                 SupplierVM.Supplier = new Supplier();
             }
-            SupplierVM.Suppliers = await _unitOfWork.supplierRepository.ListSupplier(searchString, searchFromDate, searchToDate, page);
+            SupplierVM.Suppliers = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
             return View(SupplierVM);
         }
     }
