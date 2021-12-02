@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using GleamTech.FileUltimate.AspNet.UI;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace IntranetFolder.Models
 {
     public class SupplierViewModel
     {
-        public IPagedList<Supplier> Suppliers { get; set; }
+        public IPagedList<SupplierDTO> SupplierDTOs { get; set; }
         public Supplier Supplier { get; set; }
         public int Page { get; set; }
         public string StrUrl { get; set; }

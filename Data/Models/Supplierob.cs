@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Data.Models
 {
-    public partial class Supplier
+    public partial class Supplierob
     {
         public string Code { get; set; }
         public string Tapdoan { get; set; }
@@ -30,6 +30,5 @@ namespace Data.Models
         public string Logfile { get; set; }
         public string Tknganhang { get; set; }
         public string Tennganhang { get; set; }
-        public string Tour { get; set; }
     }
 }

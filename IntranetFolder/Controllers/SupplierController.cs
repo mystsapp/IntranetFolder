@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Data.Repository;
+using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -48,8 +49,128 @@ namespace IntranetFolder.Controllers
             {
                 SupplierVM.Supplier = new Supplier();
             }
-            SupplierVM.Suppliers = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
+            SupplierVM.SupplierDTOs = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
             return View(SupplierVM);
+        }
+
+        public IActionResult Create(string strUrl)
+        {
+            SupplierVM.StrUrl = strUrl;
+
+            return View(SupplierVM);
+        }
+
+        [HttpPost, ActionName("Create")]
+        public async Task<IActionResult> CreatePost(string strUrl)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (!ModelState.IsValid)
+            {
+                SupplierVM = new SupplierViewModel()
+                {
+                    Supplier = new Supplier(),
+                    StrUrl = strUrl
+                };
+
+                return View(SupplierVM);
+            }
+
+            try
+            {
+                await _supplierService.CreateAsync(DMTaiKhoanVM.DmTk); // save
+
+                SetAlert("Thêm mới thành công.", "success");
+
+                return Redirect(strUrl);
+            }
+            catch (Exception ex)
+            {
+                SetAlert(ex.Message, "error");
+                return View(DMTaiKhoanVM);
+            }
+        }
+
+        public async Task<IActionResult> Edit(int id, string strUrl)
+        {
+            // from session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            DMTaiKhoanVM.StrUrl = strUrl;
+            if (id == 0)
+            {
+                ViewBag.ErrorMessage = "TK này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+
+            DMTaiKhoanVM.DmTk = await _dmTkService.GetById(id);
+
+            if (DMTaiKhoanVM.DmTk == null)
+            {
+                ViewBag.ErrorMessage = "TK này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+
+            return View(DMTaiKhoanVM);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int id, string strUrl)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (id != DMTaiKhoanVM.DmTk.Id)
+            {
+                ViewBag.ErrorMessage = "TK này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _dmTkService.UpdateAsync(DMTaiKhoanVM.DmTk);
+                    SetAlert("Cập nhật thành công", "success");
+
+                    return Redirect(strUrl);
+                }
+                catch (Exception ex)
+                {
+                    SetAlert(ex.Message, "error");
+
+                    return View(DMTaiKhoanVM);
+                }
+            }
+            // not valid
+
+            return View(DMTaiKhoanVM);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id, string strUrl/*, string tabActive*/)
+        {
+            DMTaiKhoanVM.StrUrl = strUrl;// + "&tabActive=" + tabActive; // for redirect tab
+
+            var dmTk = await _dmTkService.GetById(id);
+            if (dmTk == null)
+                return NotFound();
+            try
+            {
+                await _dmTkService.Delete(dmTk);
+
+                SetAlert("Xóa thành công.", "success");
+                return Redirect(DMTaiKhoanVM.StrUrl);
+            }
+            catch (Exception ex)
+            {
+                SetAlert(ex.Message, "error");
+                ModelState.AddModelError("", ex.Message);
+                return Redirect(DMTaiKhoanVM.StrUrl);
+            }
         }
     }
 }

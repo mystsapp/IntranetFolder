@@ -32,6 +32,8 @@ namespace IntranetFolder
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<qltaikhoanContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.EnableSensitiveDataLogging()*/);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // AddAutoMapper
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IFolderUserReprository, FolderUserReprository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();

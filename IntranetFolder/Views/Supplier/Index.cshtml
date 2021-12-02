@@ -70,18 +70,20 @@
                         <tr class="table-info">
 
                             <th>#</th>
-                            <th>@Html.DisplayNameFor(m => m.Suppliers.FirstOrDefault().Code)</th>
-                            <th>@Html.DisplayNameFor(m => m.Suppliers.FirstOrDefault().Tengiaodich)</th>
-                            <th>@Html.DisplayNameFor(m => m.Suppliers.FirstOrDefault().Diachi)</th>
-                            <th>@Html.DisplayNameFor(m => m.Suppliers.FirstOrDefault().Tinhtp)</th>
-                            <th>@Html.DisplayNameFor(m => m.Suppliers.FirstOrDefault().Tenthuongmai)</th>
-                            <th>@Html.DisplayNameFor(m => m.Suppliers.FirstOrDefault().Masothue)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Code)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tengiaodich)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Diachi)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tinhtp)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tenthuongmai)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tapdoan)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (Model.Suppliers != null)
+                        @if (Model.SupplierDTOs != null)
                         {
-                            @foreach (var item in Model.Suppliers)
+                            @foreach (var item in Model.SupplierDTOs)
                             {
 
                                 <tr class="cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="DMTK_Tbl()">
@@ -89,7 +91,7 @@
                                     <td>
                                         <div class="btn-group text-white" role="group">
 
-                                            <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                            <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Code" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
                                             @*<span class="text-dark"> | </span>
 
                                                 <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
@@ -116,12 +118,23 @@
                                         </div>
                                     </td>
 
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TKhoan)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TKhoan1)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TKhoan2)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TenTK)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TKhoanCu)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.GhiChu)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Code)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tengiaodich)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Diachi)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tinhtp)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tenthuongmai)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tapdoan)</td>
+                                    <td class="tdVal" data-id="@item.Code">
+                                        @if(item.Trangthai)
+                                        {
+                                            <span class="badge badge-success">Kích hoạt</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Khoá</span>
+                                        }
+                                    </td>
 
                                 </tr>
 
@@ -132,9 +145,9 @@
                 
             </div>
             <div class="p-2" style="background-color: aliceblue;" >
-                @if (Model.Suppliers != null)
+                @if (Model.SupplierDTOs != null)
                 {
-                    @Html.PagedListPager((IPagedList)Model.Suppliers, page => Url.Action("Index", new
+                    @Html.PagedListPager((IPagedList)Model.SupplierDTOs, page => Url.Action("Index", new
                {
                    page = page,
                    option = Context.Request.Query["option"],

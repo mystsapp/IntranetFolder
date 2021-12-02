@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30011.22
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntranetFolder", "IntranetFolder\IntranetFolder.csproj", "{AD35726E-CDA0-425D-8034-7D62ADB1D6E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntranetFolder", "IntranetFolder\IntranetFolder.csproj", "{AD35726E-CDA0-425D-8034-7D62ADB1D6E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{2EC78191-13AC-4379-82C6-AED1D0321FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{2EC78191-13AC-4379-82C6-AED1D0321FFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{D9017693-449E-49CC-A293-46920AEAE12C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2EC78191-13AC-4379-82C6-AED1D0321FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC78191-13AC-4379-82C6-AED1D0321FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EC78191-13AC-4379-82C6-AED1D0321FFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9017693-449E-49CC-A293-46920AEAE12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9017693-449E-49CC-A293-46920AEAE12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9017693-449E-49CC-A293-46920AEAE12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9017693-449E-49CC-A293-46920AEAE12C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,12 +5,9 @@ using System.Collections.Generic;
 
 namespace Data.Models
 {
-    public partial class Phongban
+    public partial class VPhongban
     {
         public string Maphong { get; set; }
         public string Tenphong { get; set; }
-        public bool Trangthai { get; set; }
-        public string Macode { get; set; }
-        public bool Hdvat { get; set; }
     }
 }
