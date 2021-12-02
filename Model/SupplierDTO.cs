@@ -27,6 +27,9 @@ namespace Model
         public string Chinhanh { get; set; }
         public DateTime? Ngayhethan { get; set; }
         public string Logfile { get; set; }
+        public string Tknganhang { get; set; }
+        public string Tennganhang { get; set; }
+        public string Tour { get; set; }
 
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
     }

@@ -52,7 +52,7 @@ namespace IntranetFolder.Controllers
                     {
                         //var user = _userRepository.GetById(model.Username);
                         var user = await _unitOfWork.userRepository.FindAsync(x => x.Username == model.Username);
-                        HttpContext.Session.Set("loginUser", user);
+                        HttpContext.Session.Set("loginUser", user.FirstOrDefault());
 
                         //HttpContext.Session.SetString("username", model.Username);
                         HttpContext.Session.SetString("password", model.Password);

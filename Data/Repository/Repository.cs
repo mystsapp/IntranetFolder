@@ -55,7 +55,6 @@ namespace Data.Repository
         public void Update(T entity)
         {
             _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-
         }
 
         public async Task<T> GetByIdAsync(int? id)
@@ -123,6 +122,20 @@ namespace Data.Repository
         public T GetById(string id)
         {
             return _context.Set<T>().Find(id);
+        }
+
+        public async Task<T> CreateAsync(T entity)
+        {
+            var entityEntry = await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entityEntry.Entity;
+        }
+
+        public async Task<T> UpdateAsync(T entity)
+        {
+            var entityEntry = _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
+            return entityEntry.Entity;
         }
     }
 }

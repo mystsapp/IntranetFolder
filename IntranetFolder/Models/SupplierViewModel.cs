@@ -12,7 +12,7 @@ namespace IntranetFolder.Models
     public class SupplierViewModel
     {
         public IPagedList<SupplierDTO> SupplierDTOs { get; set; }
-        public Supplier Supplier { get; set; }
+        public SupplierDTO SupplierDTO { get; set; }
         public int Page { get; set; }
         public string StrUrl { get; set; }
     }

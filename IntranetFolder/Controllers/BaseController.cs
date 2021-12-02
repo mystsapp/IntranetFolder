@@ -16,7 +16,7 @@ namespace IntranetFolder.Controllers
         {
             // var session = (user)Session[CommonConstants.USER_SESSION];
             // var username = HttpContext.Session.GetString("username");
-            var user = HttpContext.Session.Gets<User>("loginUser");
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             //var user = JsonConvert.DeserializeObject<Users>(HttpContext.Session.GetString("userInfo"));
 
@@ -27,6 +27,7 @@ namespace IntranetFolder.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
+
         protected void SetAlert(string message, string type)
         {
             TempData["AlertMessage"] = message;

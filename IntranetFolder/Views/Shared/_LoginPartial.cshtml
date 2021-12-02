@@ -2,7 +2,7 @@
 @using Data.Utilities
 @inject IHttpContextAccessor HttpContextAccessor
 @{
-    var user = HttpContextAccessor.HttpContext.Session.Gets<User>("loginUser");
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
 }
 
 <ul class="navbar-nav ml-auto">
@@ -10,7 +10,7 @@
     <li class="nav-item dropdown">
 
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user">Welcome - @(user.FirstOrDefault().Hoten) - @HttpContextAccessor.HttpContext.Session.GetString("chinhanh")!</i>
+            <i class="fas fa-user">Welcome - @(user.Hoten) - @HttpContextAccessor.HttpContext.Session.GetString("chinhanh")!</i>
             @*<i class="fas fa-user">Welcome!</i>*@
         </a>
 

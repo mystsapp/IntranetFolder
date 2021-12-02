@@ -34,7 +34,7 @@ namespace IntranetFolder.Controllers
 
         public async Task<IActionResult> Index()
         {
-            User user = HttpContext.Session.Gets<User>("loginUser").FirstOrDefault();
+            User user = HttpContext.Session.GetSingle<User>("loginUser");
             HomeVM.FolderUsers = await _unitOfWork.folderUserReprository.FindAsync(x => x.UserId == user.Username);
             return View(HomeVM);
         }
@@ -95,6 +95,15 @@ namespace IntranetFolder.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult DetailsRedirect(string strUrl/*, string tabActive*/)
+        {
+            //if (!string.IsNullOrEmpty(tabActive))
+            //{
+            //    strUrl = strUrl + "&tabActive=" + tabActive; // for redirect tab
+            //}
+            return Redirect(strUrl);
         }
     }
 }

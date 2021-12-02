@@ -14,7 +14,13 @@ namespace IntranetFolder.Services
     {
         Task<IPagedList<SupplierDTO>> ListSupplier(string searchString, string searchFromDate, string searchToDate, int? page);
 
-        Task<Supplier> GetByIdAsync(string id);
+        Task<SupplierDTO> GetByIdAsync(string id);
+
+        Task<SupplierDTO> CreateAsync(SupplierDTO supplierDTO);
+
+        Task<SupplierDTO> UpdateAsync(SupplierDTO supplierDTO);
+
+        Task Delete(SupplierDTO supplierDTO);
     }
 
     public class SupplierService : ISupplierService
@@ -28,9 +34,9 @@ namespace IntranetFolder.Services
             _mapper = mapper;
         }
 
-        public async Task<Supplier> GetByIdAsync(string id)
+        public async Task<SupplierDTO> GetByIdAsync(string id)
         {
-            return await _unitOfWork.supplierRepository.GetByIdAsync(id);
+            return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(id));
         }
 
         public async Task<IPagedList<SupplierDTO>> ListSupplier(string searchString, string searchFromDate, string searchToDate, int? page)
@@ -145,10 +151,24 @@ namespace IntranetFolder.Services
             return listPaged;
         }
 
-        public async Task CreateAsync(SupplierDTO supplierDTO)
+        public async Task<SupplierDTO> CreateAsync(SupplierDTO supplierDTO)
         {
             Supplier supplier = _mapper.Map<SupplierDTO, Supplier>(supplierDTO);
-            var = _unitOfWork.supplierRepository.Create(supplier);
+            var supplier1 = await _unitOfWork.supplierRepository.CreateAsync(supplier);
+            return _mapper.Map<Supplier, SupplierDTO>(supplier1);
+        }
+
+        public async Task<SupplierDTO> UpdateAsync(SupplierDTO supplierDTO)
+        {
+            Supplier supplier = _mapper.Map<SupplierDTO, Supplier>(supplierDTO);
+            var supplier1 = await _unitOfWork.supplierRepository.UpdateAsync(supplier);
+            return _mapper.Map<Supplier, SupplierDTO>(supplier1);
+        }
+
+        public async Task Delete(SupplierDTO supplierDTO)
+        {
+            Supplier supplier = _mapper.Map<SupplierDTO, Supplier>(supplierDTO);
+            _unitOfWork.supplierRepository.Delete(supplier);
             await _unitOfWork.Complete();
         }
     }

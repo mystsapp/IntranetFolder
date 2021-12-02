@@ -5,11 +5,13 @@ using IntranetFolder.Models;
 using IntranetFolder.Services;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Model;
+using System;
 using System.Threading.Tasks;
 
 namespace IntranetFolder.Controllers
 {
-    public class SupplierController : Controller
+    public class SupplierController : BaseController
     {
         private readonly ISupplierService _supplierService;
 
@@ -21,7 +23,7 @@ namespace IntranetFolder.Controllers
             _supplierService = supplierService;
             SupplierVM = new SupplierViewModel()
             {
-                Supplier = new Supplier()
+                SupplierDTO = new SupplierDTO()
             };
         }
 
@@ -42,12 +44,12 @@ namespace IntranetFolder.Controllers
 
             if (!string.IsNullOrEmpty(id)) // for redirect with id
             {
-                SupplierVM.Supplier = await _supplierService.GetByIdAsync(id);
-                ViewBag.id = SupplierVM.Supplier.Code;
+                SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(id);
+                ViewBag.id = SupplierVM.SupplierDTO.Code;
             }
             else
             {
-                SupplierVM.Supplier = new Supplier();
+                SupplierVM.SupplierDTO = new SupplierDTO();
             }
             SupplierVM.SupplierDTOs = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
             return View(SupplierVM);
@@ -70,7 +72,7 @@ namespace IntranetFolder.Controllers
             {
                 SupplierVM = new SupplierViewModel()
                 {
-                    Supplier = new Supplier(),
+                    SupplierDTO = new SupplierDTO(),
                     StrUrl = strUrl
                 };
 
@@ -79,7 +81,7 @@ namespace IntranetFolder.Controllers
 
             try
             {
-                await _supplierService.CreateAsync(DMTaiKhoanVM.DmTk); // save
+                await _supplierService.CreateAsync(SupplierVM.SupplierDTO); // save
 
                 SetAlert("Thêm mới thành công.", "success");
 
@@ -88,43 +90,43 @@ namespace IntranetFolder.Controllers
             catch (Exception ex)
             {
                 SetAlert(ex.Message, "error");
-                return View(DMTaiKhoanVM);
+                return View(SupplierVM);
             }
         }
 
-        public async Task<IActionResult> Edit(int id, string strUrl)
+        public async Task<IActionResult> Edit(string id, string strUrl)
         {
             // from session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            DMTaiKhoanVM.StrUrl = strUrl;
-            if (id == 0)
+            SupplierVM.StrUrl = strUrl;
+            if (string.IsNullOrEmpty(id))
             {
-                ViewBag.ErrorMessage = "TK này không tồn tại.";
+                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            DMTaiKhoanVM.DmTk = await _dmTkService.GetById(id);
+            SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(id);
 
-            if (DMTaiKhoanVM.DmTk == null)
+            if (SupplierVM.SupplierDTO == null)
             {
-                ViewBag.ErrorMessage = "TK này không tồn tại.";
+                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            return View(DMTaiKhoanVM);
+            return View(SupplierVM);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id, string strUrl)
+        public async Task<IActionResult> EditPost(string id, string strUrl)
         {
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            if (id != DMTaiKhoanVM.DmTk.Id)
+            if (id != SupplierVM.SupplierDTO.Code)
             {
-                ViewBag.ErrorMessage = "TK này không tồn tại.";
+                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
@@ -132,7 +134,7 @@ namespace IntranetFolder.Controllers
             {
                 try
                 {
-                    await _dmTkService.UpdateAsync(DMTaiKhoanVM.DmTk);
+                    await _supplierService.UpdateAsync(SupplierVM.SupplierDTO);
                     SetAlert("Cập nhật thành công", "success");
 
                     return Redirect(strUrl);
@@ -141,35 +143,35 @@ namespace IntranetFolder.Controllers
                 {
                     SetAlert(ex.Message, "error");
 
-                    return View(DMTaiKhoanVM);
+                    return View(SupplierVM);
                 }
             }
             // not valid
 
-            return View(DMTaiKhoanVM);
+            return View(SupplierVM);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id, string strUrl/*, string tabActive*/)
+        public async Task<IActionResult> DeleteConfirmed(string id, string strUrl/*, string tabActive*/)
         {
-            DMTaiKhoanVM.StrUrl = strUrl;// + "&tabActive=" + tabActive; // for redirect tab
+            SupplierVM.StrUrl = strUrl;// + "&tabActive=" + tabActive; // for redirect tab
 
-            var dmTk = await _dmTkService.GetById(id);
-            if (dmTk == null)
+            var supplierDTO = await _supplierService.GetByIdAsync(id);
+            if (supplierDTO == null)
                 return NotFound();
             try
             {
-                await _dmTkService.Delete(dmTk);
+                await _supplierService.Delete(supplierDTO);
 
                 SetAlert("Xóa thành công.", "success");
-                return Redirect(DMTaiKhoanVM.StrUrl);
+                return Redirect(SupplierVM.StrUrl);
             }
             catch (Exception ex)
             {
                 SetAlert(ex.Message, "error");
                 ModelState.AddModelError("", ex.Message);
-                return Redirect(DMTaiKhoanVM.StrUrl);
+                return Redirect(SupplierVM.StrUrl);
             }
         }
     }

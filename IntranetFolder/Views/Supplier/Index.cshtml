@@ -181,6 +181,25 @@
 
     <script src="~/js/Admin/Home/indexController.js"></script>
     <script>
+
+        var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
+
+        // giữ trạng thái
+        if (id_Redirect !== '') {
+
+            var id_Redirect_Class = $('.' + id_Redirect);
+
+            if (id_Redirect_Class.hasClass("hoverClass")) {
+                id_Redirect_Class.removeClass("hoverClass");
+            }
+            else {
+                id_Redirect_Class.removeClass("hoverClass");
+                id_Redirect_Class.addClass("hoverClass");
+            }
+
+        // giữ trạng thái
+        }
+
         function confirmDelete(uniqueId, isDeleteClicked) {
             var deleteSpan = 'deleteSpan_' + uniqueId;
             var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
