@@ -55,9 +55,13 @@ namespace IntranetFolder.Controllers
             return View(SupplierVM);
         }
 
-        public IActionResult Create(string strUrl)
+        public async Task<IActionResult> Create(string strUrl)
         {
             SupplierVM.StrUrl = strUrl;
+
+            SupplierVM.VTinhs = await _supplierService.GetTinhs();
+            SupplierVM.Thanhpho1s = await _supplierService.GetThanhpho1s();
+            SupplierVM.Quocgias = await _supplierService.GetQuocgias();
 
             return View(SupplierVM);
         }
@@ -78,6 +82,13 @@ namespace IntranetFolder.Controllers
 
                 return View(SupplierVM);
             }
+
+            SupplierVM.SupplierDTO.Ngaytao = DateTime.Now;
+            SupplierVM.SupplierDTO.Nguoitao = user.Username;
+
+            // next Id
+            SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn); // chi VND
+            // next Id
 
             try
             {

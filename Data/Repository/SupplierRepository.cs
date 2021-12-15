@@ -12,12 +12,32 @@ namespace Data.Repository
 {
     public interface ISupplierRepository : IRepository<Supplier>
     {
+        Task<IEnumerable<VTinh>> GetTinhs();
+
+        Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
+
+        Task<IEnumerable<Quocgium>> GetQuocgias();
     }
 
     public class SupplierRepository : Repository<Supplier>, ISupplierRepository
     {
         public SupplierRepository(qltaikhoanContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<Quocgium>> GetQuocgias()
+        {
+            return await _context.Quocgia.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Thanhpho1>> GetThanhpho1s()
+        {
+            return await _context.Thanhpho1s.ToListAsync();
+        }
+
+        public async Task<IEnumerable<VTinh>> GetTinhs()
+        {
+            return await _context.VTinhs.ToListAsync();
         }
     }
 }

@@ -21,6 +21,14 @@ namespace IntranetFolder.Services
         Task<SupplierDTO> UpdateAsync(SupplierDTO supplierDTO);
 
         Task Delete(SupplierDTO supplierDTO);
+
+        string GetNextId(string param, string macn);
+
+        Task<IEnumerable<VTinh>> GetTinhs();
+
+        Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
+
+        Task<IEnumerable<Quocgium>> GetQuocgias();
     }
 
     public class SupplierService : ISupplierService
@@ -170,6 +178,34 @@ namespace IntranetFolder.Services
             Supplier supplier = _mapper.Map<SupplierDTO, Supplier>(supplierDTO);
             _unitOfWork.supplierRepository.Delete(supplier);
             await _unitOfWork.Complete();
+        }
+
+        public string GetNextId(string param, string macn)
+        {
+            var supplier = _unitOfWork.supplierRepository.GetAll().OrderByDescending(x => x.Code).FirstOrDefault();
+            if (supplier == null || string.IsNullOrEmpty(supplier.Code))
+            {
+                return Data.Utilities.GetNextId.NextID("", ""); // 0001
+            }
+            else
+            {
+                return Data.Utilities.GetNextId.NextID(supplier.Code, "");
+            }
+        }
+
+        public async Task<IEnumerable<VTinh>> GetTinhs()
+        {
+            return await _unitOfWork.supplierRepository.GetTinhs();
+        }
+
+        public async Task<IEnumerable<Thanhpho1>> GetThanhpho1s()
+        {
+            return await _unitOfWork.supplierRepository.GetThanhpho1s();
+        }
+
+        public async Task<IEnumerable<Quocgium>> GetQuocgias()
+        {
+            return await _unitOfWork.supplierRepository.GetQuocgias();
         }
     }
 }

@@ -81,19 +81,31 @@
                         
                         <div class="col-md-2">
                             <label asp-for="SupplierDTO.Tinhtp" class="control-label"></label>
-                            <input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />
+                            @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
+                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
+                                    <option>-- Select --</option>
+                            </select>
                             <span asp-validation-for="SupplierDTO.Tinhtp" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-2">
                             <label asp-for="SupplierDTO.Thanhpho" class="control-label"></label>
-                            <input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />
+                            @*<input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />*@
+                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.Thanhpho1s, "Matp", "Tentp"))" id="ddlThanhPho">
+                                    <option>-- Select --</option>
+                            </select>
                             <span asp-validation-for="SupplierDTO.Thanhpho" class="text-danger"></span>
                         </div>
                         
                         <div class="col-md-2">
                             <label asp-for="SupplierDTO.Quocgia" class="control-label"></label>
-                            <input asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm " id="txtQuocGia" />
+                            @*<input asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm " id="txtQuocGia" />*@
+                            <select asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.Quocgias, "TenNuoc", "TenNuoc"))" id="ddlQuocQia">
+                                    <option>-- Select --</option>
+                            </select>
                             <span asp-validation-for="SupplierDTO.Quocgia" class="text-danger"></span>
                         </div>
                         
