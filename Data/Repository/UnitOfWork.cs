@@ -11,6 +11,8 @@ namespace Data.Repository
         IUserRepository userRepository { get; }
         IFolderUserReprository folderUserReprository { get; }
         ISupplierRepository supplierRepository { get; }
+        ITinhRepository tinhRepository { get; }
+        IThanhPho1Repository thanhPho1Repository { get; }
 
         Task<int> Complete();
     }
@@ -25,6 +27,8 @@ namespace Data.Repository
             userRepository = new UserRepository(_context);
             folderUserReprository = new FolderUserReprository(_context);
             supplierRepository = new SupplierRepository(_context);
+            tinhRepository = new TinhRepository(_context);
+            thanhPho1Repository = new ThanhPho1Repository(_context);
         }
 
         public IUserRepository userRepository { get; }
@@ -32,6 +36,10 @@ namespace Data.Repository
         public IFolderUserReprository folderUserReprository { get; }
 
         public ISupplierRepository supplierRepository { get; }
+
+        public ITinhRepository tinhRepository { get; }
+
+        public IThanhPho1Repository thanhPho1Repository { get; }
 
         public async Task<int> Complete()
         {

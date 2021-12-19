@@ -37,10 +37,13 @@ namespace IntranetFolder
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IFolderUserReprository, FolderUserReprository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<ITinhRepository, TinhRepository>();
+            services.AddTransient<IThanhPho1Repository, ThanhPho1Repository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // services
             services.AddTransient<ISupplierService, SupplierService>();
+            services.AddTransient<ITinhTPService, TinhTPService>();
 
             services.AddSession(options =>
             {

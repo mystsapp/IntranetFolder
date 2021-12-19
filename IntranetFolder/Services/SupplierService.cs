@@ -29,6 +29,8 @@ namespace IntranetFolder.Services
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
 
         Task<IEnumerable<Quocgium>> GetQuocgias();
+
+        SupplierDTO GetByIdAsNoTracking(string id);
     }
 
     public class SupplierService : ISupplierService
@@ -206,6 +208,11 @@ namespace IntranetFolder.Services
         public async Task<IEnumerable<Quocgium>> GetQuocgias()
         {
             return await _unitOfWork.supplierRepository.GetQuocgias();
+        }
+
+        public SupplierDTO GetByIdAsNoTracking(string id)
+        {
+            return _mapper.Map<Supplier, SupplierDTO>(_unitOfWork.supplierRepository.GetByIdAsNoTracking(x => x.Code == id));
         }
     }
 }

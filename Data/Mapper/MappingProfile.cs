@@ -12,6 +12,9 @@ namespace Data.Mapper
         public MappingProfile()
         {
             CreateMap<Supplier, SupplierDTO>().ReverseMap();
+            CreateMap<Tinh, TinhDTO>().ReverseMap();
+            CreateMap<VTinh, VTinhDTO>().ReverseMap();
+            CreateMap<Thanhpho1, ThanhPho1DTO>().ReverseMap();
         }
     }
 }

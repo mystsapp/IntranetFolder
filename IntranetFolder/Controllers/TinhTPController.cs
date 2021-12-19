@@ -11,14 +11,12 @@ using System.Threading.Tasks;
 
 namespace IntranetFolder.Controllers
 {
-    public class SupplierController : BaseController
+    public class TinhTPController : BaseController
     {
-        private readonly ISupplierService _supplierService;
-
         [BindProperty]
-        public SupplierViewModel SupplierVM { get; set; }
+        public TinhTPViewModel SupplierVM { get; set; }
 
-        public SupplierController(ISupplierService supplierService)
+        public TinhTPController(ISupplierService supplierService)
         {
             _supplierService = supplierService;
             SupplierVM = new SupplierViewModel()
