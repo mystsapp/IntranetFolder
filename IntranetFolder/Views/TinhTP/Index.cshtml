@@ -46,18 +46,18 @@
                                 </div>
 
                             </div>
-@*
-                            <div class="col-md-5 text-sm">
+                            @*
+                                <div class="col-md-5 text-sm">
                                 &nbsp;
                                 <div class=" btn-block ">
-                                    <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit">
+                                <i class="fas fa-search"></i>
+                                </button>
 
-                                    <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
+                                <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
 
                                 </div>
-                            </div>*@
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -76,13 +76,13 @@
 
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbBodyTinh">
                         @if (Model.VTinhDTOs != null)
                         {
                             @foreach (var item in Model.VTinhDTOs)
                             {
 
-                                <tr class="cursor-pointer @item.Matinh" onclick="DMTK_Tbl()">
+                                <tr class="cursor-pointer @item.Matinh" onclick="ThanhPho1_Tbl()">
 
                                     <td>
                                         <div class="btn-group text-white" role="group">
@@ -105,8 +105,16 @@
                 </table>
 
             </div>
-
+            <br />
+            <div id="ThanhPho1_Tbl">
+            </div>
+            
+            <div id="ThanhPho1_Create_Partial">
+            </div>
+            <div id="ThanhPho1_Edit_Partial">
+            </div>
         </div>
+        
         <!-- /.card-body -->
         @*<div class="card-footer">
             Footer
@@ -114,17 +122,17 @@
         <!-- /.card-footer-->
     </div>
     <!-- /.card -->
-
+    
 </section>
 <!-- /.content -->
 @section Scripts{
 
-<script src="~/js/Admin/Home/indexController.js"></script>
+<script src="~/js/Admin/TinhTP/indexController.js"></script>
 <script>
-
+    debugger
     var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
 
-    // giữ trạng thái
+    // giữ trạng thái khi redirect
     if (id_Redirect !== '') {
 
         var id_Redirect_Class = $('.' + id_Redirect);
@@ -137,25 +145,45 @@
             id_Redirect_Class.addClass("hoverClass");
         }
 
-    // giữ trạng thái
+    // giữ trạng thái khi redirect
     }
 
-    function DMTK_Tbl() { // tab href
-        location.href = "#DMTK_Tbl";
+
+        // giu trang thai phieu click
+        $('#TinhTbl .cursor-pointer').off('click').on('click', function () {
+            if ($(this).hasClass("hoverClass"))
+                $(this).removeClass("hoverClass");
+            else {
+                $('.cursor-pointer').removeClass("hoverClass");
+                $(this).addClass("hoverClass");
+            }
+        });
+        // giu trang thai phieu click
+
+
+    function ThanhPho1_Tbl() { // tab href
+        location.href = "#ThanhPho1_Tbl";
     }
 </script>
 <script>
-  $(function () {
-    
-    $('#TinhTbl').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
+    //$(function () {
+
+    //  $('#TinhTbl').DataTable({
+    //    "paging": false,
+    //    "lengthChange": false,
+    //    "searching": false,
+    //    "ordering": true,
+    //    "info": true,
+    //    "autoWidth": false,
+    //    "responsive": true,
+    //  });
+    //});
+
+    $("#txtSearchTinh").on("keyup", function () {
+                  var value = $(this).val().toLowerCase();
+                  $("#tbBodyTinh tr").filter(function () {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                  });
+              });
 </script>
 }

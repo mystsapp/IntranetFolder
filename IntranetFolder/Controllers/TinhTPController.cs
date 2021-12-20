@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IntranetFolder.Controllers
@@ -77,6 +78,11 @@ namespace IntranetFolder.Controllers
                 return View(TinhTPVM);
             }
 
+            var vungmiens = await _tinhTPService.GetVungmiens();
+            TinhTPVM.TinhDTO.MienId = vungmiens.Where(x => x.VungId == TinhTPVM.TinhDTO.VungId)
+                .FirstOrDefault().Mien;
+            TinhTPVM.TinhDTO.Matinh = TinhTPVM.TenCreate;
+
             try
             {
                 await _tinhTPService.CreateAsync(TinhTPVM.TinhDTO); // save
@@ -87,7 +93,7 @@ namespace IntranetFolder.Controllers
             }
             catch (Exception ex)
             {
-                SetAlert(ex.Message, "error");
+                SetAlert(ex.InnerException.Message, "error");
                 return View(TinhTPVM);
             }
         }
@@ -111,6 +117,7 @@ namespace IntranetFolder.Controllers
                 ViewBag.ErrorMessage = "Tỉnh này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            TinhTPVM.Vungmiens = await _tinhTPService.GetVungmiens();
 
             return View(TinhTPVM);
         }
@@ -146,8 +153,24 @@ namespace IntranetFolder.Controllers
                 }
             }
             // not valid
+            TinhTPVM.Vungmiens = await _tinhTPService.GetVungmiens();
 
             return View(TinhTPVM);
+        }
+
+        public JsonResult IsStringNameAvailable(string TenCreate)
+        {
+            var boolName = _tinhTPService.GetAllTinhs()
+                .Where(x => x.Matinh.Trim().ToLower() == TenCreate.Trim().ToLower())
+                .FirstOrDefault();
+            if (boolName == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
         }
 
         //[HttpPost, ActionName("Delete")]

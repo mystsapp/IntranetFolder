@@ -11,13 +11,11 @@ using X.PagedList;
 
 namespace IntranetFolder.Models
 {
-    public class TinhTPViewModel
+    public class ThanhPho1ViewModel
     {
-        public IEnumerable<VTinhDTO> VTinhDTOs { get; set; }
+        public IEnumerable<ThanhPho1DTO> ThanhPho1DTOs { get; set; }
+        public ThanhPho1DTO ThanhPho1DTO { get; set; }
         public TinhDTO TinhDTO { get; set; }
-        public VTinhDTO VTinhDTO { get; set; }
-        public IEnumerable<Vungmien> Vungmiens { get; set; }
-        public IEnumerable<Thanhpho1> Thanhpho1s { get; set; }
         public int Page { get; set; }
         public string StrUrl { get; set; }
 

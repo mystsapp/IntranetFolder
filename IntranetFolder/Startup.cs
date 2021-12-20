@@ -44,6 +44,7 @@ namespace IntranetFolder
             // services
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<ITinhTPService, TinhTPService>();
+            services.AddTransient<IThanhPho1Service, ThanhPho1Service>();
 
             services.AddSession(options =>
             {
