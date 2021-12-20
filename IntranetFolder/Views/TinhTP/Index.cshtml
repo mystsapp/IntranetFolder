@@ -1,0 +1,161 @@
+﻿@model TinhTPViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Main content -->
+<section class="content" style="padding: 15px 0.5rem">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh mục Tinh</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <form method="get" autocomplete="off">
+
+                <div class="pr-2 pl-2" style="padding-bottom:10px; padding-top: 6px; ">
+
+                    <div class="col-md-12">
+                        <div class="row rounded" style="padding-bottom:5px; background-color: aliceblue;" id="search">
+
+                            <div class="col-md-3 text-sm pt-2">
+                                <!-- Nhập thông tin
+                                @*@Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control", @value="@ViewData["currentFilter"]" } })*@
+                                 <input class="form-control form-control-sm" name="searchString" value="@ViewBag.searchString" />
+                                 -->
+                                <div class="input-group">
+                                    <input placeholder="Tìm thông tin" class="form-control form-control-sm" id="txtSearchTinh">
+                                    <span class="input-group-btn">
+                                        @*<a class="btn btn-primary" title="Thêm tỉnh / Quốc gia" href="/TinhTP/Create"><i class="fa fa-plus"></i></a>*@
+                                        <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
+                                    </span>
+                                </div>
+
+                            </div>
+@*
+                            <div class="col-md-5 text-sm">
+                                &nbsp;
+                                <div class=" btn-block ">
+                                    <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+
+                                    <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
+
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @*<br />*@
+            <div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto; height: 300px">
+                <table class="table mytable text-nowrap text-sm" id="TinhTbl">
+                    <thead>
+                        <tr class="table-info">
+
+                            <th>#</th>
+                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().Matinh)</th>
+                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().Tentinh)</th>
+                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().TenVung)</th>
+                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().Mien)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.VTinhDTOs != null)
+                        {
+                            @foreach (var item in Model.VTinhDTOs)
+                            {
+
+                                <tr class="cursor-pointer @item.Matinh" onclick="DMTK_Tbl()">
+
+                                    <td>
+                                        <div class="btn-group text-white" role="group">
+
+                                            <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Matinh" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+
+                                        </div>
+                                    </td>
+
+                                    <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.Matinh)</td>
+                                    <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.Tentinh)</td>
+                                    <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.TenVung)</td>
+                                    <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.Mien)</td>
+
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer">
+            Footer
+            </div>*@
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@section Scripts{
+
+<script src="~/js/Admin/Home/indexController.js"></script>
+<script>
+
+    var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
+
+    // giữ trạng thái
+    if (id_Redirect !== '') {
+
+        var id_Redirect_Class = $('.' + id_Redirect);
+
+        if (id_Redirect_Class.hasClass("hoverClass")) {
+            id_Redirect_Class.removeClass("hoverClass");
+        }
+        else {
+            id_Redirect_Class.removeClass("hoverClass");
+            id_Redirect_Class.addClass("hoverClass");
+        }
+
+    // giữ trạng thái
+    }
+
+    function DMTK_Tbl() { // tab href
+        location.href = "#DMTK_Tbl";
+    }
+</script>
+<script>
+  $(function () {
+    
+    $('#TinhTbl').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+}

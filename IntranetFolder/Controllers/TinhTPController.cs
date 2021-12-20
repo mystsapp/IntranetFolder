@@ -13,55 +13,51 @@ namespace IntranetFolder.Controllers
 {
     public class TinhTPController : BaseController
     {
-        [BindProperty]
-        public TinhTPViewModel SupplierVM { get; set; }
+        private readonly ITinhTPService _tinhTPService;
 
-        public TinhTPController(ISupplierService supplierService)
+        [BindProperty]
+        public TinhTPViewModel TinhTPVM { get; set; }
+
+        public TinhTPController(ITinhTPService tinhTPService)
         {
-            _supplierService = supplierService;
-            SupplierVM = new SupplierViewModel()
+            TinhTPVM = new TinhTPViewModel()
             {
-                SupplierDTO = new SupplierDTO()
+                TinhDTO = new TinhDTO(),
+                VTinhDTO = new VTinhDTO()
             };
+            _tinhTPService = tinhTPService;
         }
 
-        public async Task<IActionResult> Index(string searchString, string searchFromDate, string searchToDate, string boolSgtcode, string id, int page = 1)
+        public async Task<IActionResult> Index(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.id = "";
             }
 
-            SupplierVM.StrUrl = UriHelper.GetDisplayUrl(Request);
-            SupplierVM.Page = page;
-
-            ViewBag.searchString = searchString;
-            ViewBag.searchFromDate = searchFromDate;
-            ViewBag.searchToDate = searchToDate;
-            ViewBag.boolSgtcode = boolSgtcode;
+            TinhTPVM.StrUrl = UriHelper.GetDisplayUrl(Request);
 
             if (!string.IsNullOrEmpty(id)) // for redirect with id
             {
-                SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(id);
-                ViewBag.id = SupplierVM.SupplierDTO.Code;
+                TinhTPVM.TinhDTO = await _tinhTPService.GetByIdAsync(id);
+                ViewBag.id = TinhTPVM.TinhDTO.Matinh;
             }
             else
             {
-                SupplierVM.SupplierDTO = new SupplierDTO();
+                TinhTPVM.TinhDTO = new TinhDTO();
             }
-            SupplierVM.SupplierDTOs = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
-            return View(SupplierVM);
+            TinhTPVM.VTinhDTOs = await _tinhTPService.GetVTinhDTOs();
+            return View(TinhTPVM);
         }
 
         public async Task<IActionResult> Create(string strUrl)
         {
-            SupplierVM.StrUrl = strUrl;
+            TinhTPVM.StrUrl = strUrl;
 
-            SupplierVM.VTinhs = await _supplierService.GetTinhs();
-            SupplierVM.Thanhpho1s = await _supplierService.GetThanhpho1s();
-            SupplierVM.Quocgias = await _supplierService.GetQuocgias();
+            TinhTPVM.Vungmiens = await _tinhTPService.GetVungmiens();
+            //TinhTPVM.Thanhpho1s = await _tinhTPService.GetThanhpho1s();
 
-            return View(SupplierVM);
+            return View(TinhTPVM);
         }
 
         [HttpPost, ActionName("Create")]
@@ -72,25 +68,18 @@ namespace IntranetFolder.Controllers
 
             if (!ModelState.IsValid)
             {
-                SupplierVM = new SupplierViewModel()
+                TinhTPVM = new TinhTPViewModel()
                 {
-                    SupplierDTO = new SupplierDTO(),
+                    TinhDTO = new TinhDTO(),
                     StrUrl = strUrl
                 };
 
-                return View(SupplierVM);
+                return View(TinhTPVM);
             }
-
-            SupplierVM.SupplierDTO.Ngaytao = DateTime.Now;
-            SupplierVM.SupplierDTO.Nguoitao = user.Username;
-
-            // next Id
-            SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn); // chi VND
-            // next Id
 
             try
             {
-                await _supplierService.CreateAsync(SupplierVM.SupplierDTO); // save
+                await _tinhTPService.CreateAsync(TinhTPVM.TinhDTO); // save
 
                 SetAlert("Thêm mới thành công.", "success");
 
@@ -99,7 +88,7 @@ namespace IntranetFolder.Controllers
             catch (Exception ex)
             {
                 SetAlert(ex.Message, "error");
-                return View(SupplierVM);
+                return View(TinhTPVM);
             }
         }
 
@@ -108,22 +97,22 @@ namespace IntranetFolder.Controllers
             // from session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            SupplierVM.StrUrl = strUrl;
+            TinhTPVM.StrUrl = strUrl;
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                ViewBag.ErrorMessage = "Tỉnh này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(id);
+            TinhTPVM.TinhDTO = await _tinhTPService.GetByIdAsync(id);
 
-            if (SupplierVM.SupplierDTO == null)
+            if (TinhTPVM.TinhDTO == null)
             {
-                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                ViewBag.ErrorMessage = "Tỉnh này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            return View(SupplierVM);
+            return View(TinhTPVM);
         }
 
         [HttpPost, ActionName("Edit")]
@@ -133,171 +122,56 @@ namespace IntranetFolder.Controllers
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            if (id != SupplierVM.SupplierDTO.Code)
+            if (id != TinhTPVM.TinhDTO.Matinh)
             {
-                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                ViewBag.ErrorMessage = "Tỉnh này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
             if (ModelState.IsValid)
             {
-                // kiem tra thay doi : trong getbyid() va ngoai view
-
-                #region log file
-
-                string temp = "", log = "";
-
-                var t = _supplierService.GetByIdAsNoTracking(id);
-
-                if (t.Diachi != SupplierVM.SupplierDTO.Diachi)
-                {
-                    temp += String.Format("- Diachi thay đổi: {0}->{1}", t.Diachi, SupplierVM.SupplierDTO.Diachi);
-                }
-
-                if (t.Dienthoai != SupplierVM.SupplierDTO.Dienthoai)
-                {
-                    temp += String.Format("- Dienthoai thay đổi: {0}->{1}", t.Dienthoai, SupplierVM.SupplierDTO.Dienthoai);
-                }
-
-                if (t.Email != SupplierVM.SupplierDTO.Email)
-                {
-                    temp += String.Format("- Email thay đổi: {0}->{1}", t.Email, SupplierVM.SupplierDTO.Email);
-                }
-
-                if (t.Fax != SupplierVM.SupplierDTO.Fax)
-                {
-                    temp += String.Format("- Fax thay đổi: {0}->{1}", t.Fax, SupplierVM.SupplierDTO.Fax);
-                }
-
-                if (t.Masothue != SupplierVM.SupplierDTO.Masothue)
-                {
-                    temp += String.Format("- Masothue thay đổi: {0}->{1}", t.Masothue, SupplierVM.SupplierDTO.Masothue);
-                }
-
-                if (t.Nganhnghe != SupplierVM.SupplierDTO.Nganhnghe)
-                {
-                    temp += String.Format("- Nganhnghe thay đổi: {0}->{1}", t.Nganhnghe, SupplierVM.SupplierDTO.Nganhnghe);
-                }
-
-                if (t.Ngayhethan != SupplierVM.SupplierDTO.Ngayhethan)
-                {
-                    temp += String.Format("- Ngayhethan thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.Ngayhethan, SupplierVM.SupplierDTO.Ngayhethan);
-                }
-
-                if (t.Nguoilienhe != SupplierVM.SupplierDTO.Nguoilienhe)
-                {
-                    temp += String.Format("- Nguoilienhe thay đổi: {0}->{1}", t.Nguoilienhe, SupplierVM.SupplierDTO.Nguoilienhe);
-                }
-
-                if (t.Quocgia != SupplierVM.SupplierDTO.Quocgia)
-                {
-                    temp += String.Format("- Quocgia thay đổi: {0}->{1}", t.Quocgia, SupplierVM.SupplierDTO.Quocgia);
-                }
-
-                if (t.Tapdoan != SupplierVM.SupplierDTO.Tapdoan)
-                {
-                    temp += String.Format("- Tapdoan thay đổi: {0}->{1}", t.Tapdoan, SupplierVM.SupplierDTO.Tapdoan);
-                }
-
-                if (t.Tengiaodich != SupplierVM.SupplierDTO.Tengiaodich)
-                {
-                    temp += String.Format("- Tengiaodich thay đổi: {0}->{1}", t.Tengiaodich, SupplierVM.SupplierDTO.Tengiaodich);
-                }
-
-                if (t.Tennganhang != SupplierVM.SupplierDTO.Tennganhang)
-                {
-                    temp += String.Format("- Tennganhang thay đổi: {0}->{1}", t.Tennganhang, SupplierVM.SupplierDTO.Tennganhang);
-                }
-
-                if (t.Tenthuongmai != SupplierVM.SupplierDTO.Tenthuongmai)
-                {
-                    temp += String.Format("- Tenthuongmai thay đổi: {0}->{1}", t.Tenthuongmai, SupplierVM.SupplierDTO.Tenthuongmai);
-                }
-
-                if (t.Thanhpho != SupplierVM.SupplierDTO.Thanhpho)
-                {
-                    temp += String.Format("- Thanhpho thay đổi: {0}->{1}", t.Thanhpho, SupplierVM.SupplierDTO.Thanhpho);
-                }
-
-                if (t.Tinhtp != SupplierVM.SupplierDTO.Tinhtp)
-                {
-                    temp += String.Format("- Tinhtp thay đổi: {0}->{1}", t.Tinhtp, SupplierVM.SupplierDTO.Tinhtp);
-                }
-
-                if (t.Tknganhang != SupplierVM.SupplierDTO.Tknganhang)
-                {
-                    temp += String.Format("- Tknganhang thay đổi: {0}->{1}", t.Tknganhang, SupplierVM.SupplierDTO.Tknganhang);
-                }
-
-                if (t.Tour != SupplierVM.SupplierDTO.Tour)
-                {
-                    temp += String.Format("- Tour thay đổi: {0}->{1}", t.Tour, SupplierVM.SupplierDTO.Tour);
-                }
-
-                if (t.Trangthai != SupplierVM.SupplierDTO.Trangthai)
-                {
-                    temp += String.Format("- Trangthai thay đổi: {0}->{1}", t.Tinhtp, SupplierVM.SupplierDTO.Trangthai);
-                }
-
-                if (t.Website != SupplierVM.SupplierDTO.Website)
-                {
-                    temp += String.Format("- Website thay đổi: {0}->{1}", t.Website, SupplierVM.SupplierDTO.Website);
-                }
-
-                #endregion log file
-
-                // kiem tra thay doi
-                if (temp.Length > 0)
-                {
-                    log = System.Environment.NewLine;
-                    log += "=============";
-                    log += System.Environment.NewLine;
-                    log += temp + " -User cập nhật tour: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // username
-                    t.Logfile = t.Logfile + log;
-                    SupplierVM.SupplierDTO.Logfile = t.Logfile;
-                }
-
                 try
                 {
-                    await _supplierService.UpdateAsync(SupplierVM.SupplierDTO);
+                    await _tinhTPService.UpdateAsync(TinhTPVM.TinhDTO);
                     SetAlert("Cập nhật thành công", "success");
 
-                    return Redirect(strUrl);
+                    //return Redirect(strUrl);
+                    return RedirectToAction(nameof(Index), new { id = id });
                 }
                 catch (Exception ex)
                 {
                     SetAlert(ex.Message, "error");
 
-                    return View(SupplierVM);
+                    return View(TinhTPVM);
                 }
             }
             // not valid
 
-            return View(SupplierVM);
+            return View(TinhTPVM);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id, string strUrl/*, string tabActive*/)
-        {
-            SupplierVM.StrUrl = strUrl;// + "&tabActive=" + tabActive; // for redirect tab
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(string id, string strUrl)
+        //{
+        //    TinhTPVM.StrUrl = strUrl;
 
-            var supplierDTO = await _supplierService.GetByIdAsync(id);
-            if (supplierDTO == null)
-                return NotFound();
-            try
-            {
-                await _supplierService.Delete(supplierDTO);
+        //    var TinhDTO = await _tinhTPService.GetByIdAsync(id);
+        //    if (TinhDTO == null)
+        //        return NotFound();
+        //    try
+        //    {
+        //        await _tinhTPService.Delete(TinhDTO);
 
-                SetAlert("Xóa thành công.", "success");
-                return Redirect(SupplierVM.StrUrl);
-            }
-            catch (Exception ex)
-            {
-                SetAlert(ex.Message, "error");
-                ModelState.AddModelError("", ex.Message);
-                return Redirect(SupplierVM.StrUrl);
-            }
-        }
+        //        SetAlert("Xóa thành công.", "success");
+        //        return Redirect(TinhTPVM.StrUrl);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        SetAlert(ex.Message, "error");
+        //        ModelState.AddModelError("", ex.Message);
+        //        return Redirect(TinhTPVM.StrUrl);
+        //    }
+        //}
     }
 }

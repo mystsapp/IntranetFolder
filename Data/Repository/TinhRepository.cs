@@ -15,6 +15,8 @@ namespace Data.Repository
         Task<List<VTinh>> GetVTinhDTOs();
 
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
+
+        Task<List<Vungmien>> GetVungmiens();
     }
 
     public class TinhRepository : Repository<Tinh>, ITinhRepository
@@ -31,6 +33,11 @@ namespace Data.Repository
         public async Task<List<VTinh>> GetVTinhDTOs()
         {
             return await _context.VTinhs.ToListAsync();
+        }
+
+        public async Task<List<Vungmien>> GetVungmiens()
+        {
+            return await _context.Vungmiens.ToListAsync();
         }
     }
 }

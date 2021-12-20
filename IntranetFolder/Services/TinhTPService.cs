@@ -22,11 +22,13 @@ namespace IntranetFolder.Services
 
         Task Delete(Model.TinhDTO tinhDTO);
 
-        IEnumerable<TinhDTO> GetTinhs();
-
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
 
         Model.TinhDTO GetByIdAsNoTracking(string id);
+
+        IEnumerable<TinhDTO> GetAllTinhs();
+
+        Task<List<Vungmien>> GetVungmiens();
     }
 
     public class TinhTPService : ITinhTPService
@@ -84,6 +86,16 @@ namespace IntranetFolder.Services
         public TinhDTO GetByIdAsNoTracking(string id)
         {
             return _mapper.Map<Tinh, TinhDTO>(_unitOfWork.tinhRepository.GetByIdAsNoTracking(x => x.Matinh == id));
+        }
+
+        public IEnumerable<TinhDTO> GetAllTinhs()
+        {
+            return _mapper.Map<IEnumerable<Tinh>, IEnumerable<TinhDTO>>(_unitOfWork.tinhRepository.GetAll());
+        }
+
+        public async Task<List<Vungmien>> GetVungmiens()
+        {
+            return await _unitOfWork.tinhRepository.GetVungmiens();
         }
     }
 }
