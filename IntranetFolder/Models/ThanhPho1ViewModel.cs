@@ -19,9 +19,9 @@ namespace IntranetFolder.Models
         public int Page { get; set; }
         public string StrUrl { get; set; }
 
-        [Remote("IsStringNameAvailable", "TinhTP", ErrorMessage = "Mã này đã tồn tại.")]
-        [Required(ErrorMessage = "Mã tỉnh không được để trống.")]
-        [MaxLength(3, ErrorMessage = "Mã tỉnh tối đa 3 ký tự")]
-        public string TenCreate { get; set; }
+        //[Remote("IsStringNameAvailable", "TinhTP", ErrorMessage = "Mã này đã tồn tại.")]
+        //[Required(ErrorMessage = "Mã tỉnh không được để trống.")]
+        //[MaxLength(3, ErrorMessage = "Mã tỉnh tối đa 3 ký tự")]
+        //public string TenCreate { get; set; }
     }
 }

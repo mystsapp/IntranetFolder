@@ -27,6 +27,8 @@
         <div class="card-body p-0">
             <form method="get" autocomplete="off">
 
+                <input type="hidden" id="hidStrUrl" name="strUrl" value="@Model.StrUrl" />
+
                 <div class="pr-2 pl-2" style="padding-bottom:10px; padding-top: 6px; ">
 
                     <div class="col-md-12">
@@ -82,7 +84,7 @@
                             @foreach (var item in Model.VTinhDTOs)
                             {
 
-                                <tr class="cursor-pointer @item.Matinh" onclick="ThanhPho1_Tbl()">
+                                <tr class="tinh-cursor-pointer @item.Matinh" onclick="ThanhPho1_Tbl()">
 
                                     <td>
                                         <div class="btn-group text-white" role="group">
@@ -144,17 +146,17 @@
             id_Redirect_Class.removeClass("hoverClass");
             id_Redirect_Class.addClass("hoverClass");
         }
-
+        indexController.TdVal_Click(id_Redirect);
     // giữ trạng thái khi redirect
     }
 
 
         // giu trang thai phieu click
-        $('#TinhTbl .cursor-pointer').off('click').on('click', function () {
+        $('#TinhTbl .tinh-cursor-pointer').off('click').on('click', function () {
             if ($(this).hasClass("hoverClass"))
                 $(this).removeClass("hoverClass");
             else {
-                $('.cursor-pointer').removeClass("hoverClass");
+                $('.tinh-cursor-pointer').removeClass("hoverClass");
                 $(this).addClass("hoverClass");
             }
         });

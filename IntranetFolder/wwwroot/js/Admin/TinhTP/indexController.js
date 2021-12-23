@@ -62,8 +62,10 @@ var indexController = {
         // create new KVCTPCT
     },
     Load_ThanhPho1Partial: function (id) { // tinh id
+        strUrl = $('#hidStrUrl').val();
         var url = '/ThanhPho1/ThanhPho1Partial';
-        $.get(url, { maTinh: id }, function (response) {
+
+        $.get(url, { maTinh: id, strUrl: strUrl }, function (response) {
             $('#ThanhPho1_Tbl').html(response);
             $('#ThanhPho1_Tbl').show(500);
         });

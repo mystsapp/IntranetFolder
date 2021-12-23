@@ -37,7 +37,7 @@ namespace Data.Utilities
             }
         }
 
-        public static string NextKHId(string lastID, string prefixID, string length)
+        public static string NextTPId(string lastID, string prefixID, string length)
         {
             if (lastID == "")
             {

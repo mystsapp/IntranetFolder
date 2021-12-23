@@ -1,7 +1,8 @@
 ﻿@model ThanhPho1ViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
+
 
     <!-- main content -->
     <section class="content">
@@ -20,13 +21,15 @@
                 </button>
                 </div>
                 </div>*@
+                
             <div class="card-body p-0">
-
-                <form method="post" asp-action="Create_Partial" autocomplete="off" id="frm_Create_Partial" enctype="multipart/form-data">
+                
+                <form method="post" asp-action="Edit_Partial" autocomplete="off" id="frm_Edit_Partial" enctype="multipart/form-data">
                     <div class="pr-4 pl-4 text-sm">
-
+                        <h5 class="pt-2"><strong>Cập nhật thành phố / Thị xã</strong></h5>
                         <div asp-validation-summary="All" class="text-danger"></div>
-                        <input asp-for=TinhDTO.Matinh type="hidden" />
+                        <input asp-for=ThanhPho1DTO.Matp type="hidden" />
+                        <input asp-for=ThanhPho1DTO.Matinh type="hidden" />
 
                             <div class=" row">
 
@@ -45,8 +48,8 @@
                             </div>
 
                         <div class=" pt-1 pb-1">
-                            <button type="button" class="btn btn-primary btn-sm" id="btnSaveData"><i class="fas fa-save"></i> Save</button>
-                            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"><i class="fas fa-backward "></i> Back</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btnSaveData_Edit"><i class="fas fa-save"></i> Save</button>
+                            <a class="btn btn-success btn-sm" asp-action="DetailsRedirect" asp-controller="ThanhPho1" asp-route-tinhId="@Model.ThanhPho1DTO.Matinh" ><i class="fas fa-backward "></i> Back</a>
                         </div>
                     </div>
                 </form>
@@ -109,24 +112,24 @@
     //});
 
     // save
-    $('#btnSaveData').off('click').on('click', function () {
+    $('#btnSaveData_Edit').off('click').on('click', function () {
         //debugger
         
-            if ($('#frm_Create_Partial').valid()) {
-                var thanhPho1 = $('#frm_Create_Partial').serialize();
+            if ($('#frm_Edit_Partial').valid()) {
+                var thanhPho1 = $('#frm_Edit_Partial').serialize();
                 $.ajax({
                     type: "POST",
-                    url: "/ThanhPho1/Create_Partial",
+                    url: "/ThanhPho1/Edit_Partial",
                     data: thanhPho1,
                     dataType: "json",
                     success: function (response) {
                         if (response.status) {
 
-                            toastr.success('Tạo mới thành công!'); // toastr in admin/tour/indexController.js
+                            toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
 
-                            $('#ThanhPho1_Create_Partial').modal('hide');
+                            $('#ThanhPho1_Edit_Partial').modal('hide');
                             //debugger
-                            indexController.TdVal_Click('@Model.TinhDTO.Matinh');
+                            indexController.TdVal_Click('@Model.ThanhPho1DTO.Matinh');
                         }
                         else {
                             toastr.error(response.message);

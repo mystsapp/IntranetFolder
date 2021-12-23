@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using X.PagedList;
+using Data.Utilities;
 
 namespace IntranetFolder.Services
 {
@@ -27,6 +28,8 @@ namespace IntranetFolder.Services
         Task<IEnumerable<ThanhPho1DTO>> GetThanhPho1s_By_Tinh(string maTinh);
 
         Task<TinhDTO> GetTinhByIdAsync(string id);
+
+        Task<string> GetNextId(string tinhId);
     }
 
     public class ThanhPho1Service : IThanhPho1Service
@@ -86,6 +89,27 @@ namespace IntranetFolder.Services
         public async Task<TinhDTO> GetTinhByIdAsync(string id)
         {
             return _mapper.Map<Tinh, Model.TinhDTO>(await _unitOfWork.tinhRepository.GetByIdAsync(id));
+        }
+
+        public async Task<string> GetNextId(string tinhId)
+        {
+            var tinh = _unitOfWork.tinhRepository.GetById(tinhId);
+            var thanhpho1s = await _unitOfWork.thanhPho1Repository.FindAsync(x => x.Matinh == tinhId);
+
+            Thanhpho1 thanhpho1 = new Thanhpho1();
+            if (thanhpho1s.Count() > 0)
+            {
+                thanhpho1 = thanhpho1s.OrderByDescending(x => x.Matp).FirstOrDefault();
+            }
+
+            if (thanhpho1 == null || string.IsNullOrEmpty(thanhpho1.Matp))
+            {
+                return Data.Utilities.GetNextId.NextTPId("", tinhId, "001");
+            }
+            else
+            {
+                return Data.Utilities.GetNextId.NextTPId(thanhpho1.Matp, tinhId, "001");
+            }
         }
     }
 }

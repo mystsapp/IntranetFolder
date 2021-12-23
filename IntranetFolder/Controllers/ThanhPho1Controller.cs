@@ -51,8 +51,9 @@ namespace IntranetFolder.Controllers
         //    return View(ThanhPho1VM);
         //}
 
-        public async Task<IActionResult> ThanhPho1Partial(string maTinh, int page)
+        public async Task<IActionResult> ThanhPho1Partial(string maTinh, string strUrl)
         {
+            ThanhPho1VM.StrUrl = strUrl;
             var thanhPho1DTOs = await _thanhPho1Service.GetThanhPho1s_By_Tinh(maTinh);
             ThanhPho1VM.ThanhPho1DTOs = thanhPho1DTOs;
             ThanhPho1VM.TinhDTO = await _thanhPho1Service.GetTinhByIdAsync(maTinh);
@@ -64,6 +65,7 @@ namespace IntranetFolder.Controllers
         {
             ThanhPho1VM.StrUrl = strUrl;
             ThanhPho1VM.TinhDTO = await _thanhPho1Service.GetTinhByIdAsync(tinhid);
+            ThanhPho1VM.ThanhPho1DTO.Matp = await _thanhPho1Service.GetNextId(tinhid);
             return PartialView(ThanhPho1VM);
         }
 
@@ -88,7 +90,7 @@ namespace IntranetFolder.Controllers
                 });
             }
 
-            ThanhPho1VM.ThanhPho1DTO.Matinh = ThanhPho1VM.TenCreate;
+            ThanhPho1VM.ThanhPho1DTO.Matinh = ThanhPho1VM.TinhDTO.Matinh;
 
             try
             {
@@ -134,16 +136,10 @@ namespace IntranetFolder.Controllers
 
         [HttpPost, ActionName("Edit_Partial")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit_Partial_Post(string id, string strUrl)
+        public async Task<IActionResult> Edit_Partial_Post()
         {
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
-
-            if (id != ThanhPho1VM.ThanhPho1DTO.Matinh)
-            {
-                ViewBag.ErrorMessage = "Tỉnh này không tồn tại.";
-                return View("~/Views/Shared/NotFound.cshtml");
-            }
 
             if (ModelState.IsValid)
             {
@@ -189,28 +185,33 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(string id, string strUrl)
-        //{
-        //    ThanhPho1VM.StrUrl = strUrl;
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id, string strUrl)
+        {
+            ThanhPho1VM.StrUrl = strUrl;
 
-        //    var ThanhPho1DTO = await _thanhPho1Service.GetByIdAsync(id);
-        //    if (ThanhPho1DTO == null)
-        //        return NotFound();
-        //    try
-        //    {
-        //        await _thanhPho1Service.Delete(ThanhPho1DTO);
+            var ThanhPho1DTO = await _thanhPho1Service.GetByIdAsync(id);
+            if (ThanhPho1DTO == null)
+                return NotFound();
+            try
+            {
+                await _thanhPho1Service.Delete(ThanhPho1DTO);
 
-        //        SetAlert("Xóa thành công.", "success");
-        //        return Redirect(ThanhPho1VM.StrUrl);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        SetAlert(ex.Message, "error");
-        //        ModelState.AddModelError("", ex.Message);
-        //        return Redirect(ThanhPho1VM.StrUrl);
-        //    }
-        //}
+                SetAlert("Xóa thành công.", "success");
+                return Redirect(ThanhPho1VM.StrUrl);
+            }
+            catch (Exception ex)
+            {
+                SetAlert(ex.Message, "error");
+                ModelState.AddModelError("", ex.Message);
+                return Redirect(ThanhPho1VM.StrUrl);
+            }
+        }
+
+        public IActionResult DetailsRedirect(string tinhId)
+        {
+            return RedirectToAction("Index", "TinhTP", new { id = tinhId });
+        }
     }
 }

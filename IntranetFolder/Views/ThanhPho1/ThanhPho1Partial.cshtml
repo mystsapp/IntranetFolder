@@ -28,12 +28,12 @@
                 @foreach (var item in Model.ThanhPho1DTOs)
                 {
 
-                    <tr class="cursor-pointer " @*data-sotudatt="@item.SoTT_DaTao"*@>
+                    <tr class="thanhpho1-cursor-pointer " @*data-sotudatt="@item.SoTT_DaTao"*@>
 
                         <td>
                             <div class="btn-group text-white" role="group">
 
-                                <button type="button" class="text-primary border-0 bg-transparent btnEditThanhPho1" title="Cập nhật" data-id="@item.Matp" data-tinhid="@item.Matinh"><i class="fas fa-edit"></i></button>
+                                <button type="button" class="text-primary border-0 bg-transparent btnEditThanhPho1" title="Cập nhật" data-id="@item.Matp" data-tinhid="@item.Matinh" data-strurl="@Model.StrUrl"><i class="fas fa-edit"></i></button>
 
                                 <span class="text-dark"> | </span>
                                 <span id="confirmDeleteSpan_@item.Matp" style="display: none">
@@ -81,7 +81,6 @@
     $('.btnXoaThanhPho1').off('click').on('click',function () {
 
         var maTinh = '@Model.TinhDTO.Matinh';
-
         id = $(this).data('id');
 
         var url = '/ThanhPho1DTOs/Delete';
@@ -95,12 +94,13 @@
 
     });
         // btnXoaThanhPho1
+
         // giu trang thai phieu click
-        $('#thanhPho1Tbl .cursor-pointer').off('click').on('click', function () {
+        $('#thanhPho1Tbl .thanhpho1-cursor-pointer').off('click').on('click', function () {
             if ($(this).hasClass("hoverClass"))
                 $(this).removeClass("hoverClass");
             else {
-                $('.cursor-pointer').removeClass("hoverClass");
+                $('.thanhpho1-cursor-pointer').removeClass("hoverClass");
                 $(this).addClass("hoverClass");
             }
         });
@@ -122,5 +122,22 @@
             });
         });
         // btnNewThanhPho1
+        
+        // btnEditThanhPho1
+        $('.btnEditThanhPho1').off('click').on('click', function () {
+
+            id = $(this).data('id');
+            strUrl = $(this).data('strurl');
+            $('#ThanhPho1_Tbl').hide(500);
+
+            var url = '/ThanhPho1/Edit_Partial';
+            $.get(url, { id: id, strUrl: strUrl }, function (response) {
+
+                $('#ThanhPho1_Edit_Partial').show(500);
+                $('#ThanhPho1_Edit_Partial').html(response);
+
+            });
+        });
+        // btnEditThanhPho1
 
 </script>
