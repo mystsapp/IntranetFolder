@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace IntranetFolder.Controllers
 {
-    public class ThanhPho1Controller : BaseController
+    public class DiemTQController : BaseController
     {
         private readonly IThanhPho1Service _thanhPho1Service;
 
         [BindProperty]
         public ThanhPho1ViewModel ThanhPho1VM { get; set; }
 
-        public ThanhPho1Controller(IThanhPho1Service thanhPho1Service)
+        public DiemTQController(IThanhPho1Service thanhPho1Service)
         {
             ThanhPho1VM = new ThanhPho1ViewModel()
             {

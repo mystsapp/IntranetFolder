@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models_QLTour;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,21 +15,30 @@ namespace Data.Repository
         ITinhRepository tinhRepository { get; }
         IThanhPho1Repository thanhPho1Repository { get; }
 
+        // qltour
+        IDmdiemtqRepository dmdiemtqRepository { get; }
+
         Task<int> Complete();
     }
 
     public class UnitOfWork : IUnitOfWork
     {
         private readonly qltaikhoanContext _context;
+        private readonly qltourContext _qltourContext;
 
-        public UnitOfWork(qltaikhoanContext context)
+        public UnitOfWork(qltaikhoanContext context, qltourContext qltourContext)
         {
             _context = context;
+            _qltourContext = qltourContext;
+
             userRepository = new UserRepository(_context);
             folderUserReprository = new FolderUserReprository(_context);
             supplierRepository = new SupplierRepository(_context);
             tinhRepository = new TinhRepository(_context);
             thanhPho1Repository = new ThanhPho1Repository(_context);
+
+            // qltour
+            dmdiemtqRepository = new DmdiemtqRepository(_qltourContext);
         }
 
         public IUserRepository userRepository { get; }
@@ -40,6 +50,8 @@ namespace Data.Repository
         public ITinhRepository tinhRepository { get; }
 
         public IThanhPho1Repository thanhPho1Repository { get; }
+
+        public IDmdiemtqRepository dmdiemtqRepository { get; }
 
         public async Task<int> Complete()
         {

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Models;
+using Data.Models_QLTour;
 using Data.Repository;
 using GleamTech.AspNet.Core;
 using IntranetFolder.Services;
@@ -32,6 +33,7 @@ namespace IntranetFolder
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<qltaikhoanContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.EnableSensitiveDataLogging()*/);
+            services.AddDbContext<qltourContext>(options => options.UseSqlServer(Configuration.GetConnectionString("QLTourConnection"))/*.EnableSensitiveDataLogging()*/);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // AddAutoMapper
             services.AddTransient<IUserRepository, UserRepository>();
@@ -39,12 +41,14 @@ namespace IntranetFolder
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<ITinhRepository, TinhRepository>();
             services.AddTransient<IThanhPho1Repository, ThanhPho1Repository>();
+            services.AddTransient<IDmdiemtqRepository, DmdiemtqRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // services
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<ITinhTPService, TinhTPService>();
             services.AddTransient<IThanhPho1Service, ThanhPho1Service>();
+            services.AddTransient<IDiemTQService, DiemTQService>();
 
             services.AddSession(options =>
             {

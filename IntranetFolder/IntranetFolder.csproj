@@ -27,19 +27,19 @@
 
   <ItemGroup>
     <Reference Include="GleamTech.Common">
-      <HintPath>F:\MS\ThuThuat\[FTUApps.com] - GleamTech FileUltimate v7.5.0.0 + Crack\Bin\netstandard2.0\GleamTech.Common.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp3.1\GleamTech.Common.dll</HintPath>
     </Reference>
     <Reference Include="GleamTech.DocumentUltimate">
-      <HintPath>F:\MS\ThuThuat\[FTUApps.com] - GleamTech FileUltimate v7.5.0.0 + Crack\Bin\netstandard2.0\GleamTech.DocumentUltimate.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp3.1\GleamTech.DocumentUltimate.dll</HintPath>
     </Reference>
     <Reference Include="GleamTech.FileUltimate">
-      <HintPath>F:\MS\ThuThuat\[FTUApps.com] - GleamTech FileUltimate v7.5.0.0 + Crack\Bin\netstandard2.0\GleamTech.FileUltimate.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp3.1\GleamTech.FileUltimate.dll</HintPath>
     </Reference>
     <Reference Include="GleamTech.ImageUltimate">
-      <HintPath>F:\MS\ThuThuat\[FTUApps.com] - GleamTech FileUltimate v7.5.0.0 + Crack\Bin\netstandard2.0\GleamTech.ImageUltimate.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp3.1\GleamTech.ImageUltimate.dll</HintPath>
     </Reference>
     <Reference Include="GleamTech.VideoUltimate">
-      <HintPath>F:\MS\ThuThuat\[FTUApps.com] - GleamTech FileUltimate v7.5.0.0 + Crack\Bin\netstandard2.0\GleamTech.VideoUltimate.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp3.1\GleamTech.VideoUltimate.dll</HintPath>
     </Reference>
   </ItemGroup>
 
