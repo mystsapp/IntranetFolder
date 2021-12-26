@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <!-- Main content -->
 <section class="content" style="padding: 15px 0.5rem">
 
@@ -46,7 +44,6 @@
                                         <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
                                     </span>
                                 </div>
-
                             </div>
                             @*
                                 <div class="col-md-5 text-sm">
@@ -57,7 +54,6 @@
                                 </button>
 
                                 <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
-
                                 </div>
                                 </div>*@
                         </div>
@@ -71,11 +67,10 @@
                         <tr class="table-info">
 
                             <th>#</th>
-                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().Matinh)</th>
-                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().Tentinh)</th>
-                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().TenVung)</th>
-                            <th>@Html.DisplayNameFor(m => m.VTinhDTOs.FirstOrDefault().Mien)</th>
-
+                            <th>Mã tỉnh</th>
+                            <th>Tên tỉnh</th>
+                            <th>Vùng miền</th>
+                            <th>Bộ</th>
                         </tr>
                     </thead>
                     <tbody id="tbBodyTinh">
@@ -90,7 +85,6 @@
                                         <div class="btn-group text-white" role="group">
 
                                             <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Matinh" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-
                                         </div>
                                     </td>
 
@@ -98,25 +92,23 @@
                                     <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.Tentinh)</td>
                                     <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.TenVung)</td>
                                     <td class="tdVal" data-id="@item.Matinh">@Html.DisplayFor(m => item.Mien)</td>
-
                                 </tr>
 
                             }
                         }
                     </tbody>
                 </table>
-
             </div>
             <br />
             <div id="ThanhPho1_Tbl">
             </div>
-            
+
             <div id="ThanhPho1_Create_Partial">
             </div>
             <div id="ThanhPho1_Edit_Partial">
             </div>
         </div>
-        
+
         <!-- /.card-body -->
         @*<div class="card-footer">
             Footer
@@ -124,13 +116,12 @@
         <!-- /.card-footer-->
     </div>
     <!-- /.card -->
-    
 </section>
 <!-- /.content -->
 @section Scripts{
 
-<script src="~/js/Admin/TinhTP/indexController.js"></script>
-<script>
+    <script src="~/js/Admin/TinhTP/indexController.js"></script>
+    <script>
     debugger
     var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
 
@@ -150,7 +141,6 @@
     // giữ trạng thái khi redirect
     }
 
-
         // giu trang thai phieu click
         $('#TinhTbl .tinh-cursor-pointer').off('click').on('click', function () {
             if ($(this).hasClass("hoverClass"))
@@ -162,30 +152,29 @@
         });
         // giu trang thai phieu click
 
-
     function ThanhPho1_Tbl() { // tab href
         location.href = "#ThanhPho1_Tbl";
     }
-</script>
-<script>
-    //$(function () {
+    </script>
+    <script>
+        //$(function () {
 
-    //  $('#TinhTbl').DataTable({
-    //    "paging": false,
-    //    "lengthChange": false,
-    //    "searching": false,
-    //    "ordering": true,
-    //    "info": true,
-    //    "autoWidth": false,
-    //    "responsive": true,
-    //  });
-    //});
+        //  $('#TinhTbl').DataTable({
+        //    "paging": false,
+        //    "lengthChange": false,
+        //    "searching": false,
+        //    "ordering": true,
+        //    "info": true,
+        //    "autoWidth": false,
+        //    "responsive": true,
+        //  });
+        //});
 
-    $("#txtSearchTinh").on("keyup", function () {
-                  var value = $(this).val().toLowerCase();
-                  $("#tbBodyTinh tr").filter(function () {
-                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                  });
-              });
-</script>
+        $("#txtSearchTinh").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#tbBodyTinh tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    </script>
 }

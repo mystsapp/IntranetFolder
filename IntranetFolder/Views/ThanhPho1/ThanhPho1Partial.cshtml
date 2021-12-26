@@ -128,10 +128,11 @@
 
             id = $(this).data('id');
             strUrl = $(this).data('strurl');
+            tinhid = $(this).data('tinhid');
             $('#ThanhPho1_Tbl').hide(500);
 
             var url = '/ThanhPho1/Edit_Partial';
-            $.get(url, { id: id, strUrl: strUrl }, function (response) {
+            $.get(url, { id: id, strUrl: strUrl, tinhid: tinhid }, function (response) {
 
                 $('#ThanhPho1_Edit_Partial').show(500);
                 $('#ThanhPho1_Edit_Partial').html(response);

@@ -91,6 +91,8 @@ namespace IntranetFolder.Controllers
             }
 
             ThanhPho1VM.ThanhPho1DTO.Matinh = ThanhPho1VM.TinhDTO.Matinh;
+            // get nextId
+            ThanhPho1VM.ThanhPho1DTO.Matp = await _thanhPho1Service.GetNextId(ThanhPho1VM.TinhDTO.Matinh);
 
             try
             {
@@ -111,7 +113,7 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit_Partial(string id, string strUrl)
+        public async Task<IActionResult> Edit_Partial(string id, string strUrl, string tinhid)
         {
             // from session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
@@ -130,6 +132,7 @@ namespace IntranetFolder.Controllers
                 ViewBag.ErrorMessage = "Thành phố này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            ThanhPho1VM.TinhDTO = await _thanhPho1Service.GetTinhByIdAsync(tinhid);
 
             return PartialView(ThanhPho1VM);
         }

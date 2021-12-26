@@ -1,0 +1,163 @@
+﻿@model DiemTQViewModel
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
+
+<h3 class="pl-2">Danh sách điểm tham quan thuộc @Model.TinhDTO.Tentinh</h3>
+<div class="pl-2 pb-2 col-md-3">
+    <input type="text" placeholder="Tìm thông tin điểm tham quan" class="form-control form-control-sm" id="txtSearchDiemtq">
+</div>
+
+<div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto; height: 300px">
+    <table class="table mytable text-nowrap text-sm" id="diemTQTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th> <button type="button" class="btn btn-outline-info btn-sm text-bold btn-block" id="btnNewDiemTQ" data-tinhid="@Model.TinhDTO.Matinh" title="Thêm mới thành phố"><i class="fas fa-plus"></i></button></th>
+                <th>@Html.DisplayNameFor(m => m.DiemTQDTOs.FirstOrDefault().Code)</th>
+                <th>@Html.DisplayNameFor(m => m.DiemTQDTOs.FirstOrDefault().Diemtq)</th>
+                <th>Tỉnh / TP </th>
+                <th>@Html.DisplayNameFor(m => m.DiemTQDTOs.FirstOrDefault().Giave)</th>
+                <th>@Html.DisplayNameFor(m => m.DiemTQDTOs.FirstOrDefault().Giatreem)</th>
+                <th>@Html.DisplayNameFor(m => m.DiemTQDTOs.FirstOrDefault().Vatvao)</th>
+                <th>@Html.DisplayNameFor(m => m.DiemTQDTOs.FirstOrDefault().Vatra)</th>
+            </tr>
+        </thead>
+        <tbody id="tbBodyDiemTQ">
+            @if (Model.DiemTQDTOs != null)
+            {
+                @foreach (var item in Model.DiemTQDTOs)
+                {
+
+                    <tr class="diemtq-cursor-pointer " @*data-sotudatt="@item.SoTT_DaTao"*@>
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+
+                                <button type="button" class="text-primary border-0 bg-transparent btnEditDiemTQ" title="Cập nhật" data-id="@item.Code" data-tinhid="@item.Tinhtp" data-strurl="@Model.StrUrl"><i class="fas fa-edit"></i></button>
+
+                                <span class="text-dark"> | </span>
+                                <span id="confirmDeleteSpan_@item.Code" style="display: none">
+
+                                    <span class="text-dark ">Xoá?</span>
+                                    <button type="button" class="btn btn-danger btn-xs btnXoaDiemTQ" data-tinhid="@item.Tinhtp" data-id="@item.Code">Yes</button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.Code', false)">No</button>
+                                </span>
+                                <span id="deleteSpan_@item.Code">
+
+                                    <button type="button" data-id="@item.Code" class="text-danger border-0 bg-transparent btnXoa" title="Xoá" onclick="confirmDelete('@item.Code', true)"><i class="fas fa-trash-alt"></i></button>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Code)</td>
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Diemtq)</td>
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Tinhtp)</td>
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Giave)</td>
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Giatreem)</td>
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Vatvao)</td>
+                        <td class="tdVal_DiemTQ" data-id="@item.Code">@Html.DisplayFor(m => item.Vatra)</td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/js/Admin/TinhDiemTQ/indexController.js"></script>
+<script>
+    function confirmDelete(uniqueId, isDeleteClicked) {
+
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+
+    // btnXoaDiemTQ
+    $('.btnXoaDiemTQ').off('click').on('click',function () {
+
+        var maTinh = '@Model.TinhDTO.Matinh';
+        id = $(this).data('id');
+
+        var url = '/DiemTQ/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response.status) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                indexController.Load_DiemTQPartial(maTinh);
+            }
+            else {
+                toastr.error(response.message, "Error");
+            }
+        });
+
+    });
+        // btnXoaDiemTQ
+
+        // giu trang thai phieu click
+        $('#diemTQTbl .diemtq-cursor-pointer').off('click').on('click', function () {
+            if ($(this).hasClass("hoverClass"))
+                $(this).removeClass("hoverClass");
+            else {
+                $('.diemtq-cursor-pointer').removeClass("hoverClass");
+                $(this).addClass("hoverClass");
+            }
+        });
+        // giu trang thai phieu click
+
+        // btnNewDiemTQ
+        $('#btnNewDiemTQ').off('click').on('click', function () {
+
+            tinhid = $(this).data('tinhid');
+
+            $('#DiemTQ_Tbl').hide(500);
+
+            var url = '/DiemTQ/Create_Partial';
+            $.get(url, { tinhid: tinhid }, function (response) {
+
+                $('#DiemTQ_Create_Partial').show(500);
+                $('#DiemTQ_Create_Partial').html(response);
+
+            });
+        });
+        // btnNewDiemTQ
+
+        // btnEditDiemTQ
+        $('.btnEditDiemTQ').off('click').on('click', function () {
+
+            id = $(this).data('id');
+            tinhid = $(this).data('tinhid');
+            strUrl = $(this).data('strurl');
+            $('#DiemTQ_Tbl').hide(500);
+
+            var url = '/DiemTQ/Edit_Partial';
+            $.get(url, { id: id, strUrl: strUrl, tinhid: tinhid }, function (response) {
+
+                $('#DiemTQ_Edit_Partial').show(500);
+                $('#DiemTQ_Edit_Partial').html(response);
+
+            });
+        });
+        // btnEditDiemTQ
+
+    $("#txtSearchDiemtq").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#tbBodyDiemTQ tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+</script>

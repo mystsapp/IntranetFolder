@@ -46,20 +46,20 @@ var indexController = {
         });
         // Tinh click
     },
-    Load_ThanhPho1Partial: function (id) { // tinh id
+    Load_DiemTQPartial: function (id) { // tinh id
         strUrl = $('#hidStrUrl').val();
-        var url = '/ThanhPho1/ThanhPho1Partial';
+        var url = '/DiemTQ/DiemTQPartial';
 
         $.get(url, { maTinh: id, strUrl: strUrl }, function (response) {
-            $('#ThanhPho1_Tbl').html(response);
-            $('#ThanhPho1_Tbl').show(500);
+            $('#DiemTQ_Tbl').html(response);
+            $('#DiemTQ_Tbl').show(500);
         });
     },
     TdVal_Click: function (id) { // tinh id
-        $('#ThanhPho1_Create_Partial').hide(500);
-        $('#ThanhPho1_Edit_Partial').hide(500);
+        $('#DiemTQ_Create_Partial').hide(500);
+        $('#DiemTQ_Edit_Partial').hide(500);
 
-        indexController.Load_ThanhPho1Partial(id); // tinh id
+        indexController.Load_DiemTQPartial(id); // tinh id
     }
 };
 indexController.init();

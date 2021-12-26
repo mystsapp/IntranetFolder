@@ -1,0 +1,195 @@
+﻿@model DiemTQViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        @*<div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm CT phiếu</h3>
+
+            <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+            <i class="fas fa-times"></i>
+            </button>
+            </div>
+            </div>*@
+
+        <div class="card-body p-0">
+
+            <form method="post" asp-action="Edit_Partial" autocomplete="off" id="frm_Edit_Partial" enctype="multipart/form-data">
+                <div class="pr-4 pl-4 text-sm">
+                    <h5 class="pt-2"><strong>Cập nhật thành phố / Thị xã</strong></h5>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input asp-for=DiemTQDTO.Code type="hidden" />
+                    <input asp-for=DiemTQDTO.Tinhtp type="hidden" />
+
+                    <div class=" row">
+
+                        <div class="col-md-2">
+                            <label asp-for="DiemTQDTO.Code" class="control-label"></label>
+                            <input asp-for="DiemTQDTO.Code" class="form-control form-control-sm" id="txtMatp" readonly />
+                            <span asp-validation-for="DiemTQDTO.Code" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="DiemTQDTO.Thanhpho" class="control-label"></label>
+                            <select asp-for="DiemTQDTO.Thanhpho" class="form-control form-control-sm input-sm "
+                                    asp-items="@(new SelectList(Model.ThanhPho1DTOs, "Matp", "Tentp"))" id="ddlThanhpho">
+                                @*<option>-- Select --</option>*@
+                            </select>
+                            <span asp-validation-for="DiemTQDTO.Thanhpho" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label asp-for="DiemTQDTO.Diemtq" class="control-label"></label>
+                            <input asp-for="DiemTQDTO.Diemtq" class="form-control form-control-sm" id="txtDiemtq" />
+                            <span asp-validation-for="DiemTQDTO.Diemtq" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+
+                        <div class="col-md-2">
+                            <label asp-for="DiemTQDTO.Giave" class="control-label"></label>
+                            <input asp-for="DiemTQDTO.Giave" class="form-control form-control-sm" id="txtGiave" />
+                            <span asp-validation-for="DiemTQDTO.Giave" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="DiemTQDTO.Giatreem" class="control-label"></label>
+                            <input asp-for="DiemTQDTO.Giatreem" class="form-control form-control-sm" id="txtGiatreem" />
+                            <span asp-validation-for="DiemTQDTO.Giatreem" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="DiemTQDTO.Vatvao" class="control-label"></label>
+                            <input asp-for="DiemTQDTO.Vatvao" class="form-control form-control-sm" id="txtVatvao" />
+                            <span asp-validation-for="DiemTQDTO.Vatvao" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="DiemTQDTO.Vatra" class="control-label"></label>
+                            <input asp-for="DiemTQDTO.Vatra" class="form-control form-control-sm" id="txtVatra" />
+                            <span asp-validation-for="DiemTQDTO.Vatra" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="DiemTQDTO.Congno" class="control-label"></label>
+                            <select asp-for="DiemTQDTO.Congno" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.SupplierDTOs, "Code", "Tengiaodich"))" id="ddlCongno">
+                                <option value="">-- Select --</option>
+                            </select>
+                            <span asp-validation-for="DiemTQDTO.Thanhpho" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class=" pt-1 pb-1">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnSaveData_Edit"><i class="fas fa-save"></i> Save</button>
+                        <button type="button" class="btn btn-success btn-sm" id="btnBackEditDiemTQ"><i class="fas fa-backward "></i> Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</section>
+
+<input type="hidden" id="hidTxtMaKh" />
+
+<script src="~/js/Admin/TinhDiemTQ/indexController.js"></script>
+
+<script>
+    $('.select2').select2({
+        tags: true,
+        width: '100%'
+    });
+
+    $('#frm_Edit_Partial').validate({
+        //rules: {
+        //    email: {
+        //        required: true,
+        //        email: true,
+        //    },
+        //    NgayDen: {
+        //        required: true
+        //    },
+        //    chuDetour1: {
+        //        required: true
+        //    },
+        //},
+        //messages: {
+        //    email: {
+        //        required: "Please enter a email address",
+        //        email: "Please enter a vaild email address"
+        //    },
+        //    NgayDen: {
+        //        required: "Please provide a date"
+        //    },
+        //    chuDetour1: "Please enter value"
+        //},
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            // add error text
+
+            error.addClass('invalid-feedback').removeClass('error');
+            element.closest('#txtSgtcode').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+
+    //$('#txtSgtcode').rules('add', {
+    //    //minlength: 17,
+    //    maxlength: 17,
+    //    messages: {
+    //        minlength: "Sgtcode phải là 17 ký tự",
+    //        maxlength: "Sgtcode phải là 17 ký tự"
+    //    }
+    //});
+
+    // save
+    $('#btnSaveData_Edit').off('click').on('click', function () {
+        //debugger
+
+            if ($('#frm_Edit_Partial').valid()) {
+                var diemTQ = $('#frm_Edit_Partial').serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/DiemTQ/Edit_Partial",
+                    data: diemTQ,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status) {
+
+                            toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
+
+                            $('#DiemTQ_Edit_Partial').modal('hide');
+                            //debugger
+                            indexController.TdVal_Click('@Model.DiemTQDTO.Tinhtp');
+                        }
+                        else {
+                            toastr.error(response.message);
+
+                        }
+                    }
+                });
+            }
+    });
+
+    $('#btnBackEditDiemTQ').off('click').on('click', function () {
+        tinhId = '@Model.TinhDTO.Matinh';
+        indexController.TdVal_Click(tinhId);
+    })
+    //// Get_DienGiai_By_TkNo_TkCo forward to service
+</script>

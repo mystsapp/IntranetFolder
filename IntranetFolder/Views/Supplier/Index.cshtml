@@ -7,15 +7,25 @@
 
 @using Microsoft.AspNetCore.Http
 @using Data.Utilities
+@using Common;
 @inject IHttpContextAccessor HttpContextAccessor
 
-
 @{
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+
     ViewData["Title"] = "Index";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //if (user.RoleId == SD.Intranets)
+    //{
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+    //}
+    //else
+    //{
+    //    Layout = "~/Views/Shared/_Layout_1.cshtml";
+    //}
+
 }
-
-
 
 <!-- Main content -->
 <section class="content" style="padding: 15px 0.5rem">
@@ -56,7 +66,6 @@
                                     </button>
 
                                     <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
-
                                 </div>
                             </div>
                         </div>
@@ -73,7 +82,7 @@
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Code)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tengiaodich)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Diachi)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tinhtp)</th>
+                            <th>Tỉnh / Thành phố</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tenthuongmai)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tapdoan)</th>
@@ -112,9 +121,7 @@
                                             <span id="deleteSpan_@item.Code">
 
                                                 <button type="button" data-id="@item.Code" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Code', true)"><i class="fas fa-trash-alt"></i></button>
-
                                             </span>
-
                                         </div>
                                     </td>
 
@@ -126,7 +133,7 @@
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tapdoan)</td>
                                     <td class="tdVal" data-id="@item.Code">
-                                        @if(item.Trangthai)
+                                        @if (item.Trangthai)
                                         {
                                             <span class="badge badge-success">Kích hoạt</span>
                                         }
@@ -135,16 +142,14 @@
                                             <span class="badge badge-danger">Khoá</span>
                                         }
                                     </td>
-
                                 </tr>
 
                             }
                         }
                     </tbody>
                 </table>
-                
             </div>
-            <div class="p-2" style="background-color: aliceblue;" >
+            <div class="p-2" style="background-color: aliceblue;">
                 @if (Model.SupplierDTOs != null)
                 {
                     @Html.PagedListPager((IPagedList)Model.SupplierDTOs, page => Url.Action("Index", new
@@ -164,7 +169,6 @@
                         }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "nameListContainer" }))
                 }
             </div>
-            
         </div>
         <!-- /.card-body -->
         @*<div class="card-footer">
@@ -173,7 +177,6 @@
         <!-- /.card-footer-->
     </div>
     <!-- /.card -->
-
 </section>
 <!-- /.content -->
 

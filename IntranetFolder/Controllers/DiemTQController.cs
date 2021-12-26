@@ -15,18 +15,18 @@ namespace IntranetFolder.Controllers
 {
     public class DiemTQController : BaseController
     {
-        private readonly IThanhPho1Service _thanhPho1Service;
+        private readonly IDiemTQService _diemTQService;
 
         [BindProperty]
-        public ThanhPho1ViewModel ThanhPho1VM { get; set; }
+        public DiemTQViewModel DiemTQVM { get; set; }
 
-        public DiemTQController(IThanhPho1Service thanhPho1Service)
+        public DiemTQController(IDiemTQService diemTQService)
         {
-            ThanhPho1VM = new ThanhPho1ViewModel()
+            DiemTQVM = new DiemTQViewModel()
             {
-                ThanhPho1DTO = new ThanhPho1DTO()
+                DiemTQDTO = new DiemTQDTO()
             };
-            _thanhPho1Service = thanhPho1Service;
+            _diemTQService = diemTQService;
         }
 
         //public async Task<IActionResult> Index(string id)
@@ -36,37 +36,39 @@ namespace IntranetFolder.Controllers
         //        ViewBag.id = "";
         //    }
 
-        //    ThanhPho1VM.StrUrl = UriHelper.GetDisplayUrl(Request);
+        //    DiemTQVM.StrUrl = UriHelper.GetDisplayUrl(Request);
 
         //    if (!string.IsNullOrEmpty(id)) // for redirect with id
         //    {
-        //        ThanhPho1VM.ThanhPho1DTO = await _thanhPho1Service.GetByIdAsync(id);
-        //        ViewBag.id = ThanhPho1VM.ThanhPho1DTO.Matp;
+        //        DiemTQVM.DiemTQDTO = await _diemTQService.GetByIdAsync(id);
+        //        ViewBag.id = DiemTQVM.DiemTQDTO.Matp;
         //    }
         //    else
         //    {
-        //        ThanhPho1VM.ThanhPho1DTO = new ThanhPho1DTO();
+        //        DiemTQVM.DiemTQDTO = new DiemTQDTO();
         //    }
-        //    ThanhPho1VM.ThanhPho1DTOs = await _thanhPho1Service.get();
-        //    return View(ThanhPho1VM);
+        //    DiemTQVM.DiemTQDTOs = await _diemTQService.get();
+        //    return View(DiemTQVM);
         //}
 
-        public async Task<IActionResult> ThanhPho1Partial(string maTinh, string strUrl)
+        public async Task<IActionResult> DiemTQPartial(string maTinh, string strUrl)
         {
-            ThanhPho1VM.StrUrl = strUrl;
-            var thanhPho1DTOs = await _thanhPho1Service.GetThanhPho1s_By_Tinh(maTinh);
-            ThanhPho1VM.ThanhPho1DTOs = thanhPho1DTOs;
-            ThanhPho1VM.TinhDTO = await _thanhPho1Service.GetTinhByIdAsync(maTinh);
+            DiemTQVM.StrUrl = strUrl;
+            var DiemTQDTOs = await _diemTQService.GetDiemTQs_By_Tinh(maTinh);
+            DiemTQVM.DiemTQDTOs = DiemTQDTOs;
+            DiemTQVM.TinhDTO = await _diemTQService.GetTinhByIdAsync(maTinh);
 
-            return PartialView(ThanhPho1VM);
+            return PartialView(DiemTQVM);
         }
 
-        public async Task<IActionResult> Create_Partial(string tinhid, string strUrl)
+        public async Task<IActionResult> Create_Partial(string tinhid/*, string strUrl*/)
         {
-            ThanhPho1VM.StrUrl = strUrl;
-            ThanhPho1VM.TinhDTO = await _thanhPho1Service.GetTinhByIdAsync(tinhid);
-            ThanhPho1VM.ThanhPho1DTO.Matp = await _thanhPho1Service.GetNextId(tinhid);
-            return PartialView(ThanhPho1VM);
+            //DiemTQVM.StrUrl = strUrl;
+            DiemTQVM.TinhDTO = await _diemTQService.GetTinhByIdAsync(tinhid);
+            DiemTQVM.ThanhPho1DTOs = await _diemTQService.GetThanhPho1DTOs_By_Tinh(tinhid);
+            DiemTQVM.SupplierDTOs = await _diemTQService.GetSuppliers(); // get trangthai == true
+            DiemTQVM.DiemTQDTO.Code = await _diemTQService.GetNextId(tinhid);
+            return PartialView(DiemTQVM);
         }
 
         [HttpPost, ActionName("Create_Partial")]
@@ -77,9 +79,9 @@ namespace IntranetFolder.Controllers
 
             if (!ModelState.IsValid)
             {
-                ThanhPho1VM = new ThanhPho1ViewModel()
+                DiemTQVM = new DiemTQViewModel()
                 {
-                    ThanhPho1DTO = new ThanhPho1DTO(),
+                    DiemTQDTO = new DiemTQDTO(),
                     StrUrl = strUrl
                 };
 
@@ -90,11 +92,14 @@ namespace IntranetFolder.Controllers
                 });
             }
 
-            ThanhPho1VM.ThanhPho1DTO.Matinh = ThanhPho1VM.TinhDTO.Matinh;
+            DiemTQVM.DiemTQDTO.Tinhtp = DiemTQVM.TinhDTO.Matinh;
+            // get nextId
+            DiemTQVM.DiemTQDTO.Code = await _diemTQService.GetNextId(DiemTQVM.TinhDTO.Matinh);
+            DiemTQVM.DiemTQDTO.Congno ??= "";
 
             try
             {
-                await _thanhPho1Service.CreateAsync(ThanhPho1VM.ThanhPho1DTO); // save
+                await _diemTQService.CreateAsync(DiemTQVM.DiemTQDTO); // save
 
                 return Json(new
                 {
@@ -111,27 +116,30 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit_Partial(string id, string strUrl)
+        public async Task<IActionResult> Edit_Partial(string id, string strUrl, string tinhid)
         {
             // from session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            ThanhPho1VM.StrUrl = strUrl;
+            DiemTQVM.StrUrl = strUrl;
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.ErrorMessage = "Thành phố này không tồn tại.";
+                ViewBag.ErrorMessage = "Điểm TQ này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            ThanhPho1VM.ThanhPho1DTO = await _thanhPho1Service.GetByIdAsync(id);
+            DiemTQVM.DiemTQDTO = await _diemTQService.GetByIdAsync(id);
 
-            if (ThanhPho1VM.ThanhPho1DTO == null)
+            if (DiemTQVM.DiemTQDTO == null)
             {
-                ViewBag.ErrorMessage = "Thành phố này không tồn tại.";
+                ViewBag.ErrorMessage = "Điểm TQ này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            DiemTQVM.TinhDTO = await _diemTQService.GetTinhByIdAsync(tinhid);
+            DiemTQVM.ThanhPho1DTOs = await _diemTQService.GetThanhPho1DTOs_By_Tinh(tinhid);
+            DiemTQVM.SupplierDTOs = await _diemTQService.GetSuppliers(); // get trangthai == true
 
-            return PartialView(ThanhPho1VM);
+            return PartialView(DiemTQVM);
         }
 
         [HttpPost, ActionName("Edit_Partial")]
@@ -145,8 +153,8 @@ namespace IntranetFolder.Controllers
             {
                 try
                 {
-                    await _thanhPho1Service.UpdateAsync(ThanhPho1VM.ThanhPho1DTO);
-                    SetAlert("Cập nhật thành công", "success");
+                    await _diemTQService.UpdateAsync(DiemTQVM.DiemTQDTO);
+                    //SetAlert("Cập nhật thành công", "success");
 
                     //return Redirect(strUrl);
                     return Json(new
@@ -156,7 +164,7 @@ namespace IntranetFolder.Controllers
                 }
                 catch (Exception ex)
                 {
-                    SetAlert(ex.Message, "error");
+                    //SetAlert(ex.Message, "error");
 
                     return Json(new
                     {
@@ -167,13 +175,13 @@ namespace IntranetFolder.Controllers
             }
             // not valid
 
-            return PartialView(ThanhPho1VM);
+            return PartialView(DiemTQVM);
         }
 
         public JsonResult IsStringNameAvailable(string TenCreate)
         {
-            var boolName = _thanhPho1Service.GetThanhPho1s()
-                .Where(x => x.Matinh.Trim().ToLower() == TenCreate.Trim().ToLower())
+            var boolName = _diemTQService.GetDiemTQs()
+                .Where(x => x.Diemtq.Trim().ToLower() == TenCreate.Trim().ToLower())
                 .FirstOrDefault();
             if (boolName == null)
             {
@@ -188,14 +196,14 @@ namespace IntranetFolder.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(string id, string strUrl)
         {
-            ThanhPho1VM.StrUrl = strUrl;
+            DiemTQVM.StrUrl = strUrl;
 
-            var ThanhPho1DTO = _thanhPho1Service.GetByIdAsNoTracking(id);
-            if (ThanhPho1DTO == null)
+            var DiemTQDTO = _diemTQService.GetByIdAsNoTracking(id);
+            if (DiemTQDTO == null)
                 return NotFound();
             try
             {
-                await _thanhPho1Service.Delete(ThanhPho1DTO);
+                _diemTQService.Delete(DiemTQDTO);
 
                 return Json(new { status = true });
             }
@@ -211,7 +219,7 @@ namespace IntranetFolder.Controllers
 
         public IActionResult DetailsRedirect(string tinhId)
         {
-            return RedirectToAction("Index", "TinhTP", new { id = tinhId });
+            return RedirectToAction("Index", "TinhDiemTQ", new { id = tinhId });
         }
     }
 }

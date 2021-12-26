@@ -58,10 +58,16 @@ namespace IntranetFolder.Controllers
         public async Task<IActionResult> Create(string strUrl)
         {
             SupplierVM.StrUrl = strUrl;
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             SupplierVM.VTinhs = await _supplierService.GetTinhs();
             SupplierVM.Thanhpho1s = await _supplierService.GetThanhpho1s();
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
+
+            // next Id
+            SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn);
+            // next Id
 
             return View(SupplierVM);
         }
@@ -87,7 +93,7 @@ namespace IntranetFolder.Controllers
             SupplierVM.SupplierDTO.Nguoitao = user.Username;
 
             // next Id
-            SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn); // chi VND
+            SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn);
             // next Id
 
             try
