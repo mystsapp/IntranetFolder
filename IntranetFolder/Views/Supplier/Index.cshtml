@@ -74,7 +74,7 @@
             </form>
             @*<br />*@
             <div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto; height: 300px">
-                <table class="table mytable text-nowrap text-sm" id="phieuTbl">
+                <table class="table mytable text-nowrap text-sm" id="supplierTbl">
                     <thead>
                         <tr class="table-info">
 
@@ -95,7 +95,7 @@
                             @foreach (var item in Model.SupplierDTOs)
                             {
 
-                                <tr class="cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="DMTK_Tbl()">
+                                <tr class="supplier-cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="DMTK_Tbl()">
 
                                     <td>
                                         <div class="btn-group text-white" role="group">
@@ -182,7 +182,7 @@
 
 @section Scripts{
 
-    <script src="~/js/Admin/Home/indexController.js"></script>
+    @*<script src="~/js/Admin/TinhTP/indexController.js"></script>*@
     <script>
 
         var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
@@ -227,6 +227,17 @@
                 $('#' + confirmDeleteSpan).hide();
             }
         }
+
+        // giu trang thai phieu click
+        $('#supplierTbl .supplier-cursor-pointer').off('click').on('click', function () {
+            if ($(this).hasClass("hoverClass"))
+                $(this).removeClass("hoverClass");
+            else {
+                $('.supplier-cursor-pointer').removeClass("hoverClass");
+                $(this).addClass("hoverClass");
+            }
+        });
+        // giu trang thai phieu click
 
         function DMTK_Tbl() { // tab href
             location.href = "#DMTK_Tbl";
