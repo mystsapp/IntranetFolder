@@ -2,11 +2,33 @@
 @using GleamTech.FileUltimate.AspNet.UI
 
 @model HomeViewModel
-
+@*
 @{
     ViewData["Title"] = "ExploreUrl";
     Layout = "_Layout";
 }
+*@
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+
+@using Common
+@{
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+
+    ViewData["Title"] = "Home";
+    if(user.RoleId == SD.Intranets)
+    {
+        Layout = "_Layout";    
+    }
+    else
+    {
+        Layout = "_Layout_1";
+    }
+
+}
+
 
 @this.RenderHead(Model.FileManager)
 

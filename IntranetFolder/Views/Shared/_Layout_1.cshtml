@@ -5,32 +5,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@ViewData["Title"]</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<link href="~/Assets/lib/bootstrap-4.4.1-dist/css/bootstrap.css" rel="stylesheet" />*@
-    <!-- Font Awesome -->
-    <link href="~/lib/AdminLTE-3.0.5/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
-    <!-- Ionicons -->
-    @*<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">*@
-    <!-- iCheck -->
-    <link href="~/lib/AdminLTE-3.0.5/plugins/icheck-bootstrap/icheck-bootstrap.css" rel="stylesheet" />
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="~/lib/AdminLTE-3.0.5/plugins/sweetalert2/sweetalert2.min.css">
-    <!-- Toastr -->
-    <link rel="stylesheet" href="~/lib/AdminLTE-3.0.5/plugins/toastr/toastr.min.css">
-    <!-- overlayScrollbars -->
-    <link href="~/lib/AdminLTE-3.0.5/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
-    <!-- Select2 -->
-    <link href="~/lib/AdminLTE-3.0.5/plugins/select2/css/select2.css" rel="stylesheet" />
-    <link href="~/lib/AdminLTE-3.0.5/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
-    <!-- pace-progress -->
-    <link href="~/lib/AdminLTE-3.0.5/plugins/pace-progress/themes/orange/pace-theme-flat-top.css" rel="stylesheet" />
-    <link href="~/lib/AdminLTE-3.0.5/dist/css/adminlte.min.css" rel="stylesheet" />
-    <link href="~/lib/AdminLTE-3.0.5/plugins/jquery-ui/jquery-ui.css" rel="stylesheet" />
-    <!-- ChartJs -->
-    <link href="~/lib/ChartJs/Chart.js/Chart.css" rel="stylesheet" />
+   
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- DataTables -->
+  <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Select2 -->
+    <link href="~/lib/AdminLTE-3.1.0/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/AdminLTE-3.1.0/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/dist/css/adminlte.css">
+    <!-- jqueryui-->
+    <link href="~/lib/AdminLTE-3.1.0/plugins/jquery-ui/jquery-ui.css" rel="stylesheet" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/toastr/toastr.min.css">
+    <!-- pace-progress -->
+    <link href="~/lib/AdminLTE-3.1.0/plugins/pace-progress/themes/orange/pace-theme-flat-top.css" rel="stylesheet" />
+    <!--<script src="~/lib/shortcut.js"></script> -->
+    <script src="~/lib/shortcut.js"></script>
+
     <link href="~/images/LogoLeft.ico" rel="shortcut icon" />
     <link href="~/css/MyCss.css" rel="stylesheet" />
 
@@ -64,7 +61,7 @@
                     </ul>
                 </div>
                 <div class="col-md-6 p-2">
-                    @*<span class="float-right">@Html.Partial("_LoginPartial")</span>*@
+                    <span class="float-right"><partial name="_LoginPartial.cshtml" /></span>
 
                 </div>
             </div>
@@ -102,32 +99,39 @@
         <div id="sidebar-overlay"></div>
     </div>
     <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="~/lib/AdminLTE-3.0.5/plugins/jquery/jquery.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/jquery-ui/jquery-ui.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/jquery-validation/jquery.validate.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/jquery.maskedinput/jquery.maskedinput.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/bootbox.js/bootbox.js"></script>
+   <!-- jQuery -->
+    <script src="~/lib/AdminLTE-3.1.0/plugins/jquery/jquery.min.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/plugins/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/plugins/bootbox.js/bootbox.js"></script>
     <script src="~/lib/numeral.js/numeral.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="~/lib/AdminLTE-3.0.5/plugins/bootstrap/js/bootstrap.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/select2/js/select2.js"></script>
-    <!-- jquery-validation -->
-    <script src="~/lib/AdminLTE-3.0.5/plugins/jquery-validation/additional-methods.min.js"></script>
-    <!-- DataTables -->
-    <script src="~/lib/AdminLTE-3.0.5/plugins/datatables/jquery.dataTables.js"></script>
-    <script src="~/lib/AdminLTE-3.0.5/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <!-- pace-progress -->
-    <script src="~/lib/AdminLTE-3.0.5/plugins/pace-progress/pace.min.js"></script>
-    <!-- Toastr -->
-    <script src="~/lib/AdminLTE-3.0.5/plugins/toastr/toastr.min.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables  & Plugins -->
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="~/lib/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Select2-->
+    @*<script src="~/lib/AdminLTE-3.1.0/plugins/select2/js/select2.js"></script>*@
+    <script src="~/lib/AdminLTE-3.1.0/plugins/select2/js/select2.full.js"></script>
     <!-- AdminLTE App -->
-    <script src="~/lib/AdminLTE-3.0.5/dist/js/adminlte.js"></script>
-    <!-- date validate -->
-    <script src="~/lib/additional-methods_date_valid.js"></script>
-    <!-- ChartJs -->
-    <script src="~/lib/ChartJs/Chart.js/Chart.js"></script>
+    <script src="~/lib/jquery.maskedinput/jquery.maskedinput.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/dist/js/adminlte.min.js"></script>
+    <!-- Toastr -->
+    <script src="~/lib/AdminLTE-3.1.0/plugins/toastr/toastr.min.js"></script>
+    <!-- pace-progress -->
+    <script src="~/lib/AdminLTE-3.1.0/plugins/pace-progress/pace.min.js"></script>
+
     @RenderSection("Scripts", required: false)
 
     <script>
