@@ -42,6 +42,8 @@ namespace IntranetFolder
             services.AddTransient<ITinhRepository, TinhRepository>();
             services.AddTransient<IThanhPho1Repository, ThanhPho1Repository>();
             services.AddTransient<IDmdiemtqRepository, DmdiemtqRepository>();
+            services.AddTransient<IDanhGiaNhaCungUngRepository, DanhGiaNhaCungUngRepository>();
+            services.AddTransient<ILoaiDvRepository, LoaiDvRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // services
@@ -49,6 +51,7 @@ namespace IntranetFolder
             services.AddTransient<ITinhTPService, TinhTPService>();
             services.AddTransient<IThanhPho1Service, ThanhPho1Service>();
             services.AddTransient<IDiemTQService, DiemTQService>();
+            services.AddTransient<IDanhGiaNhaCungUngService, DanhGiaNhaCungUngService>();
 
             services.AddSession(options =>
             {

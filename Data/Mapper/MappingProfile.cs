@@ -18,6 +18,7 @@ namespace Data.Mapper
             CreateMap<VTinh, VTinhDTO>().ReverseMap();
             CreateMap<Thanhpho1, ThanhPho1DTO>().ReverseMap();
             CreateMap<Dmdiemtq, DiemTQDTO>().ReverseMap();
+            CreateMap<DanhGiaNcu, DanhGiaNcuDTO>().ReverseMap();
         }
     }
 }
