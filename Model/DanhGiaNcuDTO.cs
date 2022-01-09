@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Model
@@ -7,7 +8,10 @@ namespace Model
     public class DanhGiaNcuDTO
     {
         public long Id { get; set; }
+
+        [Required(ErrorMessage = "Tên không được để trống.")]
         public string TenNcu { get; set; }
+
         public string KnngheNghiep { get; set; }
         public string KntaiThiTruongVn { get; set; }
         public string NlkhaiThacDvtaiDiaPhuong { get; set; }
@@ -35,6 +39,8 @@ namespace Model
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
-        public int? LoaiDvid { get; set; }
+
+        //public int? LoaiDvid { get; set; }
+        public string LoaiDv { get; set; }
     }
 }

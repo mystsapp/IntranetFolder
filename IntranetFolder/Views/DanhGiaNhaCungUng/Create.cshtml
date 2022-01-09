@@ -1,0 +1,207 @@
+﻿@model SupplierViewModel
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect">Danh mục Supplier</a></li>
+                    <li class="breadcrumb-item active">Thêm Supplier</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm Supplier</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+
+            <form method="post" autocomplete="off" id="frmHomeCreate" enctype="multipart/form-data">
+                <div class="pr-4 pl-4 text-sm">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Code" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Code" class="form-control form-control-sm " id="txtCode" readonly />
+                            <span asp-validation-for="SupplierDTO.Code" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="SupplierDTO.Tengiaodich" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                            <input asp-for="SupplierDTO.Tengiaodich" class="form-control form-control-sm " id="txtTenGiaoDich" />
+                            <span asp-validation-for="SupplierDTO.Tengiaodich" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="SupplierDTO.Tenthuongmai" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Tenthuongmai" class="form-control form-control-sm " id="txtTenThuongMai" />
+                            <span asp-validation-for="SupplierDTO.Tenthuongmai" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Tapdoan" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Tapdoan" class="form-control form-control-sm " id="txtTapDoan" />
+                            <span asp-validation-for="SupplierDTO.Tapdoan" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Tinhtp" class="control-label"></label>
+                            @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
+                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
+                                <option>-- Select --</option>
+                            </select>
+                            <span asp-validation-for="SupplierDTO.Tinhtp" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Thanhpho" class="control-label"></label>
+                            @*<input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />*@
+                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.Thanhpho1s, "Matp", "Tentp"))" id="ddlThanhPho">
+                                <option>-- Select --</option>
+                            </select>
+                            <span asp-validation-for="SupplierDTO.Thanhpho" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Quocgia" class="control-label"></label>
+                            @*<input asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm " id="txtQuocGia" />*@
+                            <select asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.Quocgias, "TenNuoc", "TenNuoc"))" id="ddlQuocQia">
+                                <option>-- Select --</option>
+                            </select>
+                            <span asp-validation-for="SupplierDTO.Quocgia" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="SupplierDTO.Diachi" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Diachi" class="form-control form-control-sm " id="txtDiaChi" />
+                            <span asp-validation-for="SupplierDTO.Diachi" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Dienthoai" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Dienthoai" class="form-control form-control-sm " id="txtDienThoai" />
+                            <span asp-validation-for="SupplierDTO.Dienthoai" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Fax" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Fax" class="form-control form-control-sm " id="txtFax" />
+                            <span asp-validation-for="SupplierDTO.Fax" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label asp-for="SupplierDTO.Masothue" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Masothue" class="form-control form-control-sm " id="txtMasothue" />
+                            <span asp-validation-for="SupplierDTO.Masothue" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Nganhnghe" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Nganhnghe" class="form-control form-control-sm " id="txtNganhnghe" />
+                            <span asp-validation-for="SupplierDTO.Nganhnghe" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Nguoilienhe" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Nguoilienhe" class="form-control form-control-sm " id="txtNguoilienhe" />
+                            <span asp-validation-for="SupplierDTO.Nguoilienhe" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Website" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Website" class="form-control form-control-sm " id="txtWebsite" />
+                            <span asp-validation-for="SupplierDTO.Website" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Email" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Email" class="form-control form-control-sm " id="txtEmail" />
+                            <span asp-validation-for="SupplierDTO.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Ngayhethan" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Ngayhethan" class="form-control form-control-sm " id="txtNgayhethan" />
+                            <span asp-validation-for="SupplierDTO.Ngayhethan" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Trangthai" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Trangthai" class="form-control form-control-sm float-left" id="txtTrangthai" />
+                            <span asp-validation-for="SupplierDTO.Trangthai" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-4">
+                            <label asp-for="SupplierDTO.Tknganhang" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Tknganhang" class="form-control form-control-sm " id="txtTknganhang" />
+                            <span asp-validation-for="SupplierDTO.Tknganhang" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label asp-for="SupplierDTO.Tennganhang" class="control-label"></label>
+                            <input asp-for="SupplierDTO.Tennganhang" class="form-control form-control-sm " id="txtTennganhang" />
+                            <span asp-validation-for="SupplierDTO.Tennganhang" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit"><i class="fas fa-save"></i> Save</button>
+                        <a class="btn btn-success btn-sm" asp-controller="Home" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward "></i> Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

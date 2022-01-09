@@ -1,0 +1,274 @@
+﻿@model DanhGiaNhaCungUngViewModel
+
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@*@using X.PagedList.Mvc.Core.Common*@
+@using X.PagedList.Web.Common
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+
+    ViewData["Title"] = "Index";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+
+}
+
+<!-- Main content -->
+<section class="content" style="padding: 15px 0.5rem">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh mục đánh giá</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <form method="get" autocomplete="off">
+
+                <div class="pr-2 pl-2" style="padding-bottom:10px; padding-top: 6px; ">
+
+                    <div class="col-md-12">
+                        <div class="row rounded" style="padding-bottom:5px; background-color: aliceblue;" id="search">
+
+                            <div class="col-md-3 text-sm">
+                                Nhập thông tin
+                                @*@Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control", @value="@ViewData["currentFilter"]" } })*@
+                                <input class="form-control form-control-sm" name="searchString" value="@ViewBag.searchString" />
+                            </div>
+
+                            <div class="col-md-5 text-sm">
+                                &nbsp;
+                                <div class=" btn-block ">
+                                    <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+
+                                    <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @*<br />*@
+            <div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto; height: 300px">
+                <table class="table mytable text-nowrap text-sm" id="danhGiaNCUTbl">
+                    <thead>
+                        <tr class="table-info">
+
+                            <th>#</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().TenNcu)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().KnngheNghiep)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().KntaiThiTruongVn)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().NlkhaiThacDvtaiDiaPhuong)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().CldvvaHdvtiengViet)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().SanPham)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().GiaCa)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().MucDoKipThoiTrongGd)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().MucDoHtxuLySuCo)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().Kqdat)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().KqkhaoSatThem)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().DiaChi)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().DienThoai)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().Fax)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().Email)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().LanDauOrTaiKy)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().PhapNhan)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().SoXeChinhThuc)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().KhaNangHuyDong)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().DoiXeOrLoaiXe)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().Gia)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().KinhNghiem)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().LoaiDv)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.danhGiaNcuDTOs != null)
+                        {
+                            @foreach (var item in Model.danhGiaNcuDTOs)
+                            {
+
+                                <tr class="supplier-cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="DMTK_Tbl()">
+
+                                    <td>
+                                        <div class="btn-group text-white" role="group">
+
+                                            <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                            @*<span class="text-dark"> | </span>
+
+                                                <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                            <!-- ko cho xóa -->
+                                            <span class="text-dark"> | </span>
+                                            <form asp-action="Delete" method="post">
+
+                                                <span id="confirmDeleteSpan_@item.Id" style="display: none">
+                                                    <!--ajax check invoices-->
+                                                    <span class="text-dark invoiceTrue">Xoá?</span>
+
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                                                    <button type="submit" class="btn btn-danger btn-xs ">Yes</button>
+                                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.Id', false)">No</button>
+                                                </span>
+                                            </form>
+                                            <span id="deleteSpan_@item.Id">
+
+                                                <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KnngheNghiep)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KntaiThiTruongVn)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NlkhaiThacDvtaiDiaPhuong)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CldvvaHdvtiengViet)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SanPham)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.GiaCa)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoKipThoiTrongGd)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoHtxuLySuCo)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DaCoKhaoSatThucTe)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Kqdat)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqkhaoSatThem)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DongYduaVaoDsncu)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.LanDauOrTaiKy)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.PhapNhan)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoXeChinhThuc)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhaNangHuyDong)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DoiXeOrLoaiXe)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Gia)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KinhNghiem)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.LoaiDv)</td>
+                                    @*<td class="tdVal" data-id="@item.Id">
+                                        @if (item.Trangthai)
+                                        {
+                                            <span class="badge badge-success">Kích hoạt</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Khoá</span>
+                                        }
+                                    </td>*@
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-2" style="background-color: aliceblue;">
+                @if (Model.danhGiaNcuDTOs != null)
+                {
+                    @Html.PagedListPager((IPagedList)Model.danhGiaNcuDTOs, page => Url.Action("Index", new
+               {
+                   page = page,
+                   option = Context.Request.Query["option"],
+                   searchString = @ViewBag.searchString,
+                   startWith = @ViewBag.startWith
+               }),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                        {
+                            LiElementClasses = new string[] { "page-item" },
+                            PageClasses = new string[] { "page-link" },
+                            MaximumPageNumbersToDisplay = 5,
+                            UlElementClasses = new[] { "pagination pagination-sm m-0" }, // ul class
+                            ContainerDivClasses = new[] { "pagination-container" }
+                        }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "nameListContainer" }))
+                }
+            </div>
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer">
+                Footer
+            </div>*@
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+
+    @*<script src="~/js/Admin/TinhTP/indexController.js"></script>*@
+    <script>
+
+        var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
+
+        // giữ trạng thái
+        if (id_Redirect !== '') {
+
+            var id_Redirect_Class = $('.' + id_Redirect);
+
+            if (id_Redirect_Class.hasClass("hoverClass")) {
+                id_Redirect_Class.removeClass("hoverClass");
+            }
+            else {
+                id_Redirect_Class.removeClass("hoverClass");
+                id_Redirect_Class.addClass("hoverClass");
+            }
+
+        // giữ trạng thái
+        }
+
+        function confirmDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            } else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+        function confirmInvoiceDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteInvoiceSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmInvoiceDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            } else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+
+        // giu trang thai phieu click
+        $('#danhGiaNCUTbl .supplier-cursor-pointer').off('click').on('click', function () {
+            if ($(this).hasClass("hoverClass"))
+                $(this).removeClass("hoverClass");
+            else {
+                $('.supplier-cursor-pointer').removeClass("hoverClass");
+                $(this).addClass("hoverClass");
+            }
+        });
+        // giu trang thai phieu click
+
+        function DMTK_Tbl() { // tab href
+            location.href = "#DMTK_Tbl";
+        }
+    </script>
+}
