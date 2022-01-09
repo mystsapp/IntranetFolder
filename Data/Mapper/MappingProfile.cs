@@ -12,20 +12,18 @@ namespace Data.Mapper
 {
     internal class MappingProfile : Profile
     {
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
-        public MappingProfile(IUnitOfWork unitOfWork)
+        public MappingProfile(/*IUnitOfWork unitOfWork*/)
         {
-            _unitOfWork = unitOfWork;
+            //_unitOfWork = unitOfWork;
 
             CreateMap<Models.Supplier, SupplierDTO>().ReverseMap();
             CreateMap<Tinh, TinhDTO>().ReverseMap();
             CreateMap<VTinh, VTinhDTO>().ReverseMap();
             CreateMap<Thanhpho1, ThanhPho1DTO>().ReverseMap();
             CreateMap<Dmdiemtq, DiemTQDTO>().ReverseMap();
-            CreateMap<DanhGiaNcu, DanhGiaNcuDTO>().
-                ForMember(x => x.LoaiDv, y => y.MapFrom(z =>
-                _unitOfWork.loaiDvRepository.GetById(z.LoaiDvid.Value) == null ? "" : _unitOfWork.loaiDvRepository.GetById(z.LoaiDvid.Value).TenLoai)).ReverseMap();
+            CreateMap<DanhGiaNcu, DanhGiaNcuDTO>().ReverseMap();
         }
     }
 }
