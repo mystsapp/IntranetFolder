@@ -16,7 +16,6 @@
     ViewData["Title"] = "Index";
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
 
 }
 
@@ -96,7 +95,7 @@
                             <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().DoiXeOrLoaiXe)</th>
                             <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().Gia)</th>
                             <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().KinhNghiem)</th>
-                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().LoaiDv)</th>
+                            <th>@Html.DisplayNameFor(m => m.danhGiaNcuDTOs.FirstOrDefault().TenDv)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,17 +158,17 @@
                                     <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DoiXeOrLoaiXe)</td>
                                     <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Gia)</td>
                                     <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KinhNghiem)</td>
-                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.LoaiDv)</td>
+                                    <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenDv)</td>
                                     @*<td class="tdVal" data-id="@item.Id">
-                                        @if (item.Trangthai)
-                                        {
-                                            <span class="badge badge-success">Kích hoạt</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge badge-danger">Khoá</span>
-                                        }
-                                    </td>*@
+                                            @if (item.Trangthai)
+                                            {
+                                                <span class="badge badge-success">Kích hoạt</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Khoá</span>
+                                            }
+                                        </td>*@
                                 </tr>
 
                             }

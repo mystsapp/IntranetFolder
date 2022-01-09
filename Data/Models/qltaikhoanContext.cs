@@ -240,7 +240,12 @@ namespace Data.Models
 
                 entity.Property(e => e.SoXeChinhThuc).HasMaxLength(50);
 
+                entity.Property(e => e.TenDv)
+                    .HasMaxLength(50)
+                    .HasColumnName("TenDV");
+
                 entity.Property(e => e.TenNcu)
+                    .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("TenNCU");
             });

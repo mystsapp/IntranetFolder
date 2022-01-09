@@ -9,6 +9,7 @@ namespace Model
     {
         public long Id { get; set; }
 
+        [Display(Name = "Tên NCU")]
         [Required(ErrorMessage = "Tên không được để trống.")]
         public string TenNcu { get; set; }
 
@@ -39,8 +40,7 @@ namespace Model
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
-
-        //public int? LoaiDvid { get; set; }
-        public string LoaiDv { get; set; }
+        public int LoaiDvid { get; set; }
+        public string TenDv { get; set; }
     }
 }

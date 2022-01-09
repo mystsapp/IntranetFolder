@@ -52,6 +52,7 @@ namespace IntranetFolder.Services
 
         public async Task<DanhGiaNcuDTO> CreateAsync(DanhGiaNcuDTO danhGiaNcuDTO)
         {
+            danhGiaNcuDTO.TenDv = _unitOfWork.loaiDvRepository.GetById(danhGiaNcuDTO.LoaiDvid).TenLoai;
             DanhGiaNcu danhGiaNcu = _mapper.Map<DanhGiaNcuDTO, DanhGiaNcu>(danhGiaNcuDTO);
             var danhGiaNcu1 = await _unitOfWork.danhGiaNhaCungUngRepository.CreateAsync(danhGiaNcu);
             return _mapper.Map<DanhGiaNcu, DanhGiaNcuDTO>(danhGiaNcu1);
