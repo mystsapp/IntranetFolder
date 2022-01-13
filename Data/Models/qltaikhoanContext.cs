@@ -21,7 +21,12 @@ namespace Data.Models
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<City> Citys { get; set; }
-        public virtual DbSet<DanhGiaNcu> DanhGiaNcus { get; set; }
+        public virtual DbSet<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
+        public virtual DbSet<DanhGiaDiemThamQuan> DanhGiaDiemThamQuans { get; set; }
+        public virtual DbSet<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
+        public virtual DbSet<DanhGiaLandtour> DanhGiaLandtours { get; set; }
+        public virtual DbSet<DanhGiaNhaHang> DanhGiaNhaHangs { get; set; }
+        public virtual DbSet<DanhGiaVanChuyen> DanhGiaVanChuyens { get; set; }
         public virtual DbSet<DichVu1> DichVus1 { get; set; }
         public virtual DbSet<Dichvu> Dichvus { get; set; }
         public virtual DbSet<Dmchinhanh> Dmchinhanhs { get; set; }
@@ -156,9 +161,9 @@ namespace Data.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<DanhGiaNcu>(entity =>
+            modelBuilder.Entity<DanhGiaCamLao>(entity =>
             {
-                entity.ToTable("DanhGiaNCU");
+                entity.ToTable("DanhGiaCamLao");
 
                 entity.Property(e => e.CldvvaHdvtiengViet)
                     .HasMaxLength(150)
@@ -248,6 +253,305 @@ namespace Data.Models
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("TenNCU");
+            });
+
+            modelBuilder.Entity<DanhGiaDiemThamQuan>(entity =>
+            {
+                entity.ToTable("DanhGiaDiemThamQuan");
+
+                entity.Property(e => e.CoBaiDoXe).HasMaxLength(150);
+
+                entity.Property(e => e.CoGpkd).HasColumnName("CoGPKD");
+
+                entity.Property(e => e.CoHdvat).HasColumnName("CoHDVAT");
+
+                entity.Property(e => e.CoNhaHang).HasMaxLength(50);
+
+                entity.Property(e => e.CoNhaVeSinh).HasMaxLength(50);
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DongYduaVaoDsncu).HasColumnName("DongYDuaVaoDSNCU");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
+                entity.Property(e => e.MucDoHapDan).HasMaxLength(50);
+
+                entity.Property(e => e.PhuongTienPvvuiChoi)
+                    .HasMaxLength(50)
+                    .HasColumnName("PhuongTienPVVuiChoi");
+
+                entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
+
+                entity.Property(e => e.TenDv)
+                    .HasMaxLength(50)
+                    .HasColumnName("TenDV");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.ThaiDoPvcuaNv)
+                    .HasMaxLength(50)
+                    .HasColumnName("ThaiDoPVCuaNV");
+
+                entity.Property(e => e.ViTri).HasMaxLength(150);
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<DanhGiaKhachSan>(entity =>
+            {
+                entity.ToTable("DanhGiaKhachSan");
+
+                entity.Property(e => e.CoBaiDoXe).HasMaxLength(150);
+
+                entity.Property(e => e.CoBoTriPhongChoNb)
+                    .HasMaxLength(150)
+                    .HasColumnName("CoBoTriPhongChoNB");
+
+                entity.Property(e => e.CoNhaHang).HasMaxLength(150);
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DongYduaVaoDsncu).HasColumnName("DongYDuaVaoDSNCU");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Gpkd).HasColumnName("GPKD");
+
+                entity.Property(e => e.KqKhaoSatThem).HasMaxLength(150);
+
+                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
+
+                entity.Property(e => e.TenDv)
+                    .HasMaxLength(50)
+                    .HasColumnName("TenDV");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.ThaiDoPvcuaNv)
+                    .HasMaxLength(150)
+                    .HasColumnName("ThaiDoPVCuaNV");
+
+                entity.Property(e => e.Vat).HasColumnName("VAT");
+
+                entity.Property(e => e.ViTri).HasMaxLength(150);
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<DanhGiaLandtour>(entity =>
+            {
+                entity.ToTable("DanhGiaLandtour");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CldvvaHdv)
+                    .HasMaxLength(150)
+                    .HasColumnName("CLDVVaHDV");
+
+                entity.Property(e => e.CoGpkd).HasColumnName("CoGPKD");
+
+                entity.Property(e => e.CoHdvat).HasColumnName("CoHDVAT");
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DongYduaVaoDsncu).HasColumnName("DongYDuaVaoDSNCU");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.GiaCa).HasMaxLength(50);
+
+                entity.Property(e => e.KinhNghiemThiTruongNd)
+                    .HasMaxLength(150)
+                    .HasColumnName("KinhNghiemThiTruongND");
+
+                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+
+                entity.Property(e => e.MucDoHoTroXuLySuCo).HasMaxLength(50);
+
+                entity.Property(e => e.MucDoKipThoiTrongGd)
+                    .HasMaxLength(50)
+                    .HasColumnName("MucDoKipThoiTrongGD");
+
+                entity.Property(e => e.NlkhaiThacDvdiaPhuong)
+                    .HasMaxLength(150)
+                    .HasColumnName("NLKhaiThacDVDiaPhuong");
+
+                entity.Property(e => e.SanPham).HasMaxLength(50);
+
+                entity.Property(e => e.TenDv)
+                    .HasMaxLength(50)
+                    .HasColumnName("TenDV");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<DanhGiaNhaHang>(entity =>
+            {
+                entity.ToTable("DanhGiaNhaHang");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ChatLuong).HasMaxLength(50);
+
+                entity.Property(e => e.CoBaiDoXe).HasMaxLength(150);
+
+                entity.Property(e => e.CoGpkd).HasColumnName("CoGPKD");
+
+                entity.Property(e => e.CoHdvat).HasColumnName("CoHDVAT");
+
+                entity.Property(e => e.CoPvmienPhiNoiBo)
+                    .HasMaxLength(150)
+                    .HasColumnName("CoPVMienPhiNoiBo");
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DinhLuong).HasMaxLength(50);
+
+                entity.Property(e => e.DongYduaVaoDsncu).HasColumnName("DongYDuaVaoDSNCU");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+
+                entity.Property(e => e.NhaVeSinh).HasMaxLength(50);
+
+                entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
+
+                entity.Property(e => e.TenDv)
+                    .HasMaxLength(50)
+                    .HasColumnName("TenDV");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.ThaiDoPvcuaNv)
+                    .HasMaxLength(50)
+                    .HasColumnName("ThaiDoPVCuaNV");
+
+                entity.Property(e => e.ViTri).HasMaxLength(150);
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<DanhGiaVanChuyen>(entity =>
+            {
+                entity.ToTable("DanhGiaVanChuyen");
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DoiXeOrLoaiXe).HasMaxLength(150);
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Gia).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.KhaNangHuyDong).HasMaxLength(150);
+
+                entity.Property(e => e.KinhNghiem).HasMaxLength(50);
+
+                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+
+                entity.Property(e => e.PhapNhan).HasMaxLength(150);
+
+                entity.Property(e => e.SoXeChinhThuc)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TenDv)
+                    .HasMaxLength(50)
+                    .HasColumnName("TenDV");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<DichVu1>(entity =>
