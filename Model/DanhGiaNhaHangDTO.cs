@@ -27,5 +27,11 @@ namespace Model
         public bool? KqDat { get; set; }
         public bool? KqKhaoSatThem { get; set; }
         public bool? DongYduaVaoDsncu { get; set; }
+        public int LoaiDvid { get; set; }
+        public string TenDv { get; set; }
+        public DateTime? NgayTao { get; set; }
+        public string NguoiTao { get; set; }
+        public DateTime? NgaySua { get; set; }
+        public string NguoiSua { get; set; }
     }
 }

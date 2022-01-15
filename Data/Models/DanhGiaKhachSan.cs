@@ -34,7 +34,6 @@ namespace Data.Models
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
-        public int LoaiDvid1 { get; set; }
-        public string TenDv { get; set; }
+        public int LoaiDvid { get; set; }
     }
 }

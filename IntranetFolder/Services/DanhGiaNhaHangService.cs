@@ -85,21 +85,18 @@ namespace IntranetFolder.Services
             // retrieve list from database/whereverand
 
             List<DanhGiaNhaHangDTO> list = new List<DanhGiaNhaHangDTO>();
-            List<DanhGiaNcu> danhGiaNcus1 = new List<DanhGiaNcu>();
+            List<DanhGiaNhaHang> danhGiaNcus1 = new List<DanhGiaNhaHang>();
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var danhGiaNcus = await _unitOfWork.danhGiaNhaCungUngRepository.FindAsync(x => x.TenNcu.ToLower().Contains(searchString.Trim().ToLower()) ||
-                                           (!string.IsNullOrEmpty(x.KnngheNghiep) && x.KnngheNghiep.ToLower().Contains(searchString.ToLower())) ||
-                                           (!string.IsNullOrEmpty(x.KntaiThiTruongVn) && x.KntaiThiTruongVn.ToLower().Contains(searchString.ToLower())) ||
-                                           (!string.IsNullOrEmpty(x.NlkhaiThacDvtaiDiaPhuong) && x.NlkhaiThacDvtaiDiaPhuong.ToLower().Contains(searchString.ToLower())) ||
-                                           (!string.IsNullOrEmpty(x.CldvvaHdvtiengViet) && x.CldvvaHdvtiengViet.ToLower().Contains(searchString.ToLower())) ||
-                                           (!string.IsNullOrEmpty(x.SanPham) && x.SanPham.ToLower().Contains(searchString.ToLower())));
+                var danhGiaNcus = await _unitOfWork.danhGiaNhaHangRepository.FindAsync(x => x.TenNcu.ToLower().Contains(searchString.Trim().ToLower()) ||
+                                           (!string.IsNullOrEmpty(x.DiaChi) && x.DiaChi.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.DienThoai) && x.DienThoai.ToLower().Contains(searchString.ToLower())));
                 danhGiaNcus1 = danhGiaNcus.ToList();
             }
             else
             {
-                danhGiaNcus1 = _unitOfWork.danhGiaNhaCungUngRepository.GetAll().ToList();
+                danhGiaNcus1 = _unitOfWork.danhGiaNhaHangRepository.GetAll().ToList();
 
                 if (danhGiaNcus1 == null)
                 {
@@ -109,7 +106,7 @@ namespace IntranetFolder.Services
 
             danhGiaNcus1 = danhGiaNcus1.OrderByDescending(x => x.NgayTao).ToList();
 
-            list = _mapper.Map<List<DanhGiaNcu>, List<DanhGiaNhaHangDTO>>(danhGiaNcus1);
+            list = _mapper.Map<List<DanhGiaNhaHang>, List<DanhGiaNhaHangDTO>>(danhGiaNcus1);
 
             // search date
             DateTime fromDate, toDate;

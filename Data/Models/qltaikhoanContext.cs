@@ -31,6 +31,7 @@ namespace Data.Models
         public virtual DbSet<Dichvu> Dichvus { get; set; }
         public virtual DbSet<Dmchinhanh> Dmchinhanhs { get; set; }
         public virtual DbSet<Dmdaily> Dmdailies { get; set; }
+        public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<FolderUser> FolderUsers { get; set; }
         public virtual DbSet<HinhAnh> HinhAnhs { get; set; }
         public virtual DbSet<LoaiDv> LoaiDvs { get; set; }
@@ -245,10 +246,6 @@ namespace Data.Models
 
                 entity.Property(e => e.SoXeChinhThuc).HasMaxLength(50);
 
-                entity.Property(e => e.TenDv)
-                    .HasMaxLength(50)
-                    .HasColumnName("TenDV");
-
                 entity.Property(e => e.TenNcu)
                     .IsRequired()
                     .HasMaxLength(250)
@@ -289,15 +286,23 @@ namespace Data.Models
 
                 entity.Property(e => e.MucDoHapDan).HasMaxLength(50);
 
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.PhuongTienPvvuiChoi)
                     .HasMaxLength(50)
                     .HasColumnName("PhuongTienPVVuiChoi");
 
                 entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
-
-                entity.Property(e => e.TenDv)
-                    .HasMaxLength(50)
-                    .HasColumnName("TenDV");
 
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
@@ -346,7 +351,7 @@ namespace Data.Models
 
                 entity.Property(e => e.KqKhaoSatThem).HasMaxLength(150);
 
-                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
@@ -361,10 +366,6 @@ namespace Data.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
-
-                entity.Property(e => e.TenDv)
-                    .HasMaxLength(50)
-                    .HasColumnName("TenDV");
 
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
@@ -419,7 +420,7 @@ namespace Data.Models
                     .HasMaxLength(150)
                     .HasColumnName("KinhNghiemThiTruongND");
 
-                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
                 entity.Property(e => e.MucDoHoTroXuLySuCo).HasMaxLength(50);
 
@@ -427,15 +428,23 @@ namespace Data.Models
                     .HasMaxLength(50)
                     .HasColumnName("MucDoKipThoiTrongGD");
 
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.NlkhaiThacDvdiaPhuong)
                     .HasMaxLength(150)
                     .HasColumnName("NLKhaiThacDVDiaPhuong");
 
                 entity.Property(e => e.SanPham).HasMaxLength(50);
-
-                entity.Property(e => e.TenDv)
-                    .HasMaxLength(50)
-                    .HasColumnName("TenDV");
 
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
@@ -482,15 +491,23 @@ namespace Data.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NhaVeSinh).HasMaxLength(50);
 
                 entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
-
-                entity.Property(e => e.TenDv)
-                    .HasMaxLength(50)
-                    .HasColumnName("TenDV");
 
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
@@ -533,17 +550,13 @@ namespace Data.Models
 
                 entity.Property(e => e.KinhNghiem).HasMaxLength(50);
 
-                entity.Property(e => e.LoaiDvid1).HasColumnName("LoaiDVId1");
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
                 entity.Property(e => e.PhapNhan).HasMaxLength(150);
 
                 entity.Property(e => e.SoXeChinhThuc)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.TenDv)
-                    .HasMaxLength(50)
-                    .HasColumnName("TenDV");
 
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
@@ -706,6 +719,19 @@ namespace Data.Models
                     .HasColumnName("tendaily");
 
                 entity.Property(e => e.Trangthai).HasColumnName("trangthai");
+            });
+
+            modelBuilder.Entity<ErrorLog>(entity =>
+            {
+                entity.ToTable("ErrorLog");
+
+                entity.Property(e => e.InnerMessage).HasMaxLength(300);
+
+                entity.Property(e => e.MaCn)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Message).HasMaxLength(300);
             });
 
             modelBuilder.Entity<FolderUser>(entity =>

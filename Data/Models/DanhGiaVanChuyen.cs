@@ -21,7 +21,6 @@ namespace Data.Models
         public string DoiXeOrLoaiXe { get; set; }
         public decimal? Gia { get; set; }
         public string KinhNghiem { get; set; }
-        public int LoaiDvid1 { get; set; }
-        public string TenDv { get; set; }
+        public int LoaiDvid { get; set; }
     }
 }

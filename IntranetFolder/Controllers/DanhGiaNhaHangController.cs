@@ -14,15 +14,18 @@ namespace IntranetFolder.Controllers
 {
     public class DanhGiaNhaHangController : BaseController
     {
+        private readonly IDanhGiaNhaHangService _danhGiaNhaHangService;
+
         [BindProperty]
         public DanhGiaNhaHangViewModel DanhGiaNhaHangVM { get; set; }
 
-        public DanhGiaNhaHangController()
+        public DanhGiaNhaHangController(IDanhGiaNhaHangService danhGiaNhaHangService)
         {
             DanhGiaNhaHangVM = new DanhGiaNhaHangViewModel()
             {
                 DanhGiaNhaHangDTO = new DanhGiaNhaHangDTO()
             };
+            _danhGiaNhaHangService = danhGiaNhaHangService;
         }
 
         public async Task<IActionResult> Index(string searchString, string searchFromDate, string searchToDate, long id, int page = 1)
@@ -41,22 +44,20 @@ namespace IntranetFolder.Controllers
 
             if (id != 0) // for redirect with id
             {
-                DanhGiaNhaHangVM.DanhGiaNcuDTO = await _danhGiaNhaCungUngService.GetByIdAsync(id);
-                ViewBag.id = DanhGiaNhaHangVM.DanhGiaNcuDTO.Id;
+                DanhGiaNhaHangVM.DanhGiaNhaHangDTO = await _danhGiaNhaHangService.GetByIdAsync(id);
+                ViewBag.id = DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Id;
             }
             else
             {
-                DanhGiaNhaHangVM.DanhGiaNcuDTO = new DanhGiaNcuDTO();
+                DanhGiaNhaHangVM.DanhGiaNhaHangDTO = new DanhGiaNhaHangDTO();
             }
-            DanhGiaNhaHangVM.danhGiaNcuDTOs = await _danhGiaNhaCungUngService.ListDanhGiaNCU(searchString, searchFromDate, searchToDate, page);
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTOs = await _danhGiaNhaHangService.ListDanhGiaNCU(searchString, searchFromDate, searchToDate, page);
             return View(DanhGiaNhaHangVM);
         }
 
         public IActionResult Create(string strUrl)
         {
             DanhGiaNhaHangVM.StrUrl = strUrl;
-
-            DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaCungUngService.GetAllLoaiDv();
 
             return View(DanhGiaNhaHangVM);
         }
@@ -69,20 +70,23 @@ namespace IntranetFolder.Controllers
 
             if (!ModelState.IsValid)
             {
-                DanhGiaNhaHangVM = new DanhGiaNhaCungUngViewModel()
+                DanhGiaNhaHangVM = new DanhGiaNhaHangViewModel()
                 {
-                    DanhGiaNcuDTO = new DanhGiaNcuDTO(),
+                    DanhGiaNhaHangDTO = new DanhGiaNhaHangDTO(),
                     StrUrl = strUrl
                 };
 
                 return View(DanhGiaNhaHangVM);
             }
 
-            DanhGiaNhaHangVM.DanhGiaNcuDTO.TenNcu = DanhGiaNhaHangVM.TenCreate;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.TenNcu = DanhGiaNhaHangVM.TenCreate;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NguoiTao = user.Username;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NgayTao = DateTime.Now;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.LoaiDvid = 2; // MaLoai = RST
 
             try
             {
-                await _danhGiaNhaCungUngService.CreateAsync(DanhGiaNhaHangVM.DanhGiaNcuDTO); // save
+                await _danhGiaNhaHangService.CreateAsync(DanhGiaNhaHangVM.DanhGiaNhaHangDTO); // save
 
                 SetAlert("Thêm mới thành công.", "success");
 
@@ -107,14 +111,14 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            DanhGiaNhaHangVM.DanhGiaNcuDTO = await _danhGiaNhaCungUngService.GetByIdAsync(id);
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO = await _danhGiaNhaHangService.GetByIdAsync(id);
 
-            if (DanhGiaNhaHangVM.DanhGiaNcuDTO == null)
+            if (DanhGiaNhaHangVM.DanhGiaNhaHangDTO == null)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
-            DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaCungUngService.GetAllLoaiDv();
+            //DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaHangService.GetAllLoaiDv();
 
             return View(DanhGiaNhaHangVM);
         }
@@ -126,7 +130,7 @@ namespace IntranetFolder.Controllers
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            if (id != DanhGiaNhaHangVM.DanhGiaNcuDTO.Id)
+            if (id != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Id)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
@@ -134,9 +138,12 @@ namespace IntranetFolder.Controllers
 
             if (ModelState.IsValid)
             {
+                DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NgaySua = DateTime.Now;
+                DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NguoiSua = user.Username;
+
                 try
                 {
-                    await _danhGiaNhaCungUngService.UpdateAsync(DanhGiaNhaHangVM.DanhGiaNcuDTO);
+                    await _danhGiaNhaHangService.UpdateAsync(DanhGiaNhaHangVM.DanhGiaNhaHangDTO);
                     SetAlert("Cập nhật thành công", "success");
 
                     //return Redirect(strUrl);
@@ -150,14 +157,14 @@ namespace IntranetFolder.Controllers
                 }
             }
             // not valid
-            DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaCungUngService.GetAllLoaiDv();
+            //DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaHangService.GetAllLoaiDv();
 
             return View(DanhGiaNhaHangVM);
         }
 
         public JsonResult IsStringNameAvailable(string TenCreate)
         {
-            var boolName = _danhGiaNhaCungUngService.GetAll()
+            var boolName = _danhGiaNhaHangService.GetAll()
                 .Where(x => x.TenNcu.Trim().ToLower() == TenCreate.Trim().ToLower())
                 .FirstOrDefault();
             if (boolName == null)
