@@ -87,6 +87,7 @@
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tapdoan)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().NguoiTrinhKyHd)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,6 +143,7 @@
                                             <span class="badge badge-danger">Khoá</span>
                                         }
                                     </td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.NguoiTrinhKyHd)</td>
                                 </tr>
 
                             }

@@ -978,6 +978,10 @@ namespace Data.Models
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.NguoiTrinhKyHd)
+                    .HasMaxLength(150)
+                    .HasColumnName("NguoiTrinhKyHD");
+
                 entity.Property(e => e.Nguoilienhe).HasMaxLength(200);
 
                 entity.Property(e => e.Nguoitao).HasMaxLength(50);

@@ -67,6 +67,9 @@ namespace Model
 
         public string Tour { get; set; }
 
+        [Display(Name = "Người trình ký HĐ")]
+        public string NguoiTrinhKyHd { get; set; }
+
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
     }
 }

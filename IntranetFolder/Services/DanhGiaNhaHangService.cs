@@ -27,6 +27,8 @@ namespace IntranetFolder.Services
         Task<IPagedList<DanhGiaNhaHangDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page);
 
         IEnumerable<LoaiDvDTO> GetAllLoaiDv();
+
+        Task<bool> CheckNameExist(long id, string name);
     }
 
     public class DanhGiaNhaHangService : IDanhGiaNhaHangService
@@ -42,7 +44,7 @@ namespace IntranetFolder.Services
 
         public async Task<DanhGiaNhaHangDTO> GetByIdAsync(long id)
         {
-            return _mapper.Map<DanhGiaNcu, DanhGiaNhaHangDTO>(await _unitOfWork.danhGiaNhaCungUngRepository.GetByLongIdAsync(id));
+            return _mapper.Map<DanhGiaNhaHang, DanhGiaNhaHangDTO>(await _unitOfWork.danhGiaNhaHangRepository.GetByLongIdAsync(id));
         }
 
         public IEnumerable<DanhGiaNhaHangDTO> GetAll()
@@ -188,6 +190,24 @@ namespace IntranetFolder.Services
         public IEnumerable<LoaiDvDTO> GetAllLoaiDv()
         {
             return _mapper.Map<IEnumerable<LoaiDv>, IEnumerable<LoaiDvDTO>>(_unitOfWork.loaiDvRepository.GetAll());
+        }
+
+        public async Task<bool> CheckNameExist(long id, string name)
+        {
+            var danhGiaNhaHangs = await _unitOfWork.danhGiaNhaHangRepository
+                .FindAsync(x => x.TenNcu.Trim().ToLower() == name.Trim().ToLower());
+
+            if (danhGiaNhaHangs.Count() > 0)
+            {
+                string findName = danhGiaNhaHangs.FirstOrDefault().TenNcu;
+                long findId = danhGiaNhaHangs.FirstOrDefault().Id;
+
+                if (findId != id)
+                    return false;
+                else return true;
+            }
+
+            return true;
         }
     }
 }

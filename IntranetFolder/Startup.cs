@@ -53,6 +53,7 @@ namespace IntranetFolder
             services.AddTransient<IThanhPho1Service, ThanhPho1Service>();
             services.AddTransient<IDiemTQService, DiemTQService>();
             services.AddTransient<IDanhGiaNhaCungUngService, DanhGiaNhaCungUngService>();
+            services.AddTransient<IDanhGiaNhaHangService, DanhGiaNhaHangService>();
 
             services.AddSession(options =>
             {

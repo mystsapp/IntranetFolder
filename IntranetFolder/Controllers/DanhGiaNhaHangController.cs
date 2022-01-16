@@ -79,7 +79,7 @@ namespace IntranetFolder.Controllers
                 return View(DanhGiaNhaHangVM);
             }
 
-            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.TenNcu = DanhGiaNhaHangVM.TenCreate;
+            //DanhGiaNhaHangVM.DanhGiaNhaHangDTO.TenNcu = DanhGiaNhaHangVM.TenCreate;
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NguoiTao = user.Username;
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NgayTao = DateTime.Now;
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.LoaiDvid = 2; // MaLoai = RST
@@ -162,43 +162,51 @@ namespace IntranetFolder.Controllers
             return View(DanhGiaNhaHangVM);
         }
 
-        public JsonResult IsStringNameAvailable(string TenCreate)
+        public async Task<JsonResult> IsStringNameAvailable(DanhGiaNhaHangDTO DanhGiaNhaHangDTO)
         {
-            var boolName = _danhGiaNhaHangService.GetAll()
-                .Where(x => x.TenNcu.Trim().ToLower() == TenCreate.Trim().ToLower())
+            if (DanhGiaNhaHangDTO.Id == 0) // create
+            {
+                var boolName = _danhGiaNhaHangService.GetAll()
+                .Where(x => x.TenNcu.Trim().ToLower() == DanhGiaNhaHangDTO.TenNcu.Trim().ToLower())
                 .FirstOrDefault();
-            if (boolName == null)
-            {
-                return Json(true);
+                if (boolName == null)
+                {
+                    return Json(true); // duoc
+                }
+                else
+                {
+                    return Json(false); // ko duoc
+                }
             }
-            else
+            else // edit
             {
-                return Json(false);
+                var result = await _danhGiaNhaHangService.CheckNameExist(DanhGiaNhaHangDTO.Id, DanhGiaNhaHangDTO.TenNcu);
+                return Json(result);
             }
         }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(string id, string strUrl)
-        //{
-        //    DanhGiaNhaHangVM.StrUrl = strUrl;
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id, string strUrl)
+        {
+            DanhGiaNhaHangVM.StrUrl = strUrl;
 
-        //    var TinhDTO = await _tinhTPService.GetByIdAsync(id);
-        //    if (TinhDTO == null)
-        //        return NotFound();
-        //    try
-        //    {
-        //        await _tinhTPService.Delete(TinhDTO);
+            var danhGiaNhaHangDTO = _danhGiaNhaHangService.GetByIdAsNoTracking(id);
+            if (danhGiaNhaHangDTO == null)
+                return NotFound();
+            try
+            {
+                await _danhGiaNhaHangService.Delete(danhGiaNhaHangDTO);
 
-        //        SetAlert("Xóa thành công.", "success");
-        //        return Redirect(DanhGiaNhaHangVM.StrUrl);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        SetAlert(ex.Message, "error");
-        //        ModelState.AddModelError("", ex.Message);
-        //        return Redirect(DanhGiaNhaHangVM.StrUrl);
-        //    }
-        //}
+                SetAlert("Xóa thành công.", "success");
+                return Redirect(DanhGiaNhaHangVM.StrUrl);
+            }
+            catch (Exception ex)
+            {
+                SetAlert(ex.Message, "error");
+                ModelState.AddModelError("", ex.Message);
+                return Redirect(DanhGiaNhaHangVM.StrUrl);
+            }
+        }
     }
 }

@@ -31,5 +31,6 @@ namespace Data.Models
         public string Tknganhang { get; set; }
         public string Tennganhang { get; set; }
         public string Tour { get; set; }
+        public string NguoiTrinhKyHd { get; set; }
     }
 }

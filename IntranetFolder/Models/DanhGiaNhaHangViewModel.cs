@@ -19,8 +19,8 @@ namespace IntranetFolder.Models
         public int Page { get; set; }
         public string StrUrl { get; set; }
 
-        [Remote("IsStringNameAvailable", "DanhGiaNhaCungUng", ErrorMessage = "Tên này đã tồn tại.")]
-        [Required(ErrorMessage = "Tên không được để trống.")]
-        public string TenCreate { get; set; }
+        //[Remote("IsStringNameAvailable", "DanhGiaNhaHang", ErrorMessage = "Tên này đã tồn tại.")]
+        //[Required(ErrorMessage = "Tên không được để trống.")]
+        //public string TenCreate { get; set; }
     }
 }
