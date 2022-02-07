@@ -27,6 +27,8 @@
 
 }
 
+<input type="hidden" id="hidStrUrl" value="@Model.StrUrl"/>
+
 <!-- Main content -->
 <section class="content" style="padding: 15px 0.5rem">
 
@@ -180,11 +182,14 @@
     </div>
     <!-- /.card -->
 </section>
-<!-- /.content -->
+<!-- /.content DichVuPartial-->
+<div id="tabDichVu">
+
+</div>
 
 @section Scripts{
 
-    @*<script src="~/js/Admin/TinhTP/indexController.js"></script>*@
+    <script src="~/js/Admin/Supplier/indexController.js"></script>
     <script>
 
         var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////

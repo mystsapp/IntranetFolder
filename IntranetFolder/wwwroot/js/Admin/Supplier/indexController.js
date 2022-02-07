@@ -38,28 +38,25 @@ var indexController = {
             });
         });
 
-        // Tinh click
+        //
         $('tr .tdVal').click(function () {
-            id = $(this).data('id'); // Tinh id: matinh
+            id = $(this).data('id'); //
 
             indexController.TdVal_Click(id);
         });
-        // Tinh click
+        //
     },
-    Load_ThanhPho1Partial: function (id) { // tinh id
+    Load_DichVuPartial: function (id) { //
         strUrl = $('#hidStrUrl').val();
-        var url = '/ThanhPho1/ThanhPho1Partial';
+        var url = '/Supplier/DichVuPartial';
 
-        $.get(url, { maTinh: id, strUrl: strUrl }, function (response) {
-            $('#ThanhPho1_Tbl').html(response);
-            $('#ThanhPho1_Tbl').show(500);
+        $.get(url, { id: id, strUrl: strUrl }, function (response) {
+            $('#tabDichVu').html(response);
+            $('#tabDichVu').show(500);
         });
     },
-    TdVal_Click: function (id) { // tinh id
-        $('#ThanhPho1_Create_Partial').hide(500);
-        $('#ThanhPho1_Edit_Partial').hide(500);
-
-        indexController.Load_ThanhPho1Partial(id); // tinh id
+    TdVal_Click: function (id) { //
+        indexController.Load_DichVuPartial(id); //
     }
 };
 indexController.init();

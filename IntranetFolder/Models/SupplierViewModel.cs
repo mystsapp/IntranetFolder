@@ -12,6 +12,7 @@ namespace IntranetFolder.Models
     public class SupplierViewModel
     {
         public IPagedList<SupplierDTO> SupplierDTOs { get; set; }
+        public IEnumerable<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
         public IEnumerable<VTinh> VTinhs { get; set; }
         public IEnumerable<Thanhpho1> Thanhpho1s { get; set; }

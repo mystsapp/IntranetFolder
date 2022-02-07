@@ -1,0 +1,211 @@
+﻿@model SupplierViewModel
+
+<!--tour programe-->
+<div class="row ml-2 mr-2">
+    
+        <div class="card card-primary card-outline card-outline-tabs">
+            <div class="card-header p-0 border-bottom-0">
+                <ul class="nav nav-tabs" @*id="custom-tabs-four-tab"*@ id="myTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#tab_nhaHang" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Nhà hàng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#tab_khachSan" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Khách sạn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab_DsKhachHang" data-toggle="pill" href="#tab_landTour" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Land tour</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_diemTQ" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Điểm TQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cam - Lao</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_vanChuyen" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vận chuyển</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="custom-tabs-four-tabContent">
+
+                    <!-- tab_nhaHang -->
+                    <div class="tab-pane fade active show" id="tab_nhaHang" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+
+                        <div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto; min-height: 300px">
+                            <table class="table mytable text-nowrap text-sm" id="danhGiaNhaHangTbl">
+                                <thead>
+                                    <tr class="table-info">
+
+                                        <th>#</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TenNcu)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoGpkd)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoHdvat)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ViTri)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().SucChuaToiDa)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DinhLuong)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ChatLuong)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().NhaVeSinh)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ThaiDoPvcuaNv)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoPvmienPhiNoiBo)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoBaiDoXe)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqDat)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqKhaoSatThem)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DiaChi)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DienThoai)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Fax)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Email)</th>
+                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Website)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.DanhGiaNhaHangDTOs != null)
+                                    {
+                                        @foreach (var item in Model.DanhGiaNhaHangDTOs)
+                                        {
+
+                                            <tr class="nhahang-cursor-pointer @item.Id" onclick="DMTK_Tbl()">
+
+                                                <td>
+                                                    <div class="btn-group text-white" role="group">
+
+                                                        <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                                                        @*<span class="text-dark"> | </span>
+
+                                                            <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                                        <!-- ko cho xóa -->
+                                                <span class="text-dark"> | </span>
+                                                        <form asp-action="Delete" method="post">
+
+                                                            <span id="confirmDeleteSpan_@item.Id" style="display: none">
+                                                                <!--ajax check invoices-->
+                                                        <span class="text-dark invoiceTrue">Xoá?</span>
+
+                                                                <input type="hidden" name="id" value="@item.Id" />
+                                                                <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                                                                <button type="submit" class="btn btn-danger btn-xs ">Yes</button>
+                                                                <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.Id', false)">No</button>
+                                                            </span>
+                                                        </form>
+                                                        <span id="deleteSpan_@item.Id">
+
+                                                            <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </td>
+
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                                                <td class="tdVal" data-id="@item.Id">
+                                                    @if (item.CoGpkd == true)
+                                                    {
+                                                        <span class="badge badge-success">Có</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Không</span>
+                                                    }
+                                                </td>
+                                                <td class="tdVal" data-id="@item.Id">
+                                                    @if (item.CoHdvat == true)
+                                                    {
+                                                        <span class="badge badge-success">Có</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Không</span>
+                                                    }
+                                                </td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SucChuaToiDa)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DinhLuong)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChatLuong)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NhaVeSinh)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ThaiDoPvcuaNv)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoPvmienPhiNoiBo)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoBaiDoXe)</td>
+                                                <td class="tdVal" data-id="@item.Id">
+                                                    @if (item.DaCoKhaoSatThucTe == true)
+                                                    {
+                                                        <span class="badge badge-success">Có</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Chưa</span>
+                                                    }
+                                                </td>
+                                                <td class="tdVal" data-id="@item.Id">
+                                                    @if (item.KqDat == true)
+                                                    {
+                                                        <span class="badge badge-success">Đạt</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Chưa</span>
+                                                    }
+                                                </td>
+                                                <td class="tdVal" data-id="@item.Id">
+                                                    @if (item.KqKhaoSatThem == true)
+                                                    {
+                                                        <span class="badge badge-success">Có</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Không</span>
+                                                    }
+                                                </td>
+                                                <td class="tdVal" data-id="@item.Id">
+                                                    @if (item.DongYduaVaoDsncu == true)
+                                                    {
+                                                        <span class="badge badge-success">Có</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-danger">Không</span>
+                                                    }
+                                                </td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- tab_nhaHang -->
+                    <!-- tab_khachSan -->
+                    <div class="tab-pane fade" id="tab_khachSan" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                    </div>
+                    <!-- tab_khachSan -->
+                    <!-- tab_landTour -->
+                    <div class="tab-pane fade" id="tab_landTour" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+                    </div>
+                    <!-- tab_landTour -->
+                    <!-- tab_diemTQ -->
+                    <div class="tab-pane fade" id="tab_diemTQ" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    </div>
+                    <!-- tab_diemTQ -->
+                    <!-- tab_camLao -->
+                    <div class="tab-pane fade" id="tab_camLao" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    </div>
+                    <!-- tab_camLao -->
+                    <!-- tab_vanChuyen -->
+                    <div class="tab-pane fade" id="tab_vanChuyen" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    </div>
+                    <!-- tab_vanChuyen -->
+
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    
+</div>
+<!--tour programe-->

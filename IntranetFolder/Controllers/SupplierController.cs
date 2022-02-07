@@ -307,5 +307,19 @@ namespace IntranetFolder.Controllers
                 return Redirect(SupplierVM.StrUrl);
             }
         }
+
+        public async Task<IActionResult> DichVuPartial(string id, string strUrl)
+        {
+            SupplierVM.StrUrl = strUrl;// + "&tabActive=" + tabActive; // for redirect tab
+
+            var supplierDTO = await _supplierService.GetByIdAsync(id);
+            if (supplierDTO == null)
+            {
+                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+
+            return PartialView(SupplierVM);
+        }
     }
 }
