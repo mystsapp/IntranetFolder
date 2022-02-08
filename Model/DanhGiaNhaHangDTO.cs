@@ -71,5 +71,7 @@ namespace Model
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
+
+        public SupplierDTO SupplierDTO { get; set; }
     }
 }

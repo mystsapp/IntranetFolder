@@ -33,5 +33,8 @@ namespace Data.Models
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
+        public string SupplierId { get; set; }
+
+        public virtual Supplier Supplier { get; set; }
     }
 }

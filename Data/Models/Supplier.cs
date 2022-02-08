@@ -7,6 +7,11 @@ namespace Data.Models
 {
     public partial class Supplier
     {
+        public Supplier()
+        {
+            DanhGiaNhaHangs = new HashSet<DanhGiaNhaHang>();
+        }
+
         public string Code { get; set; }
         public string Tapdoan { get; set; }
         public string Tengiaodich { get; set; }
@@ -32,5 +37,7 @@ namespace Data.Models
         public string Tennganhang { get; set; }
         public string Tour { get; set; }
         public string NguoiTrinhKyHd { get; set; }
+
+        public virtual ICollection<DanhGiaNhaHang> DanhGiaNhaHangs { get; set; }
     }
 }

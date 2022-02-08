@@ -318,6 +318,14 @@ namespace IntranetFolder.Controllers
                 ViewBag.ErrorMessage = "Supplier này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            SupplierVM.SupplierDTO = supplierDTO;
+
+            return PartialView(SupplierVM);
+        }
+
+        public async Task<IActionResult> ThemMoiNhaHang_Partial(string supplierId) // code
+        {
+            SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(supplierId);
 
             return PartialView(SupplierVM);
         }

@@ -71,5 +71,6 @@ namespace Model
         public string NguoiTrinhKyHd { get; set; }
 
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
+        public virtual ICollection<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
     }
 }
