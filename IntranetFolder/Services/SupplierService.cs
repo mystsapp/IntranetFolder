@@ -31,6 +31,8 @@ namespace IntranetFolder.Services
         Task<IEnumerable<Quocgium>> GetQuocgias();
 
         SupplierDTO GetByIdAsNoTracking(string id);
+
+        Task<IEnumerable<DanhGiaNhaHangDTO>> GetDanhGiaNhaHangBy_SupplierId(string id);
     }
 
     public class SupplierService : ISupplierService
@@ -213,6 +215,12 @@ namespace IntranetFolder.Services
         public SupplierDTO GetByIdAsNoTracking(string id)
         {
             return _mapper.Map<Supplier, SupplierDTO>(_unitOfWork.supplierRepository.GetByIdAsNoTracking(x => x.Code == id));
+        }
+
+        public async Task<IEnumerable<DanhGiaNhaHangDTO>> GetDanhGiaNhaHangBy_SupplierId(string id)
+        {
+            return _mapper.Map<IEnumerable<DanhGiaNhaHang>, IEnumerable<DanhGiaNhaHangDTO>>
+                (await _unitOfWork.danhGiaNhaHangRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == id));
         }
     }
 }

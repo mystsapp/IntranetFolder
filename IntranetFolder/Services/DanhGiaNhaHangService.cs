@@ -29,6 +29,10 @@ namespace IntranetFolder.Services
         IEnumerable<LoaiDvDTO> GetAllLoaiDv();
 
         Task<bool> CheckNameExist(long id, string name);
+
+        Task<SupplierDTO> GetSupplierByIdAsync(string supplierId);
+
+        Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
     }
 
     public class DanhGiaNhaHangService : IDanhGiaNhaHangService
@@ -208,6 +212,16 @@ namespace IntranetFolder.Services
             }
 
             return true;
+        }
+
+        public async Task<SupplierDTO> GetSupplierByIdAsync(string supplierId)
+        {
+            return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(supplierId));
+        }
+
+        public async Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog)
+        {
+            return await _unitOfWork.errorRepository.CreateAsync(errorLog);
         }
     }
 }

@@ -45,6 +45,7 @@ namespace IntranetFolder
             services.AddTransient<IDanhGiaNhaCungUngRepository, DanhGiaNhaCungUngRepository>();
             services.AddTransient<ILoaiDvRepository, LoaiDvRepository>();
             services.AddTransient<IDanhGiaNhaHangRepository, DanhGiaNhaHangRepository>();
+            services.AddTransient<IErrorRepository, ErrorRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // services

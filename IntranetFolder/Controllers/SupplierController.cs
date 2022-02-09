@@ -319,13 +319,7 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             SupplierVM.SupplierDTO = supplierDTO;
-
-            return PartialView(SupplierVM);
-        }
-
-        public async Task<IActionResult> ThemMoiNhaHang_Partial(string supplierId) // code
-        {
-            SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(supplierId);
+            SupplierVM.DanhGiaNhaHangDTOs = await _supplierService.GetDanhGiaNhaHangBy_SupplierId(id);
 
             return PartialView(SupplierVM);
         }

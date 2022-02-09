@@ -208,5 +208,63 @@ namespace IntranetFolder.Controllers
                 return Redirect(DanhGiaNhaHangVM.StrUrl);
             }
         }
+
+        /// <summary>
+        /// //////////////////////////////////////// Partial /////////////////////////////////////////
+        /// </summary>
+        /// <param name="supplierId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> ThemMoiNhaHang_Partial(string supplierId) // code
+        {
+            DanhGiaNhaHangVM.SupplierDTO = await _danhGiaNhaHangService.GetSupplierByIdAsync(supplierId);
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.SupplierId = supplierId;
+            return PartialView(DanhGiaNhaHangVM);
+        }
+
+        [HttpPost, ActionName("ThemMoiNhaHang_Partial")]
+        public async Task<IActionResult> ThemMoiNhaHang_Partial_Post(string strUrl)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (!ModelState.IsValid)
+            {
+                DanhGiaNhaHangVM = new DanhGiaNhaHangViewModel()
+                {
+                    DanhGiaNhaHangDTO = new DanhGiaNhaHangDTO(),
+                    StrUrl = strUrl
+                };
+
+                return View(DanhGiaNhaHangVM);
+            }
+
+            //DanhGiaNhaHangVM.DanhGiaNhaHangDTO.TenNcu = DanhGiaNhaHangVM.TenCreate;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NguoiTao = user.Username;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NgayTao = DateTime.Now;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.LoaiDvid = 2; // MaLoai = RST
+
+            try
+            {
+                await _danhGiaNhaHangService.CreateAsync(DanhGiaNhaHangVM.DanhGiaNhaHangDTO); // save
+
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog()
+                {
+                    Message = ex.Message
+                };
+                await _danhGiaNhaHangService.CreateErroLogAsync(errorLog);
+                return Json(new
+                {
+                    status = true,
+                    message = "Thêm mới không thành công!"
+                });
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@
                     <!-- tab_nhaHang -->
                     <div class="tab-pane fade active show" id="tab_nhaHang" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
 
-                        <div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblNhaHang">
+                        <div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblNhaHang">
                             <table class="table mytable text-nowrap text-sm" id="danhGiaNhaHangTbl">
                                 <thead>
                                     <tr class="table-info">
@@ -223,7 +223,7 @@
         $('#tblNhaHang').hide(500);
 
         var supplierId = $(this).data('supplierid');
-        $.get('/Supplier/ThemMoiNhaHang_Partial', { supplierId: supplierId }, function (response) {
+        $.get('/DanhGiaNhaHang/ThemMoiNhaHang_Partial', { supplierId: supplierId }, function (response) {
             $('#ThemMoiNhaHang_Partial').html(response);
             $('#ThemMoiNhaHang_Partial').show(500);
             
