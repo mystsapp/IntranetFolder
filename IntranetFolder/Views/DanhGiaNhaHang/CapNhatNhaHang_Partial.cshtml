@@ -1,10 +1,13 @@
 ﻿@model DanhGiaNhaHangViewModel
 
-<form method="post" autocomplete="off" id="frmThemMoiNhaHangPartial" enctype="multipart/form-data">
+<form method="post" autocomplete="off" id="frmCapNhatNhaHangPartial" enctype="multipart/form-data">
     <div class="pr-4 pl-4 text-sm">
 
         <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" asp-for=DanhGiaNhaHangDTO.SupplierId />
+        <input type="hidden" asp-for=DanhGiaNhaHangDTO.Id />
+        <input type="hidden" asp-for=DanhGiaNhaHangDTO.NgayTao />
+        <input type="hidden" asp-for=DanhGiaNhaHangDTO.NguoiTao />
 
         <div class="form-group row">
 
@@ -146,8 +149,8 @@
         </div>
 
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiNhaHangPartial_Save"><i class="fas fa-save"></i> Save</button>
-            <button type="button" class="btn btn-success btn-sm" id="btnThemMoiNhaHangPartial_Back"><i class="fas fa-backward "></i> Back</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnCapNhatNhaHangPartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnCapNhatNhaHangPartial_Back"><i class="fas fa-backward "></i> Back</button>
         </div>
     </div>
 </form>
@@ -155,28 +158,28 @@
 <script src="~/js/Admin/Supplier/indexController" > </script>
 
 <script>
-    $('#btnThemMoiNhaHangPartial_Back').off('click').on('click', function(){
+    $('#btnCapNhatNhaHangPartial_Back').off('click').on('click', function(){
         $('#tblNhaHang').show(500);
         $('#ThemMoiNhaHang_Partial').hide(500);
         $('#CapNhatNhaHang_Partial').hide(500);
     })
 
     
-    $('#btnThemMoiNhaHangPartial_Save').off('click').on('click', function () {
+    $('#btnCapNhatNhaHangPartial_Save').off('click').on('click', function () {
         
-        if ($('#frmThemMoiNhaHangPartial').valid()) {
-            var nhaHang = $('#frmThemMoiNhaHangPartial').serialize();
+        if ($('#frmCapNhatNhaHangPartial').valid()) {
+            var nhaHang = $('#frmCapNhatNhaHangPartial').serialize();
             $.ajax({
                 type: "POST",
-                url: "/DanhGiaNhaHang/ThemMoiNhaHang_Partial",
+                url: "/DanhGiaNhaHang/CapNhatNhaHang_Partial",
                 data: nhaHang,
                 dataType: "json",
                 success: function (response) {
                     if (response.status) {
 
-                        toastr.success('Tạo mới thành công!'); // toastr in admin/tour/indexController.js
+                        toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
 
-                        $('#ThemMoiNhaHang_Partial').hide(500);
+                        $('#CapNhatNhaHang_Partial').hide(500);
 
                         var supplierId = '@Model.SupplierDTO.Code';
                         

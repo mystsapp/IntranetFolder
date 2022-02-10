@@ -742,6 +742,10 @@ namespace Data.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Message).HasMaxLength(300);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<FolderUser>(entity =>

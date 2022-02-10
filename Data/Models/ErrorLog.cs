@@ -13,5 +13,6 @@ namespace Data.Models
         public string MaCn { get; set; }
         public DateTime NgayTao { get; set; }
         public string LogFile { get; set; }
+        public string NguoiTao { get; set; }
     }
 }

@@ -256,15 +256,83 @@ namespace IntranetFolder.Controllers
             {
                 ErrorLog errorLog = new ErrorLog()
                 {
-                    Message = ex.Message
+                    InnerMessage = ex.InnerException.Message,
+                    Message = ex.Message,
+                    NgayTao = DateTime.Now,
+                    NguoiTao = user.Nguoitao
                 };
                 await _danhGiaNhaHangService.CreateErroLogAsync(errorLog);
                 return Json(new
                 {
-                    status = true,
+                    status = false,
                     message = "Thêm mới không thành công!"
                 });
             }
+        }
+
+        public async Task<IActionResult> CapNhatNhaHang_Partial(string supplierId, long id)
+        {
+            // from session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (id == 0)
+            {
+                ViewBag.ErrorMessage = "Item này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO = await _danhGiaNhaHangService.GetByIdAsync(id);
+            DanhGiaNhaHangVM.SupplierDTO = await _danhGiaNhaHangService.GetSupplierByIdAsync(supplierId);
+
+            if (DanhGiaNhaHangVM.DanhGiaNhaHangDTO == null)
+            {
+                ViewBag.ErrorMessage = "Item này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+            //DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaHangService.GetAllLoaiDv();
+
+            return PartialView(DanhGiaNhaHangVM);
+        }
+
+        [HttpPost, ActionName("CapNhatNhaHang_Partial")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CapNhatNhaHang_Partial_Post()
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (ModelState.IsValid)
+            {
+                DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NgaySua = DateTime.Now;
+                DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NguoiSua = user.Username;
+
+                try
+                {
+                    await _danhGiaNhaHangService.UpdateAsync(DanhGiaNhaHangVM.DanhGiaNhaHangDTO);
+
+                    return Json(new { status = true });
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog errorLog = new ErrorLog()
+                    {
+                        InnerMessage = ex.InnerException.Message,
+                        Message = ex.Message,
+                        NgayTao = DateTime.Now,
+                        NguoiTao = user.Nguoitao
+                    };
+                    await _danhGiaNhaHangService.CreateErroLogAsync(errorLog);
+                    return Json(new
+                    {
+                        status = false,
+                        message = "Thêm mới không thành công!"
+                    });
+                }
+            }
+            // not valid
+            //DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaHangService.GetAllLoaiDv();
+
+            return View(DanhGiaNhaHangVM);
         }
     }
 }
