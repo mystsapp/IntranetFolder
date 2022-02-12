@@ -185,30 +185,6 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id, string strUrl)
-        {
-            DanhGiaNhaHangVM.StrUrl = strUrl;
-
-            var danhGiaNhaHangDTO = _danhGiaNhaHangService.GetByIdAsNoTracking(id);
-            if (danhGiaNhaHangDTO == null)
-                return NotFound();
-            try
-            {
-                await _danhGiaNhaHangService.Delete(danhGiaNhaHangDTO);
-
-                SetAlert("Xóa thành công.", "success");
-                return Redirect(DanhGiaNhaHangVM.StrUrl);
-            }
-            catch (Exception ex)
-            {
-                SetAlert(ex.Message, "error");
-                ModelState.AddModelError("", ex.Message);
-                return Redirect(DanhGiaNhaHangVM.StrUrl);
-            }
-        }
-
         /// <summary>
         /// //////////////////////////////////////// Partial /////////////////////////////////////////
         /// </summary>
@@ -333,6 +309,38 @@ namespace IntranetFolder.Controllers
             //DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaHangService.GetAllLoaiDv();
 
             return View(DanhGiaNhaHangVM);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(long id, string strUrl)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            DanhGiaNhaHangVM.StrUrl = strUrl;
+
+            var danhGiaNhaHangDTO = _danhGiaNhaHangService.GetByIdAsNoTracking(id);
+            if (danhGiaNhaHangDTO == null)
+                return NotFound();
+            try
+            {
+                await _danhGiaNhaHangService.Delete(danhGiaNhaHangDTO);
+
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog()
+                {
+                    InnerMessage = ex.InnerException.Message,
+                    Message = ex.Message,
+                    NgayTao = DateTime.Now,
+                    NguoiTao = user.Nguoitao
+                };
+                await _danhGiaNhaHangService.CreateErroLogAsync(errorLog);
+
+                return Json(false);
+            }
         }
     }
 }
