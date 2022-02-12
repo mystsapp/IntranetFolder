@@ -6,6 +6,7 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Supplier = Data.Models.Supplier;
 using VTinh = Data.Models.VTinh;
 
 namespace Data.Mapper
@@ -18,13 +19,18 @@ namespace Data.Mapper
         {
             //_unitOfWork = unitOfWork;
 
-            CreateMap<Models.Supplier, SupplierDTO>().ReverseMap();
+            CreateMap<Models.Supplier, SupplierDTO>()
+                .ForMember(dest => dest.DanhGiaNhaHangDTOs, opt => opt.MapFrom(src => src.DanhGiaNhaHangs))
+                .ForMember(dest => dest.DanhGiaNhaHangDTOs, opt => opt.MapFrom(src => src.DanhGiaNhaHangs)).ReverseMap();
             CreateMap<Tinh, TinhDTO>().ReverseMap();
             CreateMap<VTinh, VTinhDTO>().ReverseMap();
             CreateMap<Thanhpho1, ThanhPho1DTO>().ReverseMap();
             CreateMap<Dmdiemtq, DiemTQDTO>().ReverseMap();
             CreateMap<DanhGiaNcu, DanhGiaNcuDTO>().ReverseMap();
-            CreateMap<DanhGiaNhaHang, DanhGiaNhaHangDTO>().ReverseMap();
+            CreateMap<DanhGiaNhaHang, DanhGiaNhaHangDTO>()
+                .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
+            CreateMap<DanhGiaKhachSan, DanhGiaKhachSanDTO>()
+                .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
         }
     }
 }

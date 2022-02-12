@@ -219,8 +219,9 @@ namespace IntranetFolder.Services
 
         public async Task<IEnumerable<DanhGiaNhaHangDTO>> GetDanhGiaNhaHangBy_SupplierId(string id)
         {
+            var danhGiaNhaHangs = await _unitOfWork.danhGiaNhaHangRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == id);
             return _mapper.Map<IEnumerable<DanhGiaNhaHang>, IEnumerable<DanhGiaNhaHangDTO>>
-                (await _unitOfWork.danhGiaNhaHangRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == id));
+                (danhGiaNhaHangs);
         }
     }
 }

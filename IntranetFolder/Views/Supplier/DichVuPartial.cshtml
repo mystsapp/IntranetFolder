@@ -7,10 +7,10 @@
         <div class="card-header p-0 border-bottom-0">
             <ul class="nav nav-tabs" @*id="custom-tabs-four-tab"*@ id="myTabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#tab_nhaHang" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Nhà hàng</a>
+                    <a class="nav-link active" id="nhahang-tab" data-toggle="pill" href="#tab_nhaHang" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Nhà hàng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#tab_khachSan" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Khách sạn</a>
+                    <a class="nav-link" id="khachsan-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_khachSan" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Khách sạn</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="tab_DsKhachHang" data-toggle="pill" href="#tab_landTour" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Land tour</a>
@@ -441,20 +441,20 @@
     });
     // btnXoaNhaHang
 
-    // tab_khachSan
-    $('#tab_khachSan').off('click').on('click',function () {
+    // khachsan-tab
+    $('#khachsan-tab').off('click').on('click',function () {
 
         //$('#tblNhaHang').hide(500);
         //$('#ThemMoiNhaHang_Partial').hide(500);
 
         var supplierId = $(this).data('supplierid');
-        var id = $(this).data('id');
-        $.get('/DanhGiaNhaHang/KhachSan_Partial', { supplierId: supplierId, id: id }, function (response) {
+
+        $.get('/DanhGiaKhachSan/KhachSan_Partial', { supplierId: supplierId }, function (response) {
             $('#divKhachSan').html(response);
             $('#divKhachSan').show(500);
 
         });
 
     });
-    // tab_khachSan
+    // khachsan-tab
 </script>

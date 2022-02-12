@@ -35,5 +35,8 @@ namespace Data.Models
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
         public int LoaiDvid { get; set; }
+        public string SupplierId { get; set; }
+
+        public virtual Supplier Supplier { get; set; }
     }
 }

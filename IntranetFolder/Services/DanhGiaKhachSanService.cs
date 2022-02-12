@@ -10,21 +10,23 @@ using X.PagedList;
 
 namespace IntranetFolder.Services
 {
-    public interface IDanhGiaNhaHangService
+    public interface IDanhGiaKhachSanService
     {
-        IEnumerable<DanhGiaNhaHangDTO> GetAll();
+        IEnumerable<DanhGiaKhachSanDTO> GetAll();
 
-        Task<DanhGiaNhaHangDTO> GetByIdAsync(long id);
+        Task<DanhGiaKhachSanDTO> GetByIdAsync(long id);
 
-        Task<DanhGiaNhaHangDTO> CreateAsync(DanhGiaNhaHangDTO danhGiaNhaHangDTO);
+        Task<DanhGiaKhachSanDTO> CreateAsync(DanhGiaKhachSanDTO danhGiaKhachSanDTO);
 
-        Task<DanhGiaNhaHangDTO> UpdateAsync(DanhGiaNhaHangDTO danhGiaNhaHangDTO);
+        Task<DanhGiaKhachSanDTO> UpdateAsync(DanhGiaKhachSanDTO danhGiaKhachSanDTO);
 
-        Task Delete(DanhGiaNhaHangDTO danhGiaNhaHangDTO);
+        Task Delete(DanhGiaKhachSanDTO danhGiaKhachSanDTO);
 
-        DanhGiaNhaHangDTO GetByIdAsNoTracking(long id);
+        DanhGiaKhachSanDTO GetByIdAsNoTracking(long id);
 
-        Task<IPagedList<DanhGiaNhaHangDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page);
+        Task<IPagedList<DanhGiaKhachSanDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page);
+
+        Task<SupplierDTO> GetBySupplierByIdAsync(string supplierId);
 
         IEnumerable<LoaiDvDTO> GetAllLoaiDv();
 
@@ -33,56 +35,58 @@ namespace IntranetFolder.Services
         Task<SupplierDTO> GetSupplierByIdAsync(string supplierId);
 
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
+
+        Task<IEnumerable<DanhGiaKhachSanDTO>> GetDanhGiaKhachSanBy_SupplierId(string supplierId);
     }
 
-    public class DanhGiaNhaHangService : IDanhGiaNhaHangService
+    public class DanhGiaKhachSanService : IDanhGiaKhachSanService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DanhGiaNhaHangService(IUnitOfWork unitOfWork, IMapper mapper)
+        public DanhGiaKhachSanService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<DanhGiaNhaHangDTO> GetByIdAsync(long id)
+        public async Task<DanhGiaKhachSanDTO> GetByIdAsync(long id)
         {
-            return _mapper.Map<DanhGiaNhaHang, DanhGiaNhaHangDTO>(await _unitOfWork.danhGiaNhaHangRepository.GetByLongIdAsync(id));
+            return _mapper.Map<DanhGiaKhachSan, DanhGiaKhachSanDTO>(await _unitOfWork.danhGiaKhachSanRepository.GetByLongIdAsync(id));
         }
 
-        public IEnumerable<DanhGiaNhaHangDTO> GetAll()
+        public IEnumerable<DanhGiaKhachSanDTO> GetAll()
         {
-            return _mapper.Map<IEnumerable<DanhGiaNhaHang>, IEnumerable<DanhGiaNhaHangDTO>>(_unitOfWork.danhGiaNhaHangRepository.GetAll());
+            return _mapper.Map<IEnumerable<DanhGiaKhachSan>, IEnumerable<DanhGiaKhachSanDTO>>(_unitOfWork.danhGiaKhachSanRepository.GetAll());
         }
 
-        public async Task<DanhGiaNhaHangDTO> CreateAsync(DanhGiaNhaHangDTO DanhGiaNhaHangDTO)
+        public async Task<DanhGiaKhachSanDTO> CreateAsync(DanhGiaKhachSanDTO DanhGiaKhachSanDTO)
         {
-            DanhGiaNhaHang danhGiaNhaHang = _mapper.Map<DanhGiaNhaHangDTO, DanhGiaNhaHang>(DanhGiaNhaHangDTO);
-            var danhGiaNhaHang1 = await _unitOfWork.danhGiaNhaHangRepository.CreateAsync(danhGiaNhaHang);
-            return _mapper.Map<DanhGiaNhaHang, DanhGiaNhaHangDTO>(danhGiaNhaHang1);
+            DanhGiaKhachSan DanhGiaKhachSan = _mapper.Map<DanhGiaKhachSanDTO, DanhGiaKhachSan>(DanhGiaKhachSanDTO);
+            var DanhGiaKhachSan1 = await _unitOfWork.danhGiaKhachSanRepository.CreateAsync(DanhGiaKhachSan);
+            return _mapper.Map<DanhGiaKhachSan, DanhGiaKhachSanDTO>(DanhGiaKhachSan1);
         }
 
-        public async Task<DanhGiaNhaHangDTO> UpdateAsync(DanhGiaNhaHangDTO DanhGiaNhaHangDTO)
+        public async Task<DanhGiaKhachSanDTO> UpdateAsync(DanhGiaKhachSanDTO DanhGiaKhachSanDTO)
         {
-            DanhGiaNhaHang danhGiaNhaHang = _mapper.Map<DanhGiaNhaHangDTO, DanhGiaNhaHang>(DanhGiaNhaHangDTO);
-            var danhGiaNhaHang1 = await _unitOfWork.danhGiaNhaHangRepository.UpdateAsync(danhGiaNhaHang);
-            return _mapper.Map<DanhGiaNhaHang, DanhGiaNhaHangDTO>(danhGiaNhaHang1);
+            DanhGiaKhachSan DanhGiaKhachSan = _mapper.Map<DanhGiaKhachSanDTO, DanhGiaKhachSan>(DanhGiaKhachSanDTO);
+            var DanhGiaKhachSan1 = await _unitOfWork.danhGiaKhachSanRepository.UpdateAsync(DanhGiaKhachSan);
+            return _mapper.Map<DanhGiaKhachSan, DanhGiaKhachSanDTO>(DanhGiaKhachSan1);
         }
 
-        public async Task Delete(DanhGiaNhaHangDTO DanhGiaNhaHangDTO)
+        public async Task Delete(DanhGiaKhachSanDTO DanhGiaKhachSanDTO)
         {
-            DanhGiaNhaHang danhGiaNhaHang = _mapper.Map<DanhGiaNhaHangDTO, DanhGiaNhaHang>(DanhGiaNhaHangDTO);
-            _unitOfWork.danhGiaNhaHangRepository.Delete(danhGiaNhaHang);
+            DanhGiaKhachSan DanhGiaKhachSan = _mapper.Map<DanhGiaKhachSanDTO, DanhGiaKhachSan>(DanhGiaKhachSanDTO);
+            _unitOfWork.danhGiaKhachSanRepository.Delete(DanhGiaKhachSan);
             await _unitOfWork.Complete();
         }
 
-        public DanhGiaNhaHangDTO GetByIdAsNoTracking(long id)
+        public DanhGiaKhachSanDTO GetByIdAsNoTracking(long id)
         {
-            return _mapper.Map<DanhGiaNhaHang, DanhGiaNhaHangDTO>(_unitOfWork.danhGiaNhaHangRepository.GetByIdAsNoTracking(x => x.Id == id));
+            return _mapper.Map<DanhGiaKhachSan, DanhGiaKhachSanDTO>(_unitOfWork.danhGiaKhachSanRepository.GetByIdAsNoTracking(x => x.Id == id));
         }
 
-        public async Task<IPagedList<DanhGiaNhaHangDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page)
+        public async Task<IPagedList<DanhGiaKhachSanDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page)
         {
             // return a 404 if user browses to before the first page
             if (page.HasValue && page < 1)
@@ -90,19 +94,19 @@ namespace IntranetFolder.Services
 
             // retrieve list from database/whereverand
 
-            List<DanhGiaNhaHangDTO> list = new List<DanhGiaNhaHangDTO>();
-            List<DanhGiaNhaHang> danhGiaNcus1 = new List<DanhGiaNhaHang>();
+            List<DanhGiaKhachSanDTO> list = new List<DanhGiaKhachSanDTO>();
+            List<DanhGiaKhachSan> danhGiaNcus1 = new List<DanhGiaKhachSan>();
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var danhGiaNcus = await _unitOfWork.danhGiaNhaHangRepository.FindAsync(x => x.TenNcu.ToLower().Contains(searchString.Trim().ToLower()) ||
+                var danhGiaNcus = await _unitOfWork.danhGiaKhachSanRepository.FindAsync(x => x.TenNcu.ToLower().Contains(searchString.Trim().ToLower()) ||
                                            (!string.IsNullOrEmpty(x.DiaChi) && x.DiaChi.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.DienThoai) && x.DienThoai.ToLower().Contains(searchString.ToLower())));
                 danhGiaNcus1 = danhGiaNcus.ToList();
             }
             else
             {
-                danhGiaNcus1 = _unitOfWork.danhGiaNhaHangRepository.GetAll().ToList();
+                danhGiaNcus1 = _unitOfWork.danhGiaKhachSanRepository.GetAll().ToList();
 
                 if (danhGiaNcus1 == null)
                 {
@@ -112,7 +116,7 @@ namespace IntranetFolder.Services
 
             danhGiaNcus1 = danhGiaNcus1.OrderByDescending(x => x.NgayTao).ToList();
 
-            list = _mapper.Map<List<DanhGiaNhaHang>, List<DanhGiaNhaHangDTO>>(danhGiaNcus1);
+            list = _mapper.Map<List<DanhGiaKhachSan>, List<DanhGiaKhachSanDTO>>(danhGiaNcus1);
 
             // search date
             DateTime fromDate, toDate;
@@ -198,13 +202,13 @@ namespace IntranetFolder.Services
 
         public async Task<bool> CheckNameExist(long id, string name)
         {
-            var danhGiaNhaHangs = await _unitOfWork.danhGiaNhaHangRepository
+            var DanhGiaKhachSans = await _unitOfWork.danhGiaKhachSanRepository
                 .FindAsync(x => x.TenNcu.Trim().ToLower() == name.Trim().ToLower());
 
-            if (danhGiaNhaHangs.Count() > 0)
+            if (DanhGiaKhachSans.Count() > 0)
             {
-                string findName = danhGiaNhaHangs.FirstOrDefault().TenNcu;
-                long findId = danhGiaNhaHangs.FirstOrDefault().Id;
+                string findName = DanhGiaKhachSans.FirstOrDefault().TenNcu;
+                long findId = DanhGiaKhachSans.FirstOrDefault().Id;
 
                 if (findId != id)
                     return false;
@@ -216,14 +220,23 @@ namespace IntranetFolder.Services
 
         public async Task<SupplierDTO> GetSupplierByIdAsync(string supplierId)
         {
-            var suppliers = await _unitOfWork.supplierRepository.FindIncludeOneAsync(x => x.DanhGiaNhaHangs, y => y.Code == supplierId);
-            return _mapper.Map<Supplier, SupplierDTO>(suppliers.FirstOrDefault());
-            //return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(supplierId));
+            return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(supplierId));
         }
 
         public async Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog)
         {
             return await _unitOfWork.errorRepository.CreateAsync(errorLog);
+        }
+
+        public async Task<SupplierDTO> GetBySupplierByIdAsync(string supplierId)
+        {
+            return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(supplierId));
+        }
+
+        public async Task<IEnumerable<DanhGiaKhachSanDTO>> GetDanhGiaKhachSanBy_SupplierId(string supplierId)
+        {
+            return _mapper.Map<IEnumerable<DanhGiaKhachSan>, IEnumerable<DanhGiaKhachSanDTO>>
+                (await _unitOfWork.danhGiaKhachSanRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == supplierId));
         }
     }
 }

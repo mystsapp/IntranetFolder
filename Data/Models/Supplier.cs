@@ -9,6 +9,7 @@ namespace Data.Models
     {
         public Supplier()
         {
+            DanhGiaKhachSans = new HashSet<DanhGiaKhachSan>();
             DanhGiaNhaHangs = new HashSet<DanhGiaNhaHang>();
         }
 
@@ -38,6 +39,7 @@ namespace Data.Models
         public string Tour { get; set; }
         public string NguoiTrinhKyHd { get; set; }
 
+        public virtual ICollection<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
         public virtual ICollection<DanhGiaNhaHang> DanhGiaNhaHangs { get; set; }
     }
 }
