@@ -72,12 +72,12 @@
                                     @foreach (var item in Model.DanhGiaNhaHangDTOs)
                                     {
 
-                                        <tr class="nhahang-cursor-pointer @item.Id" onclick="DMTK_Tbl()">
+                                        <tr class="nhahang-cursor-pointer @item.Id" >
 
                                             <td>
                                                 <div class="btn-group text-white" role="group">
 
-                                                    <a class="text-primary" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id" id="btnCapNhatNhaHang"><i class="fas fa-edit"></i></a>
+                                                    <a class="text-primary btnCapNhatNhaHang" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
                                                     @*<span class="text-dark"> | </span>
 
                                                         <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
@@ -91,7 +91,7 @@
 
                                                             <input type="hidden" name="id" value="@item.Id" />
                                                             <input type="hidden" name="strUrl" value="@Model.StrUrl" />
-                                                            <button type="button" class="btn btn-danger btn-xs " id="btnXoaNhaHang" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                                            <button type="button" class="btn btn-danger btn-xs btnXoaNhaHang" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
                                                             <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.Id', false)">No</button>
                                                         </span>
                                                     </form>
@@ -240,7 +240,7 @@
     })
 
     // btnCapNhatNhaHang
-    $('#btnCapNhatNhaHang').off('click').on('click', function (e) {
+    $('.btnCapNhatNhaHang').off('click').on('click', function (e) {
         e.preventDefault();
 
         $('#tblNhaHang').hide(500);
@@ -270,7 +270,7 @@
     }
 
     // btnXoaNhaHang
-    $('#btnXoaNhaHang').off('click').on('click',function () {
+    $('.btnXoaNhaHang').off('click').on('click',function () {
 
         var page = @Model.Page;
         var supplierid = '@Model.SupplierDTO.Code';
@@ -307,6 +307,8 @@
 
             $('#divKhachSan').html(response);
             $('#divKhachSan').show(500);
+            $('#CapNhatKhachSan_Partial').hide(500);
+            $('#ThemMoiKhachSan_Partial').hide(500);
 
         });
 

@@ -14,22 +14,22 @@ namespace Data.Models
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public int? TieuChuanSao { get; set; }
-        public bool? Gpkd { get; set; }
-        public bool? Vat { get; set; }
+        public int TieuChuanSao { get; set; }
+        public bool Gpkd { get; set; }
+        public bool Vat { get; set; }
         public string SucChuaToiDa { get; set; }
         public string ViTri { get; set; }
         public string CoNhaHang { get; set; }
         public bool CoHoBoi { get; set; }
-        public bool? CoBien { get; set; }
-        public bool? CoPhongHop { get; set; }
+        public bool CoBien { get; set; }
+        public bool CoPhongHop { get; set; }
         public string ThaiDoPvcuaNv { get; set; }
         public string CoBoTriPhongChoNb { get; set; }
         public string CoBaiDoXe { get; set; }
-        public bool? DaCoKhaoSatThucTe { get; set; }
-        public bool? KqDat { get; set; }
+        public bool DaCoKhaoSatThucTe { get; set; }
+        public bool KqDat { get; set; }
         public string KqKhaoSatThem { get; set; }
-        public bool? DongYduaVaoDsncu { get; set; }
+        public bool DongYduaVaoDsncu { get; set; }
         public DateTime? NgayTao { get; set; }
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }

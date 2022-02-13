@@ -98,7 +98,7 @@
                             @foreach (var item in Model.SupplierDTOs)
                             {
 
-                                <tr class="supplier-cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="DMTK_Tbl()">
+                                <tr class="supplier-cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="TabDichVu()">
 
                                     <td>
                                         <div class="btn-group text-white" role="group">
@@ -246,8 +246,8 @@
         });
         // giu trang thai phieu click
 
-        function DMTK_Tbl() { // tab href
-            location.href = "#DMTK_Tbl";
+        function TabDichVu() { // tab href
+            location.href = "#tabDichVu";
         }
     </script>
 }

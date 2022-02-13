@@ -26,13 +26,13 @@ namespace Model
         public string Website { get; set; }
 
         [Display(Name = "Tiêu chuẩn sao")]
-        public int? TieuChuanSao { get; set; }
+        public int TieuChuanSao { get; set; }
 
         [Display(Name = "Có GPKD")]
-        public bool? Gpkd { get; set; }
+        public bool Gpkd { get; set; }
 
         [Display(Name = "Có HDVAT")]
-        public bool? Vat { get; set; }
+        public bool Vat { get; set; }
 
         [Display(Name = "Sức chứa tối đa")]
         public string SucChuaToiDa { get; set; }
@@ -62,16 +62,16 @@ namespace Model
         public string CoBaiDoXe { get; set; }
 
         [Display(Name = "Đã có khảo sát thực tế")]
-        public bool? DaCoKhaoSatThucTe { get; set; }
+        public bool DaCoKhaoSatThucTe { get; set; }
 
         [Display(Name = "KQ đạt")]
-        public bool? KqDat { get; set; }
+        public bool KqDat { get; set; }
 
         [Display(Name = "KQ khảo sát thêm")]
         public string KqKhaoSatThem { get; set; }
 
         [Display(Name = "Đồng ý đưa vào DS NCU")]
-        public bool? DongYduaVaoDsncu { get; set; }
+        public bool DongYduaVaoDsncu { get; set; }
 
         public DateTime? NgayTao { get; set; }
         public string NguoiTao { get; set; }
