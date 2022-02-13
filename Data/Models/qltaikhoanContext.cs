@@ -456,6 +456,11 @@ namespace Data.Models
 
                 entity.Property(e => e.SanPham).HasMaxLength(50);
 
+                entity.Property(e => e.SupplierId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("supplierId");
+
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
                     .HasColumnName("TenNCU");
@@ -463,6 +468,11 @@ namespace Data.Models
                 entity.Property(e => e.Website)
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.DanhGiaLandtours)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_DanhGiaLandtour_supplier");
             });
 
             modelBuilder.Entity<DanhGiaNhaHang>(entity =>
