@@ -26,7 +26,7 @@ namespace IntranetFolder.Services
 
         Task<IPagedList<DanhGiaLandTourDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page);
 
-        Task<SupplierDTO> GetBySupplierByIdAsync(string supplierId);
+        //Task<SupplierDTO> GetBySupplierByIdAsync(string supplierId);
 
         IEnumerable<LoaiDvDTO> GetAllLoaiDv();
 
@@ -36,7 +36,7 @@ namespace IntranetFolder.Services
 
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
 
-        Task<IEnumerable<DanhGiaLandTourDTO>> GetDanhGiaLanTourBy_SupplierId(string supplierId);
+        Task<IEnumerable<DanhGiaLandTourDTO>> GetDanhGiaLandTourBy_SupplierId(string supplierId);
     }
 
     public class DanhGiaLandTourService : IDanhGiaLandTourService
@@ -62,28 +62,28 @@ namespace IntranetFolder.Services
 
         public async Task<DanhGiaLandTourDTO> CreateAsync(DanhGiaLandTourDTO danhGiaLandTourDTO)
         {
-            DanhGiaLandtour danhGiaLandTour = _mapper.Map<DanhGiaLandTourDTO, DanhGiaLandtour>(DanhGiaLandTourDTO);
-            var DanhGiaLandTour1 = await _unitOfWork.danhGiaLandTourRepository.CreateAsync(DanhGiaLandTour);
-            return _mapper.Map<DanhGiaLandTour, DanhGiaLandTourDTO>(DanhGiaLandTour1);
+            DanhGiaLandtour danhGiaLandTour = _mapper.Map<DanhGiaLandTourDTO, DanhGiaLandtour>(danhGiaLandTourDTO);
+            var danhGiaLandTour1 = await _unitOfWork.danhGiaLandTourRepository.CreateAsync(danhGiaLandTour);
+            return _mapper.Map<DanhGiaLandtour, DanhGiaLandTourDTO>(danhGiaLandTour1);
         }
 
-        public async Task<DanhGiaLandTourDTO> UpdateAsync(DanhGiaLandTourDTO DanhGiaLandTourDTO)
+        public async Task<DanhGiaLandTourDTO> UpdateAsync(DanhGiaLandTourDTO danhGiaLandTourDTO)
         {
-            DanhGiaLandTour DanhGiaLandTour = _mapper.Map<DanhGiaLandTourDTO, DanhGiaLandTour>(DanhGiaLandTourDTO);
-            var DanhGiaLandTour1 = await _unitOfWork.danhGiaLandTourRepository.UpdateAsync(DanhGiaLandTour);
-            return _mapper.Map<DanhGiaLandTour, DanhGiaLandTourDTO>(DanhGiaLandTour1);
+            DanhGiaLandtour danhGiaLandTour = _mapper.Map<DanhGiaLandTourDTO, DanhGiaLandtour>(danhGiaLandTourDTO);
+            var danhGiaLandTour1 = await _unitOfWork.danhGiaLandTourRepository.UpdateAsync(danhGiaLandTour);
+            return _mapper.Map<DanhGiaLandtour, DanhGiaLandTourDTO>(danhGiaLandTour1);
         }
 
-        public async Task Delete(DanhGiaLandTourDTO DanhGiaLandTourDTO)
+        public async Task Delete(DanhGiaLandTourDTO danhGiaLandTourDTO)
         {
-            DanhGiaLandTour DanhGiaLandTour = _mapper.Map<DanhGiaLandTourDTO, DanhGiaLandTour>(DanhGiaLandTourDTO);
-            _unitOfWork.danhGiaLandTourRepository.Delete(DanhGiaLandTour);
+            DanhGiaLandtour danhGiaLandTour = _mapper.Map<DanhGiaLandTourDTO, DanhGiaLandtour>(danhGiaLandTourDTO);
+            _unitOfWork.danhGiaLandTourRepository.Delete(danhGiaLandTour);
             await _unitOfWork.Complete();
         }
 
         public DanhGiaLandTourDTO GetByIdAsNoTracking(long id)
         {
-            return _mapper.Map<DanhGiaLandTour, DanhGiaLandTourDTO>(_unitOfWork.danhGiaLandTourRepository.GetByIdAsNoTracking(x => x.Id == id));
+            return _mapper.Map<DanhGiaLandtour, DanhGiaLandTourDTO>(_unitOfWork.danhGiaLandTourRepository.GetByIdAsNoTracking(x => x.Id == id));
         }
 
         public async Task<IPagedList<DanhGiaLandTourDTO>> ListDanhGiaNCU(string searchString, string searchFromDate, string searchToDate, int? page)
@@ -95,7 +95,7 @@ namespace IntranetFolder.Services
             // retrieve list from database/whereverand
 
             List<DanhGiaLandTourDTO> list = new List<DanhGiaLandTourDTO>();
-            List<DanhGiaLandTour> danhGiaNcus1 = new List<DanhGiaLandTour>();
+            List<DanhGiaLandtour> danhGiaNcus1 = new List<DanhGiaLandtour>();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -116,7 +116,7 @@ namespace IntranetFolder.Services
 
             danhGiaNcus1 = danhGiaNcus1.OrderByDescending(x => x.NgayTao).ToList();
 
-            list = _mapper.Map<List<DanhGiaLandTour>, List<DanhGiaLandTourDTO>>(danhGiaNcus1);
+            list = _mapper.Map<List<DanhGiaLandtour>, List<DanhGiaLandTourDTO>>(danhGiaNcus1);
 
             // search date
             DateTime fromDate, toDate;
@@ -228,14 +228,14 @@ namespace IntranetFolder.Services
             return await _unitOfWork.errorRepository.CreateAsync(errorLog);
         }
 
-        public async Task<SupplierDTO> GetBySupplierByIdAsync(string supplierId)
-        {
-            return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(supplierId));
-        }
+        //public async Task<SupplierDTO> GetBySupplierByIdAsync(string supplierId)
+        //{
+        //    return _mapper.Map<Supplier, SupplierDTO>(await _unitOfWork.supplierRepository.GetByIdAsync(supplierId));
+        //}
 
-        public async Task<IEnumerable<DanhGiaLandTourDTO>> GetDanhGiaLanTourBy_SupplierId(string supplierId)
+        public async Task<IEnumerable<DanhGiaLandTourDTO>> GetDanhGiaLandTourBy_SupplierId(string supplierId)
         {
-            return _mapper.Map<IEnumerable<DanhGiaLandTour>, IEnumerable<DanhGiaLandTourDTO>>
+            return _mapper.Map<IEnumerable<DanhGiaLandtour>, IEnumerable<DanhGiaLandTourDTO>>
                 (await _unitOfWork.danhGiaLandTourRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == supplierId));
         }
     }

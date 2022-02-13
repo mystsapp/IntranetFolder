@@ -13,7 +13,7 @@
                     <a class="nav-link" id="khachsan-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_khachSan" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Khách sạn</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tab_DsKhachHang" data-toggle="pill" href="#tab_landTour" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Land tour</a>
+                    <a class="nav-link" id="landtour-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_landTour" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Land tour</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_diemTQ" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Điểm TQ</a>
@@ -72,7 +72,7 @@
                                     @foreach (var item in Model.DanhGiaNhaHangDTOs)
                                     {
 
-                                        <tr class="nhahang-cursor-pointer @item.Id" >
+                                        <tr class="nhahang-cursor-pointer @item.Id">
 
                                             <td>
                                                 <div class="btn-group text-white" role="group">
@@ -204,6 +204,14 @@
                 <!-- tab_khachSan -->
                 <!-- tab_landTour -->
                 <div class="tab-pane fade" id="tab_landTour" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+                    <div id="divLandTour">
+                    </div>
+
+                    <div id="ThemMoiLandTour_Partial">
+                    </div>
+
+                    <div id="CapNhatLandTour_Partial">
+                    </div>
                 </div>
                 <!-- tab_landTour -->
                 <!-- tab_diemTQ -->
@@ -294,7 +302,7 @@
     $('#khachsan-tab').off('click').on('click',function () {
 
         //$('#tblNhaHang').hide(500);
-        //$('#ThemMoiKhachSan_Partial').hide(500);
+        //$('#ThemMoiLandTour_Partial').hide(500);
 
         var supplierId = $(this).data('supplierid');
         KhachSanTbl(supplierId);
@@ -309,6 +317,27 @@
             $('#divKhachSan').show(500);
             $('#CapNhatKhachSan_Partial').hide(500);
             $('#ThemMoiKhachSan_Partial').hide(500);
+
+        });
+
+    }
+
+    // landtour-tab
+    $('#landtour-tab').off('click').on('click', function () {
+
+        var supplierId = $(this).data('supplierid');
+        LandTourTbl(supplierId);
+    });
+    // landtour-tab
+
+    function LandTourTbl(supplierId) {
+
+        $.get('/DanhGiaLandTour/LandTour_Partial', { supplierId: supplierId }, function (response) {
+
+            $('#divLandTour').html(response);
+            $('#divLandTour').show(500);
+            $('#CapNhatLandTour_Partial').hide(500);
+            $('#ThemMoiLandTour_Partial').hide(500);
 
         });
 

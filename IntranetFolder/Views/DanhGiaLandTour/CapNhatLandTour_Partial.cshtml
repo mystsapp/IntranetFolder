@@ -1,0 +1,191 @@
+﻿@model DanhGiaLandTourViewModel
+
+<form method="post" autocomplete="off" id="frmCapNhatLandTourPartial" enctype="multipart/form-data">
+    <div class="pr-4 pl-4 text-sm">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for=DanhGiaLandTourDTO.SupplierId />
+        <input type="hidden" asp-for=DanhGiaLandTourDTO.Id />
+        <input type="hidden" asp-for=DanhGiaLandTourDTO.NgayTao />
+        <input type="hidden" asp-for=DanhGiaLandTourDTO.NguoiTao />
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaLandTourDTO.TenNcu" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" />
+                <span asp-validation-for="DanhGiaLandTourDTO.TenNcu" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-9">
+                <label asp-for="DanhGiaLandTourDTO.DiaChi" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.DiaChi" class="form-control form-control-sm " id="txtDiaChi" />
+                <span asp-validation-for="DanhGiaLandTourDTO.DiaChi" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.DienThoai" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.DienThoai" class="form-control form-control-sm " id="txtDienThoai" />
+                <span asp-validation-for="DanhGiaLandTourDTO.DienThoai" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.Fax" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.Fax" class="form-control form-control-sm " id="txtFax" />
+                <span asp-validation-for="DanhGiaLandTourDTO.Fax" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.Email" class="control-label" for="txtCoGpkd"></label>
+                <input asp-for="DanhGiaLandTourDTO.Email" class="form-control form-control-sm " id="txtEmail" type="checkbox" />
+                @*<select asp-for="DanhGiaLandTourDTO.LoaiDvid" class="form-control form-control-sm input-sm select2"
+                    asp-items="@(new SelectList(Model.LoaiDvDTOs, "id", "TenLoai"))" id="ddlLoaiDvid">
+                    <option>-- Select --</option>
+                    </select>*@
+                <span asp-validation-for="DanhGiaLandTourDTO.Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.Website" class="control-label" for="txtCoHdvat"></label>
+                <input asp-for="DanhGiaLandTourDTO.Website" class="form-control form-control-sm " id="txtWebsite" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.Website" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.CoGpkd" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                <input asp-for="DanhGiaLandTourDTO.CoGpkd" class="form-control form-control-sm " id="txtCoGpkd" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.CoGpkd" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.CoHdvat" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.CoHdvat" class="form-control form-control-sm " id="txtCoHdvat" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.CoHdvat" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.KinhNghiemThiTruongNd" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.KinhNghiemThiTruongNd" class="form-control form-control-sm " id="txtKinhNghiemThiTruongNd" />
+                <span asp-validation-for="DanhGiaLandTourDTO.KinhNghiemThiTruongNd" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.NlkhaiThacDvdiaPhuong" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.NlkhaiThacDvdiaPhuong" class="form-control form-control-sm " id="txtNlkhaiThacDvdiaPhuong" />
+                <span asp-validation-for="DanhGiaLandTourDTO.NlkhaiThacDvdiaPhuong" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.CldvvaHdv" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.CldvvaHdv" class="form-control form-control-sm " id="txtCldvvaHdv" />
+                <span asp-validation-for="DanhGiaLandTourDTO.CldvvaHdv" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.SanPham" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.SanPham" class="form-control form-control-sm " id="txtSanPham" />
+                <span asp-validation-for="DanhGiaLandTourDTO.SanPham" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.GiaCa" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.GiaCa" class="form-control form-control-sm " id="txtGiaCa" />
+                <span asp-validation-for="DanhGiaLandTourDTO.GiaCa" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.MucDoKipThoiTrongGd" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.MucDoKipThoiTrongGd" class="form-control form-control-sm " id="txtMucDoKipThoiTrongGd" />
+                <span asp-validation-for="DanhGiaLandTourDTO.MucDoKipThoiTrongGd" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.MucDoHoTroXuLySuCo" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.MucDoHoTroXuLySuCo" class="form-control form-control-sm " id="txtMucDoHoTroXuLySuCo" />
+                <span asp-validation-for="DanhGiaLandTourDTO.MucDoHoTroXuLySuCo" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-10">
+                <label asp-for="DanhGiaLandTourDTO.DaCoKhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.DaCoKhaoSatThucTe" class="form-control form-control-sm " id="txtDaCoKhaoSatThucTe" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.DaCoKhaoSatThucTe" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaLandTourDTO.KqDat" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.KqDat" class="form-control form-control-sm " id="txtKqDat" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.KqDat" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="form-control form-control-sm float-left" id="txtKqKhaoSatThem" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="txtDongYduaVaoDsncu" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" id="btnCapNhatLandTourPartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnCapNhatLandTourPartial_Back"><i class="fas fa-backward "></i> Back</button>
+        </div>
+    </div>
+</form>
+
+@*<script src="~/js/Admin/Supplier/indexController"></script>*@
+
+<script>
+    $('#btnCapNhatLandTourPartial_Back').off('click').on('click', function(){
+        $('#divLandTour').show(500);
+        $('#ThemMoiLandTour_Partial').hide(500);
+        $('#CapNhatLandTour_Partial').hide(500);
+    })
+
+    $('#btnCapNhatLandTourPartial_Save').off('click').on('click', function () {
+
+        if ($('#frmCapNhatLandTourPartial').valid()) {
+            var landTour = $('#frmCapNhatLandTourPartial').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhGiaLandTour/CapNhatLandTour_Partial",
+                data: landTour,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+
+                        toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
+
+                        $('#ThemMoiLandTour_Partial').hide(500);
+                        $('#CapNhatLandTour_Partial').hide(500);
+
+                        var supplierId = '@Model.SupplierDTO.Code';
+
+                        LandTourTbl(supplierId);
+                    }
+                    else {
+                        toastr.error(response.message);
+
+                    }
+                }
+            });
+        }
+
+    });
+</script>

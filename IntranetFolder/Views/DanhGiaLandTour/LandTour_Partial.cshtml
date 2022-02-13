@@ -1,0 +1,197 @@
+﻿@model DanhGiaLandTourViewModel
+
+<div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblLandTour">
+    <table class="table mytable text-nowrap text-sm" id="danhGiaLandTourTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiLandTour_Partial" title="Thêm mới"
+                            id="btnThemMoiLandTour" data-supplierid="@Model.SupplierDTO.Code">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().TenNcu)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().DienThoai)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().Fax)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().Website)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().CoGpkd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().CoHdvat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().KinhNghiemThiTruongNd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().NlkhaiThacDvdiaPhuong)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().CldvvaHdv)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().SanPham)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().GiaCa)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().MucDoKipThoiTrongGd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().MucDoHoTroXuLySuCo)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().KqDat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().KqKhaoSatThem)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DanhGiaLandTourDTOs != null)
+            {
+                @foreach (var item in Model.DanhGiaLandTourDTOs)
+                {
+
+                    <tr class="lantour-cursor-pointer @item.Id">
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+
+                                <a class="text-primary btnCapNhatLandTour" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                @*<span class="text-dark"> | </span>
+
+                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                <!-- ko cho xóa -->
+                                <span class="text-dark"> | </span>
+                                @*<form asp-action="Delete" asp-controller="DanhGiaLandTour" method="post">*@
+
+                                <span id="confirmDeleteLandTour_@item.Id" style="display: none">
+                                    <!--ajax check invoices-->
+                                    <span class="text-dark ">Xoá?</span>
+
+                                    @*<input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />*@
+                                    <button type="button" class="btn btn-danger btn-xs btnXoaLandTour" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteLandTour('@item.Id', false)">No</button>
+                                </span>
+                                @*</form>*@
+                                <span id="deleteSpan_@item.Id">
+                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteLandTour('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoGpkd == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoHdvat == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KinhNghiemThiTruongNd)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NlkhaiThacDvdiaPhuong)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CldvvaHdv)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SanPham)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.GiaCa)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoKipThoiTrongGd)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoHoTroXuLySuCo)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.DaCoKhaoSatThucTe == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Chưa</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.KqDat == true)
+                            {
+                                <span class="badge badge-success">Đạt</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Chưa</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // delete
+    function confirmDeleteLandTour(uniqueId, isDeleteClicked) { /////////////////////////////////
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteLandTourSpan = 'confirmDeleteLandTour_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteLandTourSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteLandTourSpan).hide();
+        }
+    }
+
+    // btnThemMoiLandTour --> khachsan_partial
+    $('#btnThemMoiLandTour').off('click').on('click', function () {
+        $('#divLandTour').hide(500);
+        $('#CapNhatLandTour_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        $.get('/DanhGiaLandTour/ThemMoiLandTour_Partial', { supplierId: supplierId }, function (response) {
+            $('#ThemMoiLandTour_Partial').html(response);
+            $('#ThemMoiLandTour_Partial').show(500);
+
+        });
+    })
+
+    // btnCapNhatLandTour
+    $('.btnCapNhatLandTour').click(function (e) {
+        e.preventDefault();
+
+        $('#divLandTour').hide(500);
+        $('#ThemMoiLandTour_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        var id = $(this).data('id');
+        $.get('/DanhGiaLandTour/CapNhatLandTour_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatLandTour_Partial').html(response);
+            $('#CapNhatLandTour_Partial').show(500);
+
+        });
+    })
+
+    // btnXoaLandTour
+    $('.btnXoaLandTour').off('click').on('click',function () {
+
+        var page = @Model.Page;
+        var supplierid = '@Model.SupplierDTO.Code';
+        var id = $(this).data('id');
+
+        id = $(this).data('id');
+
+        var url = '/DanhGiaLandTour/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                LandTourTbl(supplierid);
+            }
+        });
+
+    });
+    // btnXoaNhaHang
+</script>

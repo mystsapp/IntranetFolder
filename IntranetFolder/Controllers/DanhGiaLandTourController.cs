@@ -13,19 +13,19 @@ namespace IntranetFolder.Controllers
 {
     public class DanhGiaLandTourController : BaseController
     {
-        private readonly IDanhGiaKhachSanService _danhGiaKhachSanService;
+        private readonly IDanhGiaLandTourService _danhGiaLandTourService;
 
         [BindProperty]
-        public DanhGiaKhachSanViewModel DanhGiaKhachSanVM { get; set; }
+        public DanhGiaLandTourViewModel DanhGiaLandTourVM { get; set; }
 
-        public DanhGiaLandTourController(IDanhGiaKhachSanService danhGiaKhachSanService)
+        public DanhGiaLandTourController(IDanhGiaLandTourService danhGiaLandTourService)
         {
-            _danhGiaKhachSanService = danhGiaKhachSanService;
-            DanhGiaKhachSanVM = new DanhGiaKhachSanViewModel()
+            DanhGiaLandTourVM = new DanhGiaLandTourViewModel()
             {
-                DanhGiaKhachSanDTO = new DanhGiaKhachSanDTO(),
+                DanhGiaLandTourDTO = new DanhGiaLandTourDTO(),
                 StrUrl = ""
             };
+            _danhGiaLandTourService = danhGiaLandTourService;
         }
 
         public IActionResult Index()
@@ -33,52 +33,55 @@ namespace IntranetFolder.Controllers
             return View();
         }
 
-        public async Task<IActionResult> KhachSan_Partial(string supplierId)
+        public async Task<IActionResult> LandTour_Partial(string supplierId)
         {
-            SupplierDTO supplierDTO = await _danhGiaKhachSanService.GetBySupplierByIdAsync(supplierId);
+            SupplierDTO supplierDTO = await _danhGiaLandTourService.GetSupplierByIdAsync(supplierId);
             if (supplierDTO == null)
             {
                 ViewBag.ErrorMessage = "Supplier này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
-            DanhGiaKhachSanVM.SupplierDTO = supplierDTO;
-            DanhGiaKhachSanVM.DanhGiaKhachSanDTOs = await _danhGiaKhachSanService.GetDanhGiaKhachSanBy_SupplierId(supplierId);
+            DanhGiaLandTourVM.SupplierDTO = supplierDTO;
+            DanhGiaLandTourVM.DanhGiaLandTourDTOs = await _danhGiaLandTourService.GetDanhGiaLandTourBy_SupplierId(supplierId);
 
-            return PartialView(DanhGiaKhachSanVM);
+            return PartialView(DanhGiaLandTourVM);
         }
 
-        public async Task<IActionResult> ThemMoiKhachSan_Partial(string supplierId) // code
+        public async Task<IActionResult> ThemMoiLandTour_Partial(string supplierId) // code
         {
-            DanhGiaKhachSanVM.SupplierDTO = await _danhGiaKhachSanService.GetSupplierByIdAsync(supplierId);
-            DanhGiaKhachSanVM.DanhGiaKhachSanDTO.SupplierId = supplierId;
-            return PartialView(DanhGiaKhachSanVM);
+            DanhGiaLandTourVM.SupplierDTO = await _danhGiaLandTourService.GetSupplierByIdAsync(supplierId);
+            DanhGiaLandTourVM.DanhGiaLandTourDTO.SupplierId = supplierId;
+            return PartialView(DanhGiaLandTourVM);
         }
 
-        [HttpPost, ActionName("ThemMoiKhachSan_Partial")]
-        public async Task<IActionResult> ThemMoiKhachSan_Partial_Post(string strUrl)
+        [HttpPost, ActionName("ThemMoiLandTour_Partial")]
+        public async Task<IActionResult> ThemMoiLandTour_Partial_Post(string strUrl)
         {
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             if (!ModelState.IsValid)
             {
-                DanhGiaKhachSanVM = new DanhGiaKhachSanViewModel()
+                DanhGiaLandTourVM = new DanhGiaLandTourViewModel()
                 {
-                    DanhGiaKhachSanDTO = new DanhGiaKhachSanDTO(),
+                    DanhGiaLandTourDTO = new DanhGiaLandTourDTO(),
                     StrUrl = strUrl
                 };
 
-                return View(DanhGiaKhachSanVM);
+                return Json(new
+                {
+                    status = false,
+                    message = "Model state is not valid"
+                });
             }
 
-            //DanhGiaKhachSanVM.DanhGiaKhachSanDTO.TenNcu = DanhGiaKhachSanVM.TenCreate;
-            DanhGiaKhachSanVM.DanhGiaKhachSanDTO.NguoiTao = user.Username;
-            DanhGiaKhachSanVM.DanhGiaKhachSanDTO.NgayTao = DateTime.Now;
-            DanhGiaKhachSanVM.DanhGiaKhachSanDTO.LoaiDvid = 1; // MaLoai = HTL
+            DanhGiaLandTourVM.DanhGiaLandTourDTO.NguoiTao = user.Username;
+            DanhGiaLandTourVM.DanhGiaLandTourDTO.NgayTao = DateTime.Now;
+            DanhGiaLandTourVM.DanhGiaLandTourDTO.LoaiDvid = 6; // MaLoai = LCT
 
             try
             {
-                await _danhGiaKhachSanService.CreateAsync(DanhGiaKhachSanVM.DanhGiaKhachSanDTO); // save
+                await _danhGiaLandTourService.CreateAsync(DanhGiaLandTourVM.DanhGiaLandTourDTO); // save
 
                 return Json(new
                 {
@@ -94,7 +97,7 @@ namespace IntranetFolder.Controllers
                     NgayTao = DateTime.Now,
                     NguoiTao = user.Nguoitao
                 };
-                await _danhGiaKhachSanService.CreateErroLogAsync(errorLog);
+                await _danhGiaLandTourService.CreateErroLogAsync(errorLog);
                 return Json(new
                 {
                     status = false,
@@ -103,7 +106,7 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        public async Task<IActionResult> CapNhatKhachSan_Partial(string supplierId, long id)
+        public async Task<IActionResult> CapNhatLandTour_Partial(string supplierId, long id)
         {
             // from session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
@@ -114,33 +117,33 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            DanhGiaKhachSanVM.DanhGiaKhachSanDTO = await _danhGiaKhachSanService.GetByIdAsync(id);
-            DanhGiaKhachSanVM.SupplierDTO = await _danhGiaKhachSanService.GetSupplierByIdAsync(supplierId);
+            DanhGiaLandTourVM.DanhGiaLandTourDTO = await _danhGiaLandTourService.GetByIdAsync(id);
+            DanhGiaLandTourVM.SupplierDTO = await _danhGiaLandTourService.GetSupplierByIdAsync(supplierId);
 
-            if (DanhGiaKhachSanVM.DanhGiaKhachSanDTO == null)
+            if (DanhGiaLandTourVM.DanhGiaLandTourDTO == null)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            return PartialView(DanhGiaKhachSanVM);
+            return PartialView(DanhGiaLandTourVM);
         }
 
-        [HttpPost, ActionName("CapNhatKhachSan_Partial")]
+        [HttpPost, ActionName("CapNhatLandTour_Partial")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CapNhatNhaHang_Partial_Post()
+        public async Task<IActionResult> CapNhatLandTour_Partial_Post()
         {
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             if (ModelState.IsValid)
             {
-                DanhGiaKhachSanVM.DanhGiaKhachSanDTO.NgaySua = DateTime.Now;
-                DanhGiaKhachSanVM.DanhGiaKhachSanDTO.NguoiSua = user.Username;
+                DanhGiaLandTourVM.DanhGiaLandTourDTO.NgaySua = DateTime.Now;
+                DanhGiaLandTourVM.DanhGiaLandTourDTO.NguoiSua = user.Username;
 
                 try
                 {
-                    await _danhGiaKhachSanService.UpdateAsync(DanhGiaKhachSanVM.DanhGiaKhachSanDTO);
+                    await _danhGiaLandTourService.UpdateAsync(DanhGiaLandTourVM.DanhGiaLandTourDTO);
 
                     return Json(new { status = true });
                 }
@@ -153,7 +156,7 @@ namespace IntranetFolder.Controllers
                         NgayTao = DateTime.Now,
                         NguoiTao = user.Nguoitao
                     };
-                    await _danhGiaKhachSanService.CreateErroLogAsync(errorLog);
+                    await _danhGiaLandTourService.CreateErroLogAsync(errorLog);
                     return Json(new
                     {
                         status = false,
@@ -162,9 +165,8 @@ namespace IntranetFolder.Controllers
                 }
             }
             // not valid
-            //DanhGiaKhachSanVM.LoaiDvDTOs = _danhGiaKhachSanService.GetAllLoaiDv();
 
-            return View(DanhGiaKhachSanVM);
+            return View(DanhGiaLandTourVM);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -173,17 +175,17 @@ namespace IntranetFolder.Controllers
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            DanhGiaKhachSanVM.StrUrl = strUrl;
+            DanhGiaLandTourVM.StrUrl = strUrl;
 
-            var DanhGiaKhachSanDTO = _danhGiaKhachSanService.GetByIdAsNoTracking(id);
-            if (DanhGiaKhachSanDTO == null)
+            var danhGiaLandTourDTO = _danhGiaLandTourService.GetByIdAsNoTracking(id);
+            if (danhGiaLandTourDTO == null)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             try
             {
-                await _danhGiaKhachSanService.Delete(DanhGiaKhachSanDTO);
+                await _danhGiaLandTourService.Delete(danhGiaLandTourDTO);
 
                 return Json(true);
             }
@@ -196,7 +198,7 @@ namespace IntranetFolder.Controllers
                     NgayTao = DateTime.Now,
                     NguoiTao = user.Nguoitao
                 };
-                await _danhGiaKhachSanService.CreateErroLogAsync(errorLog);
+                await _danhGiaLandTourService.CreateErroLogAsync(errorLog);
 
                 return Json(false);
             }
