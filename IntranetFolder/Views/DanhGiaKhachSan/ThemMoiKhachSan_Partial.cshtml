@@ -1,0 +1,210 @@
+﻿@model DanhGiaKhachSanViewModel
+
+<form method="post" autocomplete="off" id="frmThemMoiKhachSanPartial" enctype="multipart/form-data">
+    <div class="pr-4 pl-4 text-sm">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for=DanhGiaKhachSanDTO.SupplierId />
+
+        <div class="form-group row">
+
+            <div class="col-md-10">
+                <label asp-for="DanhGiaKhachSanDTO.TenNcu" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.TenNcu" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.DiaChi" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.DiaChi" class="form-control form-control-sm " id="txtDiaChi" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.DiaChi" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.DienThoai" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.DienThoai" class="form-control form-control-sm " id="txtDienThoai" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.DienThoai" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.Fax" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Fax" class="form-control form-control-sm " id="txtFax" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.Fax" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
+                <label asp-for="DanhGiaKhachSanDTO.Email" class="control-label" for="txtCoGpkd"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Email" class="form-control form-control-sm " id="txtEmail" type="checkbox" />
+                @*<select asp-for="DanhGiaKhachSanDTO.LoaiDvid" class="form-control form-control-sm input-sm select2"
+                    asp-items="@(new SelectList(Model.LoaiDvDTOs, "id", "TenLoai"))" id="ddlLoaiDvid">
+                    <option>-- Select --</option>
+                    </select>*@
+                <span asp-validation-for="DanhGiaKhachSanDTO.Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
+                <label asp-for="DanhGiaKhachSanDTO.Website" class="control-label" for="txtCoHdvat"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Website" class="form-control form-control-sm " id="txtWebsite" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.Website" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                <input asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="form-control form-control-sm " id="txtTieuChuanSao" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.TieuChuanSao" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.Gpkd" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Gpkd" class="form-control form-control-sm " id="txtGpkd" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.Gpkd" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.Vat" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Vat" class="form-control form-control-sm " id="txtVat" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.Vat" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.SucChuaToiDa" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.SucChuaToiDa" class="form-control form-control-sm " id="txtSucChuaToiDa" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.SucChuaToiDa" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.ViTri" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.ViTri" class="form-control form-control-sm " id="txtViTri" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.ViTri" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.CoNhaHang" class="control-label" for="txtDaCoKhaoSatThucTe"></label>
+                <input asp-for="DanhGiaKhachSanDTO.CoNhaHang" class="form-control form-control-sm " id="txtCoNhaHang" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.CoNhaHang" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.CoHoBoi" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.CoHoBoi" class="form-control form-control-sm " id="txtCoHoBoi" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.CoHoBoi" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.CoBien" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.CoBien" class="form-control form-control-sm " id="txtCoBien" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.CoBien" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.CoPhongHop" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.CoPhongHop" class="form-control form-control-sm " id="txtCoPhongHop" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.CoPhongHop" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-12">
+                <label asp-for="DanhGiaKhachSanDTO.ThaiDoPvcuaNv" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.ThaiDoPvcuaNv" class="form-control form-control-sm " id="txtThaiDoPvcuaNv" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.ThaiDoPvcuaNv" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaKhachSanDTO.CoBoTriPhongChoNb" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.CoBoTriPhongChoNb" class="form-control form-control-sm " id="txtCoBoTriPhongChoNb" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.CoBoTriPhongChoNb" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaKhachSanDTO.CoBaiDoXe" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.CoBaiDoXe" class="form-control form-control-sm float-left" id="txtCoBaiDoXe" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.CoBaiDoXe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaKhachSanDTO.DaCoKhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.DaCoKhaoSatThucTe" class="form-control form-control-sm " id="txtDaCoKhaoSatThucTe" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.DaCoKhaoSatThucTe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaKhachSanDTO.KqDat" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.KqDat" class="form-control form-control-sm " id="txtKqDat" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.KqDat" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaKhachSanDTO.KqKhaoSatThem" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.KqKhaoSatThem" class="form-control form-control-sm " id="txtKqKhaoSatThem" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.KqKhaoSatThem" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="txtDongYduaVaoDsncu" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiKhachSanPartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnThemMoiKhachSanPartial_Back"><i class="fas fa-backward "></i> Back</button>
+        </div>
+    </div>
+</form>
+
+<script src="~/js/Admin/Supplier/indexController"></script>
+
+<script>
+
+    $('#btnThemMoiKhachSanPartial_Back').off('click').on('click', function(){
+        $('#divKhachSan').show(500);
+        $('#ThemMoiKhachSan_Partial').hide(500);
+        $('#CapNhatKhachSan_Partial').hide(500);
+    })
+
+    $('#btnThemMoiKhachSanPartial_Save').off('click').on('click', function () {
+
+        if ($('#frmThemMoiKhachSanPartial').valid()) {
+            var khachSan = $('#frmThemMoiKhachSanPartial').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhGiaKhachSan/ThemMoiKhachSan_Partial",
+                data: khachSan,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+
+                        toastr.success('Tạo mới thành công!'); // toastr in admin/tour/indexController.js
+
+                        $('#ThemMoiKhachSan_Partial').hide(500);
+                        $('#CapNhatKhachSan_Partial').hide(500);
+
+                        var supplierId = '@Model.SupplierDTO.Code';
+
+                        KhachSanTbl(supplierId);
+                    }
+                    else {
+                        toastr.error(response.message);
+
+                    }
+                }
+            });
+        }
+
+    });
+</script>

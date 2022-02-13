@@ -20,7 +20,7 @@ namespace Data.Models
         public string SucChuaToiDa { get; set; }
         public string ViTri { get; set; }
         public string CoNhaHang { get; set; }
-        public bool? CoHoBoi { get; set; }
+        public bool CoHoBoi { get; set; }
         public bool? CoBien { get; set; }
         public bool? CoPhongHop { get; set; }
         public string ThaiDoPvcuaNv { get; set; }

@@ -1,0 +1,220 @@
+﻿@model DanhGiaKhachSanViewModel
+
+<div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblKhachSan">
+    <table class="table mytable text-nowrap text-sm" id="danhGiaKhachSanTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiKhachSan_Partial" title="Thêm mới"
+                            id="btnThemMoiKhachSan" data-supplierid="@Model.SupplierDTO.Code">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().TenNcu)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DienThoai)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Fax)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Website)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().TieuChuanSao)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Gpkd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Vat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().SucChuaToiDa)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().ViTri)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().CoNhaHang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().CoHoBoi)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().CoBien)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().CoPhongHop)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().ThaiDoPvcuaNv)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().CoBoTriPhongChoNb)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().CoBaiDoXe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().KqDat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().KqKhaoSatThem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DanhGiaKhachSanDTOs != null)
+            {
+                @foreach (var item in Model.DanhGiaKhachSanDTOs)
+                {
+
+                    <tr class="nhahang-cursor-pointer @item.Id" onclick="DMTK_Tbl()">
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+
+                                <a class="text-primary" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id" id="btnCapNhatKhachSan"><i class="fas fa-edit"></i></a>
+                                @*<span class="text-dark"> | </span>
+
+                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                <!-- ko cho xóa -->
+                                <span class="text-dark"> | </span>
+                                <form asp-action="Delete" asp-controller="DanhGiaKhachSan" method="post">
+
+                                    <span id="confirmDeleteKhachSan_@item.Id" style="display: none">
+                                        <!--ajax check invoices-->
+                                        <span class="text-dark invoiceTrue">Xoá?</span>
+
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                                        <button type="button" class="btn btn-danger btn-xs " id="btnXoaKhachSan" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteKhachSan('@item.Id', false)">No</button>
+                                    </span>
+                                </form>
+                                <span id="deleteSpan_@item.Id">
+                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteKhachSan('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Gpkd == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Vat == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SucChuaToiDa)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoNhaHang)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoHoBoi == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoBien == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoPhongHop == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ThaiDoPvcuaNv)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoBoTriPhongChoNb)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoBaiDoXe)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.DaCoKhaoSatThucTe == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Chưa</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.KqDat == true)
+                            {
+                                <span class="badge badge-success">Đạt</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Chưa</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.DongYduaVaoDsncu == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // delete
+    function confirmDeleteKhachSan(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteKhachSanSpan = 'confirmDeleteKhachSanSpan_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteKhachSanSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteKhachSanSpan).hide();
+        }
+    }
+
+    // btnThemMoiKhachSan --> khachsan_partial
+    $('#btnThemMoiKhachSan').off('click').on('click', function () {
+        $('#divKhachSan').hide(500);
+        $('#CapNhatKhachSan_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        $.get('/DanhGiaKhachSan/ThemMoiKhachSan_Partial', { supplierId: supplierId }, function (response) {
+            $('#ThemMoiKhachSan_Partial').html(response);
+            $('#ThemMoiKhachSan_Partial').show(500);
+
+        });
+    })
+
+    // btnCapNhatKhachSan
+    $('#btnCapNhatKhachSan').click(function (e) {
+        e.preventDefault();
+
+        $('#divKhachSan').hide(500);
+        $('#ThemMoiKhachSan_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        var id = $(this).data('id');
+        $.get('/DanhGiaKhachSan/CapNhatKhachSan_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatKhachSan_Partial').html(response);
+            $('#CapNhatKhachSan_Partial').show(500);
+
+        });
+    })
+</script>

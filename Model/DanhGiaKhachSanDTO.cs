@@ -44,13 +44,13 @@ namespace Model
         public string CoNhaHang { get; set; }
 
         [Display(Name = "Có hồ bơi")]
-        public bool? CoHoBoi { get; set; }
+        public bool CoHoBoi { get; set; }
 
         [Display(Name = "Có biển")]
-        public bool? CoBien { get; set; }
+        public bool CoBien { get; set; }
 
         [Display(Name = "Có phòng hộp")]
-        public bool? CoPhongHop { get; set; }
+        public bool CoPhongHop { get; set; }
 
         [Display(Name = "Thái độ NV")]
         public string ThaiDoPvcuaNv { get; set; }
