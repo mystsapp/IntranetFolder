@@ -33,6 +33,8 @@ namespace IntranetFolder.Services
         SupplierDTO GetByIdAsNoTracking(string id);
 
         Task<IEnumerable<DanhGiaNhaHangDTO>> GetDanhGiaNhaHangBy_SupplierId(string id);
+
+        Task<IEnumerable<SupplierDTO>> FindAsync(string searchString);
     }
 
     public class SupplierService : ISupplierService
@@ -222,6 +224,17 @@ namespace IntranetFolder.Services
             var danhGiaNhaHangs = await _unitOfWork.danhGiaNhaHangRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == id);
             return _mapper.Map<IEnumerable<DanhGiaNhaHang>, IEnumerable<DanhGiaNhaHangDTO>>
                 (danhGiaNhaHangs);
+        }
+
+        public async Task<IEnumerable<SupplierDTO>> FindAsync(string searchString)
+        {
+            var suppliers = await _unitOfWork.supplierRepository.FindAsync(x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+                                           (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Masothue) && x.Masothue.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Tapdoan) && x.Tapdoan.ToLower().Contains(searchString.ToLower())));
+            return _mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierDTO>>(suppliers);
         }
     }
 }

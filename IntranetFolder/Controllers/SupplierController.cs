@@ -6,7 +6,12 @@ using IntranetFolder.Services;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IntranetFolder.Controllers
@@ -322,6 +327,194 @@ namespace IntranetFolder.Controllers
             SupplierVM.DanhGiaNhaHangDTOs = await _supplierService.GetDanhGiaNhaHangBy_SupplierId(id);
 
             return PartialView(SupplierVM);
+        }
+
+        // ExportExcel
+        [HttpPost]
+        public async Task<IActionResult> ExportExcel(string searchString/*, string loaiKh*/)
+        {
+            IEnumerable<SupplierDTO> supplierDTOs = await _supplierService.FindAsync(searchString);
+
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            ExcelPackage ExcelApp = new ExcelPackage();
+            ExcelWorksheet xlSheet = ExcelApp.Workbook.Worksheets.Add("Supplier");
+            // Định dạng chiều dài cho cột
+            xlSheet.Column(1).Width = 10;// CODE
+            xlSheet.Column(2).Width = 30;// TÊN GIAO DỊCH
+            xlSheet.Column(3).Width = 40;// ĐỊA CHỈ
+            xlSheet.Column(4).Width = 30;// TỈNH / THÀNH PHỐ
+            xlSheet.Column(5).Width = 30;// TÊN THƯƠNG MẠI
+            xlSheet.Column(6).Width = 20;// MÃ SỐ THUẾ
+            xlSheet.Column(7).Width = 30;// GROUP / TẬP DOÀN
+            xlSheet.Column(8).Width = 20;// TRẠNG THÁI
+            xlSheet.Column(9).Width = 30;// NGƯỜI TRÌNH KÝ HD
+
+            xlSheet.Cells[2, 1].Value = "BẢNG KÊ DANH MỤC SUPPLIER";
+            xlSheet.Cells[2, 1].Style.Font.SetFromFont(new Font("Times New Roman", 18, FontStyle.Bold));
+            xlSheet.Cells[2, 1, 2, 9].Merge = true;
+
+            //xlSheet.Cells[4, 4].Value = "Loại Kh: ";
+            //xlSheet.Cells[4, 4].Style.Font.SetFromFont(new Font("Times New Roman", 12, FontStyle.Bold));
+            //var loai = CommonList.LoaiKh().Where(x => x.StrId == loaiKh).FirstOrDefault();
+            //xlSheet.Cells[4, 5].Value = loai.Name;
+            //xlSheet.Cells[4, 5].Style.Fill.PatternType = ExcelFillStyle.DarkHorizontal;
+            //xlSheet.Cells[4, 5].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+            //xlSheet.Cells[4, 5].Style.Font.SetFromFont(new Font("Times New Roman", 12, FontStyle.Bold | FontStyle.Italic));
+
+            ExcelTool.setCenterAligment(1, 1, 2, 1, xlSheet);
+
+            // Tạo header
+            xlSheet.Cells[4, 1].Value = "CODE";
+            xlSheet.Cells[4, 2].Value = "TÊN GIAO DỊCH";
+            xlSheet.Cells[4, 3].Value = "ĐỊA CHỈ";
+            xlSheet.Cells[4, 4].Value = "TỈNH / THÀNH PHỐ";
+            xlSheet.Cells[4, 5].Value = "TÊN THƯƠNG MẠI";
+            xlSheet.Cells[4, 6].Value = "MÃ SỐ THUẾ";
+            xlSheet.Cells[4, 7].Value = "GROUP / TẬP DOÀN";
+            xlSheet.Cells[4, 8].Value = "TRẠNG THÁI";
+            xlSheet.Cells[4, 9].Value = "NGƯỜI TRÌNH KÝ HD";
+
+            ExcelTool.setBorder(4, 1, 4, 9, xlSheet);
+            ExcelTool.setCenterAligment(4, 1, 6, 9, xlSheet);
+            xlSheet.Cells[4, 1, 4, 9].Style.Font.SetFromFont(new Font("Times New Roman", 12, FontStyle.Bold));
+            xlSheet.Cells[4, 1, 4, 9].Style.VerticalAlignment = ExcelVerticalAlignment.Center; // canh giữa cột
+            xlSheet.Column(2).Style.WrapText = true; // WrapText for column
+            xlSheet.Column(3).Style.WrapText = true;
+            xlSheet.Column(5).Style.WrapText = true;
+
+            // do du lieu tu table
+            int dong = 5;
+
+            //int iRowIndex = 6;
+
+            Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#D3D3D3");// ColorTranslator.FromHtml("#D3D3D3");
+            Color colorTotalRow = ColorTranslator.FromHtml("#66ccff");
+            Color colorThanhLy = ColorTranslator.FromHtml("#7FFF00");
+            Color colorChuaThanhLy = ColorTranslator.FromHtml("#FFDEAD");
+
+            int idem = 1;
+
+            if (supplierDTOs.Count() > 0)
+            {
+                foreach (var item in supplierDTOs)
+                {
+                    //xlSheet.Cells[dong, 1].Value = idem;
+                    //ExcelTool.TrSetCellBorder(xlSheet, dong, 1, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Justify, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    ////xlSheet.Cells[dong, 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 1].Value = item.Code;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 1, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Justify, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    //xlSheet.Cells[dong, 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 2].Value = item.Tengiaodich;// == true ? "Có" : "Không";
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 2, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Justify, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    //xlSheet.Cells[dong, 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 3].Value = item.Diachi;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 3, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    //xlSheet.Cells[dong, 4].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 4].Value = item.Tinhtp;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 4, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    //xlSheet.Cells[dong, 5].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 5].Value = item.Tenthuongmai;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 5, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Left, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 6].Value = item.Masothue;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 6, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Left, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 7].Value = item.Tapdoan;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 7, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 8].Value = item.Trangthai == true ? "Kích hoạt" : "Khoá";
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 8, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    xlSheet.Cells[dong, 9].Value = item.NguoiTrinhKyHd;
+                    ExcelTool.TrSetCellBorder(xlSheet, dong, 9, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
+                    // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    //setBorder(5, 1, dong, 10, xlSheet);
+                    //ExcelTool.NumberFormat(dong, 6, dong + 1, 6, xlSheet);
+
+                    dong++;
+                    idem++;
+                }
+
+                //xlSheet.Cells[dong, 5].Value = "Tổng cộng:";
+                //xlSheet.Cells[dong, 5].Style.Font.SetFromFont(new Font("Times New Roman", 12, FontStyle.Bold | FontStyle.Italic));
+                //xlSheet.Cells[dong, 6].Formula = "SUM(F6:F" + (dong - 1) + ")";
+
+                ////NumberFormat(dong, 3, dong, 4, xlSheet);
+                ////setFontBold(dong, 1, dong, 10, 12, xlSheet);
+                //ExcelTool.setBorder(dong, 1, dong, 8, xlSheet);
+                //ExcelTool.DateFormat(6, 1, dong, 1, xlSheet);
+
+                //xlSheet.Cells[dong + 2, 1].Value = "Người lập bảng kê";
+                //xlSheet.Cells[dong + 2, 1].Style.Font.SetFromFont(new Font("Times New Roman", 12, FontStyle.Regular));
+                //xlSheet.Cells[dong + 2, 4].Value = "Kế toán trưởng";
+                //xlSheet.Cells[dong + 2, 4].Style.Font.SetFromFont(new Font("Times New Roman", 12, FontStyle.Regular));
+
+                //setCenterAligment(dong + 2, 1, dong + 2, 4, xlSheet);
+            }
+            else
+            {
+                SetAlert("Không có khách hàng nào.", "warning");
+                return NoContent();
+            }
+
+            //dong++;
+            //// Merger cot 4,5 ghi tổng tiền
+            //setRightAligment(dong, 3, dong, 3, xlSheet);
+            //xlSheet.Cells[dong, 1, dong, 2].Merge = true;
+            //xlSheet.Cells[dong, 1].Value = "Tổng tiền: ";
+
+            // Sum tổng tiền
+            // xlSheet.Cells[dong, 5].Value = "TC:";
+            //DateTimeFormat(6, 4, 6 + d.Count(), 4, xlSheet);
+            // DateTimeFormat(6, 4, 9, 4, xlSheet);
+            // setCenterAligment(6, 4, 9, 4, xlSheet);
+            // xlSheet.Cells[dong, 6].Formula = "SUM(F6:F" + (6 + d.Count() - 1) + ")";
+
+            //setBorder(5, 1, 5 + d.Count() + 2, 10, xlSheet);
+
+            //setFontBold(5, 1, 5, 8, 11, xlSheet);
+            //setFontSize(6, 1, 6 + d.Count() + 2, 8, 11, xlSheet);
+            // canh giua cot stt
+            //setCenterAligment(6, 1, 6 + dong + 2, 1, xlSheet);
+            // canh giua code chinhanh
+            //setCenterAligment(6, 3, 6 + dong + 2, 3, xlSheet);
+            // NumberFormat(6, 6, 6 + d.Count(), 6, xlSheet);
+            // định dạng số cot, đơn giá, thành tiền tong cong
+            // NumberFormat(6, 8, dong, 9, xlSheet);
+
+            ExcelTool.setBorder(dong - 1, 1, dong - 1, 9, xlSheet);
+            // setFontBold(dong, 5, dong, 6, 12, xlSheet);
+
+            //xlSheet.View.FreezePanes(6, 20);
+
+            //end du lieu
+
+            byte[] fileContents;
+            try
+            {
+                fileContents = ExcelApp.GetAsByteArray();
+                SetAlert("Good job!", "success");
+                return File(
+                fileContents: fileContents,
+                contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fileDownloadName: "BangTheoDMSupplier_" + System.DateTime.Now.ToString("dd/MM/yyyy HH:mm") + ".xlsx");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
