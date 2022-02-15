@@ -74,5 +74,6 @@ namespace Model
         public virtual ICollection<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
         public virtual ICollection<DanhGiaKhachSanDTO> DanhGiaKhachSanDTOs { get; set; }
         public virtual ICollection<DanhGiaLandTourDTO> DanhGiaLandTourDTOs { get; set; }
+        public virtual ICollection<DanhGiaDTQDTO> DanhGiaDTQDTOs { get; set; }
     }
 }

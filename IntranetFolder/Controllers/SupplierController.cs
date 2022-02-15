@@ -466,7 +466,7 @@ namespace IntranetFolder.Controllers
             else
             {
                 SetAlert("Không có khách hàng nào.", "warning");
-                return NoContent();
+                return RedirectToAction(nameof(Index), new { searchString = searchString });
             }
 
             //dong++;

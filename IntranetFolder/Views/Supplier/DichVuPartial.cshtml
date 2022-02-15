@@ -16,10 +16,10 @@
                     <a class="nav-link" id="landtour-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_landTour" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Land tour</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_diemTQ" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Điểm TQ</a>
+                    <a class="nav-link" id="diemtq-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_diemTQ" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Điểm TQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cam - Lao</a>
+                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cam - Lao</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_vanChuyen" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vận chuyển</a>
@@ -82,12 +82,12 @@
 
                                                         <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
                                                     <!-- ko cho xóa -->
-                                                    <span class="text-dark"> | </span>
+                                            <span class="text-dark"> | </span>
                                                     <form asp-action="Delete" asp-controller="DanhGiaNhaHang" method="post">
 
                                                         <span id="confirmDeleteSpan_@item.Id" style="display: none">
                                                             <!--ajax check invoices-->
-                                                            <span class="text-dark invoiceTrue">Xoá?</span>
+                                                    <span class="text-dark invoiceTrue">Xoá?</span>
 
                                                             <input type="hidden" name="id" value="@item.Id" />
                                                             <input type="hidden" name="strUrl" value="@Model.StrUrl" />
@@ -216,6 +216,14 @@
                 <!-- tab_landTour -->
                 <!-- tab_diemTQ -->
                 <div class="tab-pane fade" id="tab_diemTQ" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    <div id="divDiemTQ">
+                    </div>
+
+                    <div id="ThemMoiDTQ_Partial">
+                    </div>
+
+                    <div id="CapNhatDTQ_Partial">
+                    </div>
                 </div>
                 <!-- tab_diemTQ -->
                 <!-- tab_camLao -->
@@ -328,7 +336,7 @@
         var supplierId = $(this).data('supplierid');
         LandTourTbl(supplierId);
     });
-    // landtour-tab
+
 
     function LandTourTbl(supplierId) {
 
@@ -342,4 +350,26 @@
         });
 
     }
+
+    // diemtq-tab
+    $('#diemtq-tab').off('click').on('click', function () {
+
+        var supplierId = $(this).data('supplierid');
+        DiemTQTbl(supplierId);
+    });
+
+
+    function DiemTQTbl(supplierId) {
+
+        $.get('/DanhGiaDTQ/DiemThamQuan_Partial', { supplierId: supplierId }, function (response) {
+
+            $('#divDiemTQ').html(response);
+            $('#divDiemTQ').show(500);
+            $('#CapNhatDTQ_Partial').hide(500);
+            $('#ThemMoiDTQ_Partial').hide(500);
+
+        });
+
+    }
+
 </script>
