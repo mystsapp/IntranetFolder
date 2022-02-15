@@ -20,6 +20,7 @@ namespace Data.Mapper
             //_unitOfWork = unitOfWork;
 
             CreateMap<Models.Supplier, SupplierDTO>()
+                .ForMember(dest => dest.DanhGiaCamLaoDTOs, opt => opt.MapFrom(src => src.DanhGiaCamLaos))
                 .ForMember(dest => dest.DanhGiaDTQDTOs, opt => opt.MapFrom(src => src.DanhGiaDiemThamQuans))
                 .ForMember(dest => dest.DanhGiaLandTourDTOs, opt => opt.MapFrom(src => src.DanhGiaLandtours))
                 .ForMember(dest => dest.DanhGiaNhaHangDTOs, opt => opt.MapFrom(src => src.DanhGiaNhaHangs))
@@ -36,6 +37,8 @@ namespace Data.Mapper
             CreateMap<DanhGiaLandtour, DanhGiaLandTourDTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
             CreateMap<DanhGiaDiemThamQuan, DanhGiaDTQDTO>()
+                .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
+            CreateMap<DanhGiaCamLao, DanhGiaCamLaoDTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
         }
     }

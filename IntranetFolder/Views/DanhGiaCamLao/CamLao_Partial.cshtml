@@ -1,0 +1,178 @@
+﻿@model DanhGiaCamLaoViewModel
+
+<div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblDTQ">
+    <table class="table mytable text-nowrap text-sm" id="danhGiaCamLaoTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiCamLao_Partial" title="Thêm mới"
+                            id="btnThemMoiCamLao" data-supplierid="@Model.SupplierDTO.Code">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().TenNcu)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KnngheNghiep)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KntaiThiTruongVn)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().NlkhaiThacDvtaiDiaPhuong)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().CldvvaHdvtiengViet)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().SanPham)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().GiaCa)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().MucDoKipThoiTrongGd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().MucDoHtxuLySuCo)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().Kqdat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KqkhaoSatThem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DanhGiaCamLaoDTOs != null)
+            {
+                @foreach (var item in Model.DanhGiaCamLaoDTOs)
+                {
+
+                    <tr class="lantour-cursor-pointer @item.Id">
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+
+                                <a class="text-primary btnCapNhatCamLao" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                @*<span class="text-dark"> | </span>
+
+                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                <!-- ko cho xóa -->
+                                <span class="text-dark"> | </span>
+                                @*<form asp-action="Delete" asp-controller="DanhGiaLandTour" method="post">*@
+
+                                <span id="confirmDeleteCamLao_@item.Id" style="display: none">
+                                    <!--ajax check invoices-->
+                                    <span class="text-dark ">Xoá?</span>
+
+                                    @*<input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />*@
+                                    <button type="button" class="btn btn-danger btn-xs btnXoaCamLao" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteCamLao('@item.Id', false)">No</button>
+                                </span>
+                                @*</form>*@
+                                <span id="deleteSpan_@item.Id">
+                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteCamLao('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KnngheNghiep)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KntaiThiTruongVn)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NlkhaiThacDvtaiDiaPhuong)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CldvvaHdvtiengViet)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SanPham)</td>
+                        <td class="tdVal" data-id="@item.Id">@string.Format("0:0,0#", item.GiaCa)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoKipThoiTrongGd)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoHtxuLySuCo)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DaCoKhaoSatThucTe)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Kqdat == true)
+                            {
+                                <span class="badge badge-success">Đạt</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Chưa</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.KqkhaoSatThem == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.DongYduaVaoDsncu == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // delete
+    function confirmDeleteCamLao(uniqueId, isDeleteClicked) { /////////////////////////////////
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteCamLaoSpan = 'confirmDeleteCamLao_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteCamLaoSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteCamLaoSpan).hide();
+        }
+    }
+
+    // btnThemMoiCamLao
+    $('#btnThemMoiCamLao').off('click').on('click', function () {
+        $('#divDiemTQ').hide(500);
+        $('#CapNhatDTQ_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        $.get('/DanhGiaDTQ/ThemMoiCamLao_Partial', { supplierId: supplierId }, function (response) {
+            $('#ThemMoiCamLao_Partial').html(response);
+            $('#ThemMoiCamLao_Partial').show(500);
+
+        });
+    })
+
+    // btnCapNhatCamLao
+    $('.btnCapNhatCamLao').click(function (e) {
+        e.preventDefault();
+
+        $('#divDiemTQ').hide(500);
+        $('#ThemMoiCamLao_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        var id = $(this).data('id');
+        $.get('/DanhGiaDTQ/CapNhatDTQ_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatDTQ_Partial').html(response);
+            $('#CapNhatDTQ_Partial').show(500);
+
+        });
+    })
+
+    // btnXoaCamLao
+    $('.btnXoaCamLao').off('click').on('click',function () {
+
+        var page = @Model.Page;
+        var supplierid = '@Model.SupplierDTO.Code';
+        var id = $(this).data('id');
+
+        id = $(this).data('id');
+
+        var url = '/DanhGiaDTQ/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                DiemTQTbl(supplierid);
+            }
+        });
+
+    });
+    // btnXoaNhaHang
+</script>

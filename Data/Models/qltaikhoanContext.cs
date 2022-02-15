@@ -172,33 +172,9 @@ namespace Data.Models
 
                 entity.Property(e => e.DaCoKhaoSatThucTe).HasMaxLength(250);
 
-                entity.Property(e => e.DiaChi).HasMaxLength(250);
-
-                entity.Property(e => e.DienThoai)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DoiXeOrLoaiXe)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.DongYduaVaoDsncu).HasColumnName("DongYDuaVaoDSNCU");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Fax)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Gia).HasColumnType("decimal(18, 0)");
-
                 entity.Property(e => e.GiaCa).HasMaxLength(150);
-
-                entity.Property(e => e.KhaNangHuyDong).HasMaxLength(150);
-
-                entity.Property(e => e.KinhNghiem).HasMaxLength(250);
 
                 entity.Property(e => e.KnngheNghiep)
                     .HasMaxLength(250)
@@ -211,8 +187,6 @@ namespace Data.Models
                 entity.Property(e => e.Kqdat).HasColumnName("KQDat");
 
                 entity.Property(e => e.KqkhaoSatThem).HasColumnName("KQKhaoSatThem");
-
-                entity.Property(e => e.LanDauOrTaiKy).HasMaxLength(50);
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
@@ -240,16 +214,22 @@ namespace Data.Models
                     .HasMaxLength(150)
                     .HasColumnName("NLKhaiThacDVTaiDiaPhuong");
 
-                entity.Property(e => e.PhapNhan).HasMaxLength(150);
-
                 entity.Property(e => e.SanPham).HasMaxLength(150);
 
-                entity.Property(e => e.SoXeChinhThuc).HasMaxLength(50);
+                entity.Property(e => e.SupplierId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("supplierId");
 
                 entity.Property(e => e.TenNcu)
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("TenNCU");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.DanhGiaCamLaos)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_DanhGiaCamLao_supplier");
             });
 
             modelBuilder.Entity<DanhGiaDiemThamQuan>(entity =>
