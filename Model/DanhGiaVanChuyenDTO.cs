@@ -26,7 +26,7 @@ namespace Model
         public string Website { get; set; }
 
         [Display(Name = "Lần đâu / tái ký")]
-        public bool? LanDauOrTaiKy { get; set; }
+        public bool LanDauOrTaiKy { get; set; }
 
         [Display(Name = "Pháp nhân")]
         public string PhapNhan { get; set; }

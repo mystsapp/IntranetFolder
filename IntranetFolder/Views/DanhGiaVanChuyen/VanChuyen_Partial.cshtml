@@ -73,9 +73,8 @@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoXeChinhThuc)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhaNangHuyDong)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DoiXeOrLoaiXe)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Gia)</td>
+                        <td class="tdVal" data-id="@item.Id">@(string.Format("{0:#,##0.00}", item.Gia))</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KinhNghiem)</td>
-                        
                     </tr>
 
                 }

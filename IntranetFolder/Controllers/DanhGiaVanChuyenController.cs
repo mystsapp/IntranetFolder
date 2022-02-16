@@ -33,7 +33,7 @@ namespace IntranetFolder.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CamLao_Partial(string supplierId)
+        public async Task<IActionResult> VanChuyen_Partial(string supplierId)
         {
             SupplierDTO supplierDTO = await _danhGiaVanChuyenService.GetSupplierByIdAsync(supplierId);
             if (supplierDTO == null)
@@ -151,7 +151,7 @@ namespace IntranetFolder.Controllers
                 {
                     ErrorLog errorLog = new ErrorLog()
                     {
-                        InnerMessage = ex.InnerException.Message,
+                        //InnerMessage = ex.InnerException.Message,
                         Message = ex.Message,
                         NgayTao = DateTime.Now,
                         NguoiTao = user.Nguoitao
