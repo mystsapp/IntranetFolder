@@ -1,0 +1,151 @@
+﻿@model DanhGiaCamLaoViewModel
+
+<form method="post" autocomplete="off" id="frmCapNhatCamLaoPartial" enctype="multipart/form-data">
+    <div class="pr-4 pl-4 text-sm">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for=DanhGiaCamLaoDTO.SupplierId />
+        <input type="hidden" asp-for=DanhGiaCamLaoDTO.Id />
+        <input type="hidden" asp-for=DanhGiaCamLaoDTO.LoaiDvid />
+        <input type="hidden" asp-for=DanhGiaCamLaoDTO.NgayTao />
+        <input type="hidden" asp-for=DanhGiaCamLaoDTO.NguoiTao />
+        
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.TenNcu" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.TenNcu" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.KnngheNghiep" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.KnngheNghiep" class="form-control form-control-sm " id="txtKnngheNghiep" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.KnngheNghiep" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.KntaiThiTruongVn" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.KntaiThiTruongVn" class="form-control form-control-sm " id="txtKntaiThiTruongVn" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.KntaiThiTruongVn" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.NlkhaiThacDvtaiDiaPhuong" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.NlkhaiThacDvtaiDiaPhuong" class="form-control form-control-sm " id="txtNlkhaiThacDvtaiDiaPhuong" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.NlkhaiThacDvtaiDiaPhuong" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.CldvvaHdvtiengViet" class="control-label" for="txtCoGpkd"></label>
+                <input asp-for="DanhGiaCamLaoDTO.CldvvaHdvtiengViet" class="form-control form-control-sm " id="txtCldvvaHdvtiengViet" />
+                @*<select asp-for="DanhGiaCamLaoDTO.LoaiDvid" class="form-control form-control-sm input-sm select2"
+                    asp-items="@(new SelectList(Model.LoaiDvDTOs, "id", "TenLoai"))" id="ddlLoaiDvid">
+                    <option>-- Select --</option>
+                    </select>*@
+                <span asp-validation-for="DanhGiaCamLaoDTO.CldvvaHdvtiengViet" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.SanPham" class="control-label" for="txtCoHdvat"></label>
+                <input asp-for="DanhGiaCamLaoDTO.SanPham" class="form-control form-control-sm " id="txtSanPham" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.SanPham" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.GiaCa" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                <input asp-for="DanhGiaCamLaoDTO.GiaCa" class="form-control form-control-sm numbers" id="txtGiaCa" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.GiaCa" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.MucDoKipThoiTrongGd" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.MucDoKipThoiTrongGd" class="form-control form-control-sm " id="txtMucDoKipThoiTrongGd" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.MucDoKipThoiTrongGd" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.MucDoHtxuLySuCo" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.MucDoHtxuLySuCo" class="form-control form-control-sm " id="txtMucDoHtxuLySuCo" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.MucDoHtxuLySuCo" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCamLaoDTO.DaCoKhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.DaCoKhaoSatThucTe" class="form-control form-control-sm " id="txtDaCoKhaoSatThucTe" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.DaCoKhaoSatThucTe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCamLaoDTO.Kqdat" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.Kqdat" class="form-control form-control-sm " id="ckKqdat" type="checkbox" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.Kqdat" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCamLaoDTO.KqkhaoSatThem" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.KqkhaoSatThem" class="form-control form-control-sm " id="ckKqkhaoSatThem" type="checkbox" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.KqkhaoSatThem" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCamLaoDTO.DongYduaVaoDsncu" class="control-label"></label>
+                <input asp-for="DanhGiaCamLaoDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="ckDongYduaVaoDsncu" type="checkbox" />
+                <span asp-validation-for="DanhGiaCamLaoDTO.DongYduaVaoDsncu" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" id="btnCapNhatCamLaoPartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnCapNhatCamLaoPartial_Back"><i class="fas fa-backward "></i> Back</button>
+        </div>
+    </div>
+</form>
+
+@*<script src="~/js/Admin/Supplier/indexController"></script>*@
+
+<script>
+    $('#btnCapNhatCamLaoPartial_Back').off('click').on('click', function(){
+        $('#divCamLao').show(500);
+        $('#ThemMoiCamLao_Partial').hide(500);
+        $('#CapNhatCamLao_Partial').hide(500);
+    })
+
+    $('#btnCapNhatCamLaoPartial_Save').off('click').on('click', function () {
+
+        if ($('#frmCapNhatCamLaoPartial').valid()) {
+            var camLao = $('#frmCapNhatCamLaoPartial').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhGiaCamLao/CapNhatCamLao_Partial",
+                data: camLao,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+
+                        toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
+
+                        $('#ThemMoiCamLao_Partial').hide(500);
+                        $('#CapNhatCamLao_Partial').hide(500);
+
+                        var supplierId = '@Model.SupplierDTO.Code';
+
+                        CamLaoTbl(supplierId);
+                    }
+                    else {
+                        toastr.error(response.message);
+
+                    }
+                }
+            });
+        }
+
+    });
+</script>

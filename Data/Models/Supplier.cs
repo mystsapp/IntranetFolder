@@ -14,6 +14,7 @@ namespace Data.Models
             DanhGiaKhachSans = new HashSet<DanhGiaKhachSan>();
             DanhGiaLandtours = new HashSet<DanhGiaLandtour>();
             DanhGiaNhaHangs = new HashSet<DanhGiaNhaHang>();
+            DanhGiaVanChuyens = new HashSet<DanhGiaVanChuyen>();
         }
 
         public string Code { get; set; }
@@ -47,5 +48,6 @@ namespace Data.Models
         public virtual ICollection<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
         public virtual ICollection<DanhGiaLandtour> DanhGiaLandtours { get; set; }
         public virtual ICollection<DanhGiaNhaHang> DanhGiaNhaHangs { get; set; }
+        public virtual ICollection<DanhGiaVanChuyen> DanhGiaVanChuyens { get; set; }
     }
 }

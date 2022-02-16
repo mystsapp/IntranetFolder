@@ -49,6 +49,7 @@ namespace IntranetFolder
             services.AddTransient<IDanhGiaLandTourRepository, DanhGiaLandTourRepository>();
             services.AddTransient<IDanhGiaDTQRepository, DanhGiaDTQRepository>();
             services.AddTransient<IDanhGiaCamLaoRepository, DanhGiaCamLaoRepository>();
+            services.AddTransient<IDanhGiaVanChuyenRepository, DanhGiaVanChuyenRepository>();
             services.AddTransient<IErrorRepository, ErrorRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -63,6 +64,7 @@ namespace IntranetFolder
             services.AddTransient<IDanhGiaLandTourService, DanhGiaLandTourService>();
             services.AddTransient<IDanhGiaDTQService, DanhGiaDTQService>();
             services.AddTransient<IDanhGiaCamLaoService, DanhGiaCamLaoService>();
+            services.AddTransient<IDanhGiaVanChuyenService, DanhGiaVanChuyenService>();
 
             services.AddSession(options =>
             {

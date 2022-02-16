@@ -68,7 +68,7 @@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NlkhaiThacDvtaiDiaPhuong)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CldvvaHdvtiengViet)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SanPham)</td>
-                        <td class="tdVal" data-id="@item.Id">@string.Format("0:0,0#", item.GiaCa)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.Raw(string.IsNullOrEmpty(item.GiaCa) ? "0" : decimal.Parse(item.GiaCa).ToString("N0"))</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoKipThoiTrongGd)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoHtxuLySuCo)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DaCoKhaoSatThucTe)</td>
@@ -128,11 +128,11 @@
 
     // btnThemMoiCamLao
     $('#btnThemMoiCamLao').off('click').on('click', function () {
-        $('#divDiemTQ').hide(500);
-        $('#CapNhatDTQ_Partial').hide(500);
+        $('#divCamLao').hide(500);
+        $('#CapNhatCamLao_Partial').hide(500);
 
         var supplierId = $(this).data('supplierid');
-        $.get('/DanhGiaDTQ/ThemMoiCamLao_Partial', { supplierId: supplierId }, function (response) {
+        $.get('/DanhGiaCamLao/ThemMoiCamLao_Partial', { supplierId: supplierId }, function (response) {
             $('#ThemMoiCamLao_Partial').html(response);
             $('#ThemMoiCamLao_Partial').show(500);
 
@@ -143,14 +143,14 @@
     $('.btnCapNhatCamLao').click(function (e) {
         e.preventDefault();
 
-        $('#divDiemTQ').hide(500);
+        $('#divCamLao').hide(500);
         $('#ThemMoiCamLao_Partial').hide(500);
 
         var supplierId = $(this).data('supplierid');
         var id = $(this).data('id');
-        $.get('/DanhGiaDTQ/CapNhatDTQ_Partial', { supplierId: supplierId, id: id }, function (response) {
-            $('#CapNhatDTQ_Partial').html(response);
-            $('#CapNhatDTQ_Partial').show(500);
+        $.get('/DanhGiaCamLao/CapNhatCamLao_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatCamLao_Partial').html(response);
+            $('#CapNhatCamLao_Partial').show(500);
 
         });
     })
@@ -164,12 +164,12 @@
 
         id = $(this).data('id');
 
-        var url = '/DanhGiaDTQ/Delete';
+        var url = '/DanhGiaCamLao/Delete';
         $.post(url, { id: id }, function (response) {
 
             if (response) {
                 toastr.success('Xoá thành công', 'Xoá!');
-                DiemTQTbl(supplierid);
+                CamLaoTbl(supplierid);
             }
         });
 

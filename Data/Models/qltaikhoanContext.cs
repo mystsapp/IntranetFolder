@@ -572,11 +572,28 @@ namespace Data.Models
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.PhapNhan).HasMaxLength(150);
 
                 entity.Property(e => e.SoXeChinhThuc)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.SupplierId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("supplierId");
 
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
@@ -585,6 +602,11 @@ namespace Data.Models
                 entity.Property(e => e.Website)
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.DanhGiaVanChuyens)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_DanhGiaVanChuyen_supplier");
             });
 
             modelBuilder.Entity<DichVu1>(entity =>

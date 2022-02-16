@@ -19,10 +19,10 @@
                     <a class="nav-link" id="diemtq-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_diemTQ" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Điểm TQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cam - Lao</a>
+                    <a class="nav-link" id="camlao-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cam - Lao</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#tab_vanChuyen" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vận chuyển</a>
+                    <a class="nav-link" id="vanchuyen-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_vanChuyen" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vận chuyển</a>
                 </li>
             </ul>
         </div>
@@ -228,10 +228,26 @@
                 <!-- tab_diemTQ -->
                 <!-- tab_camLao -->
                 <div class="tab-pane fade" id="tab_camLao" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    <div id="divCamLao">
+                    </div>
+
+                    <div id="ThemMoiCamLao_Partial">
+                    </div>
+
+                    <div id="CapNhatCamLao_Partial">
+                    </div>
                 </div>
                 <!-- tab_camLao -->
                 <!-- tab_vanChuyen -->
                 <div class="tab-pane fade" id="tab_vanChuyen" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                <div id="divVanChuyen">
+                    </div>
+
+                    <div id="ThemMoiVanChuyen_Partial">
+                    </div>
+
+                    <div id="CapNhatVanChuyen_Partial">
+                    </div>
                 </div>
                 <!-- tab_vanChuyen -->
             </div>
@@ -240,6 +256,8 @@
     </div>
 </div>
 <!--tour programe-->
+
+<script src="~/js/Admin/Supplier/indexController.js"></script>
 
 <script>
     // btnThemMoiNhaHang
@@ -367,6 +385,48 @@
             $('#divDiemTQ').show(500);
             $('#CapNhatDTQ_Partial').hide(500);
             $('#ThemMoiDTQ_Partial').hide(500);
+
+        });
+
+    }
+    
+    // camlao-tab
+    $('#camlao-tab').off('click').on('click', function () {
+
+        var supplierId = $(this).data('supplierid');
+        CamLaoTbl(supplierId);
+    });
+
+
+    function CamLaoTbl(supplierId) {
+
+        $.get('/DanhGiaCamLao/CamLao_Partial', { supplierId: supplierId }, function (response) {
+
+            $('#divCamLao').html(response);
+            $('#divCamLao').show(500);
+            $('#CapNhatCamLao_Partial').hide(500);
+            $('#ThemMoiCamLao_Partial').hide(500);
+
+        });
+
+    }
+    
+    // vanchuyen-tab
+    $('#vanchuyen-tab').off('click').on('click', function () {
+
+        var supplierId = $(this).data('supplierid');
+        VanChuyenTbl(supplierId);
+    });
+
+
+    function VanChuyenTbl(supplierId) {
+
+        $.get('/DanhGiaVanChuyen/VanChuyen_Partial', { supplierId: supplierId }, function (response) {
+
+            $('#divVanChuyen').html(response);
+            $('#divVanChuyen').show(500);
+            $('#CapNhatVanChuyen_Partial').hide(500);
+            $('#ThemMoiVanChuyen_Partial').hide(500);
 
         });
 

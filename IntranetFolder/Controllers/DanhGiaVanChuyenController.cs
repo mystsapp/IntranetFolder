@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 
 namespace IntranetFolder.Controllers
 {
-    public class DanhGiaCamLaoController : BaseController
+    public class DanhGiaVanChuyenController : BaseController
     {
-        private readonly IDanhGiaCamLaoService _danhGiaCamLaoService;
+        private readonly IDanhGiaVanChuyenService _danhGiaVanChuyenService;
 
         [BindProperty]
-        public DanhGiaCamLaoViewModel DanhGiaCamLaoVM { get; set; }
+        public DanhGiaVanChuyenViewModel DanhGiaVanChuyenVM { get; set; }
 
-        public DanhGiaCamLaoController(IDanhGiaCamLaoService danhGiaCamLaoService)
+        public DanhGiaVanChuyenController(IDanhGiaVanChuyenService danhGiaVanChuyenService)
         {
-            DanhGiaCamLaoVM = new DanhGiaCamLaoViewModel()
+            DanhGiaVanChuyenVM = new DanhGiaVanChuyenViewModel()
             {
-                DanhGiaCamLaoDTO = new DanhGiaCamLaoDTO(),
+                DanhGiaVanChuyenDTO = new DanhGiaVanChuyenDTO(),
                 StrUrl = ""
             };
-            _danhGiaCamLaoService = danhGiaCamLaoService;
+            _danhGiaVanChuyenService = danhGiaVanChuyenService;
         }
 
         public IActionResult Index()
@@ -35,36 +35,36 @@ namespace IntranetFolder.Controllers
 
         public async Task<IActionResult> CamLao_Partial(string supplierId)
         {
-            SupplierDTO supplierDTO = await _danhGiaCamLaoService.GetSupplierByIdAsync(supplierId);
+            SupplierDTO supplierDTO = await _danhGiaVanChuyenService.GetSupplierByIdAsync(supplierId);
             if (supplierDTO == null)
             {
                 ViewBag.ErrorMessage = "Supplier này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
-            DanhGiaCamLaoVM.SupplierDTO = supplierDTO;
-            DanhGiaCamLaoVM.DanhGiaCamLaoDTOs = await _danhGiaCamLaoService.GetDanhGiaCamLaoBy_SupplierId(supplierId);
+            DanhGiaVanChuyenVM.SupplierDTO = supplierDTO;
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTOs = await _danhGiaVanChuyenService.GetDanhGiaVanChuyenBy_SupplierId(supplierId);
 
-            return PartialView(DanhGiaCamLaoVM);
+            return PartialView(DanhGiaVanChuyenVM);
         }
 
-        public async Task<IActionResult> ThemMoiCamLao_Partial(string supplierId) // code
+        public async Task<IActionResult> ThemMoiVanChuyen_Partial(string supplierId) // code
         {
-            DanhGiaCamLaoVM.SupplierDTO = await _danhGiaCamLaoService.GetSupplierByIdAsync(supplierId);
-            DanhGiaCamLaoVM.DanhGiaCamLaoDTO.SupplierId = supplierId;
-            return PartialView(DanhGiaCamLaoVM);
+            DanhGiaVanChuyenVM.SupplierDTO = await _danhGiaVanChuyenService.GetSupplierByIdAsync(supplierId);
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.SupplierId = supplierId;
+            return PartialView(DanhGiaVanChuyenVM);
         }
 
-        [HttpPost, ActionName("ThemMoiCamLao_Partial")]
-        public async Task<IActionResult> ThemMoiCamLao_Partial_Post(string strUrl)
+        [HttpPost, ActionName("ThemMoiVanChuyen_Partial")]
+        public async Task<IActionResult> ThemMoiVanChuyen_Partial_Post(string strUrl)
         {
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             if (!ModelState.IsValid)
             {
-                DanhGiaCamLaoVM = new DanhGiaCamLaoViewModel()
+                DanhGiaVanChuyenVM = new DanhGiaVanChuyenViewModel()
                 {
-                    DanhGiaCamLaoDTO = new DanhGiaCamLaoDTO(),
+                    DanhGiaVanChuyenDTO = new DanhGiaVanChuyenDTO(),
                     StrUrl = strUrl
                 };
 
@@ -75,13 +75,13 @@ namespace IntranetFolder.Controllers
                 });
             }
 
-            DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NguoiTao = user.Username;
-            DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NgayTao = DateTime.Now;
-            DanhGiaCamLaoVM.DanhGiaCamLaoDTO.LoaiDvid = 5; // MaLoai = SSE
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NguoiTao = user.Username;
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NgayTao = DateTime.Now;
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.LoaiDvid = 7; // MaLoai = CAR
 
             try
             {
-                await _danhGiaCamLaoService.CreateAsync(DanhGiaCamLaoVM.DanhGiaCamLaoDTO); // save
+                await _danhGiaVanChuyenService.CreateAsync(DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO); // save
 
                 return Json(new
                 {
@@ -97,7 +97,7 @@ namespace IntranetFolder.Controllers
                     NgayTao = DateTime.Now,
                     NguoiTao = user.Nguoitao
                 };
-                await _danhGiaCamLaoService.CreateErroLogAsync(errorLog);
+                await _danhGiaVanChuyenService.CreateErroLogAsync(errorLog);
                 return Json(new
                 {
                     status = false,
@@ -106,7 +106,7 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        public async Task<IActionResult> CapNhatCamLao_Partial(string supplierId, long id)
+        public async Task<IActionResult> CapNhatVanChuyen_Partial(string supplierId, long id)
         {
             // from session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
@@ -117,33 +117,33 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            DanhGiaCamLaoVM.DanhGiaCamLaoDTO = await _danhGiaCamLaoService.GetByIdAsync(id);
-            DanhGiaCamLaoVM.SupplierDTO = await _danhGiaCamLaoService.GetSupplierByIdAsync(supplierId);
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO = await _danhGiaVanChuyenService.GetByIdAsync(id);
+            DanhGiaVanChuyenVM.SupplierDTO = await _danhGiaVanChuyenService.GetSupplierByIdAsync(supplierId);
 
-            if (DanhGiaCamLaoVM.DanhGiaCamLaoDTO == null)
+            if (DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO == null)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
-            return PartialView(DanhGiaCamLaoVM);
+            return PartialView(DanhGiaVanChuyenVM);
         }
 
-        [HttpPost, ActionName("CapNhatCamLao_Partial")]
+        [HttpPost, ActionName("CapNhatVanChuyen_Partial")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CapNhatCamLao_Partial_Post()
+        public async Task<IActionResult> CapNhatVanChuyen_Partial_Post()
         {
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             if (ModelState.IsValid)
             {
-                DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NgaySua = DateTime.Now;
-                DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NguoiSua = user.Username;
+                DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NgaySua = DateTime.Now;
+                DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NguoiSua = user.Username;
 
                 try
                 {
-                    await _danhGiaCamLaoService.UpdateAsync(DanhGiaCamLaoVM.DanhGiaCamLaoDTO);
+                    await _danhGiaVanChuyenService.UpdateAsync(DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO);
 
                     return Json(new { status = true });
                 }
@@ -156,7 +156,7 @@ namespace IntranetFolder.Controllers
                         NgayTao = DateTime.Now,
                         NguoiTao = user.Nguoitao
                     };
-                    await _danhGiaCamLaoService.CreateErroLogAsync(errorLog);
+                    await _danhGiaVanChuyenService.CreateErroLogAsync(errorLog);
                     return Json(new
                     {
                         status = false,
@@ -166,7 +166,7 @@ namespace IntranetFolder.Controllers
             }
             // not valid
 
-            return View(DanhGiaCamLaoVM);
+            return View(DanhGiaVanChuyenVM);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -175,17 +175,17 @@ namespace IntranetFolder.Controllers
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-            DanhGiaCamLaoVM.StrUrl = strUrl;
+            DanhGiaVanChuyenVM.StrUrl = strUrl;
 
-            var DanhGiaCamLaoDTO = _danhGiaCamLaoService.GetByIdAsNoTracking(id);
-            if (DanhGiaCamLaoDTO == null)
+            var DanhGiaVanChuyenDTO = _danhGiaVanChuyenService.GetByIdAsNoTracking(id);
+            if (DanhGiaVanChuyenDTO == null)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             try
             {
-                await _danhGiaCamLaoService.Delete(DanhGiaCamLaoDTO);
+                await _danhGiaVanChuyenService.Delete(DanhGiaVanChuyenDTO);
 
                 return Json(true);
             }
@@ -198,7 +198,7 @@ namespace IntranetFolder.Controllers
                     NgayTao = DateTime.Now,
                     NguoiTao = user.Nguoitao
                 };
-                await _danhGiaCamLaoService.CreateErroLogAsync(errorLog);
+                await _danhGiaVanChuyenService.CreateErroLogAsync(errorLog);
 
                 return Json(false);
             }

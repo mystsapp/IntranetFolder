@@ -14,7 +14,7 @@ namespace Data.Models
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public bool? LanDauOrTaiKy { get; set; }
+        public bool LanDauOrTaiKy { get; set; }
         public string PhapNhan { get; set; }
         public string SoXeChinhThuc { get; set; }
         public string KhaNangHuyDong { get; set; }
@@ -22,5 +22,12 @@ namespace Data.Models
         public decimal? Gia { get; set; }
         public string KinhNghiem { get; set; }
         public int LoaiDvid { get; set; }
+        public DateTime? NgayTao { get; set; }
+        public string NguoiTao { get; set; }
+        public DateTime? NgaySua { get; set; }
+        public string NguoiSua { get; set; }
+        public string SupplierId { get; set; }
+
+        public virtual Supplier Supplier { get; set; }
     }
 }

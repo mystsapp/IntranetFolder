@@ -6,6 +6,7 @@
         <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" asp-for=DanhGiaLandTourDTO.SupplierId />
         <input type="hidden" asp-for=DanhGiaLandTourDTO.Id />
+        <input type="hidden" asp-for=DanhGiaLandTourDTO.LoaiDvid />
         <input type="hidden" asp-for=DanhGiaLandTourDTO.NgayTao />
         <input type="hidden" asp-for=DanhGiaLandTourDTO.NguoiTao />
 
@@ -40,7 +41,7 @@
 
             <div class="col-md-2">
                 <label asp-for="DanhGiaLandTourDTO.Email" class="control-label" for="txtCoGpkd"></label>
-                <input asp-for="DanhGiaLandTourDTO.Email" class="form-control form-control-sm " id="txtEmail" type="checkbox" />
+                <input asp-for="DanhGiaLandTourDTO.Email" class="form-control form-control-sm " id="txtEmail" />
                 @*<select asp-for="DanhGiaLandTourDTO.LoaiDvid" class="form-control form-control-sm input-sm select2"
                     asp-items="@(new SelectList(Model.LoaiDvDTOs, "id", "TenLoai"))" id="ddlLoaiDvid">
                     <option>-- Select --</option>
@@ -50,19 +51,19 @@
 
             <div class="col-md-2">
                 <label asp-for="DanhGiaLandTourDTO.Website" class="control-label" for="txtCoHdvat"></label>
-                <input asp-for="DanhGiaLandTourDTO.Website" class="form-control form-control-sm " id="txtWebsite" type="checkbox" />
+                <input asp-for="DanhGiaLandTourDTO.Website" class="form-control form-control-sm " id="txtWebsite" />
                 <span asp-validation-for="DanhGiaLandTourDTO.Website" class="text-danger"></span>
             </div>
 
             <div class="col-md-2">
                 <label asp-for="DanhGiaLandTourDTO.CoGpkd" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
-                <input asp-for="DanhGiaLandTourDTO.CoGpkd" class="form-control form-control-sm " id="txtCoGpkd" type="checkbox" />
+                <input asp-for="DanhGiaLandTourDTO.CoGpkd" class="form-control form-control-sm " id="ckCoGpkd" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.CoGpkd" class="text-danger"></span>
             </div>
 
             <div class="col-md-2">
                 <label asp-for="DanhGiaLandTourDTO.CoHdvat" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.CoHdvat" class="form-control form-control-sm " id="txtCoHdvat" type="checkbox" />
+                <input asp-for="DanhGiaLandTourDTO.CoHdvat" class="form-control form-control-sm " id="ckCoHdvat" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.CoHdvat" class="text-danger"></span>
             </div>
         </div>

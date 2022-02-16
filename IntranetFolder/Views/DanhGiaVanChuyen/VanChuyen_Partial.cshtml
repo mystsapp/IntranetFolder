@@ -1,0 +1,152 @@
+﻿@model DanhGiaVanChuyenViewModel
+
+<div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblDTQ">
+    <table class="table mytable text-nowrap text-sm" id="danhGiaVanChuyenTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiVanChuyen_Partial" title="Thêm mới"
+                            id="btnThemMoiVanChuyen" data-supplierid="@Model.SupplierDTO.Code">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().TenNcu)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().DienThoai)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().Fax)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().Website)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().LanDauOrTaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().PhapNhan)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().SoXeChinhThuc)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().KhaNangHuyDong)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().DoiXeOrLoaiXe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().Gia)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().KinhNghiem)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DanhGiaVanChuyenDTOs != null)
+            {
+                @foreach (var item in Model.DanhGiaVanChuyenDTOs)
+                {
+
+                    <tr class="vanchuyen-cursor-pointer @item.Id">
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+
+                                <a class="text-primary btnCapNhatVanChuyen" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                @*<span class="text-dark"> | </span>
+
+                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                <!-- ko cho xóa -->
+                                <span class="text-dark"> | </span>
+                                @*<form asp-action="Delete" asp-controller="DanhGiaLandTour" method="post">*@
+
+                                <span id="confirmDeleteVanChuyen_@item.Id" style="display: none">
+                                    <!--ajax check invoices-->
+                                    <span class="text-dark ">Xoá?</span>
+
+                                    @*<input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />*@
+                                    <button type="button" class="btn btn-danger btn-xs btnXoaVanChuyen" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteVanChuyen('@item.Id', false)">No</button>
+                                </span>
+                                @*</form>*@
+                                <span id="deleteSpan_@item.Id">
+                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteVanChuyen('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.LanDauOrTaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.PhapNhan)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoXeChinhThuc)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhaNangHuyDong)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DoiXeOrLoaiXe)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Gia)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KinhNghiem)</td>
+                        
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // delete
+    function confirmDeleteVanChuyen(uniqueId, isDeleteClicked) { /////////////////////////////////
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteVanChuyenSpan = 'confirmDeleteVanChuyen_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteVanChuyenSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteVanChuyenSpan).hide();
+        }
+    }
+
+    // btnThemMoiVanChuyen
+    $('#btnThemMoiVanChuyen').off('click').on('click', function () {
+        $('#divVanChuyen').hide(500);
+        $('#CapNhatVanChuyen_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        $.get('/DanhGiaVanChuyen/ThemMoiVanChuyen_Partial', { supplierId: supplierId }, function (response) {
+            $('#ThemMoiVanChuyen_Partial').html(response);
+            $('#ThemMoiVanChuyen_Partial').show(500);
+
+        });
+    })
+
+    // btnCapNhatVanChuyen
+    $('.btnCapNhatVanChuyen').click(function (e) {
+        e.preventDefault();
+
+        $('#divVanChuyen').hide(500);
+        $('#ThemMoiVanChuyen_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        var id = $(this).data('id');
+        $.get('/DanhGiaVanChuyen/CapNhatVanChuyen_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatVanChuyen_Partial').html(response);
+            $('#CapNhatVanChuyen_Partial').show(500);
+
+        });
+    })
+
+    // btnXoaVanChuyen
+    $('.btnXoaVanChuyen').off('click').on('click',function () {
+
+        var page = @Model.Page;
+        var supplierid = '@Model.SupplierDTO.Code';
+        var id = $(this).data('id');
+
+        id = $(this).data('id');
+
+        var url = '/DanhGiaVanChuyen/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                VanChuyenTbl(supplierid);
+            }
+        });
+
+    });
+    // btnXoaNhaHang
+</script>

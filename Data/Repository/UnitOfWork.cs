@@ -21,6 +21,7 @@ namespace Data.Repository
         IDanhGiaLandTourRepository danhGiaLandTourRepository { get; }
         IDanhGiaDTQRepository danhGiaDTQRepository { get; }
         IDanhGiaCamLaoRepository danhGiaCamLaoRepository { get; }
+        IDanhGiaVanChuyenRepository danhGiaVanChuyenRepository { get; }
         IErrorRepository errorRepository { get; }
 
         // qltour
@@ -51,6 +52,7 @@ namespace Data.Repository
             danhGiaLandTourRepository = new DanhGiaLandTourRepository(_context);
             danhGiaDTQRepository = new DanhGiaDTQRepository(_context);
             danhGiaCamLaoRepository = new DanhGiaCamLaoRepository(_context);
+            danhGiaVanChuyenRepository = new DanhGiaVanChuyenRepository(_context);
             errorRepository = new ErrorRepository(_context);
 
             // qltour
@@ -84,6 +86,8 @@ namespace Data.Repository
         public IDanhGiaDTQRepository danhGiaDTQRepository { get; }
 
         public IDanhGiaCamLaoRepository danhGiaCamLaoRepository { get; }
+
+        public IDanhGiaVanChuyenRepository danhGiaVanChuyenRepository { get; }
 
         public async Task<int> Complete()
         {
