@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-#nullable disable
-
-namespace Data.Models
+namespace Model
 {
-    public partial class DichVu1
+    public class DichVu1DTO
     {
-        public DichVu1()
-        {
-            HinhAnhs = new HashSet<HinhAnh>();
-        }
-
         public string MaDv { get; set; }
         public string TenDv { get; set; }
         public string DonViKyKet { get; set; }
@@ -43,8 +38,8 @@ namespace Data.Models
         public string NguoiSua { get; set; }
         public string LogFile { get; set; }
 
-        public virtual LoaiDv LoaiDv { get; set; }
-        public virtual Supplier Supplier { get; set; }
-        public virtual ICollection<HinhAnh> HinhAnhs { get; set; }
+        public LoaiDvDTO LoaiDvDTO { get; set; }
+        public SupplierDTO SupplierDTO { get; set; }
+        public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
     }
 }

@@ -23,5 +23,6 @@ namespace Data.Models
         public string Tencn { get; set; }
         public string Diachi { get; set; }
         public string Masothue { get; set; }
+        public string Thanhpho { get; set; }
     }
 }

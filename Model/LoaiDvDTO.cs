@@ -10,5 +10,6 @@ namespace Model
         public string MaLoai { get; set; }
         public string TenLoai { get; set; }
         public string GhiChu { get; set; }
+        public virtual ICollection<DichVu1DTO> DichVu1DTOs { get; set; }
     }
 }

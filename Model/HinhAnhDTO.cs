@@ -9,5 +9,6 @@ namespace Model
         public long Id { get; set; }
         public string Url { get; set; }
         public string DichVuId { get; set; }
+        public DichVu1DTO DichVu1DTO { get; set; }
     }
 }

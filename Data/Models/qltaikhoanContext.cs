@@ -636,6 +636,8 @@ namespace Data.Models
                     .HasColumnType("decimal(18, 0)")
                     .HasColumnName("GiaHD");
 
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
                 entity.Property(e => e.LoaiHd)
                     .HasMaxLength(50)
                     .HasColumnName("LoaiHD");
@@ -646,7 +648,19 @@ namespace Data.Models
 
                 entity.Property(e => e.Mien).HasMaxLength(100);
 
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
                 entity.Property(e => e.NguoiLienHe).HasMaxLength(150);
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.QuocGia).HasMaxLength(100);
 
@@ -665,6 +679,16 @@ namespace Data.Models
                 entity.Property(e => e.Tuyen).HasMaxLength(250);
 
                 entity.Property(e => e.Website).HasMaxLength(150);
+
+                entity.HasOne(d => d.LoaiDv)
+                    .WithMany(p => p.DichVu1s)
+                    .HasForeignKey(d => d.LoaiDvid)
+                    .HasConstraintName("FK_DichVus_LoaiDVs");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.DichVu1s)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_DichVus_supplier");
             });
 
             modelBuilder.Entity<Dichvu>(entity =>
@@ -806,6 +830,11 @@ namespace Data.Models
                 entity.Property(e => e.Url)
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.DichVu)
+                    .WithMany(p => p.HinhAnhs)
+                    .HasForeignKey(d => d.DichVuId)
+                    .HasConstraintName("FK_HinhAnhs_DichVus");
             });
 
             modelBuilder.Entity<LoaiDv>(entity =>
@@ -887,6 +916,10 @@ namespace Data.Models
                 entity.Property(e => e.Tencn)
                     .HasMaxLength(100)
                     .HasColumnName("tencn");
+
+                entity.Property(e => e.Thanhpho)
+                    .HasMaxLength(50)
+                    .HasColumnName("thanhpho");
 
                 entity.Property(e => e.Trangthai).HasColumnName("trangthai");
 

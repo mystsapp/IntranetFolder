@@ -38,15 +38,13 @@ var indexController = {
             });
         });
 
-        //
         $('tr .tdVal').click(function () {
-            id = $(this).data('id'); //
+            id = $(this).data('id');
 
             indexController.TdVal_Click(id);
         });
-        //
     },
-    Load_DichVuPartial: function (id) { //
+    Load_DichVuPartial: function (id) {
         strUrl = $('#hidStrUrl').val();
         var url = '/Supplier/DichVuPartial';
 
@@ -55,8 +53,18 @@ var indexController = {
             $('#tabDichVu').show(500);
         });
     },
-    TdVal_Click: function (id) { //
-        indexController.Load_DichVuPartial(id); //
+    Load_DichVu1Partial: function (id) {
+        strUrl = $('#hidStrUrl').val();
+        var url = '/DichVu1/DichVu1Partial';
+
+        $.get(url, { id: id, strUrl: strUrl }, function (response) {
+            $('#dichVu1_Tbl').html(response);
+            $('#dichVu1_Tbl').show(500);
+        });
+    },
+    TdVal_Click: function (id) {
+        indexController.Load_DichVu1Partial(id);
+        indexController.Load_DichVuPartial(id);
     }
 };
 indexController.init();
