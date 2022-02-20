@@ -14,6 +14,12 @@ namespace IntranetFolder.Models
     public class DichVu1ViewModel
     {
         public IEnumerable<DichVu1DTO> DichVu1DTOs { get; set; }
+        public IEnumerable<Quocgium> Quocgias { get; set; }
+        public IEnumerable<Vungmien> Vungmiens { get; set; }
+        public IEnumerable<VTinh> VTinhs { get; set; }
+        public IEnumerable<Thanhpho1> Thanhpho1s { get; set; }
+        public IEnumerable<LoaiDvDTO> LoaiDvs { get; set; }
+        public List<string> LoaiSaos { get; set; }
         public DichVu1DTO DichVu1DTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
         public TinhDTO TinhDTO { get; set; }

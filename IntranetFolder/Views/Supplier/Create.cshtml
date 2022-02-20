@@ -94,7 +94,7 @@
                         <div class="col-md-2">
                             <label asp-for="SupplierDTO.Thanhpho" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />*@
-                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
+                            <select asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm input-sm select2"
                                     asp-items="@(new SelectList(Model.Thanhpho1s, "Matp", "Tentp"))" id="ddlThanhPho">
                                 <option>-- Select --</option>
                             </select>

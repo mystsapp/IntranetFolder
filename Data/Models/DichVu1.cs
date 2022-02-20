@@ -20,7 +20,7 @@ namespace Data.Models
         public string Tinh { get; set; }
         public string ThanhPho { get; set; }
         public string LoaiSao { get; set; }
-        public string ThongTinLien { get; set; }
+        public string ThongTinLienHe { get; set; }
         public string DiaChi { get; set; }
         public string Email { get; set; }
         public string DienThoai { get; set; }

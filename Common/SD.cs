@@ -10,5 +10,13 @@ namespace Common
         public const string admin = "admin";
         public const string superadmin = "superadmin";
         public const string dieuhanh = "operator";
+
+        public static List<string> LoaiSao()
+        {
+            return new List<string>()
+            {
+                "1*", "2*", "3*", "4*", "5*", "Không rõ", "Homestay"
+            };
+        }
     }
 }

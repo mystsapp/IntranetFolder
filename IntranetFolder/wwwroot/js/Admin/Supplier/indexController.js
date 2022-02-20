@@ -44,7 +44,7 @@ var indexController = {
             indexController.TdVal_Click(id);
         });
     },
-    Load_DichVuPartial: function (id) {
+    Load_DichVuPartial: function (id) { // danhgia DV
         strUrl = $('#hidStrUrl').val();
         var url = '/Supplier/DichVuPartial';
 
@@ -53,18 +53,21 @@ var indexController = {
             $('#tabDichVu').show(500);
         });
     },
-    Load_DichVu1Partial: function (id) {
-        strUrl = $('#hidStrUrl').val();
+    Load_DichVu1Partial: function (id, page) {
+        //strUrl = $('#hidStrUrl').val();
         var url = '/DichVu1/DichVu1Partial';
 
-        $.get(url, { id: id, strUrl: strUrl }, function (response) {
+        $.get(url, { supplierId: id, page: page }, function (response) {
             $('#dichVu1_Tbl').html(response);
             $('#dichVu1_Tbl').show(500);
         });
     },
     TdVal_Click: function (id) {
-        indexController.Load_DichVu1Partial(id);
-        indexController.Load_DichVuPartial(id);
+        // page
+        var page = $('.active span').text();
+
+        indexController.Load_DichVu1Partial(id, page);
+        indexController.Load_DichVuPartial(id); // danhgia DV
     }
 };
 indexController.init();

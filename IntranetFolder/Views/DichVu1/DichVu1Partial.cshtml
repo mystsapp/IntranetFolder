@@ -1,0 +1,164 @@
+﻿@model DichVu1ViewModel
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
+
+<div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto">
+    <table class="table mytable text-nowrap text-sm" id="dichVu1Tbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiDichVu1" title="Thêm mới"
+                            id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().TenDv)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DonViKyKet)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().QuocGia)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Mien)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Tinh)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThanhPho)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiSao)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThongTinLienHe)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DienThoai)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NoiDung)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NguoiLienHe)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().SupplierId)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Website)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DaKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().HoatDong)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiTau)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DauXe)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().GhiChu)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().GiaHd)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiHd)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiDvid)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DichVu1DTOs != null)
+            {
+                @foreach (var item in Model.DichVu1DTOs)
+                {
+
+                    <tr class="dichvu1-cursor-pointer " @*data-sotudatt="@item.SoTT_DaTao"*@>
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+
+                                <a class="text-primary btnEditDichVu1" asp-action="Edit_DichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
+
+                                @*<span class="text-dark"> | </span>*@
+
+                                <!--<a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="item.MaDv"><i class="fas fa-list"></i></a>-->
+
+                                <span class="text-dark"> | </span>
+                                <span id="confirmDeleteSpan_@item.MaDv" style="display: none">
+
+                                    <span class="text-dark ">Xoá?</span>
+                                    <button type="button" class="btn btn-danger btn-xs btnXoaDichVu1" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.MaDv">Yes</button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.MaDv', false)">No</button>
+                                </span>
+                                <span id="deleteSpan_@item.MaDv">
+
+                                    <button type="button" data-id="@item.MaDv" class="text-danger border-0 bg-transparent btnXoa" title="Xoá" onclick="confirmDelete('@item.MaDv', true)"><i class="fas fa-trash-alt"></i></button>
+                                </span>
+
+                                <!-- hidden form khoiphuc-->
+                                <!--<form asp-action="KhoiPhucTour" method="post" id="frmKhoiPhucTour">
+                                    <input type="hidden" id="hidTourId" name="id" />
+                                    <input type="hidden" id="hidStrUrl" name="strUrl" value="Model.StrUrl" />
+                                </form>-->
+                            </div>
+                        </td>
+
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.TenDv)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DonViKyKet)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.QuocGia)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.SoTienNT.Value.ToString("N0"))</td>*@
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Mien)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Tinh)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThanhPho)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiSao)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThongTinLienHe)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DiaChi)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Email)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DienThoai)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NoiDung)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NguoiLienHe)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.SupplierDTO.Tenthuongmai)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Website)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DaKy)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.HoatDong)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiTau)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NgayCTGoc.HasValue ? item.NgayCTGoc.Value.ToString("dd/MM/yyyy") : "")</td>*@
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DauXe)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.GhiChu)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.GiaHd.Value.ToString("N0"))</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiHd)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiDvDTO.TenLoai)</td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/js/Admin/Supplier/indexController.js"></script>
+<script>
+
+    function confirmDelete(uniqueId, isDeleteClicked) {
+
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+
+    // btnXoaDichVu1
+    $('.btnXoaDichVu1').off('click').on('click',function () {
+
+        var page = @Model.Page;
+        var supplierId = '@Model.SupplierDTO.Code';
+
+        id = $(this).data('id');
+
+        var url = '/DichVu1s/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                indexController.Load_DichVu1Partial(supplierId, page);
+            }
+        });
+
+    });
+        // btnXoaDichVu1
+
+    //// ctphieu-cursor-pointer
+    //var sotudatt = $('.ctphieu-cursor-pointer').data('sotudatt');
+    ////console.log(sotudatt);
+    //if (sotudatt !== null) {
+    //    alert(sotudatt);
+    //}
+
+    //// ctphieu-cursor-pointer
+</script>

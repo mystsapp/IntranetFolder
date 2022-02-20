@@ -37,6 +37,12 @@ namespace IntranetFolder.Services
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
 
         Task<IEnumerable<DichVu1DTO>> GetDichVu1By_SupplierId(string supplierId);
+
+        Task<IEnumerable<Vungmien>> Vungmiens();
+
+        Task<IEnumerable<VTinh>> GetTinhs();
+
+        Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -238,6 +244,21 @@ namespace IntranetFolder.Services
         {
             return _mapper.Map<IEnumerable<DichVu1>, IEnumerable<DichVu1DTO>>
                 (await _unitOfWork.dichVu1Repository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == supplierId));
+        }
+
+        public async Task<IEnumerable<Vungmien>> Vungmiens()
+        {
+            return await _unitOfWork.vungMienRepository.Vungmiens();
+        }
+
+        public async Task<IEnumerable<VTinh>> GetTinhs()
+        {
+            return await _unitOfWork.supplierRepository.GetTinhs();
+        }
+
+        public async Task<IEnumerable<Thanhpho1>> GetThanhpho1s()
+        {
+            return await _unitOfWork.supplierRepository.GetThanhpho1s();
         }
     }
 }

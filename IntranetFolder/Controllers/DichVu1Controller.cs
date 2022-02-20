@@ -1,4 +1,5 @@
-﻿using IntranetFolder.Models;
+﻿using Common;
+using IntranetFolder.Models;
 using IntranetFolder.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,18 +30,42 @@ namespace IntranetFolder.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DichVu1Partial(string supplierId)
+        public async Task<IActionResult> DichVu1Partial(string supplierId, int page)
         {
             var supplierDTO = await _dichVu1Service.GetSupplierByIdAsync(supplierId);
             if (supplierDTO == null)
             {
-                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
-                return View("~/Views/Shared/NotFound.cshtml");
+                //ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                return Content("Supplier này không tồn tại.");
             }
+            DichVu1VM.Page = page;
             DichVu1VM.SupplierDTO = supplierDTO;
             DichVu1VM.DichVu1DTOs = await _dichVu1Service.GetDichVu1By_SupplierId(supplierId);
 
             return PartialView(DichVu1VM);
+        }
+
+        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, int page)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var supplierDTO = await _dichVu1Service.GetSupplierByIdAsync(supplierId);
+            if (supplierDTO == null)
+            {
+                //ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                return Content("Supplier này không tồn tại.");
+            }
+            DichVu1VM.Page = page;
+            DichVu1VM.SupplierDTO = supplierDTO;
+            DichVu1VM.DichVu1DTO.SupplierId = supplierId;
+            DichVu1VM.Vungmiens = await _dichVu1Service.Vungmiens();
+            DichVu1VM.VTinhs = await _dichVu1Service.GetTinhs();
+            DichVu1VM.Thanhpho1s = await _dichVu1Service.GetThanhpho1s();
+            DichVu1VM.LoaiSaos = SD.LoaiSao();
+            DichVu1VM.LoaiDvs = _dichVu1Service.GetAllLoaiDv();
+            return View(DichVu1VM);
         }
     }
 }
