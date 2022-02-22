@@ -18,5 +18,13 @@ namespace Common
                 "1*", "2*", "3*", "4*", "5*", "Không rõ", "Homestay"
             };
         }
+
+        //public static List<string> DonViKyKet()
+        //{
+        //    return new List<string>()
+        //    {
+        //        "Outbound", "Inbound", "Noidia", "4*", "5*", "Không rõ", "Homestay"
+        //    };
+        //}
     }
 }

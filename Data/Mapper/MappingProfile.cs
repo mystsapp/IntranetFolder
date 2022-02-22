@@ -46,6 +46,8 @@ namespace Data.Mapper
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
             CreateMap<DichVu1, DichVu1DTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
+
+            CreateMap<LoaiDv, LoaiDvDTO>().ReverseMap();
         }
     }
 }

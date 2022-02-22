@@ -25,7 +25,7 @@
 
     <div class="card-body p-0">
 
-        <form method="post" autocomplete="off" id="frm_KVCTPCT_Create" enctype="multipart/form-data">
+        <form method="post" autocomplete="off" id="frmThemMoiDichVu1" enctype="multipart/form-data">
             <div class="pr-4 pl-4 text-sm">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -37,84 +37,45 @@
 
                 <div class=" row">
 
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <label asp-for="DichVu1DTO.TenDv" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
                         <input asp-for="DichVu1DTO.TenDv" class="form-control form-control-sm " id="txtTenDv" />
                         <span asp-validation-for="DichVu1DTO.TenDv" class="text-danger"></span>
                     </div>
-
-                    <div class="col-md-1">
+                    @*
+                        <div class="col-md-6">
                         <label asp-for="DichVu1DTO.DonViKyKet" class="control-label"></label>
                         <input asp-for="DichVu1DTO.DonViKyKet" class="form-control form-control-sm " id="txtDonViKyKet" />
                         <span asp-validation-for="DichVu1DTO.DonViKyKet" class="text-danger"></span>
-                    </div>
+                        </div>*@
                 </div>
 
                 <div class=" row">
 
-                    <div class="col-md-4">
-                        <label asp-for="DichVu1DTO.QuocGia" class="control-label"></label>
-                        <select asp-for="DichVu1DTO.QuocGia" class="form-control form-control-sm input-sm select2"
-                                asp-items="@(new SelectList(Model.Quocgias, "TenNuoc", "TenNuoc"))" id="ddlQuocQia">
-                            <option>-- Select --</option>
-                        </select>
-                        <span asp-validation-for="DichVu1DTO.QuocGia" class="text-danger"></span>
-                    </div>
-
                     <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.Mien" class="control-label "></label>
-                        <select asp-for="DichVu1DTO.Mien" class="form-control form-control-sm input-sm select2"
-                                asp-items="@(new SelectList(Model.Vungmiens, "VungId", "TenVung"))" id="ddlMien">
-                            <option>-- Select --</option>
-                        </select>
-                        <span asp-validation-for="DichVu1DTO.Mien" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.Tinh" class="control-label "></label>
-                        <select asp-for="DichVu1DTO.Tinh" class="form-control form-control-sm input-sm select2"
-                                asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinh">
-                            <option>-- Select --</option>
-                        </select>
-                        <span asp-validation-for="DichVu1DTO.Tinh" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label asp-for="DichVu1DTO.ThanhPho" class="control-label"></label>
-                        @*<input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />*@
-                        <select asp-for="DichVu1DTO.ThanhPho" class="form-control form-control-sm input-sm select2"
-                                asp-items="@(new SelectList(Model.Thanhpho1s, "Matp", "Tentp"))" id="ddlThanhPho">
-                            <option>-- Select --</option>
-                        </select>
-                        <span asp-validation-for="DichVu1DTO.ThanhPho" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class=" row">
-
-                    <div class="col-md-4">
                         <label asp-for="DichVu1DTO.LoaiSao" class="control-label"></label>
                         <!--select2-->
                         <select asp-for="DichVu1DTO.LoaiSao" class="form-control form-control-sm select2"
-                                asp-items="@(new SelectList(Model.LoaiSaos, "Tkhoan", "TenTk"))" id="ddlLoaiSao">
+                                asp-items="@(new SelectList(Model.LoaiSaos))" id="ddlLoaiSao">
                         </select>
                         <span asp-validation-for="DichVu1DTO.LoaiSao" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-2">
                         <label asp-for="DichVu1DTO.ThongTinLienHe" class="control-label"></label>
                         <input asp-for="DichVu1DTO.ThongTinLienHe" class="form-control form-control-sm" id="txtThongTinLienHe" />
                         <span asp-validation-for="DichVu1DTO.ThongTinLienHe" class="text-danger"></span>
                     </div>
-                </div>
-
-                <div class=" row">
 
                     <div class="col-md-8">
                         <label asp-for="DichVu1DTO.DiaChi" class="control-label"></label>
                         <input asp-for="DichVu1DTO.DiaChi" class="form-control form-control-sm" id="txtDiaChi" />
                         <span asp-validation-for="DichVu1DTO.DiaChi" class="text-danger"></span>
                     </div>
+
+                </div>
+
+                <div class=" row">
 
                     <div class="col-md-2">
                         <label asp-for="DichVu1DTO.Email" class="control-label"></label>
@@ -127,18 +88,17 @@
                         <input asp-for="DichVu1DTO.DienThoai" class="form-control form-control-sm" id="txtDienThoai" />
                         <span asp-validation-for="DichVu1DTO.DienThoai" class="text-danger"></span>
                     </div>
-                </div>
 
-                <div class=" row">
-
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <label asp-for="DichVu1DTO.NoiDung" class="control-label"></label>
                         <textarea asp-for="DichVu1DTO.NoiDung" class="form-control form-control-sm" id="txtNoiDung">
                         </textarea>
 
                         <span asp-validation-for="DichVu1DTO.NoiDung" class="text-danger"></span>
                     </div>
+
                 </div>
+
                 @*</fieldset>*@
 
                 <div class=" row">
@@ -176,17 +136,27 @@
 
                 <div class=" row">
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label asp-for="DichVu1DTO.LoaiTau" class="control-label"></label>
                         <input asp-for="DichVu1DTO.LoaiTau" class="form-control form-control-sm" id="txtLoaiTau" />
                         <span asp-validation-for="DichVu1DTO.LoaiTau" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label asp-for="DichVu1DTO.LoaiXe" class="control-label"></label>
+                        <input asp-for="DichVu1DTO.LoaiXe" class="form-control form-control-sm" id="txtLoaiXe" />
+                        <span asp-validation-for="DichVu1DTO.LoaiXe" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
                         <label asp-for="DichVu1DTO.DauXe" class="control-label"></label>
                         <input asp-for="DichVu1DTO.DauXe" class="form-control form-control-sm" id="ckDauXe" type="checkbox" />
                         <span asp-validation-for="DichVu1DTO.DauXe" class="text-danger"></span>
                     </div>
+
+                </div>
+
+                <div class=" row">
 
                     <div class="col-md-3">
                         <label asp-for="DichVu1DTO.GhiChu" class="control-label"></label>
@@ -194,13 +164,13 @@
                         <span asp-validation-for="DichVu1DTO.GhiChu" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <label asp-for="DichVu1DTO.GiaHd" class="control-label"></label>
                         <input asp-for="DichVu1DTO.GiaHd" class="form-control form-control-sm" id="txtGiaHd" asp-format="{0:0,0}" />
                         <span asp-validation-for="DichVu1DTO.GiaHd" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <label asp-for="DichVu1DTO.LoaiHd" class="control-label"></label>
                         <input asp-for="DichVu1DTO.LoaiHd" class="form-control form-control-sm" id="txtLoaiHd" />
                         <span asp-validation-for="DichVu1DTO.LoaiHd" class="text-danger"></span>
@@ -216,9 +186,19 @@
                     </div>
                 </div>
 
+                <div class=" row">
+
+                    <div class="col-md-12">
+                        <label asp-for="DichVu1DTO.GhiChu" class="control-label"></label>
+                        <input asp-for="DichVu1DTO.GhiChu" class="form-control form-control-sm" id="txtGhiChu" />
+                        <span asp-validation-for="DichVu1DTO.GhiChu" class="text-danger"></span>
+                    </div>
+
+                </div>
+
                 <div class=" pt-1 pb-1">
-                    <button type="button" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
-                    <a class="btn btn-success btn-sm" asp-action="BackIndex" asp-route-id="@Model.KVPTC.Id" asp-route-page="@Model.Page"><i class="fas fa-backward "></i> Back</a>
+                    <button type="submit" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
+                    <a class="btn btn-success btn-sm" asp-action="BackIndex" asp-controller="Supplier" asp-route-id="@Model.SupplierDTO.Code" asp-route-page="@Model.Page"><i class="fas fa-backward "></i> Back</a>
                 </div>
             </div>
         </form>
@@ -226,122 +206,30 @@
 </div>
 
 @section Scripts{
-
+@*
     <script src="~/js/Admin/Home/indexController.js"></script>
     <script src="~/js/Admin/serviceController.js"></script>
+*@
+<!-- select2 and multi select2 (bootstrap4)-->
+<script>
+    //$('#txtMaKH').select2()
+    $('.select2').select2()
+    //$('#ddlMaKhCo1').select2()
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+    //$('.tuyenTQ').select2({
+    //    theme: 'bootstrap4'
+    //})
+</script>
 
-    <!-- select2 and multi select2 (bootstrap4)-->
-    <script>
-        //$('#txtMaKH').select2()
-        $('.select2').select2()
-        //$('#ddlMaKhCo1').select2()
-        //Initialize Select2 Elements
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
-        })
-        //$('.tuyenTQ').select2({
-        //    theme: 'bootstrap4'
-        //})
-    </script>
+<!-- Validation -->
 
-    <!-- Validation -->
-
-    <script>
+<script>
     /*$(".maskInput").mask("99/99/9999");*/
 
-    // $(document).ready(function (){})
-    $(document).ready(function () {
-        loaiPhieu = '@Model.KVPTC.MFieu';
-        if (loaiPhieu == 'T') {
-            serviceController.DdlTkNo('1111000000');
-        }
-        else {
-            serviceController.DdlTkCo('1111000000');
-        }
-    });
-    //// enter for search
-    //shortcut.add("Enter", function () {
-    //    $('#btnKhSearch').click()
-    //});
-
-    var validSubmitSave = true;
-    // check loaiHD VAT
-    $('#ddlLoaiHDGoc').off('change').on('change', function(){
-        if($('#ddlLoaiHDGoc').val() === 'VAT'){
-            $('#txtSoCTGoc').addClass('is-invalid');
-            $('#txtKyHieu').addClass('is-invalid');
-            $('#txtMauSoHD').addClass('is-invalid');
-            $('#txtNgayCTGoc').addClass('is-invalid');
-
-            var soCTGoc = $('#txtSoCTGoc').val();
-            var kyHieu = $('#txtKyHieu').val();
-            var mauSo = $('#txtMauSoHD').val();
-            var ngayCTGoc = $('#txtNgayCTGoc').val();
-
-            if(soCTGoc === '' || kyHieu === '' || mauSo === '' || ngayCTGoc === '' ){
-                validSubmitSave = false;
-            }
-        }
-        else{
-            $('#txtSoCTGoc').removeClass('is-invalid');
-            $('#txtKyHieu').removeClass('is-invalid');
-            $('#txtMauSoHD').removeClass('is-invalid');
-            $('#txtNgayCTGoc').removeClass('is-invalid');
-            validSubmitSave = true;
-        }
-
-    })
-    // check loaiHD VAT
-
-    $('.btnKhSearch').click(function () {
-
-        var maKhtext = '';
-        var txtMaKh = '';
-
-        if ($(this).data('name') === 'maKhNo') { // search off no
-            maKhtext = $('#txtMaKhNo').val();
-            txtMaKh = 'maKhNo';
-        }
-        if ($(this).data('name') === 'maKhCo') { // search off co
-            maKhtext = $('#txtMaKhCo').val();
-            txtMaKh = 'maKhCo';
-        }
-
-        $('#hidTxtMaKh').val(txtMaKh);
-
-        KhachHangSearch(maKhtext, txtMaKh);
-    })
-
-    $('#txtMaKhNo').blur(function () {
-
-        maKhtext = $(this).val();
-
-        //KhachHang_By_Code(maKhtext);
-        indexController.KhachHang_By_Code(maKhtext, 'txtMaKhNo');
-    })
-
-    $('#txtMaKhCo').blur(function () {
-
-        maKhtext = $(this).val();
-
-        //KhachHang_By_Code(maKhtext);
-        indexController.KhachHang_By_Code(maKhtext, 'txtMaKhCo');
-    })
-
-    @*$('#ddlNgoaiTe').change(function () {
-                        loaiTien = $(this).val();
-                        loaiPhieu = '@Model.KVPCT.MFieu';
-                        serviceController.DdlLoaiTien(loaiTien, loaiPhieu);
-
-                        if (loaiPhieu == 'T') {
-                            serviceController.DdlTkNo('1111000000');
-                        }
-                        if (loaiPhieu == 'C') {
-                            serviceController.DdlTkCo('1111000000');
-                        }
-                    })*@
-
-    $('#frm_KVCTPCT_Create').validate({
+    $('#frmThemMoiDichVu1').validate({
         //rules: {
         //    email: {
         //        required: true,
@@ -379,126 +267,13 @@
         }
     });
 
-    $('#ddlDienGiai').rules('add', {
-        required: true,
-        messages: {
-            //required: "Chủ đề không được để trống"
-        }
-    });
+    //$('#ddlDienGiai').rules('add', {
+    //    required: true,
+    //    messages: {
+    //        //required: "Chủ đề không được để trống"
+    //    }
+    //});
 
-    // sotien
-    $('#txtSoTienNT').blur(function () {
-
-        serviceController.TinhSoTien();
-
-    })
-
-    $('#txtTyGia').blur(function () {
-
-        serviceController.TinhSoTien();
-
-    })
-    // sotien
-    // btnKVCTPCTCreatePartial_Save
-    $('#btnKVCTPCTCreatePartial_Save').off('click').on('click', function () {
-
-        if($('#ddlLoaiHDGoc').val() === 'VAT'){
-            var soCTGoc = $('#txtSoCTGoc').val();
-            var kyHieu = $('#txtKyHieu').val();
-            var mauSo = $('#txtMauSoHD').val();
-            var ngayCTGoc = $('#txtNgayCTGoc').val();
-
-            if(soCTGoc !== '' && kyHieu !== '' && mauSo !== '' && ngayCTGoc !== '' ){
-                validSubmitSave = true;
-            }
-
-        }
-
-        if(validSubmitSave){
-
-            $('#frm_KVCTPCT_Create').submit();
-        }
-        else{
-            toastr.warning("Chưa điền đủ thông tin!");
-        }
-    });
-
-    // AutoSgtcode
-    $('#txtSgtcode').blur(function () {
-        sgtcodeText = $(this).val();
-        serviceController.AutoSgtcode(sgtcodeText);
-    })
-
-    // get dien giai by tkno tkco
-    $('#ddlTkNo').change(function () {
-
-        tkNo = $(this).val();
-        tkCo = $('#ddlTkCo').val();
-
-        serviceController.DdlTkNo(tkNo);
-        serviceController.Get_DienGiai_By_TkNo_TkCo(tkNo, tkCo);
-
-        // TkChoMaKh(tkNo);
-    })
-    $('#ddlTkCo').change(function () {
-        tkCo = $(this).val();
-        tkNo = $('#ddlTkNo').val();
-
-        serviceController.DdlTkCo(tkCo);
-        serviceController.Get_DienGiai_By_TkNo_TkCo(tkNo, tkCo);
-
-        // TkChoMaKh(tkCo);
-    })
-
-    var tkNo = $('#ddlTkNo').val();
-    var tkCo = $('#ddlTkCo').val();
-    if(tkNo !== '' && tkCo !== ''){  // truong hop copy dong
-        serviceController.Get_DienGiai_By_TkNo_TkCo(tkNo, tkCo);
-    }
-    // get dien giai by tkno tkco
-
-    // VAT ==> DSKhongVAT
-    $('#txtVAT').blur(function () {
-        vat = $(this).val();
-        soTien = $('#txtSoTien').val();
-
-        serviceController.TxtVAT_Blur(vat, soTien);
-    })
-    // VAT ==> DSKhongVAT
-
-    function KhachHangSearch(code) {
-
-        $.get('/DichVu1DTOs/GetKhachHangs_HDVATOB_By_Code', { code: code }, function (data) {
-
-            $('#khachHang_Modal').modal('show');
-            $('.khachHang_Modal_Body').html(data);
-            $('#khachHang_Modal').draggable();
-        });
-    }
-
-    // TkChoMaKh
-    function TkChoMaKh(tk) {
-        var loaiPhieu = '@Model.KVPTC.MFieu';
-        if(loaiPhieu === 'C'){
-            $.post('/DichVu1DTOs/TkChoMaKh', { tk: tk }, function (response) {
-                if(response){
-                    if($('#txtMaKhNo').val() === ''){
-                        toastr.error("MaKhNo không được để trống.");
-                    }
-                }
-            });
-        }
-        if(loaiPhieu === 'T'){
-            $.post('/DichVu1DTOs/TkChoMaKh', { tk: tk }, function (response) {
-                if(response){
-                    if($('#txtMaKhCo').val() === ''){
-                        toastr.error("MaKhCo không được để trống.");
-                    }
-                }
-            });
-        }
-
-    }
-    </script>
+</script>
 
 }

@@ -13,25 +13,25 @@ namespace Model
         [Display(Name = "Tên DV")]
         public string TenDv { get; set; }
 
-        [Display(Name = "Đơn vị ký kết")]
-        public string DonViKyKet { get; set; }
+        //[Display(Name = "Đơn vị ký kết")]
+        //public string DonViKyKet { get; set; }
 
-        [Display(Name = "Quốc gia")]
-        public string QuocGia { get; set; }
+        //[Display(Name = "Quốc gia")]
+        //public string QuocGia { get; set; }
 
-        [Display(Name = "Miền")]
-        public string Mien { get; set; }
+        //[Display(Name = "Miền")]
+        //public string Mien { get; set; }
 
-        [Display(Name = "Tỉnh")]
-        public string Tinh { get; set; }
+        //[Display(Name = "Tỉnh")]
+        //public string Tinh { get; set; }
 
-        [Display(Name = "Thành phố")]
-        public string ThanhPho { get; set; }
+        //[Display(Name = "Thành phố")]
+        //public string ThanhPho { get; set; }
 
         [Display(Name = "Loại sao")]
         public string LoaiSao { get; set; }
 
-        [Display(Name = "Thông tin liên hệ")]
+        [Display(Name = "Thông tin LH")]
         public string ThongTinLienHe { get; set; }
 
         [Display(Name = "Địa chỉ")]
@@ -64,6 +64,9 @@ namespace Model
 
         [Display(Name = "Loại tàu")]
         public string LoaiTau { get; set; }
+
+        [Display(Name = "Loại xe")]
+        public string LoaiXe { get; set; }
 
         [Display(Name = "Đậu xe")]
         public bool DauXe { get; set; }

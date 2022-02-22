@@ -15,18 +15,18 @@
             <tr class="table-info">
 
                 <th>
-                    <button type="button" class="btn btn-success btn-sm btn-block"
-                            asp-action="ThemMoiDichVu1" title="Thêm mới"
+                    <a class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-page="@Model.Page" title="Thêm mới"
                             id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
                         <i class="fas fa-plus"></i>
-                    </button>
+                    </a>
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().TenDv)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DonViKyKet)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DonViKyKet)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().QuocGia)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Mien)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Tinh)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThanhPho)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThanhPho)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiSao)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThongTinLienHe)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DiaChi)</th>
@@ -84,12 +84,11 @@
                         </td>
 
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.TenDv)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DonViKyKet)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DonViKyKet)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.QuocGia)</td>
-                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.SoTienNT.Value.ToString("N0"))</td>*@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Mien)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Tinh)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThanhPho)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThanhPho)</td>*@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiSao)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThongTinLienHe)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DiaChi)</td>

@@ -14,11 +14,6 @@ namespace Data.Models
 
         public string MaDv { get; set; }
         public string TenDv { get; set; }
-        public string DonViKyKet { get; set; }
-        public string QuocGia { get; set; }
-        public string Mien { get; set; }
-        public string Tinh { get; set; }
-        public string ThanhPho { get; set; }
         public string LoaiSao { get; set; }
         public string ThongTinLienHe { get; set; }
         public string DiaChi { get; set; }
@@ -32,6 +27,7 @@ namespace Data.Models
         public bool HoatDong { get; set; }
         public string Tuyen { get; set; }
         public string LoaiTau { get; set; }
+        public string LoaiXe { get; set; }
         public bool DauXe { get; set; }
         public string GhiChu { get; set; }
         public decimal? GiaHd { get; set; }

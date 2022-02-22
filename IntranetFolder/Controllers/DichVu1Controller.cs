@@ -60,12 +60,18 @@ namespace IntranetFolder.Controllers
             DichVu1VM.Page = page;
             DichVu1VM.SupplierDTO = supplierDTO;
             DichVu1VM.DichVu1DTO.SupplierId = supplierId;
-            DichVu1VM.Vungmiens = await _dichVu1Service.Vungmiens();
-            DichVu1VM.VTinhs = await _dichVu1Service.GetTinhs();
-            DichVu1VM.Thanhpho1s = await _dichVu1Service.GetThanhpho1s();
+            //DichVu1VM.Vungmiens = await _dichVu1Service.Vungmiens();
+            //DichVu1VM.VTinhs = await _dichVu1Service.GetTinhs();
+            //DichVu1VM.Thanhpho1s = await _dichVu1Service.GetThanhpho1s();
             DichVu1VM.LoaiSaos = SD.LoaiSao();
             DichVu1VM.LoaiDvs = _dichVu1Service.GetAllLoaiDv();
             return View(DichVu1VM);
+        }
+
+        [HttpPost, ActionName("ThemMoiDichVu1")]
+        public async Task<IActionResult> ThemMoiDichVu1_Post(string supplierId, int page)
+        {
+            return View();
         }
     }
 }
