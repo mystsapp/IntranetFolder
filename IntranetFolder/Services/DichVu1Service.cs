@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using Data.Models;
 using Data.Repository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using X.PagedList;
@@ -43,17 +46,23 @@ namespace IntranetFolder.Services
         Task<IEnumerable<VTinh>> GetTinhs();
 
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
+
+        Task<string> UploadFile(IFormFile file);
     }
 
     public class DichVu1Service : IDichVu1Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DichVu1Service(IUnitOfWork unitOfWork, IMapper mapper)
+        public DichVu1Service(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<DichVu1DTO> GetByIdAsync(long id)
@@ -259,6 +268,37 @@ namespace IntranetFolder.Services
         public async Task<IEnumerable<Thanhpho1>> GetThanhpho1s()
         {
             return await _unitOfWork.supplierRepository.GetThanhpho1s();
+        }
+
+        public async Task<string> UploadFile(IFormFile file)
+        {
+            try
+            {
+                FileInfo fileInfo = new FileInfo(file.Name); // file detail
+                var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
+                var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\HopDongImages";
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "HopDongImages", fileName); // RoomImages
+
+                var memoryStream = new MemoryStream();
+                await file.OpenReadStream().CopyToAsync(memoryStream);
+
+                if (!Directory.Exists(folderDirectory))
+                {
+                    Directory.CreateDirectory(folderDirectory);
+                }
+
+                await using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+                {
+                    memoryStream.WriteTo(fs);
+                }
+                var url = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host.Value}/";
+                var fullPath = $"{url}HopDongImages/{fileName}";
+                return fullPath;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

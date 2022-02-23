@@ -26,6 +26,9 @@
     <div class="card-body p-0">
 
         <form method="post" autocomplete="off" id="frmThemMoiDichVu1" enctype="multipart/form-data">
+            <div class="col-5">
+                
+            </div>
             <div class="pr-4 pl-4 text-sm">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -195,6 +198,32 @@
                     </div>
 
                 </div>
+                
+                <div class=" row">
+                    <input type="file" name="files" onchange="HandleImage()" multiple />
+                        <div class="row">
+                            
+                            @if (Model.DichVu1DTO.ImageUrls != null && Model.DichVu1DTO.ImageUrls.Count > 0)
+                            {
+                                int serial = 1;
+                                foreach (var roomImage in Model.DichVu1DTO.ImageUrls)
+                                {
+                                    <div class="col-md-2 mt-3">
+                                        <!--class="room-image" in site.css-->
+                                        <div class="room-image" style="background: url('@roomImage') 50% 50%">
+                                            <!--class="room-image-title" in site.css-->
+                                            <span class="room-image-title">@serial</span>
+                                        </div>
+                                        <button type="button" @*@onclick="()=>DeletePhoto(roomImage)"*@ class="btn btn-outline-danger btn-block mt-4">
+                                            Delete
+                                        </button>
+                                    </div>
+                                    serial++;
+
+                                }
+                            }
+                        </div>
+                </div>
 
                 <div class=" pt-1 pb-1">
                     <button type="submit" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
@@ -274,6 +303,9 @@
     //    }
     //});
 
+    function HandleImage(){
+        $('#frmThemMoiDichVu1').submit();
+    }
 </script>
 
 }

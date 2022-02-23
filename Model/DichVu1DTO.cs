@@ -92,5 +92,6 @@ namespace Model
         public LoaiDvDTO LoaiDvDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
+        public List<string> ImageUrls { get; set; }
     }
 }
