@@ -93,5 +93,6 @@ namespace Model
         public SupplierDTO SupplierDTO { get; set; }
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
         public List<string> ImageUrls { get; set; }
+        public string StringImageUrls { get; set; }
     }
 }

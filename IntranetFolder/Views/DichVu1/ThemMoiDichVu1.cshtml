@@ -25,7 +25,7 @@
 
     <div class="card-body p-0">
 
-        <form method="post" autocomplete="off" id="frmThemMoiDichVu1" enctype="multipart/form-data">
+        <form autocomplete="off" id="frmThemMoiDichVu1" enctype="multipart/form-data">
             <div class="col-5">
                 
             </div>
@@ -33,6 +33,7 @@
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="DichVu1DTO.SupplierId" />
+                <input type="hidden" asp-for="Page" />
                 @*<input type="hidden" asp-for="StrUrl" />*@
                 <!--Thông tin về tài chánh-->
                 @*<fieldset class="groupbox-border ">
@@ -183,7 +184,7 @@
                         <label asp-for="DichVu1DTO.LoaiDvid" class="control-label"></label>
                         <!--select2-->
                         <select asp-for="DichVu1DTO.LoaiDvid" class="form-control form-control-sm select2"
-                                asp-items="@(new SelectList(Model.LoaiDvs, "MaLoai", "TenLoai"))" id="ddlLoaiDv">
+                                asp-items="@(new SelectList(Model.LoaiDvs, "Id", "TenLoai"))" id="ddlLoaiDv">
                         </select>
                         <span asp-validation-for="DichVu1DTO.LoaiSao" class="text-danger"></span>
                     </div>
@@ -226,7 +227,8 @@
                 </div>
 
                 <div class=" pt-1 pb-1">
-                    <button type="submit" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
+                    <button type="submit" formaction="/DichVu1/ThemMoiDichVu1" formmethod="post" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
+                    <button type="submit" formaction="/DichVu1/ThemMoiDichVu1HinhAnh" formmethod="post" hidden id="btnThemMoiDichVu1HinhAnh"></button>
                     <a class="btn btn-success btn-sm" asp-action="BackIndex" asp-controller="Supplier" asp-route-id="@Model.SupplierDTO.Code" asp-route-page="@Model.Page"><i class="fas fa-backward "></i> Back</a>
                 </div>
             </div>
@@ -304,7 +306,7 @@
     //});
 
     function HandleImage(){
-        $('#frmThemMoiDichVu1').submit();
+        $('#btnThemMoiDichVu1HinhAnh').click();
     }
 </script>
 

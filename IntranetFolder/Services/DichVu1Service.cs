@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.Models;
 using Data.Repository;
+using Data.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Model;
@@ -48,6 +49,10 @@ namespace IntranetFolder.Services
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
 
         Task<string> UploadFile(IFormFile file);
+
+        public Task<int> CreateDichVu1Image(HinhAnhDTO imageDTO);
+
+        string GetMaDv(string param);
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -274,8 +279,9 @@ namespace IntranetFolder.Services
         {
             try
             {
-                FileInfo fileInfo = new FileInfo(file.Name); // file detail
-                var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
+                //FileInfo fileInfo = new FileInfo(file.Name); // file detail
+                var extension = Path.GetExtension(file.FileName);
+                var fileName = Guid.NewGuid().ToString() + extension;
                 var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\HopDongImages";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "HopDongImages", fileName); // RoomImages
 
@@ -298,6 +304,51 @@ namespace IntranetFolder.Services
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public async Task<int> CreateDichVu1Image(HinhAnhDTO imageDTO)
+        {
+            var image = _mapper.Map<HinhAnhDTO, HinhAnh>(imageDTO);
+            _unitOfWork.hinhAnhRepository.Create(image);
+            return await _unitOfWork.Complete();
+        }
+
+        public string GetMaDv(string param) // param: loaiDv
+        {
+            //DateTime dateTime;
+            //dateTime = DateTime.Now;
+            //dateTime = TourVM.Tour.NgayKyHopDong.Value;
+
+            var currentYear = DateTime.Now.Year; // name hien tai
+            var subfix = param + currentYear.ToString(); // QT2021? ?QC2021? ?NT2021? ?NC2021?
+            var dichVu1s = _unitOfWork.dichVu1Repository
+                                   .Find(x => x.MaDv.Trim().Contains(subfix)).ToList();// chi lay nhung MaDv cung param + nam
+            var dichVu1 = new DichVu1();
+            if (dichVu1s.Count() > 0)
+            {
+                dichVu1 = dichVu1s.OrderByDescending(x => x.MaDv).FirstOrDefault();
+            }
+
+            if (dichVu1 == null || string.IsNullOrEmpty(dichVu1.MaDv))
+            {
+                return GetNextId.NextID("", "") + subfix; // 0001 + subfix : 0001SSE2022
+            }
+            else
+            {
+                var oldYear = dichVu1.MaDv.Substring(7, 4);
+
+                // cung nam
+                if (oldYear == currentYear.ToString())
+                {
+                    var oldSoCT = dichVu1.MaDv.Substring(0, 4);
+                    return GetNextId.NextID(oldSoCT, "") + subfix;
+                }
+                else
+                {
+                    // sang nam khac' chay lai tu dau
+                    return GetNextId.NextID("", "") + subfix; // 0001 + subfix
+                }
             }
         }
     }
