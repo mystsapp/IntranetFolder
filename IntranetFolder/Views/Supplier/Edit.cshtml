@@ -46,6 +46,9 @@
 
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <input type="hidden" asp-for="SupplierDTO.Code" />
+                    <input type="hidden" asp-for="SupplierDTO.Tour" />
+                    <input type="hidden" asp-for="SupplierDTO.Thanhpho" />
+                    <input type="hidden" asp-for="SupplierDTO.Ngaytao" />
 
                     <div class="form-group row">
 
@@ -162,7 +165,7 @@
 
                         <div class="col-md-3">
                             <label asp-for="SupplierDTO.Ngayhethan" class="control-label"></label>
-                            <input asp-for="SupplierDTO.Ngayhethan" class="form-control form-control-sm " id="txtNgayhethan" />
+                            <input asp-for="SupplierDTO.Ngayhethan" type="text" class="form-control form-control-sm " asp-format="{0:dd/MM/yyyy}" id="txtNgayhethan" />
                             <span asp-validation-for="SupplierDTO.Ngayhethan" class="text-danger"></span>
                         </div>
 

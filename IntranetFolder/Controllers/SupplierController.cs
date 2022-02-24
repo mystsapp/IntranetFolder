@@ -136,6 +136,10 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
 
+            SupplierVM.VTinhs = await _supplierService.GetTinhs();
+            SupplierVM.Thanhpho1s = await _supplierService.GetThanhpho1s();
+            SupplierVM.Quocgias = await _supplierService.GetQuocgias();
+
             return View(SupplierVM);
         }
 

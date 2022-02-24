@@ -205,27 +205,27 @@ namespace IntranetFolder.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePhoto(string imageUrl)
         {
-            List<string> imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
-            try
-            {
-                var imageIndex = imageUrls.FindIndex(x => x == imageUrl);
-                var imageName = imageUrl.Replace($"{NavigationManager.BaseUri}RoomImages/", "");
-                if (HotelRoomModel.Id == 0 && Title == "Create")
-                {
-                    var result = FileUpload.DeleteFile(imageName);
-                }
-                else
-                {
-                    // update
-                    DeletedImageNames ??= new List<string>();
-                    DeletedImageNames.Add(imageUrl);
-                }
-                HotelRoomModel.ImageUrls.RemoveAt(imageIndex);
-            }
-            catch (Exception ex)
-            {
-                await JsRuntime.ToastrError(ex.Message);
-            }
+            //List<string> imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+            //try
+            //{
+            //    var imageIndex = imageUrls.FindIndex(x => x == imageUrl);
+            //    var imageName = imageUrl.Replace($"{NavigationManager.BaseUri}RoomImages/", "");
+            //    if (HotelRoomModel.Id == 0 && Title == "Create")
+            //    {
+            //        var result = FileUpload.DeleteFile(imageName);
+            //    }
+            //    else
+            //    {
+            //        // update
+            //        DeletedImageNames ??= new List<string>();
+            //        DeletedImageNames.Add(imageUrl);
+            //    }
+            //    HotelRoomModel.ImageUrls.RemoveAt(imageIndex);
+            //}
+            //catch (Exception ex)
+            //{
+            //    await JsRuntime.ToastrError(ex.Message);
+            //}
             return View();
         }
     }
