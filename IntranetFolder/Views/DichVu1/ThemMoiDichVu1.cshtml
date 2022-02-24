@@ -6,6 +6,45 @@
 <!-- Main content -->
 @*<section class="content">*@
 
+<style>
+
+    /*
+        more
+    */
+
+    .spinner {
+        border: 16px solid silver !important;
+        border-top: 16px solid #337AB7 !important;
+        border-radius: 50% !important;
+        width: 80px !important;
+        height: 80px !important;
+        animation: spin 700ms linear infinite !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+        position: absolute !important;
+    }
+
+    .room-image {
+        display: block;
+        width: 100%;
+        height: 150px;
+        background-size: cover !important;
+        border: 3px solid green;
+        position: relative;
+    }
+
+    .room-image-title {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: green;
+        color: white;
+        padding: 0px 6px;
+        display: inline-block
+    }
+</style>
+
 <div class="card">
     <div class="card-header">
         <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm DV - <span>@Model.SupplierDTO.Code</span></h3>
@@ -27,13 +66,13 @@
 
         <form autocomplete="off" id="frmThemMoiDichVu1" enctype="multipart/form-data">
             <div class="col-5">
-                
             </div>
             <div class="pr-4 pl-4 text-sm">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="DichVu1DTO.SupplierId" />
                 <input type="hidden" asp-for="Page" />
+                <input type="hidden" asp-for="DichVu1DTO.StringImageUrls" />
                 @*<input type="hidden" asp-for="StrUrl" />*@
                 <!--Thông tin về tài chánh-->
                 @*<fieldset class="groupbox-border ">
@@ -199,11 +238,13 @@
                     </div>
 
                 </div>
-                
+
                 <div class=" row">
-                    <input type="file" name="files" onchange="HandleImage()" multiple />
+                    <div class="col-md-12">
+                        <label class="control-label">Hình ảnh</label>
+                        <input type="file" name="files" onchange="HandleImage()" multiple />
                         <div class="row">
-                            
+                            <input type="hidden" name="imageUrl" id="hidHinhAnh" />
                             @if (Model.DichVu1DTO.ImageUrls != null && Model.DichVu1DTO.ImageUrls.Count > 0)
                             {
                                 int serial = 1;
@@ -211,11 +252,12 @@
                                 {
                                     <div class="col-md-2 mt-3">
                                         <!--class="room-image" in site.css-->
-                                        <div class="room-image" style="background: url('@roomImage') 50% 50%">
+                                <div class="room-image" style="background: url('@roomImage') 50% 50%">
                                             <!--class="room-image-title" in site.css-->
-                                            <span class="room-image-title">@serial</span>
+                                    <span class="room-image-title">@serial</span>
                                         </div>
-                                        <button type="button" @*@onclick="()=>DeletePhoto(roomImage)"*@ class="btn btn-outline-danger btn-block mt-4">
+
+                                        <button type="button" class="btn btn-outline-danger btn-block mt-4 btnDeleteHinhAnh" data-imageurl="@roomImage">
                                             Delete
                                         </button>
                                     </div>
@@ -224,11 +266,13 @@
                                 }
                             }
                         </div>
+                    </div>
                 </div>
 
                 <div class=" pt-1 pb-1">
                     <button type="submit" formaction="/DichVu1/ThemMoiDichVu1" formmethod="post" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
                     <button type="submit" formaction="/DichVu1/ThemMoiDichVu1HinhAnh" formmethod="post" hidden id="btnThemMoiDichVu1HinhAnh"></button>
+                    <button type="submit" formaction="/DichVu1/DeletePhoto" formmethod="post" hidden id="btnDeleteHinhAnh_Hide"></button>
                     <a class="btn btn-success btn-sm" asp-action="BackIndex" asp-controller="Supplier" asp-route-id="@Model.SupplierDTO.Code" asp-route-page="@Model.Page"><i class="fas fa-backward "></i> Back</a>
                 </div>
             </div>
@@ -243,6 +287,12 @@
 *@
 <!-- select2 and multi select2 (bootstrap4)-->
 <script>
+    $('.btnDeleteHinhAnh').off('click').on('click', function(e){
+        imageUrl = $(this).data('imageurl');
+        $('#hidHinhAnh').val(imageUrl);
+        $('#btnDeleteHinhAnh_Hide').click();
+    })
+
     //$('#txtMaKH').select2()
     $('.select2').select2()
     //$('#ddlMaKhCo1').select2()

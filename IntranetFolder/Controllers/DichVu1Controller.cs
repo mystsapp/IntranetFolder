@@ -74,7 +74,6 @@ namespace IntranetFolder.Controllers
             }
             if (!string.IsNullOrEmpty(stringImageUrls)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
             {
-                var abc = JsonConvert.DeserializeObject<List<string>>(stringImageUrls);
                 DichVu1VM.DichVu1DTO.StringImageUrls = stringImageUrls;
             }
             DichVu1VM.Page = page;
@@ -201,6 +200,33 @@ namespace IntranetFolder.Controllers
                 id = DichVu1VM.DichVu1DTO.SupplierId,
                 page = DichVu1VM.Page
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletePhoto(string imageUrl)
+        {
+            List<string> imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+            try
+            {
+                var imageIndex = imageUrls.FindIndex(x => x == imageUrl);
+                var imageName = imageUrl.Replace($"{NavigationManager.BaseUri}RoomImages/", "");
+                if (HotelRoomModel.Id == 0 && Title == "Create")
+                {
+                    var result = FileUpload.DeleteFile(imageName);
+                }
+                else
+                {
+                    // update
+                    DeletedImageNames ??= new List<string>();
+                    DeletedImageNames.Add(imageUrl);
+                }
+                HotelRoomModel.ImageUrls.RemoveAt(imageIndex);
+            }
+            catch (Exception ex)
+            {
+                await JsRuntime.ToastrError(ex.Message);
+            }
+            return View();
         }
     }
 }
