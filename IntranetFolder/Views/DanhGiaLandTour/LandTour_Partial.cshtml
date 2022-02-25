@@ -1,4 +1,13 @@
 ﻿@model DanhGiaLandTourViewModel
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
 
 <div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblLandTour">
     <table class="table mytable text-nowrap text-sm" id="danhGiaLandTourTbl">
@@ -6,11 +15,15 @@
             <tr class="table-info">
 
                 <th>
-                    <button type="button" class="btn btn-success btn-sm btn-block"
+                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                    {
+                        <button type="button" class="btn btn-success btn-sm btn-block"
                             asp-action="ThemMoiLandTour_Partial" title="Thêm mới"
                             id="btnThemMoiLandTour" data-supplierid="@Model.SupplierDTO.Code">
-                        <i class="fas fa-plus"></i>
-                    </button>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    }
+
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().TenNcu)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().DiaChi)</th>
@@ -42,18 +55,21 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
+                                @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                {
+                                    <a class="text-primary btnCapNhatLandTour" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    @*<span class="text-dark"> | </span>
 
-                                <a class="text-primary btnCapNhatLandTour" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
-                                @*<span class="text-dark"> | </span>
+                                        <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                    <!-- ko cho xóa -->
+                                    <span class="text-dark"> | </span>
+                                }
 
-                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
-                                <!-- ko cho xóa -->
-                                <span class="text-dark"> | </span>
                                 @*<form asp-action="Delete" asp-controller="DanhGiaLandTour" method="post">*@
 
                                 <span id="confirmDeleteLandTour_@item.Id" style="display: none">
                                     <!--ajax check invoices-->
-                                    <span class="text-dark ">Xoá?</span>
+                            <span class="text-dark ">Xoá?</span>
 
                                     @*<input type="hidden" name="id" value="@item.Id" />
                                         <input type="hidden" name="strUrl" value="@Model.StrUrl" />*@
@@ -62,7 +78,11 @@
                                 </span>
                                 @*</form>*@
                                 <span id="deleteSpan_@item.Id">
-                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteLandTour('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                    {
+                                        <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteLandTour('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                    }
+                                    
                                 </span>
                             </div>
                         </td>

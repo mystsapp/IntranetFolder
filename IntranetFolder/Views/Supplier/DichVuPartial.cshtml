@@ -1,4 +1,14 @@
 ﻿@model SupplierViewModel
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+
+}
+
 <!--tour programe-->
 <div class="pl-2 "><h3><strong>Đánh giá nhà cung ứng</strong></h3></div>
 <div class="row ml-2 mr-2">
@@ -38,11 +48,15 @@
                                 <tr class="table-info">
 
                                     <th>
-                                        <button type="button" class="btn btn-success btn-sm btn-block"
+                                        @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                        {
+                                            <button type="button" class="btn btn-success btn-sm btn-block"
                                                 asp-action="ThemMoiNhaHang_Partial" title="Thêm mới"
                                                 id=btnThemMoiNhaHang data-supplierid="@Model.SupplierDTO.Code">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        }
+
                                     </th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TenNcu)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoGpkd)</th>
@@ -76,8 +90,11 @@
 
                                             <td>
                                                 <div class="btn-group text-white" role="group">
+                                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                                    {
+                                                        <a class="text-primary btnCapNhatNhaHang" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                                    }
 
-                                                    <a class="text-primary btnCapNhatNhaHang" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
                                                     @*<span class="text-dark"> | </span>
 
                                                         <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
@@ -96,7 +113,11 @@
                                                         </span>
                                                     </form>
                                                     <span id="deleteSpan_@item.Id">
-                                                        <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                                        @if (user.RoleId != SD.sales)
+                                                        {
+                                                            <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                                        }
+
                                                     </span>
                                                 </div>
                                             </td>
@@ -240,7 +261,7 @@
                 <!-- tab_camLao -->
                 <!-- tab_vanChuyen -->
                 <div class="tab-pane fade" id="tab_vanChuyen" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
-                <div id="divVanChuyen">
+                    <div id="divVanChuyen">
                     </div>
 
                     <div id="ThemMoiVanChuyen_Partial">
@@ -389,7 +410,7 @@
         });
 
     }
-    
+
     // camlao-tab
     $('#camlao-tab').off('click').on('click', function () {
 
@@ -410,7 +431,7 @@
         });
 
     }
-    
+
     // vanchuyen-tab
     $('#vanchuyen-tab').off('click').on('click', function () {
 

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Models;
 using Data.Repository;
 using Data.Utilities;
 using IntranetFolder.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using LoginModel = IntranetFolder.Models.LoginModel;
 
 namespace IntranetFolder.Controllers
 {
@@ -111,6 +113,78 @@ namespace IntranetFolder.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ChangePass(string strUrl)
+        {
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            ChangePassModel changpassmodel = new ChangePassModel
+            {
+                Username = user.Username,
+                StrUrl = strUrl
+            };
+            return View(changpassmodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePass(ChangePassModel model, string strUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                string oldpass = HttpContext.Session.GetString("password");
+                if (MaHoaSHA1.EncodeSHA1(oldpass) != MaHoaSHA1.EncodeSHA1(model.Password))
+                {
+                    ModelState.AddModelError("", "Mật khẩu cũ không đúng");
+                }
+                else if (model.Newpassword != model.Confirmpassword)
+                {
+                    ModelState.AddModelError("", "Mật khẩu nhập lại không đúng.");
+                }
+                else
+                {
+                    // change pass
+
+                    // for qltk user
+                    var qltkUser = await _unitOfWork.userRepository.GetByIdAsync(model.Username);
+                    qltkUser.Password = MaHoaSHA1.EncodeSHA1(model.Newpassword);
+                    qltkUser.Ngaydoimk = DateTime.Now;
+                    qltkUser.Doimk = false;
+                    _unitOfWork.userRepository.Update(qltkUser);
+                    // for qltk user
+
+                    var result = await _unitOfWork.Complete();
+                    // change pass
+
+                    if (result > 0)
+                    {
+                        SetAlert("Đổi mật khẩu thành công", "success");
+                        return LocalRedirect(strUrl); // /Users/Create : effect with local url
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Không thể đổi mật khẩu.");
+                    }
+                }
+            }
+            return View();
+        }
+
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
         }
     }
 }

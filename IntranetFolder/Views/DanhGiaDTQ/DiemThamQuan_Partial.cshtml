@@ -1,4 +1,13 @@
 ﻿@model DanhGiaDTQViewModel
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
 
 <div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblDTQ">
     <table class="table mytable text-nowrap text-sm" id="danhGiaDTQTbl">
@@ -6,11 +15,15 @@
             <tr class="table-info">
 
                 <th>
-                    <button type="button" class="btn btn-success btn-sm btn-block"
+                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                    {
+                        <button type="button" class="btn btn-success btn-sm btn-block"
                             asp-action="ThemMoiDTQ_Partial" title="Thêm mới"
                             id="btnThemMoiDTQ" data-supplierid="@Model.SupplierDTO.Code">
-                        <i class="fas fa-plus"></i>
-                    </button>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    }
+
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().TenNcu)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().DiaChi)</th>
@@ -44,13 +57,16 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
+                                @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                {
+                                    <a class="text-primary btnCapNhatDTQ" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    @*<span class="text-dark"> | </span>
 
-                                <a class="text-primary btnCapNhatDTQ" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
-                                @*<span class="text-dark"> | </span>
+                                        <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                    <!-- ko cho xóa -->
+                                    <span class="text-dark"> | </span>
+                                }
 
-                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
-                                <!-- ko cho xóa -->
-                        <span class="text-dark"> | </span>
                                 @*<form asp-action="Delete" asp-controller="DanhGiaLandTour" method="post">*@
 
                                 <span id="confirmDeleteDTQ_@item.Id" style="display: none">
@@ -64,7 +80,10 @@
                                 </span>
                                 @*</form>*@
                                 <span id="deleteSpan_@item.Id">
-                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteDTQ('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                    {
+                                        <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteDTQ('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                    }
                                 </span>
                             </div>
                         </td>

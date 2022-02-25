@@ -10,6 +10,9 @@ namespace Common
         public const string admin = "admin";
         public const string superadmin = "superadmin";
         public const string dieuhanh = "operator";
+        public const string sales = "sales";
+
+        public const string CUDV = "CUDV";
 
         public static List<string> LoaiSao()
         {

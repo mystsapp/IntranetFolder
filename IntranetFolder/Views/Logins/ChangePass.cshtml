@@ -1,0 +1,68 @@
+﻿@model ChangePassModel
+
+@{
+    ViewData["Title"] = "ChangePass";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+@section Scripts{ 
+    <script>
+        $('.validation-summary-errors li').addClass('text-sm');
+    </script>
+}
+
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="#" class="h1"><b>Đăng Nhập</b></a>
+        </div>
+        <div class="card-body pt-0">
+            @*<p class="login-box-msg">Sign in to start your session</p>*@
+
+            <form method="post" autocomplete="off">
+
+                <div class="text-danger " asp-validation-summary="All"></div>
+
+                <div class="input-group mb-3">
+                    <input asp-for="Username" class="form-control form-control-sm" placeholder="Username" readonly>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input asp-for="Password" type="password" class="form-control form-control-sm" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input asp-for="Newpassword" type="password" class="form-control form-control-sm" placeholder="New Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input asp-for="Confirmpassword" type="password" class="form-control form-control-sm" placeholder="Confirm Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pr-2 pl-2">
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>

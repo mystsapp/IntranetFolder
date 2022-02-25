@@ -50,6 +50,8 @@ namespace IntranetFolder.Services
 
         Task<string> UploadFile(IFormFile file);
 
+        bool DeleteFile(string fileName);
+
         public Task<int> CreateDichVu1Image(HinhAnhDTO imageDTO);
 
         string GetMaDv(string param);
@@ -349,6 +351,24 @@ namespace IntranetFolder.Services
                     // sang nam khac' chay lai tu dau
                     return GetNextId.NextID("", "") + subfix; // 0001 + subfix
                 }
+            }
+        }
+
+        public bool DeleteFile(string fileName)
+        {
+            try
+            {
+                var path = $"{_webHostEnvironment.WebRootPath}\\HopDongImages\\{fileName}";
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

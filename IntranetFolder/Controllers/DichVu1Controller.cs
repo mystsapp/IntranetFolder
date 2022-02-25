@@ -3,8 +3,11 @@ using Data.Models;
 using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -75,6 +78,7 @@ namespace IntranetFolder.Controllers
             if (!string.IsNullOrEmpty(stringImageUrls)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
             {
                 DichVu1VM.DichVu1DTO.StringImageUrls = stringImageUrls;
+                DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(stringImageUrls);
             }
             DichVu1VM.Page = page;
             DichVu1VM.SupplierDTO = supplierDTO;
@@ -205,27 +209,39 @@ namespace IntranetFolder.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePhoto(string imageUrl)
         {
-            //List<string> imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
-            //try
-            //{
-            //    var imageIndex = imageUrls.FindIndex(x => x == imageUrl);
-            //    var imageName = imageUrl.Replace($"{NavigationManager.BaseUri}RoomImages/", "");
-            //    if (HotelRoomModel.Id == 0 && Title == "Create")
-            //    {
-            //        var result = FileUpload.DeleteFile(imageName);
-            //    }
-            //    else
-            //    {
-            //        // update
-            //        DeletedImageNames ??= new List<string>();
-            //        DeletedImageNames.Add(imageUrl);
-            //    }
-            //    HotelRoomModel.ImageUrls.RemoveAt(imageIndex);
-            //}
-            //catch (Exception ex)
-            //{
-            //    await JsRuntime.ToastrError(ex.Message);
-            //}
+            var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+
+            List<string> imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+            try
+            {
+                var imageIndex = imageUrls.FindIndex(x => x == imageUrl);
+                var imageName = imageUrl.Replace($"{baseUrl}/HopDongImages/", "");
+                var result = _dichVu1Service.DeleteFile(imageName);
+                //if (HotelRoomModel.Id == 0 && Title == "Create")
+                //{
+                //    var result = FileUpload.DeleteFile(imageName);
+                //}
+                //else
+                //{
+                //    // update
+                //    DeletedImageNames ??= new List<string>();
+                //    DeletedImageNames.Add(imageUrl);
+                //}
+                //HotelRoomModel.ImageUrls.RemoveAt(imageIndex);
+                imageUrls.RemoveAt(imageIndex);
+
+                return RedirectToAction(nameof(ThemMoiDichVu1), new
+                {
+                    dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                    stringImageUrls = JsonConvert.SerializeObject(imageUrls),
+                    supplierId = DichVu1VM.DichVu1DTO.SupplierId,
+                    page = DichVu1VM.Page
+                });
+            }
+            catch (Exception ex)
+            {
+                //await JsRuntime.ToastrError(ex.Message);
+            }
             return View();
         }
     }

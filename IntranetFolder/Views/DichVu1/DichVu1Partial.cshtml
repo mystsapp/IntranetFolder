@@ -2,6 +2,7 @@
 
 @using Microsoft.AspNetCore.Http
 @using Data.Utilities
+@using Common;
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
@@ -15,18 +16,22 @@
             <tr class="table-info">
 
                 <th>
-                    <a class="btn btn-success btn-sm btn-block"
-                            asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-page="@Model.Page" title="Thêm mới"
-                            id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
-                        <i class="fas fa-plus"></i>
-                    </a>
+                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                    {
+                        <a class="btn btn-success btn-sm btn-block"
+                       asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-page="@Model.Page" title="Thêm mới"
+                       id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    }
+
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().TenDv)</th>
                 @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DonViKyKet)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().QuocGia)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Mien)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Tinh)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThanhPho)</th>*@
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().QuocGia)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Mien)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Tinh)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThanhPho)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiSao)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThongTinLienHe)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DiaChi)</th>
@@ -56,14 +61,17 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
+                                @if (user.RoleId != SD.sales)
+                                {
+                                    <a class="text-primary btnEditDichVu1" asp-action="Edit_DichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
 
-                                <a class="text-primary btnEditDichVu1" asp-action="Edit_DichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
+                                    @*<span class="text-dark"> | </span>*@
 
-                                @*<span class="text-dark"> | </span>*@
+                                    <!--<a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="item.MaDv"><i class="fas fa-list"></i></a>-->
 
-                                <!--<a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="item.MaDv"><i class="fas fa-list"></i></a>-->
+                                    <span class="text-dark"> | </span>
+                                }
 
-                                <span class="text-dark"> | </span>
                                 <span id="confirmDeleteSpan_@item.MaDv" style="display: none">
 
                                     <span class="text-dark ">Xoá?</span>
@@ -71,8 +79,10 @@
                                     <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.MaDv', false)">No</button>
                                 </span>
                                 <span id="deleteSpan_@item.MaDv">
-
-                                    <button type="button" data-id="@item.MaDv" class="text-danger border-0 bg-transparent btnXoa" title="Xoá" onclick="confirmDelete('@item.MaDv', true)"><i class="fas fa-trash-alt"></i></button>
+                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                    {
+                                        <button type="button" data-id="@item.MaDv" class="text-danger border-0 bg-transparent btnXoa" title="Xoá" onclick="confirmDelete('@item.MaDv', true)"><i class="fas fa-trash-alt"></i></button>
+                                    }
                                 </span>
 
                                 <!-- hidden form khoiphuc-->
@@ -80,15 +90,15 @@
                                     <input type="hidden" id="hidTourId" name="id" />
                                     <input type="hidden" id="hidStrUrl" name="strUrl" value="Model.StrUrl" />
                                 </form>-->
-                            </div>
+                    </div>
                         </td>
 
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.TenDv)</td>
                         @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DonViKyKet)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.QuocGia)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Mien)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Tinh)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThanhPho)</td>*@
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.QuocGia)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Mien)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Tinh)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThanhPho)</td>*@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiSao)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThongTinLienHe)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DiaChi)</td>

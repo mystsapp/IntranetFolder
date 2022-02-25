@@ -96,6 +96,7 @@ namespace IntranetFolder.Controllers
 
             SupplierVM.SupplierDTO.Ngaytao = DateTime.Now;
             SupplierVM.SupplierDTO.Nguoitao = user.Username;
+            SupplierVM.SupplierDTO.Tour = "IB";
 
             // next Id
             SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn);
