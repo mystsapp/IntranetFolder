@@ -45,9 +45,13 @@ namespace Data.Mapper
             CreateMap<DanhGiaVanChuyen, DanhGiaVanChuyenDTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
             CreateMap<DichVu1, DichVu1DTO>()
-                .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
+                .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier))
+                .ForMember(dest => dest.LoaiDvDTO, opt => opt.MapFrom(src => src.LoaiDv))
+                .ForMember(dest => dest.HinhAnhDTOs, opt => opt.MapFrom(src => src.HinhAnhs))
+                .ReverseMap();
 
             CreateMap<LoaiDv, LoaiDvDTO>().ReverseMap();
+            CreateMap<HinhAnh, HinhAnhDTO>().ReverseMap();
         }
     }
 }

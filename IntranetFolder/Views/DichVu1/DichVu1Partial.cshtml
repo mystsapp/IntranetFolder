@@ -19,12 +19,11 @@
                     @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                     {
                         <a class="btn btn-success btn-sm btn-block"
-                       asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-page="@Model.Page" title="Thêm mới"
-                       id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
+                           asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-page="@Model.Page" title="Thêm mới"
+                           id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
                             <i class="fas fa-plus"></i>
                         </a>
                     }
-
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().TenDv)</th>
                 @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DonViKyKet)</th>
@@ -39,7 +38,6 @@
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DienThoai)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NoiDung)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NguoiLienHe)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().SupplierId)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Website)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DaKy)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().HoatDong)</th>
@@ -61,7 +59,7 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
-                                @if (user.RoleId != SD.sales)
+                                @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
                                     <a class="text-primary btnEditDichVu1" asp-action="Edit_DichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
 
@@ -90,7 +88,7 @@
                                     <input type="hidden" id="hidTourId" name="id" />
                                     <input type="hidden" id="hidStrUrl" name="strUrl" value="Model.StrUrl" />
                                 </form>-->
-                    </div>
+                            </div>
                         </td>
 
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.TenDv)</td>
@@ -106,7 +104,6 @@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DienThoai)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NoiDung)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NguoiLienHe)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.SupplierDTO.Tenthuongmai)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Website)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DaKy)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.HoatDong)</td>
@@ -114,7 +111,7 @@
                         @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NgayCTGoc.HasValue ? item.NgayCTGoc.Value.ToString("dd/MM/yyyy") : "")</td>*@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DauXe)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.GhiChu)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.GiaHd.Value.ToString("N0"))</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.GiaHd.ToString("N0"))</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiHd)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiDvDTO.TenLoai)</td>
                     </tr>

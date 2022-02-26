@@ -75,13 +75,13 @@ namespace Model
         public string GhiChu { get; set; }
 
         [Display(Name = "Giá HD")]
-        public decimal? GiaHd { get; set; }
+        public decimal GiaHd { get; set; }
 
         [Display(Name = "Loại HD")]
         public string LoaiHd { get; set; }
 
         [Display(Name = "Loại DV")]
-        public int? LoaiDvid { get; set; }
+        public int LoaiDvid { get; set; }
 
         public DateTime? NgayTao { get; set; }
         public string NguoiTao { get; set; }

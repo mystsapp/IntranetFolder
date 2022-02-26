@@ -113,7 +113,7 @@ namespace IntranetFolder.Controllers
                             extension.ToLower() == ".png" ||
                             extension.ToLower() == ".jpeg")
                         {
-                            string UploadImagePath = await _dichVu1Service.UploadFile(file);
+                            string UploadImagePath = await _dichVu1Service.UploadFile(file, DichVu1VM.DichVu1DTO.SupplierId);
                             images.Add(UploadImagePath);
                         }
                         else
@@ -183,6 +183,7 @@ namespace IntranetFolder.Controllers
             var dichVu1DTO = await _dichVu1Service.CreateAsync(DichVu1VM.DichVu1DTO);
             // add image
             HinhAnhDTO hinhAnhDTO = new HinhAnhDTO();
+            DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
             foreach (var image in DichVu1VM.DichVu1DTO.ImageUrls)
             {
                 // check image exist not duplicate for update HotelRoomModel
@@ -197,7 +198,7 @@ namespace IntranetFolder.Controllers
                     await _dichVu1Service.CreateDichVu1Image(hinhAnhDTO);
                 }
             }
-            SetAlert("", "Hotel room created successfully.");
+            SetAlert("Hotel room created successfully.", "success");
 
             return RedirectToAction(nameof(Index), "Supplier", new
             {

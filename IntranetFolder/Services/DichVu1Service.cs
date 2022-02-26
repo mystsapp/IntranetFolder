@@ -48,7 +48,7 @@ namespace IntranetFolder.Services
 
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
 
-        Task<string> UploadFile(IFormFile file);
+        Task<string> UploadFile(IFormFile file, string supplierCode);
 
         bool DeleteFile(string fileName);
 
@@ -259,7 +259,7 @@ namespace IntranetFolder.Services
         public async Task<IEnumerable<DichVu1DTO>> GetDichVu1By_SupplierId(string supplierId)
         {
             return _mapper.Map<IEnumerable<DichVu1>, IEnumerable<DichVu1DTO>>
-                (await _unitOfWork.dichVu1Repository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == supplierId));
+                (await _unitOfWork.dichVu1Repository.FindIncludeOneAsync(y => y.LoaiDv, z => z.SupplierId == supplierId));
         }
 
         public async Task<IEnumerable<Vungmien>> Vungmiens()
@@ -277,13 +277,13 @@ namespace IntranetFolder.Services
             return await _unitOfWork.supplierRepository.GetThanhpho1s();
         }
 
-        public async Task<string> UploadFile(IFormFile file)
+        public async Task<string> UploadFile(IFormFile file, string supplierCode)
         {
             try
             {
                 //FileInfo fileInfo = new FileInfo(file.Name); // file detail
                 var extension = Path.GetExtension(file.FileName);
-                var fileName = Guid.NewGuid().ToString() + extension;
+                var fileName = Guid.NewGuid().ToString() + supplierCode + extension;
                 var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\HopDongImages";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "HopDongImages", fileName); // RoomImages
 

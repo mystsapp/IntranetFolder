@@ -30,9 +30,9 @@ namespace Data.Models
         public string LoaiXe { get; set; }
         public bool DauXe { get; set; }
         public string GhiChu { get; set; }
-        public decimal? GiaHd { get; set; }
+        public decimal GiaHd { get; set; }
         public string LoaiHd { get; set; }
-        public int? LoaiDvid { get; set; }
+        public int LoaiDvid { get; set; }
         public DateTime? NgayTao { get; set; }
         public string NguoiTao { get; set; }
         public DateTime? NgaySua { get; set; }

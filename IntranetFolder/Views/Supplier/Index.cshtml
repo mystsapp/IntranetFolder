@@ -72,7 +72,6 @@
 
                                         <button type="submit" formaction="/Supplier/ExportExcel" formmethod="post" class="btn btn-outline-success btn-sm" id="btnExportExcel" title="Export excel"><i class="fas fa-file-excel"></i> Excel</button>
                                     }
-
                                 </div>
                             </div>
                         </div>
@@ -103,14 +102,13 @@
                             @foreach (var item in Model.SupplierDTOs)
                             {
 
-                                <tr class="supplier-cursor-pointer " @*data-huy="@item.HuyTour"*@ onclick="TabDichVu()">
+                                <tr class="supplier-cursor-pointer @item.Code" onclick="TabDichVu()">
 
                                     <td>
                                         <div class="btn-group text-white" role="group">
                                             @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                             {
                                                 <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Code" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-
 
                                                 @*<span class="text-dark"> | </span>
 
@@ -122,7 +120,7 @@
 
                                                 <span id="confirmDeleteSpan_@item.Code" style="display: none">
                                                     <!--ajax check invoices-->
-                                            <span class="text-dark invoiceTrue">Xoá?</span>
+                                                    <span class="text-dark invoiceTrue">Xoá?</span>
 
                                                     <input type="hidden" name="id" value="@item.Code" />
                                                     <input type="hidden" name="strUrl" value="@Model.StrUrl" />
@@ -135,7 +133,6 @@
                                                 {
                                                     <button type="button" data-id="@item.Code" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Code', true)"><i class="fas fa-trash-alt"></i></button>
                                                 }
-
                                             </span>
                                         </div>
                                     </td>
@@ -203,8 +200,8 @@
 
 @section Scripts{
 
-<script src="~/js/Admin/Supplier/indexController.js"></script>
-<script>
+    <script src="~/js/Admin/Supplier/indexController.js"></script>
+    <script>
 
     var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
 
@@ -221,8 +218,10 @@
             id_Redirect_Class.addClass("hoverClass");
         }
 
-    // giữ trạng thái
+        indexController.Load_DichVu1Partial(id_Redirect, '@Model.Page');
+        indexController.Load_DichVuPartial(id_Redirect);
     }
+    // giữ trạng thái
 
     function confirmDelete(uniqueId, isDeleteClicked) {
         var deleteSpan = 'deleteSpan_' + uniqueId;
@@ -263,5 +262,5 @@
     function TabDichVu() { // tab href
         location.href = "#tabDichVu";
     }
-</script>
+    </script>
 }
