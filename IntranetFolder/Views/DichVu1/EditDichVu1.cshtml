@@ -1,6 +1,6 @@
 ﻿@model DichVu1ViewModel
 @{
-    ViewData["Title"] = "Them DV";
+    ViewData["Title"] = "Edit DV";
     //var tkChoMaKh = (List<string>)ViewBag.tkChoMaKh;
 }
 <!-- Main content -->
@@ -47,7 +47,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm DV - <span>@Model.SupplierDTO.Code</span></h3>
+        <h3 class="card-title"><i class="fas fa-file text-info"></i> Cập nhật DV - <span>@Model.SupplierDTO.Code</span></h3>
 
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -64,12 +64,15 @@
 
     <div class="card-body p-0">
 
-        <form autocomplete="off" id="frmThemMoiDichVu1" enctype="multipart/form-data">
+        <form autocomplete="off" id="frmEditDichVu1" enctype="multipart/form-data">
             <div class="col-5">
             </div>
             <div class="pr-4 pl-4 text-sm">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="DichVu1DTO.MaDv" />
+                <input type="hidden" asp-for="DichVu1DTO.NguoiTao" />
+                <input type="hidden" asp-for="DichVu1DTO.NgayTao" />
                 <input type="hidden" asp-for="DichVu1DTO.SupplierId" />
                 <input type="hidden" asp-for="Page" />
                 <input type="hidden" asp-for="DichVu1DTO.StringImageUrls" />
@@ -246,6 +249,7 @@
                         <input type="file" name="files" onchange="HandleImage()" multiple />
                         <div class="row">
                             <input type="hidden" name="imageUrl" id="hidHinhAnh" />
+                            <input type="hidden" name="dichVu1Id" id="hidDichVu1Id" />
                             @if (Model.DichVu1DTO.ImageUrls != null && Model.DichVu1DTO.ImageUrls.Count > 0)
                             {
                                 int serial = 1;
@@ -271,7 +275,7 @@
                 </div>
 
                 <div class=" pt-1 pb-1">
-                    <button type="submit" formaction="/DichVu1/ThemMoiDichVu1" formmethod="post" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
+                    <button type="submit" formaction="/DichVu1/EditDichVu1" formmethod="post" class="btn btn-primary btn-sm" id="btnKVCTPCTCreatePartial_Save"><i class="fas fa-save"></i> Save</button>
                     <button type="submit" formaction="/DichVu1/ThemMoiDichVu1HinhAnh" formmethod="post" hidden id="btnThemMoiDichVu1HinhAnh"></button>
                     <button type="submit" formaction="/DichVu1/DeletePhoto" formmethod="post" hidden id="btnDeleteHinhAnh_Hide"></button>
                     <a class="btn btn-success btn-sm" asp-action="BackIndex" asp-controller="Supplier" asp-route-id="@Model.SupplierDTO.Code" asp-route-page="@Model.Page"><i class="fas fa-backward "></i> Back</a>
@@ -290,7 +294,10 @@
 <script>
     $('.btnDeleteHinhAnh').off('click').on('click', function(e){
         imageUrl = $(this).data('imageurl');
+        dichVu1Id = '@Model.DichVu1DTO.MaDv';
+        
         $('#hidHinhAnh').val(imageUrl);
+        $('#hidDichVu1Id').val(dichVu1Id);
         $('#btnDeleteHinhAnh_Hide').click();
     })
 
@@ -311,7 +318,7 @@
 <script>
     /*$(".maskInput").mask("99/99/9999");*/
 
-    $('#frmThemMoiDichVu1').validate({
+    $('#frmEditDichVu1').validate({
         //rules: {
         //    email: {
         //        required: true,
@@ -357,6 +364,7 @@
     //});
 
     function HandleImage(){
+        $('#hidDichVu1Id').val('@Model.DichVu1DTO.MaDv');
         $('#btnThemMoiDichVu1HinhAnh').click();
     }
 </script>

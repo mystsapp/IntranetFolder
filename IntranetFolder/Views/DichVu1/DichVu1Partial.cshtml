@@ -61,7 +61,7 @@
                             <div class="btn-group text-white" role="group">
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
-                                    <a class="text-primary btnEditDichVu1" asp-action="Edit_DichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
+                                    <a class="text-primary btnEditDichVu1" asp-action="EditDichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
 
                                     @*<span class="text-dark"> | </span>*@
 

@@ -18,7 +18,7 @@ namespace IntranetFolder.Services
     {
         IEnumerable<DichVu1DTO> GetAll();
 
-        Task<DichVu1DTO> GetByIdAsync(long id);
+        Task<DichVu1DTO> GetByIdAsync(string id);
 
         Task<DichVu1DTO> CreateAsync(DichVu1DTO dichVu1DTO);
 
@@ -72,9 +72,10 @@ namespace IntranetFolder.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<DichVu1DTO> GetByIdAsync(long id)
+        public async Task<DichVu1DTO> GetByIdAsync(string id)
         {
-            return _mapper.Map<DichVu1, DichVu1DTO>(await _unitOfWork.dichVu1Repository.GetByLongIdAsync(id));
+            var dichVu1s = await _unitOfWork.dichVu1Repository.FindIncludeOneAsync(x => x.HinhAnhs, y => y.MaDv == id);
+            return _mapper.Map<DichVu1, DichVu1DTO>(dichVu1s.FirstOrDefault());
         }
 
         public IEnumerable<DichVu1DTO> GetAll()
