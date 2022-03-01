@@ -54,7 +54,7 @@ namespace IntranetFolder.Controllers
             return PartialView(DichVu1VM);
         }
 
-        public async Task<IActionResult> EditDichVu1(string id, string supplierId, int page, string failMessage, string dichVu1DTO, string stringImageUrls)
+        public async Task<IActionResult> EditDichVu1(string id, string supplierId, int page, string failMessage, /*string dichVu1DTO,*/ string stringImageUrls)
         {
             if (!ModelState.IsValid)
             {
@@ -73,19 +73,24 @@ namespace IntranetFolder.Controllers
             }
             DichVu1VM.DichVu1DTO = await _dichVu1Service.GetByIdAsync(id);
             DichVu1VM.DichVu1DTO.ImageUrls = DichVu1VM.DichVu1DTO.HinhAnhDTOs.Select(x => x.Url).ToList();
+            var imageUrlsZin = DichVu1VM.DichVu1DTO.HinhAnhDTOs.Select(x => x.Url).ToList();
             if (!string.IsNullOrEmpty(failMessage))
             {
                 ModelState.AddModelError("", failMessage);
             }
-            if (!string.IsNullOrEmpty(dichVu1DTO)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
-            {
-                DichVu1VM.DichVu1DTO = JsonConvert.DeserializeObject<DichVu1DTO>(dichVu1DTO);
-            }
+            ////if (!string.IsNullOrEmpty(dichVu1DTO)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
+            //if (dichVu1DTO != null) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
+            //{
+            //    DichVu1VM.DichVu1DTO = dichVu1DTO;
+            //    //DichVu1VM.DichVu1DTO = JsonConvert.DeserializeObject<DichVu1DTO>(dichVu1DTO);
+            //}
             if (!string.IsNullOrEmpty(stringImageUrls)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
             {
                 DichVu1VM.DichVu1DTO.StringImageUrls = stringImageUrls;
-                //if (DichVu1VM.DichVu1DTO.ImageUrls.Count > 0)
+                //if (DichVu1VM.DichVu1DTO.ImageUrls.Count > 0) // Edit
                 //{
+                //    //DichVu1VM.DichVu1DTO.ImageUrls = imageUrlsZin;
+
                 //    DichVu1VM.DichVu1DTO.ImageUrls.AddRange(JsonConvert.DeserializeObject<List<string>>(stringImageUrls));
                 //}
                 //else
@@ -279,7 +284,9 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, int page, string failMessage, string dichVu1DTO, string stringImageUrls)
+        //public DichVu1DTO dichVu1DTO;
+
+        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, int page, string failMessage, String dichVu1DTO, string stringImageUrls)
         {
             if (!ModelState.IsValid)
             {
@@ -327,14 +334,15 @@ namespace IntranetFolder.Controllers
             }
             if (!string.IsNullOrEmpty(DichVu1VM.DichVu1DTO.StringImageUrls))
             {
-                if (DichVu1VM.DichVu1DTO.ImageUrls.Count > 0)
-                {
-                    DichVu1VM.DichVu1DTO.ImageUrls.AddRange(JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls));
-                }
-                else
-                {
-                    DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
-                }
+                //if (DichVu1VM.DichVu1DTO.ImageUrls.Count > 0)
+                //{
+                //    DichVu1VM.DichVu1DTO.ImageUrls.AddRange(JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls));
+                //}
+                //else
+                //{
+                //    DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+                //}
+                DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
             }
             // from login session
             var user = HttpContext.Session.GetSingle<User>("loginUser");
@@ -392,7 +400,8 @@ namespace IntranetFolder.Controllers
                         return RedirectToAction(nameof(EditDichVu1), new
                         {
                             id = DichVu1VM.DichVu1DTO.MaDv,
-                            dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                            //dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                            //stringImageUrls = JsonConvert.SerializeObject(images),
                             stringImageUrls = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls),
                             supplierId = DichVu1VM.DichVu1DTO.SupplierId,
                             page = DichVu1VM.Page
