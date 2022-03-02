@@ -55,6 +55,8 @@ namespace IntranetFolder.Services
         public Task<int> CreateDichVu1Image(HinhAnhDTO imageDTO);
 
         string GetMaDv(string param);
+
+        Task DeleImagesByDichVu1Id(string maDv);
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -371,6 +373,13 @@ namespace IntranetFolder.Services
             {
                 throw;
             }
+        }
+
+        public async Task DeleImagesByDichVu1Id(string maDv)
+        {
+            var hinhAnhs = await _unitOfWork.hinhAnhRepository.FindAsync(x => x.DichVuId == maDv);
+            await _unitOfWork.hinhAnhRepository.DeleteRangeAsync(hinhAnhs.ToList());
+            await _unitOfWork.Complete();
         }
     }
 }

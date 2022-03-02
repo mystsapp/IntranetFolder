@@ -54,8 +54,25 @@ namespace IntranetFolder.Controllers
             return PartialView(DichVu1VM);
         }
 
-        public async Task<IActionResult> EditDichVu1(string id, string supplierId, int page, string failMessage, /*string dichVu1DTO,*/ string stringImageUrls)
+        public async Task<IActionResult> EditDichVu1(string id, string supplierId, int page, string failMessage, DichVu1DTO dichVu1DTO)
         {
+            string stringImageUrls = "";
+            if (TempData["stringImageUrls"] != null)
+            {
+                stringImageUrls = (string)TempData["stringImageUrls"];
+            }
+
+            //int page = 0;
+            if (TempData["page"] != null)
+            {
+                DichVu1VM.Page = (int)TempData["page"];
+            }
+
+            if (TempData["id"] != null)
+            {
+                id = (string)TempData["id"];
+            }
+
             if (!ModelState.IsValid)
             {
                 return View();
@@ -79,11 +96,11 @@ namespace IntranetFolder.Controllers
                 ModelState.AddModelError("", failMessage);
             }
             ////if (!string.IsNullOrEmpty(dichVu1DTO)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
-            //if (dichVu1DTO != null) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
-            //{
-            //    DichVu1VM.DichVu1DTO = dichVu1DTO;
-            //    //DichVu1VM.DichVu1DTO = JsonConvert.DeserializeObject<DichVu1DTO>(dichVu1DTO);
-            //}
+            if (!string.IsNullOrEmpty(dichVu1DTO.MaDv)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
+            {
+                DichVu1VM.DichVu1DTO = dichVu1DTO;
+                //DichVu1VM.DichVu1DTO = JsonConvert.DeserializeObject<DichVu1DTO>(dichVu1DTO);
+            }
             if (!string.IsNullOrEmpty(stringImageUrls)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
             {
                 DichVu1VM.DichVu1DTO.StringImageUrls = stringImageUrls;
@@ -245,23 +262,27 @@ namespace IntranetFolder.Controllers
 
                 try
                 {
-                    await _dichVu1Service.UpdateAsync(DichVu1VM.DichVu1DTO);
+                    // update
+                    var updateDichVu1Result = await _dichVu1Service.UpdateAsync(DichVu1VM.DichVu1DTO);
 
-                    //// update
-                    ////HotelRoomModel.Details = await QuillHtml.GetHTML();
-                    //var updateRoomResult = await HotelRoomRepository.UpdateHotelRoom(HotelRoomModel.Id, HotelRoomModel);
-                    //if (HotelRoomModel.ImageUrls != null && HotelRoomModel.ImageUrls.Any())
-                    //{
-                    //    foreach (var deletedImageName in DeletedImageNames)
-                    //    {
-                    //        var imageName = deletedImageName.Replace($"{NavigationManager.BaseUri}RoomImages/", "");
-
-                    //        var result = FileUpload.DeleteFile(imageName);
-                    //        await HotelImagesRepository.DeleteHotelImageByImageUrl(deletedImageName);
-                    //    }
-                    //    await AddHotelRoomImage(updateRoomResult);
-                    //}
-                    //await JsRuntime.ToastrSuccess("Hotel room updated successfully.");
+                    //HotelRoomModel.Details = await QuillHtml.GetHTML();
+                    DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+                    if (DichVu1VM.DichVu1DTO.ImageUrls != null && DichVu1VM.DichVu1DTO.ImageUrls.Any())
+                    {
+                        // xoa anh dang ton tai
+                        await _dichVu1Service.DeleImagesByDichVu1Id(DichVu1VM.DichVu1DTO.MaDv);
+                        // add lai list anh moi
+                        HinhAnhDTO hinhAnhDTO = new HinhAnhDTO();
+                        foreach (var item in DichVu1VM.DichVu1DTO.ImageUrls)
+                        {
+                            hinhAnhDTO = new HinhAnhDTO()
+                            {
+                                DichVuId = DichVu1VM.DichVu1DTO.MaDv,
+                                Url = item
+                            };
+                            await _dichVu1Service.CreateDichVu1Image(hinhAnhDTO);
+                        }
+                    }
 
                     SetAlert("Cập nhật thành công", "success");
 
@@ -286,8 +307,26 @@ namespace IntranetFolder.Controllers
 
         //public DichVu1DTO dichVu1DTO;
 
-        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, int page, string failMessage, String dichVu1DTO, string stringImageUrls)
+        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, string failMessage, DichVu1DTO dichVu1DTO, int page)
         {
+            DichVu1VM.Page = page;
+            string stringImageUrls = "";
+            if (TempData["stringImageUrls"] != null)
+            {
+                stringImageUrls = (string)TempData["stringImageUrls"];
+            }
+
+            //int page = 0;
+            if (TempData["page"] != null)
+            {
+                DichVu1VM.Page = (int)TempData["page"];
+            }
+            if (!string.IsNullOrEmpty(dichVu1DTO.SupplierId))
+            {
+                supplierId = dichVu1DTO.SupplierId;
+            }
+            //dichVu1DTO = TempData["dichVu1DTO"];
+            //dichVu1DTO = (DichVu1DTO)dichVu1DTO;
             if (!ModelState.IsValid)
             {
                 return View();
@@ -303,16 +342,18 @@ namespace IntranetFolder.Controllers
             {
                 ModelState.AddModelError("", failMessage);
             }
-            if (!string.IsNullOrEmpty(dichVu1DTO)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
+            //if (!string.IsNullOrEmpty(dichVu1DTO)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
+            if (dichVu1DTO != null) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
             {
-                DichVu1VM.DichVu1DTO = JsonConvert.DeserializeObject<DichVu1DTO>(dichVu1DTO);
+                DichVu1VM.DichVu1DTO = dichVu1DTO;
+                //DichVu1VM.DichVu1DTO = JsonConvert.DeserializeObject<DichVu1DTO>(dichVu1DTO);
             }
             if (!string.IsNullOrEmpty(stringImageUrls)) // dichVu1DTO: ThemMoiDichVu1HinhAnh chuyền qua
             {
                 DichVu1VM.DichVu1DTO.StringImageUrls = stringImageUrls;
                 DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(stringImageUrls);
             }
-            DichVu1VM.Page = page;
+
             DichVu1VM.SupplierDTO = supplierDTO;
             DichVu1VM.DichVu1DTO.SupplierId = supplierId;
             //DichVu1VM.Vungmiens = await _dichVu1Service.Vungmiens();
@@ -387,25 +428,43 @@ namespace IntranetFolder.Controllers
                     }
                     if (string.IsNullOrEmpty(dichVu1Id)) // them moi
                     {
-                        return RedirectToAction(nameof(ThemMoiDichVu1), new
-                        {
-                            dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
-                            stringImageUrls = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls),
-                            supplierId = DichVu1VM.DichVu1DTO.SupplierId,
-                            page = DichVu1VM.Page
-                        });
+                        //DichVu1ViewModel dichVu1ViewModel = new DichVu1ViewModel();
+                        //dichVu1ViewModel.DichVu1DTO = DichVu1VM.DichVu1DTO;
+                        var dichVu1DTO = DichVu1VM.DichVu1DTO;
+
+                        //dichVu1DTO.stringImageUrls = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls);
+                        //dichVu1DTO.supplierId = DichVu1VM.DichVu1DTO.SupplierId;
+                        //dichVu1DTO.page = DichVu1VM.Page;
+
+                        //return RedirectToAction(nameof(ThemMoiDichVu1), new
+                        //{
+                        //    dichVu1DTO = DichVu1VM.DichVu1DTO,
+                        //    //dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                        //    stringImageUrls = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls),
+                        //    supplierId = DichVu1VM.DichVu1DTO.SupplierId,
+                        //    page = DichVu1VM.Page
+                        //});
+
+                        TempData["stringImageUrls"] = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls);
+                        TempData["page"] = DichVu1VM.Page;
+                        return RedirectToAction("ThemMoiDichVu1", dichVu1DTO);
                     }
                     else // edit
                     {
-                        return RedirectToAction(nameof(EditDichVu1), new
-                        {
-                            id = DichVu1VM.DichVu1DTO.MaDv,
-                            //dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
-                            //stringImageUrls = JsonConvert.SerializeObject(images),
-                            stringImageUrls = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls),
-                            supplierId = DichVu1VM.DichVu1DTO.SupplierId,
-                            page = DichVu1VM.Page
-                        });
+                        var dichVu1DTO = DichVu1VM.DichVu1DTO;
+                        TempData["stringImageUrls"] = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls);
+                        TempData["page"] = DichVu1VM.Page;
+                        TempData["id"] = DichVu1VM.DichVu1DTO.MaDv;
+                        return RedirectToAction("EditDichVu1", dichVu1DTO);
+                        //return RedirectToAction(nameof(EditDichVu1), new
+                        //{
+                        //    id = DichVu1VM.DichVu1DTO.MaDv,
+                        //    //dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                        //    //stringImageUrls = JsonConvert.SerializeObject(images),
+                        //    stringImageUrls = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO.ImageUrls),
+                        //    supplierId = DichVu1VM.DichVu1DTO.SupplierId,
+                        //    page = DichVu1VM.Page
+                        //});
                     }
                 }
                 else
