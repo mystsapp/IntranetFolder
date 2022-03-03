@@ -41,6 +41,7 @@ namespace IntranetFolder.Controllers
 
         public async Task<IActionResult> DichVu1Partial(string supplierId, int page)
         {
+            //await _dichVu1Service.DeleteHinhanh(41);
             var supplierDTO = await _dichVu1Service.GetSupplierByIdAsync(supplierId);
             if (supplierDTO == null)
             {
@@ -63,6 +64,7 @@ namespace IntranetFolder.Controllers
             }
 
             //int page = 0;
+            DichVu1VM.Page = page;
             if (TempData["page"] != null)
             {
                 DichVu1VM.Page = (int)TempData["page"];
@@ -116,7 +118,11 @@ namespace IntranetFolder.Controllers
                 //}
                 DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(stringImageUrls);
             }
-            DichVu1VM.Page = page;
+            //else
+            //{
+            //    DichVu1VM.DichVu1DTO.ImageUrls = DichVu1VM.DichVu1DTO.HinhAnhDTOs.Select(x => x.Url).ToList();
+            //}
+
             DichVu1VM.SupplierDTO = supplierDTO;
             //DichVu1VM.DichVu1DTO.SupplierId = supplierId;
             //DichVu1VM.Vungmiens = await _dichVu1Service.Vungmiens();
@@ -266,21 +272,24 @@ namespace IntranetFolder.Controllers
                     var updateDichVu1Result = await _dichVu1Service.UpdateAsync(DichVu1VM.DichVu1DTO);
 
                     //HotelRoomModel.Details = await QuillHtml.GetHTML();
-                    DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
-                    if (DichVu1VM.DichVu1DTO.ImageUrls != null && DichVu1VM.DichVu1DTO.ImageUrls.Any())
+                    if (!string.IsNullOrEmpty(DichVu1VM.DichVu1DTO.StringImageUrls)) // ko có them anh
                     {
-                        // xoa anh dang ton tai
-                        await _dichVu1Service.DeleImagesByDichVu1Id(DichVu1VM.DichVu1DTO.MaDv);
-                        // add lai list anh moi
-                        HinhAnhDTO hinhAnhDTO = new HinhAnhDTO();
-                        foreach (var item in DichVu1VM.DichVu1DTO.ImageUrls)
+                        DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+                        if (DichVu1VM.DichVu1DTO.ImageUrls != null && DichVu1VM.DichVu1DTO.ImageUrls.Any())
                         {
-                            hinhAnhDTO = new HinhAnhDTO()
+                            // xoa anh dang ton tai
+                            await _dichVu1Service.DeleImagesByDichVu1Id(DichVu1VM.DichVu1DTO.MaDv);
+                            // add lai list anh moi
+                            HinhAnhDTO hinhAnhDTO = new HinhAnhDTO();
+                            foreach (var item in DichVu1VM.DichVu1DTO.ImageUrls)
                             {
-                                DichVuId = DichVu1VM.DichVu1DTO.MaDv,
-                                Url = item
-                            };
-                            await _dichVu1Service.CreateDichVu1Image(hinhAnhDTO);
+                                hinhAnhDTO = new HinhAnhDTO()
+                                {
+                                    DichVuId = DichVu1VM.DichVu1DTO.MaDv,
+                                    Url = item
+                                };
+                                await _dichVu1Service.CreateDichVu1Image(hinhAnhDTO);
+                            }
                         }
                     }
 
@@ -505,22 +514,26 @@ namespace IntranetFolder.Controllers
 
             var dichVu1DTO = await _dichVu1Service.CreateAsync(DichVu1VM.DichVu1DTO);
             // add image
-            HinhAnhDTO hinhAnhDTO = new HinhAnhDTO();
-            DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
-            foreach (var image in DichVu1VM.DichVu1DTO.ImageUrls)
+            if (!string.IsNullOrEmpty(DichVu1VM.DichVu1DTO.StringImageUrls))
             {
-                // check image exist not duplicate for update HotelRoomModel
-                // HotelRoomModel.HotelRoomImages == null for create new
-                if (DichVu1VM.DichVu1DTO.HinhAnhDTOs == null || DichVu1VM.DichVu1DTO.HinhAnhDTOs.Where(x => x.Url == image).Count() == 0)
+                HinhAnhDTO hinhAnhDTO = new HinhAnhDTO();
+                DichVu1VM.DichVu1DTO.ImageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+                foreach (var image in DichVu1VM.DichVu1DTO.ImageUrls)
                 {
-                    hinhAnhDTO = new HinhAnhDTO()
+                    // check image exist not duplicate for update HotelRoomModel
+                    // HotelRoomModel.HotelRoomImages == null for create new
+                    if (DichVu1VM.DichVu1DTO.HinhAnhDTOs == null || DichVu1VM.DichVu1DTO.HinhAnhDTOs.Where(x => x.Url == image).Count() == 0)
                     {
-                        DichVuId = dichVu1DTO.MaDv,
-                        Url = image
-                    };
-                    await _dichVu1Service.CreateDichVu1Image(hinhAnhDTO);
+                        hinhAnhDTO = new HinhAnhDTO()
+                        {
+                            DichVuId = dichVu1DTO.MaDv,
+                            Url = image
+                        };
+                        await _dichVu1Service.CreateDichVu1Image(hinhAnhDTO);
+                    }
                 }
             }
+
             SetAlert("Thêm mới thành công.", "success");
 
             return RedirectToAction(nameof(Index), "Supplier", new
@@ -534,8 +547,19 @@ namespace IntranetFolder.Controllers
         public async Task<IActionResult> DeletePhoto(string imageUrl, string dichVu1Id)
         {
             var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+            List<string> imageUrls = new List<string>();
+            // DichVu1VM.DichVu1DTO.StringImageUrls == null
+            // khi xoa hinhanh co san trong edit (khong phai them roi delete di)
+            if (string.IsNullOrEmpty(DichVu1VM.DichVu1DTO.StringImageUrls))
+            {
+                var dichVu1DTO = await _dichVu1Service.GetByIdAsync_AsNoTracking(dichVu1Id);
+                imageUrls = dichVu1DTO.HinhAnhDTOs.Select(x => x.Url).ToList();
+            }
+            else
+            {
+                imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
+            }
 
-            List<string> imageUrls = JsonConvert.DeserializeObject<List<string>>(DichVu1VM.DichVu1DTO.StringImageUrls);
             try
             {
                 var imageIndex = imageUrls.FindIndex(x => x == imageUrl);
@@ -556,24 +580,35 @@ namespace IntranetFolder.Controllers
 
                 if (string.IsNullOrEmpty(dichVu1Id)) // them moi
                 {
-                    return RedirectToAction(nameof(ThemMoiDichVu1), new
-                    {
-                        dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
-                        stringImageUrls = JsonConvert.SerializeObject(imageUrls),
-                        supplierId = DichVu1VM.DichVu1DTO.SupplierId,
-                        page = DichVu1VM.Page
-                    });
+                    var dichVu1DTO = DichVu1VM.DichVu1DTO;
+                    TempData["stringImageUrls"] = JsonConvert.SerializeObject(imageUrls);
+                    TempData["page"] = DichVu1VM.Page;
+                    return RedirectToAction("ThemMoiDichVu1", dichVu1DTO);
+
+                    //return RedirectToAction(nameof(ThemMoiDichVu1), new
+                    //{
+                    //    dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                    //    stringImageUrls = JsonConvert.SerializeObject(imageUrls),
+                    //    supplierId = DichVu1VM.DichVu1DTO.SupplierId,
+                    //    page = DichVu1VM.Page
+                    //});
                 }
                 else // Edit
                 {
-                    return RedirectToAction(nameof(EditDichVu1), new
-                    {
-                        id = DichVu1VM.DichVu1DTO.MaDv,
-                        dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
-                        stringImageUrls = JsonConvert.SerializeObject(imageUrls),
-                        supplierId = DichVu1VM.DichVu1DTO.SupplierId,
-                        page = DichVu1VM.Page
-                    });
+                    var dichVu1DTO = DichVu1VM.DichVu1DTO;
+                    TempData["stringImageUrls"] = JsonConvert.SerializeObject(imageUrls);
+                    TempData["page"] = DichVu1VM.Page;
+                    TempData["id"] = DichVu1VM.DichVu1DTO.MaDv;
+                    return RedirectToAction("EditDichVu1", dichVu1DTO);
+
+                    //return RedirectToAction(nameof(EditDichVu1), new
+                    //{
+                    //    id = DichVu1VM.DichVu1DTO.MaDv,
+                    //    dichVu1DTO = JsonConvert.SerializeObject(DichVu1VM.DichVu1DTO),
+                    //    stringImageUrls = JsonConvert.SerializeObject(imageUrls),
+                    //    supplierId = DichVu1VM.DichVu1DTO.SupplierId,
+                    //    page = DichVu1VM.Page
+                    //});
                 }
             }
             catch (Exception ex)
@@ -581,6 +616,37 @@ namespace IntranetFolder.Controllers
                 //await JsRuntime.ToastrError(ex.Message);
             }
             return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Delete(string id)
+        {
+            try
+            {
+                var dichVu1DTO = await _dichVu1Service.GetByIdAsync_AsNoTracking(id);
+
+                // xoa file hinh
+                foreach (var image in dichVu1DTO.HinhAnhDTOs)
+                {
+                    await _dichVu1Service.DeleteImageFile(image.Url);
+                }
+
+                // xoa hinhanh
+                foreach (var image in dichVu1DTO.HinhAnhDTOs)
+                {
+                    await _dichVu1Service.DeleteHinhanh(image.Id);
+                }
+
+                var dichVu1DTO1 = _dichVu1Service.GetByIdAsNoTracking(id);
+                await _dichVu1Service.Delete(dichVu1DTO1);
+
+                return Json(true);
+            }
+            catch (Exception)
+            {
+                return Json(false);
+            }
+            //return Json(false);
         }
     }
 }

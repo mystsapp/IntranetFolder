@@ -57,6 +57,12 @@ namespace IntranetFolder.Services
         string GetMaDv(string param);
 
         Task DeleImagesByDichVu1Id(string maDv);
+
+        Task<bool> DeleteImageFile(string imageUrl);
+
+        Task<DichVu1DTO> GetByIdAsync_AsNoTracking(string id);
+
+        Task DeleteHinhanh(long hinhAnhId);
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -77,6 +83,12 @@ namespace IntranetFolder.Services
         public async Task<DichVu1DTO> GetByIdAsync(string id)
         {
             var dichVu1s = await _unitOfWork.dichVu1Repository.FindIncludeOneAsync(x => x.HinhAnhs, y => y.MaDv == id);
+            return _mapper.Map<DichVu1, DichVu1DTO>(dichVu1s.FirstOrDefault());
+        }
+
+        public async Task<DichVu1DTO> GetByIdAsync_AsNoTracking(string id)
+        {
+            var dichVu1s = await _unitOfWork.dichVu1Repository.GetAllAsNoTracking_Inclue(x => x.HinhAnhs, y => y.MaDv == id);
             return _mapper.Map<DichVu1, DichVu1DTO>(dichVu1s.FirstOrDefault());
         }
 
@@ -312,6 +324,26 @@ namespace IntranetFolder.Services
             }
         }
 
+        public async Task<bool> DeleteImageFile(string imageUrl)
+        {
+            try
+            {
+                // var path = $"{_webHostEnvironment.WebRootPath}\\RoomImages\\{fileName}";
+                var imageName = imageUrl.Replace($"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host.Value}/HopDongImages/", "");
+                var path = $"{_webHostEnvironment.WebRootPath}\\HopDongImages\\{imageName}";
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<int> CreateDichVu1Image(HinhAnhDTO imageDTO)
         {
             var image = _mapper.Map<HinhAnhDTO, HinhAnh>(imageDTO);
@@ -379,6 +411,13 @@ namespace IntranetFolder.Services
         {
             var hinhAnhs = await _unitOfWork.hinhAnhRepository.FindAsync(x => x.DichVuId == maDv);
             await _unitOfWork.hinhAnhRepository.DeleteRangeAsync(hinhAnhs.ToList());
+            await _unitOfWork.Complete();
+        }
+
+        public async Task DeleteHinhanh(long hinhAnhId)
+        {
+            var hinhAnh = _unitOfWork.hinhAnhRepository.GetById(hinhAnhId);
+            _unitOfWork.hinhAnhRepository.Delete(hinhAnh);
             await _unitOfWork.Complete();
         }
     }

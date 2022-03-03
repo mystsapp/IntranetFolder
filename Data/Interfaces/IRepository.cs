@@ -30,6 +30,8 @@ namespace Data.Interfaces
 
         T GetSingleNoTracking(Func<T, bool> predicate);
 
+        Task<IEnumerable<T>> GetAllAsNoTracking_Inclue(Expression<Func<T, object>> expressObj, Expression<Func<T, bool>> expression);
+
         void Create(T entity);
 
         Task<T> CreateAsync(T entity);

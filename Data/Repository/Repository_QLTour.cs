@@ -138,5 +138,10 @@ namespace Data.Repository
             await _context.SaveChangesAsync();
             return entityEntry.Entity;
         }
+
+        public async Task<IEnumerable<T>> GetAllAsNoTracking_Inclue(Expression<Func<T, object>> expressObj, Expression<Func<T, bool>> expression)
+        {
+            return await _context.Set<T>().AsNoTracking().Include(expressObj).Where(expression).ToListAsync();
+        }
     }
 }
