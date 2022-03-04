@@ -202,24 +202,18 @@
                 <div class=" row">
 
                     <div class="col-md-3">
-                        <label asp-for="DichVu1DTO.GhiChu" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.GhiChu" class="form-control form-control-sm" id="txtGhiChu" />
-                        <span asp-validation-for="DichVu1DTO.GhiChu" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-4">
                         <label asp-for="DichVu1DTO.GiaHd" class="control-label"></label>
                         <input asp-for="DichVu1DTO.GiaHd" class="form-control form-control-sm" id="txtGiaHd" asp-format="{0:0,0}" />
                         <span asp-validation-for="DichVu1DTO.GiaHd" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label asp-for="DichVu1DTO.LoaiHd" class="control-label"></label>
                         <input asp-for="DichVu1DTO.LoaiHd" class="form-control form-control-sm" id="txtLoaiHd" />
                         <span asp-validation-for="DichVu1DTO.LoaiHd" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label asp-for="DichVu1DTO.LoaiDvid" class="control-label"></label>
                         <!--select2-->
                         <select asp-for="DichVu1DTO.LoaiDvid" class="form-control form-control-sm select2"
@@ -227,6 +221,13 @@
                         </select>
                         <span asp-validation-for="DichVu1DTO.LoaiSao" class="text-danger"></span>
                     </div>
+                    
+                    <div class="col-md-3">
+                        <label asp-for="DichVu1DTO.ThoiGianKetThucHd" class="control-label"></label>
+                        <input asp-for="DichVu1DTO.ThoiGianKetThucHd" class="form-control form-control-sm maskInput" type="text" id="txtThoiGianKetThucHd" />
+                        <span asp-validation-for="DichVu1DTO.ThoiGianKetThucHd" class="text-danger"></span>
+                    </div>
+
                 </div>
 
                 <div class=" row">

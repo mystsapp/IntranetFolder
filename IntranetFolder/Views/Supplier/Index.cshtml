@@ -94,6 +94,7 @@
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tapdoan)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().NguoiTrinhKyHd)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().KhuyenNghi)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,6 +156,7 @@
                                         }
                                     </td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.NguoiTrinhKyHd)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.KhuyenNghi)</td>
                                 </tr>
 
                             }

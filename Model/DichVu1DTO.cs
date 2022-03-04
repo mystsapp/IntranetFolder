@@ -89,6 +89,9 @@ namespace Model
         public string NguoiSua { get; set; }
         public string LogFile { get; set; }
 
+        [Display(Name = "T/G kết thúc HĐ")]
+        public DateTime? ThoiGianKetThucHd { get; set; }
+
         public LoaiDvDTO LoaiDvDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }

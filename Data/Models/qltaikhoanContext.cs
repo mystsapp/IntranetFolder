@@ -668,6 +668,10 @@ namespace Data.Models
                     .HasMaxLength(150)
                     .HasColumnName("TenDV");
 
+                entity.Property(e => e.ThoiGianKetThucHd)
+                    .HasColumnType("date")
+                    .HasColumnName("ThoiGianKetThucHD");
+
                 entity.Property(e => e.Tuyen).HasMaxLength(250);
 
                 entity.Property(e => e.Website).HasMaxLength(150);
@@ -675,6 +679,7 @@ namespace Data.Models
                 entity.HasOne(d => d.LoaiDv)
                     .WithMany(p => p.DichVu1s)
                     .HasForeignKey(d => d.LoaiDvid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DichVus_LoaiDVs");
 
                 entity.HasOne(d => d.Supplier)
@@ -1057,6 +1062,8 @@ namespace Data.Models
 
                 entity.Property(e => e.Nguoitao).HasMaxLength(50);
 
+                entity.Property(e => e.NoiDungDongMo).HasMaxLength(250);
+
                 entity.Property(e => e.Quocgia).HasMaxLength(50);
 
                 entity.Property(e => e.Tapdoan).HasMaxLength(50);
@@ -1068,6 +1075,10 @@ namespace Data.Models
                 entity.Property(e => e.Tenthuongmai).HasMaxLength(100);
 
                 entity.Property(e => e.Thanhpho).HasMaxLength(50);
+
+                entity.Property(e => e.ThoiGianDongMo)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Tinhtp).HasMaxLength(50);
 
@@ -1290,6 +1301,7 @@ namespace Data.Models
                     .HasColumnName("tengiaodich");
 
                 entity.Property(e => e.Tour)
+                    .IsRequired()
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .HasColumnName("tour");

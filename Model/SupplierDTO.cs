@@ -70,6 +70,15 @@ namespace Model
         [Display(Name = "Người trình ký HĐ")]
         public string NguoiTrinhKyHd { get; set; }
 
+        [Display(Name = "T/G đóng mở")]
+        public string ThoiGianDongMo { get; set; }
+
+        [Display(Name = "ND đóng mở")]
+        public string NoiDungDongMo { get; set; }
+
+        [Display(Name = "Khuyến nghị")]
+        public bool KhuyenNghi { get; set; }
+
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
         public virtual ICollection<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
         public virtual ICollection<DanhGiaKhachSanDTO> DanhGiaKhachSanDTOs { get; set; }

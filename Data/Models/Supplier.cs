@@ -43,6 +43,9 @@ namespace Data.Models
         public string Tennganhang { get; set; }
         public string Tour { get; set; }
         public string NguoiTrinhKyHd { get; set; }
+        public string ThoiGianDongMo { get; set; }
+        public string NoiDungDongMo { get; set; }
+        public bool KhuyenNghi { get; set; }
 
         public virtual ICollection<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
         public virtual ICollection<DanhGiaDiemThamQuan> DanhGiaDiemThamQuans { get; set; }

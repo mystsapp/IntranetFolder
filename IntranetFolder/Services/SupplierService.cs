@@ -85,6 +85,7 @@ namespace IntranetFolder.Services
             }
 
             suppliers1 = suppliers1.OrderByDescending(x => x.Ngaytao).ToList();
+            suppliers1 = suppliers1.OrderByDescending(x => x.KhuyenNghi).ToList();
 
             list = _mapper.Map<List<Supplier>, List<SupplierDTO>>(suppliers1);
 
