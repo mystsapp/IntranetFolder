@@ -595,6 +595,13 @@ namespace IntranetFolder.Controllers
                 }
                 else // Edit
                 {
+                    IEnumerable<HinhAnhDTO> hinhAnhDTOs = await _dichVu1Service.GetHinhanhByDichVu1Id(dichVu1Id);
+                    var hinhAnhs = hinhAnhDTOs.Where(x => x.Url == imageUrl);
+                    if (hinhAnhs.Count() > 0)
+                    {
+                        await _dichVu1Service.DeleteHinhanh(hinhAnhs.FirstOrDefault().Id);
+                    }
+
                     var dichVu1DTO = DichVu1VM.DichVu1DTO;
                     TempData["stringImageUrls"] = JsonConvert.SerializeObject(imageUrls);
                     TempData["page"] = DichVu1VM.Page;

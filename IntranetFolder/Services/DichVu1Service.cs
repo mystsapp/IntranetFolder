@@ -63,6 +63,8 @@ namespace IntranetFolder.Services
         Task<DichVu1DTO> GetByIdAsync_AsNoTracking(string id);
 
         Task DeleteHinhanh(long hinhAnhId);
+
+        Task<IEnumerable<HinhAnhDTO>> GetHinhanhByDichVu1Id(string dichVu1Id);
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -419,6 +421,12 @@ namespace IntranetFolder.Services
             var hinhAnh = _unitOfWork.hinhAnhRepository.GetById(hinhAnhId);
             _unitOfWork.hinhAnhRepository.Delete(hinhAnh);
             await _unitOfWork.Complete();
+        }
+
+        public async Task<IEnumerable<HinhAnhDTO>> GetHinhanhByDichVu1Id(string dichVu1Id)
+        {
+            return _mapper.Map<IEnumerable<HinhAnh>, IEnumerable<HinhAnhDTO>>
+                (await _unitOfWork.hinhAnhRepository.FindAsync(x => x.DichVuId == dichVu1Id));
         }
     }
 }
