@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\signalr\**" />
+    <Content Remove="wwwroot\lib\signalr\**" />
+    <EmbeddedResource Remove="wwwroot\lib\signalr\**" />
+    <None Remove="wwwroot\lib\signalr\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="EPPlus" Version="5.8.6" />
@@ -25,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\HopDongImages\" />
-    <Folder Include="wwwroot\lib\signalr\dist\browser\" />
   </ItemGroup>
 
   <ItemGroup>
