@@ -22,7 +22,7 @@ namespace Data.Models
         public string CoNhaHang { get; set; }
         public bool CoHoBoi { get; set; }
         public bool CoBien { get; set; }
-        public bool CoPhongHop { get; set; }
+        public string CoPhongHop { get; set; }
         public string ThaiDoPvcuaNv { get; set; }
         public string CoBoTriPhongChoNb { get; set; }
         public string CoBaiDoXe { get; set; }
@@ -36,6 +36,9 @@ namespace Data.Models
         public string NguoiSua { get; set; }
         public int LoaiDvid { get; set; }
         public string SupplierId { get; set; }
+        public bool? TiemNang { get; set; }
+        public bool? TaiKy { get; set; }
+        public string NguoiDanhGia { get; set; }
 
         public virtual Supplier Supplier { get; set; }
     }

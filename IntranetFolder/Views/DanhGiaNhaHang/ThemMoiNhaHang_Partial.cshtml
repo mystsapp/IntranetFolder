@@ -145,6 +145,28 @@
             </div>
         </div>
 
+        <div class="form-group row">
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaNhaHangDTO.TiemNang" class="control-label"></label>
+                <input asp-for="DanhGiaNhaHangDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
+                <span asp-validation-for="DanhGiaNhaHangDTO.TiemNang" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaNhaHangDTO.TaiKy" class="control-label"></label>
+                <input asp-for="DanhGiaNhaHangDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
+                <span asp-validation-for="DanhGiaNhaHangDTO.TaiKy" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaNhaHangDTO.NguoiDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaNhaHangDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
+                <span asp-validation-for="DanhGiaNhaHangDTO.NguoiDanhGia" class="text-danger"></span>
+            </div>
+        
+        </div>
+
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiNhaHangPartial_Save"><i class="fas fa-save"></i> Save</button>
             <button type="button" class="btn btn-success btn-sm" id="btnThemMoiNhaHangPartial_Back"><i class="fas fa-backward "></i> Back</button>
@@ -152,7 +174,7 @@
     </div>
 </form>
 
-<script src="~/js/Admin/Supplier/indexController" > </script>
+<script src="~/js/Admin/Supplier/indexController"> </script>
 
 <script>
     $('#btnThemMoiNhaHangPartial_Back').off('click').on('click', function(){
@@ -161,9 +183,9 @@
         $('#CapNhatNhaHang_Partial').hide(500);
     })
 
-    
+
     $('#btnThemMoiNhaHangPartial_Save').off('click').on('click', function () {
-        
+
         if ($('#frmThemMoiNhaHangPartial').valid()) {
             var nhaHang = $('#frmThemMoiNhaHangPartial').serialize();
             $.ajax({
@@ -179,17 +201,17 @@
                         $('#ThemMoiNhaHang_Partial').hide(500);
 
                         var supplierId = '@Model.SupplierDTO.Code';
-                        
+
                         indexController.Load_DichVuPartial(supplierId);
                     }
                     else {
                         toastr.error(response.message);
-                        
+
                     }
                 }
             });
         }
-        
+
     });
 
 </script>

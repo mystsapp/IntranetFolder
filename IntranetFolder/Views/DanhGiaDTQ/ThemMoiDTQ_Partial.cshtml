@@ -145,6 +145,27 @@
             </div>
         </div>
 
+        <div class="form-group row">
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaDTQDTO.TiemNang" class="control-label"></label>
+                <input asp-for="DanhGiaDTQDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
+                <span asp-validation-for="DanhGiaDTQDTO.TiemNang" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaDTQDTO.TaiKy" class="control-label"></label>
+                <input asp-for="DanhGiaDTQDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
+                <span asp-validation-for="DanhGiaDTQDTO.TaiKy" class="text-danger"></span>
+            </div>
+            
+            <div class="col-md-4">
+                <label asp-for="DanhGiaDTQDTO.NguoiDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaDTQDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
+                <span asp-validation-for="DanhGiaDTQDTO.NguoiDanhGia" class="text-danger"></span>
+            </div>
+        </div>
+
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiDTQPartial_Save"><i class="fas fa-save"></i> Save</button>
             <button type="button" class="btn btn-success btn-sm" id="btnThemMoiDTQPartial_Back"><i class="fas fa-backward "></i> Back</button>

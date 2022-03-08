@@ -21,6 +21,9 @@ namespace Model
         [Display(Name = "Tỉnh")]
         public string Tinhtp { get; set; }
 
+        [Display(Name = "Tỉnh")]
+        public string TinhtpName { get; set; }
+
         [Display(Name = "TP / TX")]
         public string Thanhpho { get; set; }
 

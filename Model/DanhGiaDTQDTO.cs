@@ -74,6 +74,15 @@ namespace Model
         public string NguoiSua { get; set; }
         public string SupplierId { get; set; }
 
+        [Display(Name = "Tiềm năng")]
+        public bool TiemNang { get; set; }
+
+        [Display(Name = "Tái ký")]
+        public bool TaiKy { get; set; }
+
+        [Display(Name = "Người đánh giá")]
+        public string NguoiDanhGia { get; set; }
+
         public SupplierDTO SupplierDTO { get; set; }
     }
 }

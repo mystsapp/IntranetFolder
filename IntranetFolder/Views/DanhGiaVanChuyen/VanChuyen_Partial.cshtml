@@ -38,6 +38,11 @@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().DoiXeOrLoaiXe)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().Gia)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().KinhNghiem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().TiemNang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().TaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().NguoiDanhGia)</th>
+
+
             </tr>
         </thead>
         <tbody>
@@ -94,6 +99,10 @@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DoiXeOrLoaiXe)</td>
                         <td class="tdVal" data-id="@item.Id">@(string.Format("{0:#,##0.00}", item.Gia))</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KinhNghiem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+
                     </tr>
 
                 }

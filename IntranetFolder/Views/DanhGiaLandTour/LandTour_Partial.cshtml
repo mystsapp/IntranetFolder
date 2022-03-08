@@ -43,6 +43,10 @@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().KqDat)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().KqKhaoSatThem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().TiemNang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().TaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaLandTourDTOs.FirstOrDefault().NguoiDanhGia)</th>
+
             </tr>
         </thead>
         <tbody>
@@ -141,6 +145,10 @@
                             }
                         </td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+
                     </tr>
 
                 }

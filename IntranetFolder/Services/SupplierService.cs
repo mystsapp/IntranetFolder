@@ -88,6 +88,15 @@ namespace IntranetFolder.Services
             suppliers1 = suppliers1.OrderByDescending(x => x.KhuyenNghi).ToList();
 
             list = _mapper.Map<List<Supplier>, List<SupplierDTO>>(suppliers1);
+            var vTinhs = await GetTinhs();
+            foreach (var item in list)
+            {
+                if (!string.IsNullOrEmpty(item.Tinhtp) && item.Tinhtp != "-- Select --")
+                {
+                    var vTinh = vTinhs.Where(x => x.Matinh == item.Tinhtp).FirstOrDefault();
+                    item.TinhtpName = vTinh == null ? "" : vTinh.Tentinh;
+                }
+            }
 
             // search date
             DateTime fromDate, toDate;

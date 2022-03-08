@@ -38,6 +38,10 @@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().Kqdat)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KqkhaoSatThem)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().TiemNang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().TaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().NguoiDanhGia)</th>
+
             </tr>
         </thead>
         <tbody>
@@ -122,6 +126,10 @@
                                 <span class="badge badge-danger">Không</span>
                             }
                         </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+
                     </tr>
 
                 }
