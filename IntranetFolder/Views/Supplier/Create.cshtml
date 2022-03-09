@@ -86,7 +86,7 @@
                             @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
                             <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
                                     asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
-                                <option>-- Select --</option>
+                                @*<option>-- Select --</option>*@
                             </select>
                             <span asp-validation-for="SupplierDTO.Tinhtp" class="text-danger"></span>
                         </div>
@@ -94,9 +94,9 @@
                         <div class="col-md-2">
                             <label asp-for="SupplierDTO.Thanhpho" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />*@
-                            <select asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm input-sm select2"
-                                    asp-items="@(new SelectList(Model.Thanhpho1s, "Matp", "Tentp"))" id="ddlThanhPho">
-                                <option>-- Select --</option>
+                            <select asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm input-sm select2" id="ddlThanhPho">
+                                <!--asp-items="(new SelectList(Model.Thanhpho1s, "Matp", "Tentp"))"-->
+                                @*<option>-- Select --</option>*@
                             </select>
                             <span asp-validation-for="SupplierDTO.Thanhpho" class="text-danger"></span>
                         </div>
@@ -105,8 +105,8 @@
                             <label asp-for="SupplierDTO.Quocgia" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm " id="txtQuocGia" />*@
                             <select asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm input-sm select2"
-                                    asp-items="@(new SelectList(Model.Quocgias, "TenNuoc", "TenNuoc"))" id="ddlQuocQia">
-                                <option>-- Select --</option>
+                                    asp-items="@(new SelectList(Model.Quocgias, "TenNuoc", "TenNuoc", "VIETNAM"))" id="ddlQuocQia">
+                                @*<option>-- Select --</option>*@
                             </select>
                             <span asp-validation-for="SupplierDTO.Quocgia" class="text-danger"></span>
                         </div>
@@ -232,11 +232,48 @@
     <!-- /.card -->
 </section>
 <!-- /.content -->
-
 @section Scripts{
+<script src="~/js/Admin/Supplier/indexController.js"></script>
+<script>
+    //Date range picker
+    $('#txtThoiGianDongMo').daterangepicker({
+                   locale: {
+                            format: 'DD/MM/YYYY'
+                            }
+                 })
+</script>
 
-    <script>
-        //Date range picker
-        $('#txtThoiGianDongMo').daterangepicker()
-    </script>
+<script>
+    $(document).ready(function() {
+        var tinhTPId = $('#ddlTinhTP').val();
+
+        $('#ddlThanhPho').html('');
+        var option = '';
+
+        $.ajax({
+            url: '/Supplier/GetThanhPhoByTinh',
+            type: 'GET',
+            data: { tinhTPId: tinhTPId },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status) {
+                    var data = response.data;
+
+                    $.each(data, function (i, item) {
+                        option = option + '<option value="' + item.matp + '">' + item.tentp + '</option>'; //chinhanh1
+                    });
+
+                    $('#ddlThanhPho').html(option);
+                }
+            }
+        });
+    });
+
+    $('#ddlTinhTP').off('change').on('change', function(){
+        var tinhTPId = $(this).val();
+
+        indexController.GetThanhPhoByTinh(tinhTPId);
+    })
+
+</script>
 }

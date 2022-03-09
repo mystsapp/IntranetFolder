@@ -67,8 +67,8 @@ namespace IntranetFolder.Controllers
             var user = HttpContext.Session.GetSingle<User>("loginUser");
 
             SupplierVM.VTinhs = await _supplierService.GetTinhs();
-            SupplierVM.Thanhpho1s = await _supplierService.GetThanhpho1s();
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
+            //var quocgia = SupplierVM.Quocgias.Where(x => x.Id == 230).FirstOrDefault(); // VIETNAM
 
             // next Id
             SupplierVM.SupplierDTO.Code = _supplierService.GetNextId("", user.Macn);
@@ -138,7 +138,8 @@ namespace IntranetFolder.Controllers
             }
 
             SupplierVM.VTinhs = await _supplierService.GetTinhs();
-            SupplierVM.Thanhpho1s = await _supplierService.GetThanhpho1s();
+            var thanhpho1s = await _supplierService.GetThanhpho1s();
+            SupplierVM.Thanhpho1s = thanhpho1s.Where(x => x.Matinh == SupplierVM.SupplierDTO.Tinhtp);
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
 
             return View(SupplierVM);
@@ -300,7 +301,7 @@ namespace IntranetFolder.Controllers
         {
             SupplierVM.StrUrl = strUrl;// + "&tabActive=" + tabActive; // for redirect tab
 
-            var supplierDTO = await _supplierService.GetByIdAsync(id);
+            var supplierDTO = _supplierService.GetByIdAsNoTracking(id);
             if (supplierDTO == null)
                 return NotFound();
             try
@@ -520,6 +521,16 @@ namespace IntranetFolder.Controllers
             {
                 throw;
             }
+        }
+
+        public async Task<JsonResult> GetThanhPhoByTinh(string tinhTPId)
+        {
+            var thanhpho1s = await _supplierService.GetThanhpho1s();
+            return Json(new
+            {
+                status = true,
+                data = thanhpho1s.Where(x => x.Matinh == tinhTPId),
+            });
         }
     }
 }

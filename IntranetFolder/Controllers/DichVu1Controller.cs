@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace IntranetFolder.Controllers
 {
@@ -654,6 +655,12 @@ namespace IntranetFolder.Controllers
                 return Json(false);
             }
             //return Json(false);
+        }
+
+        public async IActionResult GetAnhHDByDVId(string dichvu1Id, int page = 1)
+        {
+            IPagedList<HinhAnhDTO> anhHds = await _dichVu1Service.GetAnhHDByDVId_PagedList(dichvu1Id, page);
+            return PartialView(anhHds);
         }
     }
 }

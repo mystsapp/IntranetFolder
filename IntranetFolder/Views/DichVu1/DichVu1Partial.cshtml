@@ -59,6 +59,9 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
+                                 <button type="button" data-id="@item.MaDv" data-supplierid="@item.SupplierId" class="text-success border-0 bg-transparent btnAnhHD" title="Ảnh HĐ" ><i class="fas fa-photo-video"></i></button>
+                                <span class="text-dark"> | </span>
+
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
                                     <a class="text-primary btnEditDichVu1" asp-action="EditDichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
@@ -121,6 +124,29 @@
         </tbody>
     </table>
 </div>
+<!-- anhHd_Modal-->
+<div class="modal fade" id="anhHd_Modal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content ">
+            <div class="modal-header bg-secondary">
+                <h6 class="modal-title"><i class="fas fa-file text-info"></i> Ảnh hợp đồng</h6>
+                <button type="button" class="close pr-4 pt-3" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body anhHd_Modal_Body " id="anhHd_Modal_Body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark " data-dismiss="modal" title="Thoát"><i class="fas fa-power-off fa-2x"></i></button>
+                @*<button type="submit" class="btn btn-outline-primary"><i class="fas fa-save"></i></button>*@
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- anhHd_Modal-->
 
 <script src="~/js/Admin/Supplier/indexController.js"></script>
 <script>
@@ -159,12 +185,14 @@
     });
         // btnXoaDichVu1
 
-    //// ctphieu-cursor-pointer
-    //var sotudatt = $('.ctphieu-cursor-pointer').data('sotudatt');
-    ////console.log(sotudatt);
-    //if (sotudatt !== null) {
-    //    alert(sotudatt);
-    //}
+        $('#btnAnhHD').off('click').on('click', function(){
+            var dichvu1Id = $(this).data('id');
 
-    //// ctphieu-cursor-pointer
+            $.get('/DichVu1/GetAnhHDByDVId', { dichvu1Id: dichvu1Id }, function (data) {
+
+            $('#anhHd_Modal').modal('show');
+            $('.anhHd_Modal_Body').html(data);
+            $('#anhHd_Modal').draggable();
+        });
+        })
 </script>

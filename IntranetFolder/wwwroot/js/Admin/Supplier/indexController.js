@@ -68,6 +68,28 @@ var indexController = {
 
         indexController.Load_DichVu1Partial(id, page);
         indexController.Load_DichVuPartial(id); // danhgia DV
+    },
+    GetThanhPhoByTinh: function (tinhTPId) {
+        $('#ddlThanhPho').html('');
+        var option = '';
+
+        $.ajax({
+            url: '/Supplier/GetThanhPhoByTinh',
+            type: 'GET',
+            data: { tinhTPId: tinhTPId },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status) {
+                    var data = response.data;
+
+                    $.each(data, function (i, item) {
+                        option = option + '<option value="' + item.matp + '">' + item.tentp + '</option>'; //chinhanh1
+                    });
+
+                    $('#ddlThanhPho').html(option);
+                }
+            }
+        });
     }
 };
 indexController.init();

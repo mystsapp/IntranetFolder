@@ -65,6 +65,8 @@ namespace IntranetFolder.Services
         Task DeleteHinhanh(long hinhAnhId);
 
         Task<IEnumerable<HinhAnhDTO>> GetHinhanhByDichVu1Id(string dichVu1Id);
+
+        Task<IPagedList<HinhAnhDTO>> GetAnhHDByDVId_PagedList(string dichvu1Id, int? page);
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -427,6 +429,34 @@ namespace IntranetFolder.Services
         {
             return _mapper.Map<IEnumerable<HinhAnh>, IEnumerable<HinhAnhDTO>>
                 (await _unitOfWork.hinhAnhRepository.FindAsync(x => x.DichVuId == dichVu1Id));
+        }
+
+        public async Task<IPagedList<HinhAnhDTO>> GetAnhHDByDVId_PagedList(string dichvu1Id, int? page)
+        {
+            // return a 404 if user browses to before the first page
+            if (page.HasValue && page < 1)
+                return null;
+
+            dichvu1Id ??= "";
+            var hinhAnhs = await GetHinhanhByDichVu1Id(dichvu1Id);
+            var list = hinhAnhs.ToList();
+            // page the list
+            const int pageSize = 1;
+            decimal aa = (decimal)list.Count() / (decimal)pageSize;
+            var bb = Math.Ceiling(aa);
+            if (page > bb)
+            {
+                page--;
+            }
+            page = (page == 0) ? 1 : page;
+            var listPaged = list.ToPagedList(page ?? 1, pageSize);
+            //if (page > listPaged.PageCount)
+            //    page--;
+            // return a 404 if user browses to pages beyond last page. special case first page if no items exist
+            if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
+                return null;
+
+            return listPaged;
         }
     }
 }
