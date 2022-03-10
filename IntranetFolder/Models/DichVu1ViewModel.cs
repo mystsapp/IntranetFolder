@@ -19,6 +19,8 @@ namespace IntranetFolder.Models
         public IEnumerable<VTinh> VTinhs { get; set; }
         public IEnumerable<Thanhpho1> Thanhpho1s { get; set; }
         public IEnumerable<LoaiDvDTO> LoaiDvs { get; set; }
+        public IPagedList<HinhAnhDTO> HinhAnhDTOs { get; set; }
+        public string Dichvu1Id { get; set; }
         public List<string> LoaiSaos { get; set; }
         public DichVu1DTO DichVu1DTO { get; set; }
 

@@ -185,7 +185,7 @@
     });
         // btnXoaDichVu1
 
-        $('#btnAnhHD').off('click').on('click', function(){
+        $('.btnAnhHD').off('click').on('click', function(){
             var dichvu1Id = $(this).data('id');
 
             $.get('/DichVu1/GetAnhHDByDVId', { dichvu1Id: dichvu1Id }, function (data) {

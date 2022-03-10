@@ -657,10 +657,12 @@ namespace IntranetFolder.Controllers
             //return Json(false);
         }
 
-        public async IActionResult GetAnhHDByDVId(string dichvu1Id, int page = 1)
+        public async Task<IActionResult> GetAnhHDByDVId(string dichvu1Id, int page = 1)
         {
-            IPagedList<HinhAnhDTO> anhHds = await _dichVu1Service.GetAnhHDByDVId_PagedList(dichvu1Id, page);
-            return PartialView(anhHds);
+            DichVu1VM.Dichvu1Id = dichvu1Id;
+            DichVu1VM.DichVu1DTO = await _dichVu1Service.GetByIdAsync(dichvu1Id);
+            DichVu1VM.HinhAnhDTOs = await _dichVu1Service.GetAnhHDByDVId_PagedList(dichvu1Id, page);
+            return PartialView(DichVu1VM);
         }
     }
 }

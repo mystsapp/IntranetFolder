@@ -1,0 +1,130 @@
+﻿@model DichVu1ViewModel
+
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@*@using X.PagedList.Mvc.Core.Common*@
+@using X.PagedList.Web.Common
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+
+<div style="overflow-x:auto; overflow-y:auto; min-height: 300px">
+    <table class="table mytable text-nowrap text-sm" id="khachHangTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>@Model.DichVu1DTO.TenDv</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.HinhAnhDTOs != null)
+            {
+                @foreach (var item in Model.HinhAnhDTOs)
+                {
+
+                    <tr class="hinhanh-cursor-pointer ">
+
+                        <td class="tdVal_HinhAnh" data-id="@item.Id">
+                            <div class="row ">
+                                <!--class="room-image" in site.css-->
+                                @*<div class="" style="background: url('@item.Url') 50% 50%">
+                                            <!--class="room-image-title" in site.css-->
+                                    
+                                </div>
+                                *@
+                               <img src="@item.Url" alt="@item.DichVuId" class="center">
+                                
+                            </div>
+                        </td>
+
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<div class="p-2" style="background-color: aliceblue;">
+    @if (Model.HinhAnhDTOs != null)
+    {
+        @Html.PagedListPager((IPagedList)Model.HinhAnhDTOs, page => Url.Action("GetAnhHDByDVId", new
+    {
+    page = page,
+    option = Context.Request.Query["option"],
+    dichvu1Id = Model.Dichvu1Id,
+    //searchFromDate = ViewBag.searchFromDate,
+    //searchToDate = ViewBag.searchToDate,
+    //boolSgtcode = ViewBag.boolSgtcode,
+    //boolTkNo1311 = ViewBag.boolTkNo1311
+    }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    MaximumPageNumbersToDisplay = 5,
+    UlElementClasses = new[] { "pagination pagination-sm m-0" }, // ul class
+    ContainerDivClasses = new[] { "pagination-container" }
+    }, new AjaxOptions() { InsertionMode = InsertionMode.Replace, HttpMethod = "GET", UpdateTargetId = "anhHd_Modal_Body" }))
+
+        @*@Html.PagedListPager(Model.KhachHangs_HDVATOB, page => Url.Action("GetKhachHangs_HDVATOB_By_Code", "KVCTPTCs",
+            new
+            {
+            page,
+            pageSize = ViewBag.PageSize,
+            teamId = ViewBag.TeamId
+            }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+            {
+            //Display = PagedListDisplayMode.IfNeeded,
+            MaximumPageNumbersToDisplay = 5
+            },
+            new AjaxOptions
+            {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET",
+            UpdateTargetId = "PlayerContainer"
+            }))*@
+
+    }
+</div>
+@*<script src="~/lib/AdminLTE-3.1.0/plugins/jquery/jquery.js"></script>*@
+@*
+    <script type="text/javascript">
+
+    //This mehtod is used to call when Page Size list is changed
+    $(function () {
+    $("#btSearch_Edit").click(function (event) {
+    var maKhText = $('#txtTimkh').val();
+
+    $.ajax({
+    url: '/KVCTPTCs/GetKhachHangs_By_Code_Edit', //"/Player/GetPlayersByTeam",
+    //url: '@Url.Action("GetKhachHangs_By_Code_Edit", "KVCTPTCs")', //"/Player/GetPlayersByTeam",
+    dataType: "html",
+    data: {
+    code: maKhText
+    },
+    type: "GET",
+    error: function (xhr, status, error) {
+    var err = eval("(" + xhr.responseText + ")");
+    toastr.error(err.message);
+    },
+    success: function (data) {
+
+    $('.khachHang_Modal_Body').html(data);
+    }
+    });
+    });
+    });
+    </script>  *@
+
+    <style>
+        .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /*width: 100%;*/
+}
+    </style>
