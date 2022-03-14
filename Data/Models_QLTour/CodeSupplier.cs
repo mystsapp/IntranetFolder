@@ -9,6 +9,7 @@ namespace Data.Models_QLTour
     {
         public decimal Id { get; set; }
         public string Tapdoan { get; set; }
+        public string Code { get; set; }
         public string Tengiaodich { get; set; }
         public string Tenthuongmai { get; set; }
         public string Tinhtp { get; set; }

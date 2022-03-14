@@ -3,8 +3,10 @@ using Data.Repository;
 using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Model;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -531,6 +533,231 @@ namespace IntranetFolder.Controllers
                 status = true,
                 data = thanhpho1s.Where(x => x.Matinh == tinhTPId),
             });
+        }
+
+        public ActionResult getThongbao()
+        {
+            var codeSuppliers = _supplierService.listCapcode();
+
+            return Json(codeSuppliers.Count);
+        }
+
+        [HttpGet]
+        public ActionResult listCapcode(string search)
+        {
+            search = string.IsNullOrEmpty(search) ? "" : search.ToUpper();
+            ViewBag.search = search;
+            var codeSuppliers = _supplierService.listCapcode();
+            HttpContext.Session.SetString("urlCodeSupplier", UriHelper.GetDisplayUrl(Request));
+            if (!string.IsNullOrEmpty(search))
+            {
+                codeSuppliers = codeSuppliers.Where(x => x.Tengiaodich.Replace(" ", "").Contains(search.Replace(" ", "")) || x.Tenthuongmai.Replace(" ", "").Contains(search.Replace(" ", "")) || x.Masothue.Contains(search)).ToList();
+            }
+
+            foreach (var i in codeSuppliers)
+            {
+                if (!string.IsNullOrEmpty(i.Tinhtp))
+                {
+                    i.Tinhtp = _supplierService.getTinhById(i.Tinhtp).Tentinh;
+                }
+                else
+                {
+                    i.Tinhtp = "";
+                }
+            }
+            return View(codeSuppliers);
+        }
+
+        public async Task<ActionResult> EditCapcodeSupplierById(decimal id)
+        {
+            var result = _supplierService.getCodeSupplierById(id);
+            result.Code = _supplierService.NextId();
+            await listQuocgia(result.Quocgia ?? "");
+            await listTinh(result.Tinhtp ?? "");
+            listThanhphoByTinh(result.Tinhtp ?? "", result.Thanhpho ?? "");
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditCapcodeSupplierById(Data.Models_QLTour.CodeSupplier entity)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (ModelState.IsValid)
+            {
+                var s = new Supplier();
+                s.Code = _supplierService.NextId();
+                s.Tengiaodich = entity.Tengiaodich;
+                s.Tenthuongmai = entity.Tenthuongmai;
+                s.Tapdoan = entity.Tapdoan ?? "";
+                s.Tinhtp = entity.Tinhtp;
+                s.Thanhpho = entity.Thanhpho;
+                s.Quocgia = entity.Quocgia;
+                s.Diachi = entity.Diachi;
+                s.Dienthoai = entity.Dienthoai;
+                s.Fax = entity.Fax;
+                s.Masothue = entity.Masothue;
+                s.Nganhnghe = entity.Nganhnghe ?? "";
+                s.Nguoilienhe = entity.Nguoilienhe;
+                s.Website = entity.Website;
+                s.Email = entity.Email;
+                s.Trangthai = true;
+                s.Ngaytao = DateTime.Now;
+                s.Chinhanh = entity.Chinhanh;
+                s.Logfile = "User cấp code: " + user.Username + ", cấp theo yêu cầu của " + entity.Nguoiyeucau + " ngày " + entity.Ngayyeucau.Value.ToString("dd/MM/yyyy");
+                var result = await _supplierService.Create(s);
+                if (result != null)
+                {
+                    SetAlert("Cấp code thành công", "success");
+                    _supplierService.updateCapCodeSupplier(entity.Id);
+                }
+                else
+                {
+                    SetAlert("Cấp code không thành công", "error");
+                }
+                return Redirect(HttpContext.Session.GetString("urlCodeSupplier"));
+            }
+            return View();
+        }
+
+        public async Task listQuocgia(string selected)
+        {
+            var quocgiaIE = await _supplierService.GetQuocgias();
+            List<Quocgium> quocgia = quocgiaIE.ToList();
+            ViewBag.quocgia = new SelectList(quocgia, "TenNuoc", "TenNuoc", selected);
+        }
+
+        public async Task listThanhpho(string selected)
+        {
+            var thanhpho1sIE = await _supplierService.GetThanhpho1s();
+            List<Thanhpho1> thanhpho = thanhpho1sIE.ToList();
+            ViewBag.thanhpho = new SelectList(thanhpho, "Tentp", "Tentp", selected);
+        }
+
+        public void Trangthai(string select)
+        {
+            List<SelectListItem> trangthai = new List<SelectListItem>();
+            trangthai.Add(new SelectListItem { Text = "Kích hoạt", Value = "true" });
+            trangthai.Add(new SelectListItem { Text = "Khóa", Value = "false" });
+
+            ViewBag.trangthai = new SelectList(trangthai, "Value", "Text", select);
+        }
+
+        public async Task listTinh(string selected)
+        {
+            var vTinhs = await _supplierService.GetTinhs();
+            List<VTinh> tinh = vTinhs.ToList();
+            var empty = new VTinh
+            {
+                Matinh = "",
+                Tentinh = "-- Chọn tỉnh thành --"
+            };
+            tinh.Insert(0, empty);
+            ViewBag.tinh = new SelectList(tinh, "Matinh", "Tentinh", selected);
+        }
+
+        public void listThanhphoByTinh(string matinh, string selected)
+        {
+            List<Thanhpho1> thanhpho = _supplierService.ListThanhphoByTinh(matinh);
+            var empty = new Thanhpho1
+            {
+                Matp = "",
+                Tentp = "-- Chọn thông tin --"
+            };
+            thanhpho.Insert(0, empty);
+            ViewBag.thanhpho = new SelectList(thanhpho, "Matp", "Tentp", selected);
+        }
+
+        public JsonResult getGroup()
+        {
+            var suppliers = _supplierService.GetAll_Supplier();//.Where(x => x.Tapdoan.Length > 0 || x.Tapdoan != null).Select(x => x.Tapdoan).Distinct();
+            var suppliers1 = suppliers.Where(x => !string.IsNullOrEmpty(x.Tapdoan));//
+            var data = suppliers1.Select(x => x.Tapdoan).Distinct();
+            return Json(data);
+        }
+
+        public ActionResult listTenthuongmai(string search)//, string search1)
+        {
+            search = search ?? "";
+            // search1 = search1 ?? "";
+            ViewBag.search = search;
+            List<Supplier> result = new List<Supplier>();
+            if (!string.IsNullOrEmpty(search))// && !string.IsNullOrEmpty(search1))
+            {
+                var suppliers = _supplierService.GetAll_Supplier();//.Where(x => x.Tenthuongmai.Trim().Contains(search.Trim().ToUpper()) || x.Tengiaodich.Trim().Contains(search1.Trim().ToUpper()));//.Distinct().ToList();
+                suppliers = suppliers.Where(x => (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.Trim().Contains(search.Trim().ToUpper()) ||
+                                                 (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.Trim().Contains(search.Trim().ToUpper()))));
+                result = suppliers.ToList();
+            }
+            //else
+            //{
+            //    result = _supplierService.GetAll_Supplier().Where(x => x.Tenthuongmai.Trim().Contains(search.Trim().ToUpper()) || x.Tengiaodich.Trim().Contains(search.Trim().ToUpper())).ToList().Distinct().ToList();
+            //}
+
+            if (result == null)
+            {
+                return PartialView();
+            }
+            else
+            {
+                foreach (var i in result)
+                {
+                    if (!string.IsNullOrEmpty(i.Tinhtp))
+                    {
+                        i.Tinhtp = _supplierService.getTinhById(i.Tinhtp).Tentinh;
+                    }
+                    else
+                    {
+                        i.Tinhtp = "";
+                    }
+                }
+                return PartialView(result);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCapcode(decimal id)
+        {
+            var s = _supplierService.getCodeSupplierById(id);
+            return PartialView(s);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCapcode(Data.Models_QLTour.CodeSupplier model)
+        {
+            var result = _supplierService.huyCapcodeSupplier(model);
+            return Redirect(HttpContext.Session.GetString("urlCodeSupplier"));
+        }
+
+        [HttpGet]
+        public ActionResult GetThanhphoByTinh(string matinh)
+        {
+            List<Thanhpho1> thanhphos = new List<Thanhpho1>();
+            if (!string.IsNullOrWhiteSpace(matinh))
+            {
+                thanhphos = _supplierService.ListThanhphoByTinh(matinh).ToList();
+                if (thanhphos.Count() == 0)
+                {
+                    var empty = new Thanhpho1
+                    {
+                        Matp = "",
+                        Tentp = "Không có thông tin"
+                    };
+                    thanhphos.Insert(0, empty);
+                }
+                else
+                {
+                    var empty = new Thanhpho1
+                    {
+                        Matp = "",
+                        Tentp = "-- Chọn thông tin --"
+                    };
+                    thanhphos.Insert(0, empty);
+                }
+            }
+
+            return Json(thanhphos);
         }
     }
 }

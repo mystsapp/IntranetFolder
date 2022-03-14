@@ -1,0 +1,28 @@
+﻿@using Data.Models_QLTour
+@model CodeSupplier
+
+<script src="~/js/Admin/Supplier/CodeSupplierControl.js"></script>
+
+<form id="frmHuySupplier" asp-action="DeleteCapcode" asp-controller="Supplier">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert bg-gray">
+                <h4 class="modal-title">Nhập lý do hủy cấp code dịch vụ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+            </div>
+            <div class="modal-body">
+                <input asp-for="Id" type="hidden" />
+                <textarea asp-for="Lydo" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btHuyCode">Đồng ý</button>
+                <button type="reset" class="btn btn-default" data-dismiss="modal">Thoát</button>
+            </div>
+
+        </div>
+    </div>
+
+</form>

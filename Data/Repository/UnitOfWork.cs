@@ -30,6 +30,8 @@ namespace Data.Repository
         // qltour
         IDmdiemtqRepository dmdiemtqRepository { get; }
 
+        ISupplier_QLTourRepository supplier_QLTourRepository { get; }
+
         Task<int> Complete();
     }
 
@@ -63,6 +65,7 @@ namespace Data.Repository
 
             // qltour
             dmdiemtqRepository = new DmdiemtqRepository(_qltourContext);
+            supplier_QLTourRepository = new Supplier_QLTourRepository(_qltourContext, _context);
         }
 
         public IUserRepository userRepository { get; }
@@ -100,6 +103,8 @@ namespace Data.Repository
         public IVungMienRepository vungMienRepository { get; }
 
         public IHinhAnhRepository hinhAnhRepository { get; }
+
+        public ISupplier_QLTourRepository supplier_QLTourRepository { get; }
 
         public async Task<int> Complete()
         {

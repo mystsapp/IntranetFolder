@@ -35,6 +35,24 @@ namespace IntranetFolder.Services
         Task<IEnumerable<DanhGiaNhaHangDTO>> GetDanhGiaNhaHangBy_SupplierId(string id);
 
         Task<IEnumerable<SupplierDTO>> FindAsync(string searchString);
+
+        List<Data.Models_QLTour.CodeSupplier> listCapcode();
+
+        Tinh getTinhById(string tinhtp);
+
+        Data.Models_QLTour.CodeSupplier getCodeSupplierById(decimal id);
+
+        string NextId();
+
+        List<Thanhpho1> ListThanhphoByTinh(string matinh);
+
+        IEnumerable<Supplier> GetAll_Supplier();
+
+        Task<Supplier> Create(Supplier s);
+
+        void updateCapCodeSupplier(decimal id);
+
+        int huyCapcodeSupplier(Data.Models_QLTour.CodeSupplier model);
     }
 
     public class SupplierService : ISupplierService
@@ -245,6 +263,52 @@ namespace IntranetFolder.Services
                                            (!string.IsNullOrEmpty(x.Masothue) && x.Masothue.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Tapdoan) && x.Tapdoan.ToLower().Contains(searchString.ToLower())));
             return _mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierDTO>>(suppliers);
+        }
+
+        public List<Data.Models_QLTour.CodeSupplier> listCapcode()
+        {
+            return _unitOfWork.supplier_QLTourRepository.listCapcode();
+        }
+
+        public Tinh getTinhById(string tinhtp)
+        {
+            return _unitOfWork.supplier_QLTourRepository.getTinhById(tinhtp);
+        }
+
+        public Data.Models_QLTour.CodeSupplier getCodeSupplierById(decimal id)
+        {
+            return _unitOfWork.supplier_QLTourRepository.getCodeSupplierById(id);
+        }
+
+        public string NextId()
+        {
+            return _unitOfWork.supplier_QLTourRepository.NextId();
+        }
+
+        public List<Thanhpho1> ListThanhphoByTinh(string matinh)
+        {
+            return _unitOfWork.supplier_QLTourRepository.ListThanhphoByTinh(matinh).ToList();
+        }
+
+        public IEnumerable<Supplier> GetAll_Supplier()
+        {
+            return _unitOfWork.supplierRepository.GetAll();
+        }
+
+        public async Task<Supplier> Create(Supplier s)
+        {
+            var supplier = await _unitOfWork.supplierRepository.CreateAsync(s);
+            return supplier;
+        }
+
+        public void updateCapCodeSupplier(decimal id)
+        {
+            _unitOfWork.supplier_QLTourRepository.updateCapCodeSupplier(id);
+        }
+
+        public int huyCapcodeSupplier(Data.Models_QLTour.CodeSupplier model)
+        {
+            return _unitOfWork.supplier_QLTourRepository.huyCapcodeSupplier(model);
         }
     }
 }

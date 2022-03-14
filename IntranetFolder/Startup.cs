@@ -36,12 +36,13 @@ namespace IntranetFolder
             services.AddDbContext<qltourContext>(options => options.UseSqlServer(Configuration.GetConnectionString("QLTourConnection"))/*.EnableSensitiveDataLogging()*/);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // AddAutoMapper
+
+            // qltaikhoan
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IFolderUserReprository, FolderUserReprository>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<ITinhRepository, TinhRepository>();
             services.AddTransient<IThanhPho1Repository, ThanhPho1Repository>();
-            services.AddTransient<IDmdiemtqRepository, DmdiemtqRepository>();
             services.AddTransient<IDanhGiaNhaCungUngRepository, DanhGiaNhaCungUngRepository>();
             services.AddTransient<ILoaiDvRepository, LoaiDvRepository>();
             services.AddTransient<IDanhGiaNhaHangRepository, DanhGiaNhaHangRepository>();
@@ -54,6 +55,10 @@ namespace IntranetFolder
             services.AddTransient<IVungMienRepository, VungMienRepository>();
             services.AddTransient<IHinhAnhRepository, HinhAnhRepository>();
             services.AddTransient<IErrorRepository, ErrorRepository>();
+
+            // qltour
+            services.AddTransient<IDmdiemtqRepository, DmdiemtqRepository>();
+            services.AddTransient<ISupplier_QLTourRepository, Supplier_QLTourRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // services

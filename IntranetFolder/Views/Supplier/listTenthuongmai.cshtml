@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Supplier>
+
+    <script src="~/js/Admin/Supplier/CodeSupplierControl.js"></script>
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Thông tin supplier</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            
+        </div>
+        <div class="modal-body">
+            
+                <form asp-action="listTenthuongmai" id="frmListTenthuongmai" >
+                    <div class="col-md-6 form-group">
+                        <div class="col-xs-12 ">
+                            <div class="input-group">
+                                <input type="text" value="@ViewBag.search" class="form-control form-control-sm" name="search" id="txtSearch" placeholder="Nhập thông tin cần tìm" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm btSearchkh_" ><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            
+                <div class="col-md-12">
+                    <div style="height:200px; overflow-x:auto;">
+                        <table class="table mytable text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>
+                                        Tên giao dịch
+                                    </th>
+                                    <th>
+                                        Tên thương mại
+                                    </th>
+                                    <th>
+                                        Mã số thuế
+                                    </th>
+                                    <th>
+                                        Địa chỉ
+                                    </th>
+                                    <th>
+                                        Tỉnh / Thành
+                                    </th>
+                                    <th>
+                                        Quốc gia
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.Code</td>
+                                    <td>
+                                        @item.Tengiaodich
+                                    </td>
+                                    <td>
+                                        @item.Tenthuongmai
+                                    </td>
+                                    <td>
+                                        @item.Masothue
+                                    </td>
+                                    <td>
+                                        @item.Diachi
+                                    </td>
+                                    <td>
+                                        @item.Tinhtp
+                                    </td>
+                                    <td>
+                                        @item.Quocgia
+                                    </td>
+
+
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn bg-gray" data-dismiss="modal">Thoát</button>
+        </div>
+    </div>
+</div>
+
+

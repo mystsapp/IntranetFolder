@@ -6,6 +6,14 @@
 }
 
 <ul class="navbar-nav ml-auto">
+    
+        <li class="dropdown notifications-menu" id="listthongbao">
+
+            <a asp-action="listCapcode" asp-controller="Supplier" class="nav-link" title="Yêu cầu cấp code">
+                <i class="far fa-bell"></i>
+                <span class="badge badge-danger navbar-badge thongbao"></span>
+            </a>
+        </li>
 
     <li class="nav-item dropdown">
 
@@ -22,3 +30,29 @@
         </div>
     </li>
 </ul>
+
+<script src="~/lib/AdminLTE-3.1.0/plugins/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        getStatus();
+    });
+    function getStatus() {
+        $.ajax({
+            url: '/Supplier/getThongbao/',
+            type: 'GET',
+            success: function (data) {
+                if (data === 0) {
+                    $('#listthongbao').hide();
+                }
+                else {
+                    $('.thongbao').html(data);
+                    $('#listthongbao').show();
+                   // toastr.info('Bạn có '+data+' yêu cầu cấp code supplier!','Thông báo');
+                }
+            }
+        });
+        setTimeout(function () { getStatus(); }, 10000);
+    };
+
+</script>
