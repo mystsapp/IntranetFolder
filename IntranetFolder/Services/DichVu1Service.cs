@@ -140,7 +140,7 @@ namespace IntranetFolder.Services
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var danhGiaNcus = await _unitOfWork.dichVu1Repository.FindAsync(x => x.TenDv.ToLower().Contains(searchString.Trim().ToLower()) ||
+                var danhGiaNcus = await _unitOfWork.dichVu1Repository.FindAsync(x => x.TenHd.ToLower().Contains(searchString.Trim().ToLower()) ||
                                            (!string.IsNullOrEmpty(x.DiaChi) && x.DiaChi.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.DienThoai) && x.DienThoai.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Email) && x.Email.ToLower().Contains(searchString.ToLower())));
@@ -245,11 +245,11 @@ namespace IntranetFolder.Services
         public async Task<bool> CheckNameExist(string id, string name)
         {
             var DichVu1s = await _unitOfWork.dichVu1Repository
-                .FindAsync(x => x.TenDv.Trim().ToLower() == name.Trim().ToLower());
+                .FindAsync(x => x.TenHd.Trim().ToLower() == name.Trim().ToLower());
 
             if (DichVu1s.Count() > 0)
             {
-                string findName = DichVu1s.FirstOrDefault().TenDv;
+                string findName = DichVu1s.FirstOrDefault().TenHd;
                 string findId = DichVu1s.FirstOrDefault().MaDv;
 
                 if (findId != id)

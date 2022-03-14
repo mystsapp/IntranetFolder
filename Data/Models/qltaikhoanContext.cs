@@ -680,9 +680,9 @@ namespace Data.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TenDv)
+                entity.Property(e => e.TenHd)
                     .HasMaxLength(150)
-                    .HasColumnName("TenDV");
+                    .HasColumnName("TenHD");
 
                 entity.Property(e => e.ThoiGianKetThucHd)
                     .HasColumnType("date")
@@ -1044,7 +1044,8 @@ namespace Data.Models
 
                 entity.Property(e => e.Code)
                     .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Chinhanh)
                     .HasMaxLength(3)

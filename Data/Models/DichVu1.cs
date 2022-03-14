@@ -13,7 +13,7 @@ namespace Data.Models
         }
 
         public string MaDv { get; set; }
-        public string TenDv { get; set; }
+        public string TenHd { get; set; }
         public string LoaiSao { get; set; }
         public string ThongTinLienHe { get; set; }
         public string DiaChi { get; set; }

@@ -159,9 +159,9 @@ namespace IntranetFolder.Controllers
 
                 var t = _dichVu1Service.GetByIdAsNoTracking(DichVu1VM.DichVu1DTO.MaDv);
 
-                if (t.TenDv != DichVu1VM.DichVu1DTO.TenDv)
+                if (t.TenHd != DichVu1VM.DichVu1DTO.TenHd)
                 {
-                    temp += String.Format("- TenDv thay đổi: {0}->{1}", t.TenDv, DichVu1VM.DichVu1DTO.TenDv);
+                    temp += String.Format("- TenDv thay đổi: {0}->{1}", t.TenHd, DichVu1VM.DichVu1DTO.TenHd);
                 }
 
                 if (t.LoaiSao != DichVu1VM.DichVu1DTO.LoaiSao)

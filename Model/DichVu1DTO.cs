@@ -10,8 +10,8 @@ namespace Model
         [Display(Name = "Mã DV")]
         public string MaDv { get; set; }
 
-        [Display(Name = "Tên DV")]
-        public string TenDv { get; set; }
+        [Display(Name = "Tên HĐ")] //[Display(Name = "Tên DV")]
+        public string TenHd { get; set; }
 
         //[Display(Name = "Đơn vị ký kết")]
         //public string DonViKyKet { get; set; }
