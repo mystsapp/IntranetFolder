@@ -82,6 +82,9 @@ namespace Model
         [Display(Name = "Khuyến nghị")]
         public bool KhuyenNghi { get; set; }
 
+        [Display(Name = "Loại sao")]
+        public string LoaiSao { get; set; }
+
         public virtual ICollection<HinhAnhDTO> HinhAnhDTOs { get; set; }
         public virtual ICollection<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
         public virtual ICollection<DanhGiaKhachSanDTO> DanhGiaKhachSanDTOs { get; set; }

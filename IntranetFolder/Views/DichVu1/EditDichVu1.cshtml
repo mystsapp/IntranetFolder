@@ -80,7 +80,7 @@
                 <!--Thông tin về tài chánh-->
                 @*<fieldset class="groupbox-border ">
                     <legend class="groupbox-border">Thông tin về tài chánh </legend>*@
-
+                    
                 <div class=" row">
 
                     <div class="col-md-12">
@@ -88,56 +88,14 @@
                         <input asp-for="DichVu1DTO.TenHd" class="form-control form-control-sm " id="txtTenHd" />
                         <span asp-validation-for="DichVu1DTO.TenHd" class="text-danger"></span>
                     </div>
-                    @*
-                        <div class="col-md-6">
-                        <label asp-for="DichVu1DTO.DonViKyKet" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.DonViKyKet" class="form-control form-control-sm " id="txtDonViKyKet" />
-                        <span asp-validation-for="DichVu1DTO.DonViKyKet" class="text-danger"></span>
-                        </div>*@
+                    
                 </div>
 
                 <div class=" row">
 
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.LoaiSao" class="control-label"></label>
-                        <!--select2-->
-                        <select asp-for="DichVu1DTO.LoaiSao" class="form-control form-control-sm select2"
-                                asp-items="@(new SelectList(Model.LoaiSaos))" id="ddlLoaiSao">
-                        </select>
-                        <span asp-validation-for="DichVu1DTO.LoaiSao" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.ThongTinLienHe" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.ThongTinLienHe" class="form-control form-control-sm" id="txtThongTinLienHe" />
-                        <span asp-validation-for="DichVu1DTO.ThongTinLienHe" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-8">
-                        <label asp-for="DichVu1DTO.DiaChi" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.DiaChi" class="form-control form-control-sm" id="txtDiaChi" />
-                        <span asp-validation-for="DichVu1DTO.DiaChi" class="text-danger"></span>
-                    </div>
-
-                </div>
-
-                <div class=" row">
-
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.Email" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.Email" class="form-control form-control-sm" id="txtEmail" />
-                        <span asp-validation-for="DichVu1DTO.Email" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.DienThoai" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.DienThoai" class="form-control form-control-sm" id="txtDienThoai" />
-                        <span asp-validation-for="DichVu1DTO.DienThoai" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <label asp-for="DichVu1DTO.NoiDung" class="control-label"></label>
-                        <textarea asp-for="DichVu1DTO.NoiDung" class="form-control form-control-sm" id="txtNoiDung">
+                        <textarea asp-for="DichVu1DTO.NoiDung" class="form-control form-control-sm" rows="5" id="txtNoiDung">
                         </textarea>
 
                         <span asp-validation-for="DichVu1DTO.NoiDung" class="text-danger"></span>
@@ -145,27 +103,10 @@
 
                 </div>
 
+
                 @*</fieldset>*@
-
+                
                 <div class=" row">
-
-                    <div class="col-md-3">
-                        <label asp-for="DichVu1DTO.NguoiLienHe" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.NguoiLienHe" class="form-control form-control-sm" id="txtNguoiLienHe" />
-                        <span asp-validation-for="DichVu1DTO.NguoiLienHe" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.Website" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.Website" class="form-control form-control-sm" id="txtWebsite" />
-                        <span asp-validation-for="DichVu1DTO.Website" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-2">
-                        <label asp-for="DichVu1DTO.DaKy" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.DaKy" class="form-control form-control-sm" id="ckDienThoai" type="checkbox" />
-                        <span asp-validation-for="DichVu1DTO.DaKy" class="text-danger"></span>
-                    </div>
 
                     <div class="col-md-2">
                         <label asp-for="DichVu1DTO.HoatDong" class="control-label"></label>
@@ -173,15 +114,12 @@
                         <span asp-validation-for="DichVu1DTO.HoatDong" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label asp-for="DichVu1DTO.Tuyen" class="control-label"></label>
                         <input asp-for="DichVu1DTO.Tuyen" class="form-control form-control-sm" id="txtTuyen" />
                         <span asp-validation-for="DichVu1DTO.Tuyen" class="text-danger"></span>
                     </div>
-                </div>
-
-                <div class=" row">
-
+                
                     <div class="col-md-4">
                         <label asp-for="DichVu1DTO.LoaiTau" class="control-label"></label>
                         <input asp-for="DichVu1DTO.LoaiTau" class="form-control form-control-sm" id="txtLoaiTau" />
@@ -194,27 +132,9 @@
                         <span asp-validation-for="DichVu1DTO.LoaiXe" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
-                        <label asp-for="DichVu1DTO.DauXe" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.DauXe" class="form-control form-control-sm" id="ckDauXe" type="checkbox" />
-                        <span asp-validation-for="DichVu1DTO.DauXe" class="text-danger"></span>
-                    </div>
-
                 </div>
-
+                
                 <div class=" row">
-
-                    <div class="col-md-3">
-                        <label asp-for="DichVu1DTO.GiaHd" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.GiaHd" class="form-control form-control-sm" id="txtGiaHd" asp-format="{0:0,0}" />
-                        <span asp-validation-for="DichVu1DTO.GiaHd" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label asp-for="DichVu1DTO.LoaiHd" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.LoaiHd" class="form-control form-control-sm" id="txtLoaiHd" />
-                        <span asp-validation-for="DichVu1DTO.LoaiHd" class="text-danger"></span>
-                    </div>
 
                     <div class="col-md-3">
                         <label asp-for="DichVu1DTO.LoaiDvid" class="control-label"></label>
@@ -224,11 +144,23 @@
                         </select>
                         <span asp-validation-for="DichVu1DTO.LoaiSao" class="text-danger"></span>
                     </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="DichVu1DTO.ThoiGianHd" class="control-label"></label>
+                        <input asp-for="DichVu1DTO.ThoiGianHd" class="form-control form-control-sm maskInput" type="text" id="txtThoiGianHd" />
+                        <span asp-validation-for="DichVu1DTO.ThoiGianHd" class="text-danger"></span>
+                    </div>
                     
                     <div class="col-md-3">
-                        <label asp-for="DichVu1DTO.ThoiGianKetThucHd" class="control-label"></label>
-                        <input asp-for="DichVu1DTO.ThoiGianKetThucHd" class="form-control form-control-sm maskInput" type="text" id="txtThoiGianKetThucHd" />
-                        <span asp-validation-for="DichVu1DTO.ThoiGianKetThucHd" class="text-danger"></span>
+                        <label asp-for="DichVu1DTO.HotDeal" class="control-label"></label>
+                        <input asp-for="DichVu1DTO.HotDeal" class="form-control form-control-sm " type="checkbox" id="ckHotDeal" />
+                        <span asp-validation-for="DichVu1DTO.HotDeal" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label asp-for="DichVu1DTO.NguoiTrinhKy" class="control-label"></label>
+                        <input asp-for="DichVu1DTO.NguoiTrinhKy" class="form-control form-control-sm " id="txtNguoiTrinhKy" />
+                        <span asp-validation-for="DichVu1DTO.NguoiTrinhKy" class="text-danger"></span>
                     </div>
 
                 </div>
@@ -291,6 +223,15 @@
     <script src="~/js/Admin/Home/indexController.js"></script>
     <script src="~/js/Admin/serviceController.js"></script>
 *@
+<script>
+    //Date range picker
+    $('#txtThoiGianHd').daterangepicker({
+                   locale: {
+                            format: 'DD/MM/YYYY'
+                            }
+                 })
+</script>
+
 <!-- select2 and multi select2 (bootstrap4)-->
 <script>
     $('.btnDeleteHinhAnh').off('click').on('click', function(e){

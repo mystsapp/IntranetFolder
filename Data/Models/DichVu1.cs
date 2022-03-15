@@ -38,7 +38,9 @@ namespace Data.Models
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
         public string LogFile { get; set; }
-        public DateTime? ThoiGianKetThucHd { get; set; }
+        public DateTime? ThoiGianHd { get; set; }
+        public bool HotDeal { get; set; }
+        public string NguoiTrinhKy { get; set; }
 
         public virtual LoaiDv LoaiDv { get; set; }
         public virtual Supplier Supplier { get; set; }

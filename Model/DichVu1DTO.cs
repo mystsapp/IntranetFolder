@@ -89,8 +89,14 @@ namespace Model
         public string NguoiSua { get; set; }
         public string LogFile { get; set; }
 
-        [Display(Name = "T/G kết thúc HĐ")]
-        public DateTime? ThoiGianKetThucHd { get; set; }
+        [Display(Name = "Thời gian HĐ")]
+        public DateTime? ThoiGianHd { get; set; }
+
+        [Display(Name = "Hot deal")]
+        public bool HotDeal { get; set; }
+
+        [Display(Name = "Người trình ký")]
+        public string NguoiTrinhKy { get; set; }
 
         public LoaiDvDTO LoaiDvDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }

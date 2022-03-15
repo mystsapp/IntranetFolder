@@ -46,6 +46,7 @@ namespace Data.Models
         public string ThoiGianDongMo { get; set; }
         public string NoiDungDongMo { get; set; }
         public bool KhuyenNghi { get; set; }
+        public string LoaiSao { get; set; }
 
         public virtual ICollection<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
         public virtual ICollection<DanhGiaDiemThamQuan> DanhGiaDiemThamQuans { get; set; }

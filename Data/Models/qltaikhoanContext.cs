@@ -676,6 +676,8 @@ namespace Data.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.NguoiTrinhKy).HasMaxLength(150);
+
                 entity.Property(e => e.SupplierId)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -684,9 +686,9 @@ namespace Data.Models
                     .HasMaxLength(150)
                     .HasColumnName("TenHD");
 
-                entity.Property(e => e.ThoiGianKetThucHd)
+                entity.Property(e => e.ThoiGianHd)
                     .HasColumnType("date")
-                    .HasColumnName("ThoiGianKetThucHD");
+                    .HasColumnName("ThoiGianHD");
 
                 entity.Property(e => e.Tuyen).HasMaxLength(250);
 
@@ -1059,6 +1061,10 @@ namespace Data.Models
 
                 entity.Property(e => e.Fax).HasMaxLength(50);
 
+                entity.Property(e => e.LoaiSao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Masothue)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -1421,6 +1427,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
