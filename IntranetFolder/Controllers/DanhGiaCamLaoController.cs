@@ -51,6 +51,7 @@ namespace IntranetFolder.Controllers
         {
             DanhGiaCamLaoVM.SupplierDTO = await _danhGiaCamLaoService.GetSupplierByIdAsync(supplierId);
             DanhGiaCamLaoVM.DanhGiaCamLaoDTO.SupplierId = supplierId;
+            DanhGiaCamLaoVM.DanhGiaCamLaoDTO.TenNcu = DanhGiaCamLaoVM.SupplierDTO.Tengiaodich;
             return PartialView(DanhGiaCamLaoVM);
         }
 

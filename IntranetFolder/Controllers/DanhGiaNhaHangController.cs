@@ -194,6 +194,7 @@ namespace IntranetFolder.Controllers
         {
             DanhGiaNhaHangVM.SupplierDTO = await _danhGiaNhaHangService.GetSupplierByIdAsync(supplierId);
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.SupplierId = supplierId;
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.TenNcu = DanhGiaNhaHangVM.SupplierDTO.Tengiaodich;
             return PartialView(DanhGiaNhaHangVM);
         }
 
