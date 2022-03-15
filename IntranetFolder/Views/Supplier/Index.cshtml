@@ -93,6 +93,7 @@
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tapdoan)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().LoaiSao)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().NguoiTrinhKyHd)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().KhuyenNghi)</th>
                         </tr>
@@ -140,9 +141,9 @@
 
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Code)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tengiaodich)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Diachi)</td>
+                                    <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Diachi)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TinhtpName)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tenthuongmai)</td>
+                                    <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tenthuongmai)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tapdoan)</td>
                                     <td class="tdVal" data-id="@item.Code">
@@ -155,6 +156,7 @@
                                             <span class="badge badge-danger">Khoá</span>
                                         }
                                     </td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.LoaiSao)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.NguoiTrinhKyHd)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.KhuyenNghi)</td>
                                 </tr>

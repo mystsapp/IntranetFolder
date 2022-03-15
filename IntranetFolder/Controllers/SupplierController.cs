@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Common;
+using Data.Models;
 using Data.Repository;
 using Data.Utilities;
 using IntranetFolder.Models;
@@ -70,6 +71,7 @@ namespace IntranetFolder.Controllers
 
             SupplierVM.VTinhs = await _supplierService.GetTinhs();
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
+            SupplierVM.LoaiSaos = SD.LoaiSao();
             //var quocgia = SupplierVM.Quocgias.Where(x => x.Id == 230).FirstOrDefault(); // VIETNAM
 
             // next Id
@@ -525,7 +527,8 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        public async Task<JsonResult> GetThanhPhoByTinh(string tinhTPId)
+        [HttpGet]
+        public async Task<IActionResult> GetThanhPhoByTinh_Hong(string tinhTPId)
         {
             var thanhpho1s = await _supplierService.GetThanhpho1s();
             return Json(new

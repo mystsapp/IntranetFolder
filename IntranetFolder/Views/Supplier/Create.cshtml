@@ -81,17 +81,25 @@
 
                     <div class="form-group row">
 
-                        <div class="col-md-2">
-                            <label asp-for="SupplierDTO.Tinhtp" class="control-label"></label>
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.LoaiSao" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
-                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
-                                    asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
-                                @*<option>-- Select --</option>*@
+                            <select asp-for="SupplierDTO.LoaiSao" class="form-control form-control-sm input-sm "
+                                    asp-items="@(new SelectList(Model.LoaiSaos))" id="ddlLoaiSao">
                             </select>
                             <span asp-validation-for="SupplierDTO.Tinhtp" class="text-danger"></span>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-3">
+                            <label asp-for="SupplierDTO.Tinhtp" class="control-label"></label>
+                            @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
+                            <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
+                            </select>
+                            <span asp-validation-for="SupplierDTO.Tinhtp" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
                             <label asp-for="SupplierDTO.Thanhpho" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm " id="txtThanhPho" />*@
                             <select asp-for="SupplierDTO.Thanhpho" class="form-control form-control-sm input-sm select2" id="ddlThanhPho">
@@ -101,7 +109,7 @@
                             <span asp-validation-for="SupplierDTO.Thanhpho" class="text-danger"></span>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label asp-for="SupplierDTO.Quocgia" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm " id="txtQuocGia" />*@
                             <select asp-for="SupplierDTO.Quocgia" class="form-control form-control-sm input-sm select2"
@@ -109,13 +117,19 @@
                                 @*<option>-- Select --</option>*@
                             </select>
                             <span asp-validation-for="SupplierDTO.Quocgia" class="text-danger"></span>
+
                         </div>
 
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
                             <label asp-for="SupplierDTO.Diachi" class="control-label"></label>
                             <input asp-for="SupplierDTO.Diachi" class="form-control form-control-sm " id="txtDiaChi" />
                             <span asp-validation-for="SupplierDTO.Diachi" class="text-danger"></span>
                         </div>
+
                     </div>
 
                     <div class="form-group row">
@@ -234,6 +248,7 @@
 <!-- /.content -->
 @section Scripts{
 <script src="~/js/Admin/Supplier/indexController.js"></script>
+
 <script>
     //Date range picker
     $('#txtThoiGianDongMo').daterangepicker({
@@ -241,23 +256,26 @@
                             format: 'DD/MM/YYYY'
                             }
                  })
+
+    $('.select2').select2();
 </script>
 
 <script>
     $(document).ready(function() {
         var tinhTPId = $('#ddlTinhTP').val();
-
+        
         $('#ddlThanhPho').html('');
         var option = '';
 
         $.ajax({
-            url: '/Supplier/GetThanhPhoByTinh',
+            url: '/Supplier/GetThanhPhoByTinh_Hong',
             type: 'GET',
             data: { tinhTPId: tinhTPId },
             dataType: 'json',
             success: function (response) {
                 if (response.status) {
                     var data = response.data;
+                    console.log(data);
 
                     $.each(data, function (i, item) {
                         option = option + '<option value="' + item.matp + '">' + item.tentp + '</option>'; //chinhanh1

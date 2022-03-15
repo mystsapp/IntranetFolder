@@ -74,7 +74,7 @@ var indexController = {
         var option = '';
 
         $.ajax({
-            url: '/Supplier/GetThanhPhoByTinh',
+            url: '/Supplier/GetThanhPhoByTinh_Hong',
             type: 'GET',
             data: { tinhTPId: tinhTPId },
             dataType: 'json',
