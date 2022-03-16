@@ -50,6 +50,7 @@ namespace IntranetFolder.Controllers
         public async Task<IActionResult> ThemMoiKhachSan_Partial(string supplierId) // code
         {
             DanhGiaKhachSanVM.SupplierDTO = await _danhGiaKhachSanService.GetSupplierByIdAsync(supplierId);
+            DanhGiaKhachSanVM.DanhGiaKhachSanDTO.SupplierId = supplierId;
             DanhGiaKhachSanVM.DanhGiaKhachSanDTO.TenNcu = DanhGiaKhachSanVM.SupplierDTO.Tengiaodich;
             return PartialView(DanhGiaKhachSanVM);
         }

@@ -52,6 +52,8 @@ namespace Data.Mapper
 
             CreateMap<LoaiDv, LoaiDvDTO>().ReverseMap();
             CreateMap<HinhAnh, HinhAnhDTO>().ReverseMap();
+
+            CreateMap<TapDoan, TapDoanDTO>().ForMember(dest => dest.SupplierDTOs, opt => opt.MapFrom(src => src.Suppliers)).ReverseMap(); ;
         }
     }
 }

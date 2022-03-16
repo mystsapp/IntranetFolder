@@ -1,0 +1,82 @@
+﻿@model TapDoanViewModel
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect">Danh mục tập đoàn</a></li>
+                    <li class="breadcrumb-item active">Thêm đánh giá</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm mới tập đoàn</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+
+            <form method="post" autocomplete="off" id="frmHomeCreate" enctype="multipart/form-data">
+                <div class="pr-4 pl-4 text-sm">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-2">
+                            <label asp-for="TapDoanDTO.Ten" class="control-label"></label>
+                            <input asp-for="TapDoanDTO.Ten" class="form-control form-control-sm " id="txtTen" />
+                            <span asp-validation-for="TapDoanDTO.Ten" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="TapDoanDTO.Chuoi" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                            <input asp-for="TapDoanDTO.Chuoi" class="form-control form-control-sm " id="txtChuoi" />
+                            <span asp-validation-for="TapDoanDTO.Chuoi" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit"><i class="fas fa-save"></i> Save</button>
+                        <a class="btn btn-success btn-sm" asp-controller="Home" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward "></i> Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

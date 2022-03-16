@@ -48,10 +48,10 @@
                     <input type="hidden" asp-for="SupplierDTO.Code" />
                     <input type="hidden" asp-for="SupplierDTO.Tour" />
                     <input type="hidden" asp-for="SupplierDTO.Ngaytao" />
-
+                    
                     <div class="form-group row">
 
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label asp-for="SupplierDTO.Code" class="control-label"></label>
                             <input asp-for="SupplierDTO.Code" class="form-control form-control-sm " id="txtCode" readonly />
                             <span asp-validation-for="SupplierDTO.Code" class="text-danger"></span>
@@ -69,11 +69,18 @@
                             <span asp-validation-for="SupplierDTO.Tenthuongmai" class="text-danger"></span>
                         </div>
 
-                        <div class="col-md-2">
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
                             <label asp-for="SupplierDTO.Tapdoan" class="control-label"></label>
-                            <input asp-for="SupplierDTO.Tapdoan" class="form-control form-control-sm " id="txtTapDoan" />
+                            <select asp-for="SupplierDTO.Tapdoan" class="form-control form-control-sm input-sm select2"
+                                    asp-items="@(new SelectList(Model.TapDoanDTOs, "Id", "Ten"))" id="ddlTapdoan">
+                            </select>
                             <span asp-validation-for="SupplierDTO.Tapdoan" class="text-danger"></span>
                         </div>
+
                     </div>
 
                     <div class="form-group row">

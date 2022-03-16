@@ -53,6 +53,8 @@ namespace IntranetFolder.Services
         void updateCapCodeSupplier(decimal id);
 
         int huyCapcodeSupplier(Data.Models_QLTour.CodeSupplier model);
+
+        IEnumerable<TapDoanDTO> GetAll_TapDoan();
     }
 
     public class SupplierService : ISupplierService
@@ -84,7 +86,7 @@ namespace IntranetFolder.Services
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var suppliers = await _unitOfWork.supplierRepository.FindAsync(x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+                var suppliers = await _unitOfWork.supplierRepository.FindIncludeOneAsync(y => y.TapDoan, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
                                            (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||
@@ -94,7 +96,8 @@ namespace IntranetFolder.Services
             }
             else
             {
-                suppliers1 = _unitOfWork.supplierRepository.GetAll().ToList();
+                var suppliers = await _unitOfWork.supplierRepository.GetAllIncludeOneAsync(x => x.TapDoan);
+                suppliers1 = suppliers.ToList();
 
                 if (suppliers1 == null)
                 {
@@ -309,6 +312,12 @@ namespace IntranetFolder.Services
         public int huyCapcodeSupplier(Data.Models_QLTour.CodeSupplier model)
         {
             return _unitOfWork.supplier_QLTourRepository.huyCapcodeSupplier(model);
+        }
+
+        public IEnumerable<TapDoanDTO> GetAll_TapDoan()
+        {
+            return _mapper.Map<IEnumerable<TapDoan>, IEnumerable<TapDoanDTO>>
+                (_unitOfWork.tapDoanRepository.GetAll());
         }
     }
 }

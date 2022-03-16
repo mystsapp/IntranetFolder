@@ -1,0 +1,87 @@
+﻿@model LoaiDvViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect">Danh mục loại DV</a></li>
+                    <li class="breadcrumb-item active">Cập nhật tập đoàn</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Cập nhật loại DV</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+
+            <form method="post" autocomplete="off" id="frmHomeCreate" enctype="multipart/form-data">
+                <div class="pr-4 pl-4 text-sm">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="LoaiDvDTO.Id" />
+                    <input type="hidden" asp-for="LoaiDvDTO.NguoiTao" />
+                    <input type="hidden" asp-for="LoaiDvDTO.NgayTao" />
+                    <input type="hidden" asp-for="LoaiDvDTO.NguoiSua" />
+                    <input type="hidden" asp-for="LoaiDvDTO.NgaySua" />
+                    
+                    <div class="form-group row">
+
+                        <div class="col-md-2">
+                            <label asp-for="LoaiDvDTO.MaLoai" class="control-label"></label>
+                            <input asp-for="LoaiDvDTO.MaLoai" class="form-control form-control-sm text-uppercase" id="txtMaLoai" readonly/>
+                            <span asp-validation-for="LoaiDvDTO.MaLoai" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="col-md-2">
+                            <label asp-for="LoaiDvDTO.TenLoai" class="control-label"></label>
+                            <input asp-for="LoaiDvDTO.TenLoai" class="form-control form-control-sm " id="txtTenLoai" />
+                            <span asp-validation-for="LoaiDvDTO.TenLoai" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label asp-for="LoaiDvDTO.GhiChu" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                            <input asp-for="LoaiDvDTO.GhiChu" class="form-control form-control-sm " id="txtGhiChu" />
+                            <span asp-validation-for="LoaiDvDTO.GhiChu" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit"><i class="fas fa-save"></i> Save</button>
+                        <a class="btn btn-success btn-sm" asp-controller="Home" asp-route-strUrl="@Model.StrUrl" asp-action="DetailsRedirect"><i class="fas fa-backward "></i> Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

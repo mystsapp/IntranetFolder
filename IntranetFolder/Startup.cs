@@ -54,6 +54,7 @@ namespace IntranetFolder
             services.AddTransient<IDichVu1Repository, DichVu1Repository>();
             services.AddTransient<IVungMienRepository, VungMienRepository>();
             services.AddTransient<IHinhAnhRepository, HinhAnhRepository>();
+            services.AddTransient<ITapDoanRepository, TapDoanRepository>();
             services.AddTransient<IErrorRepository, ErrorRepository>();
 
             // qltour
@@ -75,6 +76,8 @@ namespace IntranetFolder
             services.AddTransient<IDanhGiaVanChuyenService, DanhGiaVanChuyenService>();
             services.AddTransient<IDichVu1Service, DichVu1Service>();
             services.AddTransient<IHinhAnhService, HinhAnhService>();
+            services.AddTransient<ITapDoanService, TapDoanService>();
+            services.AddTransient<ILoaiDvService, LoaiDvService>();
 
             services.AddSession(options =>
             {

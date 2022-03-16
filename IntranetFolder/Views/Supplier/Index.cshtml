@@ -55,13 +55,23 @@
                         <div class="row rounded" style="padding-bottom:5px; background-color: aliceblue;" id="search">
 
                             <div class="col-md-3 text-sm">
-                                Nhập thông tin
+                                <label>Nhập thông tin</label>
                                 @*@Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control", @value="@ViewData["currentFilter"]" } })*@
                                 <input class="form-control form-control-sm" name="searchString" value="@ViewBag.searchString" />
                             </div>
+                            
+                                <div class="col-md-3 text-sm">
+                                    <label>Từ ngày</label>
+                                    <input class="form-control form-control-sm maskInput" name="searchFromDate" id="searchFromDate" value="@ViewBag.searchFromDate" />
+                                </div>
 
-                            <div class="col-md-5 text-sm">
-                                &nbsp;
+                                <div class="col-md-3 text-sm">
+                                    <label>Đến ngày</label>
+                                    <input class="form-control form-control-sm maskInput" name="searchToDate" id="searchToDate" value="@ViewBag.searchToDate" />
+                                </div>
+
+                            <div class="col-md-3 text-sm">
+                                <label>&nbsp;</label>
                                 <div class=" btn-block ">
                                     <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit">
                                         <i class="fas fa-search"></i>
@@ -91,7 +101,7 @@
                             <th>Tỉnh / Thành phố</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tenthuongmai)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tapdoan)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().TapDoanId)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().LoaiSao)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().NguoiTrinhKyHd)</th>
@@ -145,7 +155,7 @@
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TinhtpName)</td>
                                     <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tenthuongmai)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tapdoan)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TapDoanDTO.Ten)</td>
                                     <td class="tdVal" data-id="@item.Code">
                                         @if (item.Trangthai)
                                         {
@@ -174,7 +184,8 @@
                 page = page,
                 option = Context.Request.Query["option"],
                 searchString = @ViewBag.searchString,
-                startWith = @ViewBag.startWith
+                searchFromDate = @ViewBag.searchFromDate,
+                searchToDate = @ViewBag.searchToDate
                 }),
                 PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
                 {

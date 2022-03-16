@@ -72,6 +72,7 @@ namespace IntranetFolder.Controllers
             SupplierVM.VTinhs = await _supplierService.GetTinhs();
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
             SupplierVM.LoaiSaos = SD.LoaiSao();
+            SupplierVM.TapDoanDTOs = _supplierService.GetAll_TapDoan();
             //var quocgia = SupplierVM.Quocgias.Where(x => x.Id == 230).FirstOrDefault(); // VIETNAM
 
             // next Id
@@ -145,6 +146,8 @@ namespace IntranetFolder.Controllers
             var thanhpho1s = await _supplierService.GetThanhpho1s();
             SupplierVM.Thanhpho1s = thanhpho1s.Where(x => x.Matinh == SupplierVM.SupplierDTO.Tinhtp);
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
+            SupplierVM.LoaiSaos = SD.LoaiSao();
+            SupplierVM.TapDoanDTOs = _supplierService.GetAll_TapDoan();
 
             return View(SupplierVM);
         }

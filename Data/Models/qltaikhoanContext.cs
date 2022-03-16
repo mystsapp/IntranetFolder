@@ -44,6 +44,7 @@ namespace Data.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Supplierob> Supplierobs { get; set; }
+        public virtual DbSet<TapDoan> TapDoans { get; set; }
         public virtual DbSet<Thanhpho> Thanhphos { get; set; }
         public virtual DbSet<Thanhpho1> Thanhpho1s { get; set; }
         public virtual DbSet<Tinh> Tinhs { get; set; }
@@ -862,6 +863,18 @@ namespace Data.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.TenLoai).HasMaxLength(50);
             });
 
@@ -1113,6 +1126,11 @@ namespace Data.Models
                     .HasColumnName("tour");
 
                 entity.Property(e => e.Website).HasMaxLength(200);
+
+                entity.HasOne(d => d.TapDoan)
+                    .WithMany(p => p.Suppliers)
+                    .HasForeignKey(d => d.TapDoanId)
+                    .HasConstraintName("FK_supplier_TapDoan");
             });
 
             modelBuilder.Entity<Supplierob>(entity =>
@@ -1171,6 +1189,29 @@ namespace Data.Models
                 entity.Property(e => e.Tknganhang).HasMaxLength(50);
 
                 entity.Property(e => e.Website).HasMaxLength(150);
+            });
+
+            modelBuilder.Entity<TapDoan>(entity =>
+            {
+                entity.ToTable("TapDoan");
+
+                entity.Property(e => e.Chuoi).HasMaxLength(250);
+
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ten)
+                    .IsRequired()
+                    .HasMaxLength(250);
             });
 
             modelBuilder.Entity<Thanhpho>(entity =>

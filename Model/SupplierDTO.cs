@@ -93,5 +93,10 @@ namespace Model
         public virtual ICollection<DanhGiaCamLaoDTO> DanhGiaCamLaoDTOs { get; set; }
         public virtual ICollection<DanhGiaVanChuyenDTO> DanhGiaVanChuyenDTOs { get; set; }
         public virtual ICollection<DichVu1DTO> DichVu1DTOs { get; set; }
+
+        [Display(Name = "Tập đoàn")]
+        public int TapDoanId { get; set; }
+
+        public TapDoanDTO TapDoanDTO { get; set; }
     }
 }

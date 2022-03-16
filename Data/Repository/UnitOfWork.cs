@@ -25,6 +25,7 @@ namespace Data.Repository
         IDichVu1Repository dichVu1Repository { get; }
         IVungMienRepository vungMienRepository { get; }
         IHinhAnhRepository hinhAnhRepository { get; }
+        ITapDoanRepository tapDoanRepository { get; }
         IErrorRepository errorRepository { get; }
 
         // qltour
@@ -61,6 +62,7 @@ namespace Data.Repository
             dichVu1Repository = new DichVu1Repository(_context);
             vungMienRepository = new VungMienRepository(_context);
             hinhAnhRepository = new HinhAnhRepository(_context);
+            tapDoanRepository = new TapDoanRepository(_context);
             errorRepository = new ErrorRepository(_context);
 
             // qltour
@@ -105,6 +107,8 @@ namespace Data.Repository
         public IHinhAnhRepository hinhAnhRepository { get; }
 
         public ISupplier_QLTourRepository supplier_QLTourRepository { get; }
+
+        public ITapDoanRepository tapDoanRepository { get; }
 
         public async Task<int> Complete()
         {

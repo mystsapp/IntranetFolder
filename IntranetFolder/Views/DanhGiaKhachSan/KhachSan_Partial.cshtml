@@ -26,11 +26,11 @@
 
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().TenNcu)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DiaChi)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DiaChi)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DienThoai)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Fax)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Email)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Website)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Website)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().TieuChuanSao)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Gpkd)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Vat)</th>
@@ -96,11 +96,11 @@
                         </td>
 
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                        @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
                         <td class="tdVal" data-id="@item.Id">
                             @if (item.Gpkd == true)

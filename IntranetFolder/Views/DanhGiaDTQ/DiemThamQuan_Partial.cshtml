@@ -26,11 +26,11 @@
 
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().TenNcu)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().DiaChi)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().DiaChi)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().DienThoai)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().Fax)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().Email)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().Website)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().Website)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().CoGpkd)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().CoHdvat)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaDTQDTOs.FirstOrDefault().ViTri)</th>
@@ -93,11 +93,11 @@
                         </td>
 
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                        @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
                         <td class="tdVal" data-id="@item.Id">
                             @if (item.CoGpkd == true)
                             {
