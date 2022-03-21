@@ -120,6 +120,7 @@
                                         <div class="btn-group text-white" role="group">
                                             @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                             {
+                                                
                                                 <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Code" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
 
                                                 @*<span class="text-dark"> | </span>
@@ -155,7 +156,7 @@
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TinhtpName)</td>
                                     <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tenthuongmai)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TapDoanDTO.Ten)</td>
+                                    <td class="tdVal" data-id="@item.Code">@(item.TapDoanDTO == null ? "" : item.TapDoanDTO.Ten))</td>
                                     <td class="tdVal" data-id="@item.Code">
                                         @if (item.Trangthai)
                                         {

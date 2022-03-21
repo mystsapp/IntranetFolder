@@ -70,7 +70,7 @@ namespace Model
 
         public string Tour { get; set; }
 
-        [Display(Name = "Người trình ký HĐ")]
+        [Display(Name = "Nhân sự cudv")]
         public string NguoiTrinhKyHd { get; set; }
 
         [Display(Name = "T/G đóng mở")]

@@ -2,10 +2,13 @@
 using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using Novacode;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,13 +17,15 @@ namespace IntranetFolder.Controllers
     public class DanhGiaKhachSanController : BaseController
     {
         private readonly IDanhGiaKhachSanService _danhGiaKhachSanService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         [BindProperty]
         public DanhGiaKhachSanViewModel DanhGiaKhachSanVM { get; set; }
 
-        public DanhGiaKhachSanController(IDanhGiaKhachSanService danhGiaKhachSanService)
+        public DanhGiaKhachSanController(IDanhGiaKhachSanService danhGiaKhachSanService, IWebHostEnvironment webHostEnvironment)
         {
             _danhGiaKhachSanService = danhGiaKhachSanService;
+            _webHostEnvironment = webHostEnvironment;
             DanhGiaKhachSanVM = new DanhGiaKhachSanViewModel()
             {
                 DanhGiaKhachSanDTO = new DanhGiaKhachSanDTO(),
@@ -201,6 +206,76 @@ namespace IntranetFolder.Controllers
 
                 return Json(false);
             }
+        }
+
+        public async Task<IActionResult> ExportToWord_KhachSan(string supplierId, long id, string strUrl)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
+
+            if (id == 0)
+            {
+                ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+            var supplierDTO = await _danhGiaKhachSanService.GetSupplierByIdAsync(supplierId);
+            if (string.IsNullOrEmpty(supplierId) || supplierDTO == null)
+            {
+                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+
+            TapDoanDTO tapDoanDTO = await _danhGiaKhachSanService.GetTapDoanByIdAsync(supplierDTO.TapDoanId);
+            var danhGiaKhachSanDTO = await _danhGiaKhachSanService.GetByIdAsync(id);
+
+            if (danhGiaKhachSanDTO == null)
+            {
+                ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+            var loaiDvDTO = _danhGiaKhachSanService.GetAllLoaiDv().Where(x => x.Id == danhGiaKhachSanDTO.LoaiDvid).FirstOrDefault();
+
+            DocX doc = null;
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string fileName = webRootPath + @"\WordTemplates\M01b-DGNCU-NH.docx";
+            doc = DocX.Load(fileName);
+
+            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
+            doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
+            doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
+            doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));
+            doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
+            doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
+
+            doc.AddCustomProperty(new CustomProperty("TieuChuanSao", danhGiaKhachSanDTO.TieuChuanSao));
+            doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", danhGiaKhachSanDTO.Gpkd == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("VAT", danhGiaKhachSanDTO.Vat == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("HoBoi", danhGiaKhachSanDTO.CoHoBoi == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("BaiBienRieng", danhGiaKhachSanDTO.CoBien == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("BaiDoXe", !string.IsNullOrEmpty(danhGiaKhachSanDTO.CoBaiDoXe) ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("PhongNoiBo", danhGiaKhachSanDTO.CoBoTriPhongChoNb));
+            doc.AddCustomProperty(new CustomProperty("SoLuongPhong", danhGiaKhachSanDTO.SoLuongPHong));
+            doc.AddCustomProperty(new CustomProperty("SoLuongNhaHang", danhGiaKhachSanDTO.SLNhaHang));
+            doc.AddCustomProperty(new CustomProperty("SoChoPhongHop", danhGiaKhachSanDTO.SoChoPhongHop));
+            doc.AddCustomProperty(new CustomProperty("ViTri", danhGiaKhachSanDTO.ViTri));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", danhGiaKhachSanDTO.DaCoKhaoSatThucTe == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("DatYeuCau", danhGiaKhachSanDTO.KqDat == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThem", !string.IsNullOrWhiteSpace(danhGiaKhachSanDTO.KqKhaoSatThem) ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TaiKy", danhGiaKhachSanDTO.TaiKy == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TiemNang", danhGiaKhachSanDTO.TiemNang == true ? "Có" : ""));
+
+            doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
+            doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
+
+            doc.AddList("First Item", 0, ListItemType.Numbered);
+
+            MemoryStream stream = new MemoryStream();
+
+            // Saves the Word document to MemoryStream
+            doc.SaveAs(stream);
+            stream.Position = 0;
+            // Download Word document in the browser
+            return File(stream, "application/msword", "Chuongtrinhtour_" + user.Username + "_" + DateTime.Now + ".docx");
         }
     }
 }

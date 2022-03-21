@@ -89,6 +89,15 @@ namespace Model
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
 
+        [Display(Name = "SL phòng")]
+        public int SoLuongPHong { get; set; }
+
+        [Display(Name = "SL nhà hàng")]
+        public int SLNhaHang { get; set; }
+
+        [Display(Name = "Số chỗ phòng họp")]
+        public int SoChoPhongHop { get; set; }
+
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }
 }

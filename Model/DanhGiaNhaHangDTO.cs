@@ -82,6 +82,12 @@ namespace Model
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
 
+        
+        public string Menu { get; set; }
+        public bool PhongKVRieng { get; set; }
+
+
+
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }
 }

@@ -33,6 +33,8 @@ namespace IntranetFolder.Services
         Task<SupplierDTO> GetSupplierByIdAsync(string supplierId);
 
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
+
+        Task<TapDoanDTO> GetTapDoanByIdAsync(int tapDoanId);
     }
 
     public class DanhGiaNhaHangService : IDanhGiaNhaHangService
@@ -224,6 +226,11 @@ namespace IntranetFolder.Services
         public async Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog)
         {
             return await _unitOfWork.errorRepository.CreateAsync(errorLog);
+        }
+
+        public async Task<TapDoanDTO> GetTapDoanByIdAsync(int tapDoanId)
+        {
+            return _mapper.Map<TapDoan, TapDoanDTO>(_unitOfWork.tapDoanRepository.GetById(tapDoanId));
         }
     }
 }
