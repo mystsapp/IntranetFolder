@@ -237,7 +237,7 @@ namespace IntranetFolder.Controllers
 
             DocX doc = null;
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string fileName = webRootPath + @"\WordTemplates\M01b-DGNCU-NH.docx";
+            string fileName = webRootPath + @"\WordTemplates\M01-DGNCU-KS.docx";
             doc = DocX.Load(fileName);
 
             doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
@@ -275,7 +275,7 @@ namespace IntranetFolder.Controllers
             doc.SaveAs(stream);
             stream.Position = 0;
             // Download Word document in the browser
-            return File(stream, "application/msword", "Chuongtrinhtour_" + user.Username + "_" + DateTime.Now + ".docx");
+            return File(stream, "application/msword", "khachsan_" + user.Username + "_" + DateTime.Now + ".docx");
         }
     }
 }

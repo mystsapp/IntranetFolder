@@ -9,8 +9,8 @@ namespace Model
     {
         public string Code { get; set; }
 
-        [Display(Name = "Group / Tập đoàn")]
-        public string Tapdoan { get; set; }
+        //[Display(Name = "Group / Tập đoàn")]
+        //public string Tapdoan { get; set; }
 
         [Display(Name = "Tên giao dịch")]
         public string Tengiaodich { get; set; }

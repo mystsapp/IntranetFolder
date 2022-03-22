@@ -220,9 +220,9 @@ namespace IntranetFolder.Controllers
                     temp += String.Format("- Quocgia thay đổi: {0}->{1}", t.Quocgia, SupplierVM.SupplierDTO.Quocgia);
                 }
 
-                if (t.Tapdoan != SupplierVM.SupplierDTO.Tapdoan)
+                if (t.TapDoanId != SupplierVM.SupplierDTO.TapDoanId)
                 {
-                    temp += String.Format("- Tapdoan thay đổi: {0}->{1}", t.Tapdoan, SupplierVM.SupplierDTO.Tapdoan);
+                    temp += String.Format("- Tapdoan thay đổi: {0}->{1}", t.TapDoanId, SupplierVM.SupplierDTO.TapDoanId);
                 }
 
                 if (t.Tengiaodich != SupplierVM.SupplierDTO.Tengiaodich)
@@ -441,7 +441,7 @@ namespace IntranetFolder.Controllers
                     ExcelTool.TrSetCellBorder(xlSheet, dong, 6, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Left, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
                     // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
-                    xlSheet.Cells[dong, 7].Value = item.Tapdoan;
+                    xlSheet.Cells[dong, 7].Value = item.TapDoanDTO.Ten;
                     ExcelTool.TrSetCellBorder(xlSheet, dong, 7, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
                     // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
 

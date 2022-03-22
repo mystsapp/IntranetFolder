@@ -416,7 +416,7 @@ namespace IntranetFolder.Controllers
             doc.SaveAs(stream);
             stream.Position = 0;
             // Download Word document in the browser
-            return File(stream, "application/msword", "Chuongtrinhtour_" + user.Username + "_" + DateTime.Now + ".docx");
+            return File(stream, "application/msword", "nhahang_" + user.Username + "_" + DateTime.Now + ".docx");
         }
     }
 }

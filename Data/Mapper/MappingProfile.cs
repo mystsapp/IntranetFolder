@@ -20,6 +20,7 @@ namespace Data.Mapper
             //_unitOfWork = unitOfWork;
 
             CreateMap<Models.Supplier, SupplierDTO>()
+                .ForMember(dest => dest.TapDoanDTO, opt => opt.MapFrom(src => src.TapDoan))
                 .ForMember(dest => dest.DichVu1DTOs, opt => opt.MapFrom(src => src.DichVu1s))
                 .ForMember(dest => dest.DanhGiaVanChuyenDTOs, opt => opt.MapFrom(src => src.DanhGiaVanChuyens))
                 .ForMember(dest => dest.DanhGiaCamLaoDTOs, opt => opt.MapFrom(src => src.DanhGiaCamLaos))
