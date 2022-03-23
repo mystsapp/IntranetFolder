@@ -90,13 +90,15 @@ namespace Model
         public string LogFile { get; set; }
 
         [Display(Name = "Thời gian HĐ")]
-        public DateTime? ThoiGianHd { get; set; }
+        public string ThoiGianHd { get; set; }
 
         [Display(Name = "Hot deal")]
         public bool HotDeal { get; set; }
 
         [Display(Name = "Người trình ký")]
         public string NguoiTrinhKy { get; set; }
+
+        public DateTime? NgayTrinhKy { get; set; }
 
         public LoaiDvDTO LoaiDvDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }

@@ -667,6 +667,8 @@ namespace Data.Models
 
                 entity.Property(e => e.NgayTao).HasColumnType("datetime");
 
+                entity.Property(e => e.NgayTrinhKy).HasColumnType("date");
+
                 entity.Property(e => e.NguoiLienHe).HasMaxLength(150);
 
                 entity.Property(e => e.NguoiSua)
@@ -688,7 +690,8 @@ namespace Data.Models
                     .HasColumnName("TenHD");
 
                 entity.Property(e => e.ThoiGianHd)
-                    .HasColumnType("date")
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
                     .HasColumnName("ThoiGianHD");
 
                 entity.Property(e => e.Tuyen).HasMaxLength(250);
@@ -1468,6 +1471,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

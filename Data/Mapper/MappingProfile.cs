@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Supplier = Data.Models.Supplier;
+using User = Data.Models.User;
 using VTinh = Data.Models.VTinh;
 
 namespace Data.Mapper
@@ -55,6 +56,7 @@ namespace Data.Mapper
             CreateMap<HinhAnh, HinhAnhDTO>().ReverseMap();
 
             CreateMap<TapDoan, TapDoanDTO>().ForMember(dest => dest.SupplierDTOs, opt => opt.MapFrom(src => src.Suppliers)).ReverseMap(); ;
+            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }

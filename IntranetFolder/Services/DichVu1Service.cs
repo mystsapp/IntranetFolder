@@ -67,6 +67,8 @@ namespace IntranetFolder.Services
         Task<IEnumerable<HinhAnhDTO>> GetHinhanhByDichVu1Id(string dichVu1Id);
 
         Task<IPagedList<HinhAnhDTO>> GetAnhHDByDVId_PagedList(string dichvu1Id, int? page);
+
+        Task<IEnumerable<UserDTO>> GetAllUsers_Intranet();
     }
 
     public class DichVu1Service : IDichVu1Service
@@ -457,6 +459,18 @@ namespace IntranetFolder.Services
                 return null;
 
             return listPaged;
+        }
+
+        public async Task<IEnumerable<UserDTO>> GetAllUsers_Intranet()
+        {
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>
+                (await _unitOfWork.userRepository.FindAsync(x => x.Username == "haiau" ||
+                                                                 x.Username == "thumai" ||
+                                                                 x.Username == "dangkhoa" ||
+                                                                 x.Username == "vantam" ||
+                                                                 x.Username == "thuyoanh" ||
+                                                                 x.Username == "tuyetnga" ||
+                                                                 x.Username == "kimhoa"));
         }
     }
 }

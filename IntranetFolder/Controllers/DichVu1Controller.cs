@@ -131,6 +131,7 @@ namespace IntranetFolder.Controllers
             //DichVu1VM.Thanhpho1s = await _dichVu1Service.GetThanhpho1s();
             DichVu1VM.LoaiSaos = SD.LoaiSao();
             DichVu1VM.LoaiDvs = _dichVu1Service.GetAllLoaiDv();
+            DichVu1VM.UserDTOs = await _dichVu1Service.GetAllUsers_Intranet();
             return View(DichVu1VM);
         }
 
@@ -311,6 +312,9 @@ namespace IntranetFolder.Controllers
             }
             else // not valid
             {
+                DichVu1VM.SupplierDTO = await _dichVu1Service.GetSupplierByIdAsync(DichVu1VM.DichVu1DTO.SupplierId);
+                DichVu1VM.LoaiDvs = _dichVu1Service.GetAllLoaiDv();
+                DichVu1VM.UserDTOs = await _dichVu1Service.GetAllUsers_Intranet();
                 return View(DichVu1VM);
             }
         }
@@ -371,6 +375,7 @@ namespace IntranetFolder.Controllers
             //DichVu1VM.Thanhpho1s = await _dichVu1Service.GetThanhpho1s();
             DichVu1VM.LoaiSaos = SD.LoaiSao();
             DichVu1VM.LoaiDvs = _dichVu1Service.GetAllLoaiDv();
+            DichVu1VM.UserDTOs = await _dichVu1Service.GetAllUsers_Intranet();
             return View(DichVu1VM);
         }
 
