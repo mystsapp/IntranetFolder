@@ -11,14 +11,14 @@ namespace Model
         public long Id { get; set; }
 
         [Display(Name = "Tên NCU")]
-        [Remote("IsStringNameAvailable", "DanhGiaNhaHang", ErrorMessage = "Tên này đã tồn tại.", AdditionalFields = "Id")]
+        [Remote("IsStringNameAvailable", "DanhGiaKhachSan", ErrorMessage = "Tên này đã tồn tại.", AdditionalFields = "Id")]
         [Required(ErrorMessage = "Tên không được để trống.")]
         public string TenNcu { get; set; }
 
         [Display(Name = "Địa chỉ")]
         public string DiaChi { get; set; }
 
-        [Display(Name = "Điện thoại")]
+        [Display(Name = "Địa chỉ")]
         public string DienThoai { get; set; }
 
         public string Fax { get; set; }

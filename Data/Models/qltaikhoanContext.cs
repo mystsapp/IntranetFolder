@@ -23,6 +23,7 @@ namespace Data.Models
         public virtual DbSet<City> Citys { get; set; }
         public virtual DbSet<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
         public virtual DbSet<DanhGiaDiemThamQuan> DanhGiaDiemThamQuans { get; set; }
+        public virtual DbSet<DanhGiaGolf> DanhGiaGolves { get; set; }
         public virtual DbSet<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
         public virtual DbSet<DanhGiaLandtour> DanhGiaLandtours { get; set; }
         public virtual DbSet<DanhGiaNhaHang> DanhGiaNhaHangs { get; set; }
@@ -51,6 +52,7 @@ namespace Data.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<VPhongban> VPhongbans { get; set; }
         public virtual DbSet<VSupplierob> VSupplierobs { get; set; }
+        public virtual DbSet<VSupplierob1> VSupplierob1s { get; set; }
         public virtual DbSet<VTinh> VTinhs { get; set; }
         public virtual DbSet<VUserHoadon> VUserHoadons { get; set; }
         public virtual DbSet<Vungmien> Vungmiens { get; set; }
@@ -314,6 +316,73 @@ namespace Data.Models
                     .WithMany(p => p.DanhGiaDiemThamQuans)
                     .HasForeignKey(d => d.SupplierId)
                     .HasConstraintName("FK_DanhGiaDiemThamQuan_supplier");
+            });
+
+            modelBuilder.Entity<DanhGiaGolf>(entity =>
+            {
+                entity.ToTable("DanhGiaGolf");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DienTichSanGolf)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Gpkd).HasColumnName("GPKD");
+
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
+                entity.Property(e => e.MucGiaPhi).HasMaxLength(50);
+
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiDanhGia).HasMaxLength(150);
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SupplierId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("supplierId");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.Vat).HasColumnName("VAT");
+
+                entity.Property(e => e.ViTri).HasMaxLength(150);
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.DanhGiaGolves)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_DanhGiaGolf_supplier");
             });
 
             modelBuilder.Entity<DanhGiaKhachSan>(entity =>
@@ -1357,6 +1426,28 @@ namespace Data.Models
                 entity.HasNoKey();
 
                 entity.ToView("vSupplierob");
+
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Tengiaodich)
+                    .HasMaxLength(403)
+                    .HasColumnName("tengiaodich");
+
+                entity.Property(e => e.Tour)
+                    .IsRequired()
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .HasColumnName("tour");
+            });
+
+            modelBuilder.Entity<VSupplierob1>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vSupplierob1");
 
                 entity.Property(e => e.Code)
                     .IsRequired()

@@ -11,7 +11,7 @@
 
 <!--tour programe-->
 <div class="pl-2 "><h3><strong>Đánh giá nhà cung ứng - @Model.SupplierDTO.Tengiaodich</strong></h3></div>
-<div class="row ml-2 mr-2">
+<div class="ml-2 mr-2"> <!--row ml-2 mr-2-->
 
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
@@ -33,6 +33,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="vanchuyen-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_vanChuyen" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vận chuyển</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="golf-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_golf" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Golf</a>
                 </li>
             </ul>
         </div>
@@ -285,6 +288,19 @@
                     </div>
                 </div>
                 <!-- tab_vanChuyen -->
+
+                <!-- tab_vanChuyen -->
+                <div class="tab-pane fade" id="tab_golf" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    <div id="divGolf">
+                    </div>
+
+                    <div id="ThemMoiGolf_Partial">
+                    </div>
+
+                    <div id="CapNhatGolf_Partial">
+                    </div>
+                </div>
+                <!-- tab_vanChuyen -->
             </div>
         </div>
         <!-- /.card -->
@@ -462,6 +478,27 @@
             $('#divVanChuyen').show(500);
             $('#CapNhatVanChuyen_Partial').hide(500);
             $('#ThemMoiVanChuyen_Partial').hide(500);
+
+        });
+
+    }
+    
+    // golf-tab
+    $('#golf-tab').off('click').on('click', function () {
+
+        var supplierId = $(this).data('supplierid');
+        GolfTbl(supplierId);
+    });
+
+
+    function GolfTbl(supplierId) {
+
+        $.get('/DanhGiaGolf/Golf_Partial', { supplierId: supplierId }, function (response) {
+
+            $('#divGolf').html(response);
+            $('#divGolf').show(500);
+            $('#CapNhatGolf_Partial').hide(500);
+            $('#ThemMoiGolf_Partial').hide(500);
 
         });
 

@@ -1,0 +1,260 @@
+﻿@model DanhGiaGolfViewModel
+@using Data.Models
+@using IntranetFolder.Models
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
+
+<div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblGolf">
+    <table class="table mytable text-nowrap text-sm" id="danhGiaGolfTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                    {
+                        <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiGolf_Partial" title="Thêm mới"
+                            id="btnThemMoiGolf" data-supplierid="@Model.SupplierDTO.Code">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    }
+
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TenNcu)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().DienThoai)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Fax)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Website)</th>*@
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TieuChuanSao)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Gpkd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Vat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().ViTri)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().SoLuongSanGolf)</th>
+                <th>DT sân Golf(m&sup2;)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().MucGiaPhi)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().CoNhaHang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().CoXeDien)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().CoHoTroTot)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().KhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().KqDat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().KqKhaoSatThem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TiemNang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().NguoiDanhGia)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DanhGiaGolfDTOs != null)
+            {
+                @foreach (var item in Model.DanhGiaGolfDTOs)
+                {
+
+                    <tr class="khachsan-cursor-pointer @item.Id">
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+                                @*<a class="text-blue btnExWordNh" title="Export to word" asp-action="ExportToWord_KhachSan" asp-controller="DanhGiaGolf" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
+
+                                                    <span class="text-dark"> | </span>
+*@
+                                @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                {
+                                    <a class="text-primary btnCapNhatGolf" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    @*<span class="text-dark"> | </span>
+
+                                        <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                    <!-- ko cho xóa -->
+                                    <span class="text-dark"> | </span>
+                                }
+
+                                <form asp-action="Delete" asp-controller="DanhGiaGolf" method="post">
+
+                                    <span id="confirmDeleteGolf_@item.Id" style="display: none">
+                                        
+                                <span class="text-dark ">Xoá?</span>
+
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                                        <button type="button" class="btn btn-danger btn-xs btnXoaGolf" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteGolf('@item.Id', false)">No</button>
+                                    </span>
+                                </form>
+                                <span id="deleteSpan_@item.Id">
+                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                    {
+                                        <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteGolf('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                    }
+
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Gpkd == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Vat == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuongSanGolf)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienTichSanGolf)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucGiaPhi)</td> <!--cao thap gi do-->
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoNhaHang == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoXeDien == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.CoHoTroTot == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.KhaoSatThucTe == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.KqDat == true)
+                            {
+                                <span class="badge badge-success">Đạt</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Chưa</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // delete
+    function confirmDeleteGolf(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteGolfSpan = 'confirmDeleteGolf_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteGolfSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteGolfSpan).hide();
+        }
+    }
+
+    // btnThemMoiGolf --> khachsan_partial
+    $('#btnThemMoiGolf').off('click').on('click', function () {
+        $('#divGolf').hide(500);
+        $('#CapNhatGolf_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        $.get('/DanhGiaGolf/ThemMoiGolf_Partial', { supplierId: supplierId }, function (response) {
+            $('#ThemMoiGolf_Partial').html(response);
+            $('#ThemMoiGolf_Partial').show(500);
+
+        });
+    })
+
+    // btnCapNhatGolf
+    $('.btnCapNhatGolf').click(function (e) {
+        e.preventDefault();
+
+        $('#divGolf').hide(500);
+        $('#ThemMoiGolf_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        var id = $(this).data('id');
+        $.get('/DanhGiaGolf/CapNhatGolf_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatGolf_Partial').html(response);
+            $('#CapNhatGolf_Partial').show(500);
+
+        });
+    })
+
+    // btnXoaGolf
+    $('.btnXoaGolf').off('click').on('click',function () {
+
+        var page = @Model.Page;
+        var supplierid = '@Model.SupplierDTO.Code';
+        var id = $(this).data('id');
+
+        id = $(this).data('id');
+
+        var url = '/DanhGiaGolf/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                GolfTbl(supplierid);
+            }
+        });
+
+    });
+    // btnXoaNhaHang
+</script>

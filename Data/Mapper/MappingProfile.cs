@@ -28,7 +28,8 @@ namespace Data.Mapper
                 .ForMember(dest => dest.DanhGiaDTQDTOs, opt => opt.MapFrom(src => src.DanhGiaDiemThamQuans))
                 .ForMember(dest => dest.DanhGiaLandTourDTOs, opt => opt.MapFrom(src => src.DanhGiaLandtours))
                 .ForMember(dest => dest.DanhGiaNhaHangDTOs, opt => opt.MapFrom(src => src.DanhGiaNhaHangs))
-                .ForMember(dest => dest.DanhGiaNhaHangDTOs, opt => opt.MapFrom(src => src.DanhGiaNhaHangs)).ReverseMap();
+                .ForMember(dest => dest.DanhGiaNhaHangDTOs, opt => opt.MapFrom(src => src.DanhGiaNhaHangs))
+                .ForMember(dest => dest.DanhGiaGolfDTOs, opt => opt.MapFrom(src => src.DanhGiaGolves)).ReverseMap();
             CreateMap<Tinh, TinhDTO>().ReverseMap();
             CreateMap<VTinh, VTinhDTO>().ReverseMap();
             CreateMap<Thanhpho1, ThanhPho1DTO>().ReverseMap();
@@ -45,6 +46,8 @@ namespace Data.Mapper
             CreateMap<DanhGiaCamLao, DanhGiaCamLaoDTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
             CreateMap<DanhGiaVanChuyen, DanhGiaVanChuyenDTO>()
+                .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
+            CreateMap<DanhGiaGolf, DanhGiaGolfDTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier)).ReverseMap();
             CreateMap<DichVu1, DichVu1DTO>()
                 .ForMember(dest => dest.SupplierDTO, opt => opt.MapFrom(src => src.Supplier))

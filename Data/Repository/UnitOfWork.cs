@@ -22,6 +22,7 @@ namespace Data.Repository
         IDanhGiaDTQRepository danhGiaDTQRepository { get; }
         IDanhGiaCamLaoRepository danhGiaCamLaoRepository { get; }
         IDanhGiaVanChuyenRepository danhGiaVanChuyenRepository { get; }
+        IDanhGiaGolfRepository danhGiaGolfRepository { get; }
         IDichVu1Repository dichVu1Repository { get; }
         IVungMienRepository vungMienRepository { get; }
         IHinhAnhRepository hinhAnhRepository { get; }
@@ -59,6 +60,7 @@ namespace Data.Repository
             danhGiaDTQRepository = new DanhGiaDTQRepository(_context);
             danhGiaCamLaoRepository = new DanhGiaCamLaoRepository(_context);
             danhGiaVanChuyenRepository = new DanhGiaVanChuyenRepository(_context);
+            danhGiaGolfRepository = new DanhGiaGolfRepository(_context);
             dichVu1Repository = new DichVu1Repository(_context);
             vungMienRepository = new VungMienRepository(_context);
             hinhAnhRepository = new HinhAnhRepository(_context);
@@ -109,6 +111,8 @@ namespace Data.Repository
         public ISupplier_QLTourRepository supplier_QLTourRepository { get; }
 
         public ITapDoanRepository tapDoanRepository { get; }
+
+        public IDanhGiaGolfRepository danhGiaGolfRepository { get; }
 
         public async Task<int> Complete()
         {

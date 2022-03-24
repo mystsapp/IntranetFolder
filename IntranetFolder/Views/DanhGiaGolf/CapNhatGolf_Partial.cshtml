@@ -1,0 +1,179 @@
+﻿@model DanhGiaGolfViewModel
+
+<form method="post" autocomplete="off" id="frmCapNhatGolfPartial" enctype="multipart/form-data">
+    <div class="pr-4 pl-4 text-sm">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for=DanhGiaGolfDTO.SupplierId />
+        <input type="hidden" asp-for=DanhGiaGolfDTO.Id />
+        <input type="hidden" asp-for=DanhGiaGolfDTO.LoaiDvid />
+        <input type="hidden" asp-for=DanhGiaGolfDTO.NgayTao />
+        <input type="hidden" asp-for=DanhGiaGolfDTO.NguoiTao />
+        
+        <div class="form-group row">
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaGolfDTO.TenNcu" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly/>
+                <span asp-validation-for="DanhGiaGolfDTO.TenNcu" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaGolfDTO.TieuChuanSao" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                <input asp-for="DanhGiaGolfDTO.TieuChuanSao" class="form-control form-control-sm " id="txtTieuChuanSao" />
+                <span asp-validation-for="DanhGiaGolfDTO.TieuChuanSao" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DanhGiaGolfDTO.Gpkd" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.Gpkd" class="form-control form-control-sm " id="txtGpkd" />
+                <span asp-validation-for="DanhGiaGolfDTO.Gpkd" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.Vat" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.Vat" class="form-control form-control-sm " id="txtVat" />
+                <span asp-validation-for="DanhGiaGolfDTO.Vat" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.SoLuongSanGolf" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.SoLuongSanGolf" class="form-control form-control-sm " id="txtSoLuongSanGolf" />
+                <span asp-validation-for="DanhGiaGolfDTO.SoLuongSanGolf" class="text-danger"></span>
+            </div>
+            
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.DienTichSanGolf" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.DienTichSanGolf" class="form-control form-control-sm " id="txtDienTichSanGolf" />
+                <span asp-validation-for="DanhGiaGolfDTO.DienTichSanGolf" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.ViTri" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.ViTri" class="form-control form-control-sm " id="txtViTri" />
+                <span asp-validation-for="DanhGiaGolfDTO.ViTri" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.MucGiaPhi" class="control-label" for="txtMucGiaPhi"></label>
+                <input asp-for="DanhGiaGolfDTO.MucGiaPhi" class="form-control form-control-sm " id="txtMucGiaPhi" />
+                <span asp-validation-for="DanhGiaGolfDTO.MucGiaPhi" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.CoNhaHang" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.CoNhaHang" class="form-control form-control-sm " id="ckCoNhaHang" type="checkbox" />
+                <span asp-validation-for="DanhGiaGolfDTO.CoNhaHang" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.CoXeDien" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.CoXeDien" class="form-control form-control-sm " id="ckCoXeDien" type="checkbox" />
+                <span asp-validation-for="DanhGiaGolfDTO.CoXeDien" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaGolfDTO.CoHoTroTot" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.CoHoTroTot" class="form-control form-control-sm " id="ckCoHoTroTot" type="checkbox" />
+                <span asp-validation-for="DanhGiaGolfDTO.CoHoTroTot" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-10">
+                <label asp-for="DanhGiaGolfDTO.KhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.KhaoSatThucTe" class="form-control form-control-sm " id="ckKhaoSatThucTe" type="checkbox" />
+                <span asp-validation-for="DanhGiaGolfDTO.KhaoSatThucTe" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaGolfDTO.KqDat" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.KqDat" class="form-control form-control-sm " id="txtKqDat" />
+                <span asp-validation-for="DanhGiaGolfDTO.KqDat" class="text-danger"></span>
+            </div>
+            
+            <div class="col-md-3">
+                <label asp-for="DanhGiaGolfDTO.KqKhaoSatThem" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.KqKhaoSatThem" class="form-control form-control-sm " id="txtKqKhaoSatThem" />
+                <span asp-validation-for="DanhGiaGolfDTO.KqKhaoSatThem" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaGolfDTO.TiemNang" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
+                <span asp-validation-for="DanhGiaGolfDTO.TiemNang" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaGolfDTO.TaiKy" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
+                <span asp-validation-for="DanhGiaGolfDTO.TaiKy" class="text-danger"></span>
+            </div>
+            
+        </div>
+        
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaGolfDTO.NguoiDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaGolfDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
+                <span asp-validation-for="DanhGiaGolfDTO.NguoiDanhGia" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" id="btnCapNhatGolfPartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnCapNhatGolfPartial_Back"><i class="fas fa-backward "></i> Back</button>
+        </div>
+    </div>
+</form>
+
+@*<script src="~/js/Admin/Supplier/indexController"></script>*@
+
+<script>
+    $('#btnCapNhatGolfPartial_Back').off('click').on('click', function(){
+        $('#divGolf').show(500);
+        $('#ThemMoiGolf_Partial').hide(500);
+        $('#CapNhatGolf_Partial').hide(500);
+    })
+
+    $('#btnCapNhatGolfPartial_Save').off('click').on('click', function () {
+
+        if ($('#frmCapNhatGolfPartial').valid()) {
+            var golf = $('#frmCapNhatGolfPartial').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhGiaGolf/CapNhatGolf_Partial",
+                data: golf,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+
+                        toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
+
+                        $('#ThemMoiGolf_Partial').hide(500);
+                        $('#CapNhatGolf_Partial').hide(500);
+
+                        var supplierId = '@Model.SupplierDTO.Code';
+
+                        GolfTbl(supplierId);
+                    }
+                    else {
+                        toastr.error(response.message);
+
+                    }
+                }
+            });
+        }
+
+    });
+</script>
