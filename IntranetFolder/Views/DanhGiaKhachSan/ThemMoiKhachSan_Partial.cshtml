@@ -10,13 +10,15 @@
 
             <div class="col-md-4">
                 <label asp-for="DanhGiaKhachSanDTO.TenNcu" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly/>
+                <input asp-for="DanhGiaKhachSanDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly />
                 <span asp-validation-for="DanhGiaKhachSanDTO.TenNcu" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
                 <label asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
-                <input asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="form-control form-control-sm " id="txtTieuChuanSao" />
+                <select asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="form-control form-control-sm input-sm "
+                        asp-items="@(new SelectList(Model.LoaiSaos))" id="ddlTieuChuanSao">
+                </select>
                 <span asp-validation-for="DanhGiaKhachSanDTO.TieuChuanSao" class="text-danger"></span>
             </div>
 
@@ -123,7 +125,7 @@
                 <input asp-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="txtDongYduaVaoDsncu" type="checkbox" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="text-danger"></span>
             </div>
-            
+
             <div class="col-md-3">
                 <label asp-for="DanhGiaKhachSanDTO.TiemNang" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
@@ -135,9 +137,9 @@
                 <input asp-for="DanhGiaKhachSanDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.TaiKy" class="text-danger"></span>
             </div>
-            
+
         </div>
-        
+
         <div class="form-group row">
 
             <div class="col-md-3">

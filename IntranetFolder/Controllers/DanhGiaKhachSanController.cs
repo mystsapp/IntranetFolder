@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Common;
+using Data.Models;
 using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
@@ -57,6 +58,7 @@ namespace IntranetFolder.Controllers
             DanhGiaKhachSanVM.SupplierDTO = await _danhGiaKhachSanService.GetSupplierByIdAsync(supplierId);
             DanhGiaKhachSanVM.DanhGiaKhachSanDTO.SupplierId = supplierId;
             DanhGiaKhachSanVM.DanhGiaKhachSanDTO.TenNcu = DanhGiaKhachSanVM.SupplierDTO.Tengiaodich;
+            DanhGiaKhachSanVM.LoaiSaos = SD.LoaiSao();
             return PartialView(DanhGiaKhachSanVM);
         }
 
@@ -128,6 +130,7 @@ namespace IntranetFolder.Controllers
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            DanhGiaKhachSanVM.LoaiSaos = SD.LoaiSao();
 
             return PartialView(DanhGiaKhachSanVM);
         }

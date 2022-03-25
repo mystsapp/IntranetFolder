@@ -98,6 +98,7 @@ namespace Model
         [Display(Name = "Người trình ký")]
         public string NguoiTrinhKy { get; set; }
 
+        [Display(Name = "Ngày trình ký")]
         public DateTime? NgayTrinhKy { get; set; }
 
         public LoaiDvDTO LoaiDvDTO { get; set; }

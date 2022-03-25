@@ -72,6 +72,7 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="DichVu1DTO.SupplierId" />
                 <input type="hidden" asp-for="Page" />
+                <input type="hidden" asp-for="SearchString" />
                 <input type="hidden" asp-for="DichVu1DTO.StringImageUrls" />
                 @*<input type="hidden" asp-for="StrUrl" />*@
                 <!--Thông tin về tài chánh-->
@@ -222,6 +223,7 @@
     <script src="~/js/Admin/Home/indexController.js"></script>
     <script src="~/js/Admin/serviceController.js"></script>
 *@
+
 <script>
     //Date range picker
     $('#txtThoiGianHd').daterangepicker({
@@ -229,6 +231,12 @@
                             format: 'DD/MM/YYYY'
                             }
                  })
+
+    //// summernote
+    //$('#txtNoiDung').summernote({
+    //    height: 100,
+    //    toolbar: false
+    //});
 </script>
 
 <!-- select2 and multi select2 (bootstrap4)-->

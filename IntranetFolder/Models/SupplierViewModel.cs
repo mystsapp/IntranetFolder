@@ -20,6 +20,7 @@ namespace IntranetFolder.Models
         public IEnumerable<TapDoanDTO> TapDoanDTOs { get; set; }
         public int Page { get; set; }
         public string StrUrl { get; set; }
+        public string SearchString { get; set; }
         public List<string> LoaiSaos { get; set; }
     }
 }

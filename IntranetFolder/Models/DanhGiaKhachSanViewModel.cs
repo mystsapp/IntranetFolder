@@ -16,6 +16,7 @@ namespace IntranetFolder.Models
         public IEnumerable<DanhGiaKhachSanDTO> DanhGiaKhachSanDTOs { get; set; }
         public DanhGiaKhachSanDTO DanhGiaKhachSanDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
+        public List<string> LoaiSaos { get; set; }
 
         public int Page { get; set; }
         public string StrUrl { get; set; }

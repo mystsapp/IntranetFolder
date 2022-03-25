@@ -27,10 +27,10 @@
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().TenNcu)</th>
                 @*<th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DiaChi)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DienThoai)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Fax)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Email)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Website)</th>*@
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().DienThoai)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Fax)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Email)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Website)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().TieuChuanSao)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Gpkd)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaKhachSanDTOs.FirstOrDefault().Vat)</th>
@@ -65,7 +65,7 @@
                             <div class="btn-group text-white" role="group">
                                 <a class="text-blue btnExWordNh" title="Export to word" asp-action="ExportToWord_KhachSan" asp-controller="DanhGiaKhachSan" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
 
-                                                    <span class="text-dark"> | </span>
+                                <span class="text-dark"> | </span>
 
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
@@ -101,10 +101,10 @@
 
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
                         @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
                         <td class="tdVal" data-id="@item.Id">
                             @if (item.Gpkd == true)

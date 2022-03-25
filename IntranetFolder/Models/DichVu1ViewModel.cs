@@ -29,6 +29,7 @@ namespace IntranetFolder.Models
         public TinhDTO TinhDTO { get; set; }
         public int Page { get; set; }
         public string StrUrl { get; set; }
+        public string SearchString { get; set; }
 
         //[Remote("IsStringNameAvailable", "TinhTP", ErrorMessage = "Mã này đã tồn tại.")]
         //[Required(ErrorMessage = "Mã tỉnh không được để trống.")]

@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Common;
+using Data.Models;
 using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
@@ -57,6 +58,7 @@ namespace IntranetFolder.Controllers
             DanhGiaGolfVM.SupplierDTO = await _danhGiaGolfService.GetSupplierByIdAsync(supplierId);
             DanhGiaGolfVM.DanhGiaGolfDTO.SupplierId = supplierId;
             DanhGiaGolfVM.DanhGiaGolfDTO.TenNcu = DanhGiaGolfVM.SupplierDTO.Tengiaodich;
+            DanhGiaGolfVM.LoaiSaos = SD.LoaiSao();
             return PartialView(DanhGiaGolfVM);
         }
 
@@ -128,6 +130,7 @@ namespace IntranetFolder.Controllers
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            DanhGiaGolfVM.LoaiSaos = SD.LoaiSao();
 
             return PartialView(DanhGiaGolfVM);
         }
@@ -208,74 +211,74 @@ namespace IntranetFolder.Controllers
             }
         }
 
-        //public async Task<IActionResult> ExportToWord_KhachSan(string supplierId, long id, string strUrl)
-        //{
-        //    // from login session
-        //    var user = HttpContext.Session.GetSingle<User>("loginUser");
+        public async Task<IActionResult> ExportToWord_Golf(string supplierId, long id, string strUrl)
+        {
+            // from login session
+            var user = HttpContext.Session.GetSingle<User>("loginUser");
 
-        //    if (id == 0)
-        //    {
-        //        ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
-        //        return View("~/Views/Shared/NotFound.cshtml");
-        //    }
-        //    var supplierDTO = await _danhGiaGolfService.GetSupplierByIdAsync(supplierId);
-        //    if (string.IsNullOrEmpty(supplierId) || supplierDTO == null)
-        //    {
-        //        ViewBag.ErrorMessage = "Supplier này không tồn tại.";
-        //        return View("~/Views/Shared/NotFound.cshtml");
-        //    }
+            if (id == 0)
+            {
+                ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+            var supplierDTO = await _danhGiaGolfService.GetSupplierByIdAsync(supplierId);
+            if (string.IsNullOrEmpty(supplierId) || supplierDTO == null)
+            {
+                ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
 
-        //    TapDoanDTO tapDoanDTO = await _danhGiaGolfService.GetTapDoanByIdAsync(supplierDTO.TapDoanId);
-        //    var DanhGiaGolfDTO = await _danhGiaGolfService.GetByIdAsync(id);
+            TapDoanDTO tapDoanDTO = await _danhGiaGolfService.GetTapDoanByIdAsync(supplierDTO.TapDoanId);
+            var DanhGiaGolfDTO = await _danhGiaGolfService.GetByIdAsync(id);
 
-        //    if (DanhGiaGolfDTO == null)
-        //    {
-        //        ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
-        //        return View("~/Views/Shared/NotFound.cshtml");
-        //    }
-        //    var loaiDvDTO = _danhGiaGolfService.GetAllLoaiDv().Where(x => x.Id == DanhGiaGolfDTO.LoaiDvid).FirstOrDefault();
+            if (DanhGiaGolfDTO == null)
+            {
+                ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
+                return View("~/Views/Shared/NotFound.cshtml");
+            }
+            var loaiDvDTO = _danhGiaGolfService.GetAllLoaiDv().Where(x => x.Id == DanhGiaGolfDTO.LoaiDvid).FirstOrDefault();
 
-        //    DocX doc = null;
-        //    string webRootPath = _webHostEnvironment.WebRootPath;
-        //    string fileName = webRootPath + @"\WordTemplates\M01-DGNCU-KS.docx";
-        //    doc = DocX.Load(fileName);
+            DocX doc = null;
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string fileName = webRootPath + @"\WordTemplates\M01g -DGNCU-GOLF.docx";
+            doc = DocX.Load(fileName);
 
-        //    doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
-        //    doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
-        //    doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
-        //    doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));
-        //    doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
-        //    doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
+            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
+            doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
+            doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
+            doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));
+            doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
+            doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
 
-        //    doc.AddCustomProperty(new CustomProperty("TieuChuanSao", DanhGiaGolfDTO.TieuChuanSao));
-        //    doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", DanhGiaGolfDTO.Gpkd == true ? "Có" : "Không"));
-        //    doc.AddCustomProperty(new CustomProperty("VAT", DanhGiaGolfDTO.Vat == true ? "Có" : "Không"));
-        //    doc.AddCustomProperty(new CustomProperty("HoBoi", DanhGiaGolfDTO.CoHoBoi == true ? "Có" : "Không"));
-        //    doc.AddCustomProperty(new CustomProperty("BaiBienRieng", DanhGiaGolfDTO.CoBien == true ? "Có" : "Không"));
-        //    doc.AddCustomProperty(new CustomProperty("BaiDoXe", !string.IsNullOrEmpty(DanhGiaGolfDTO.CoBaiDoXe) ? "Có" : "Không"));
-        //    doc.AddCustomProperty(new CustomProperty("PhongNoiBo", DanhGiaGolfDTO.CoBoTriPhongChoNb));
-        //    doc.AddCustomProperty(new CustomProperty("SoLuongPhong", DanhGiaGolfDTO.SoLuongPHong));
-        //    doc.AddCustomProperty(new CustomProperty("SoLuongNhaHang", DanhGiaGolfDTO.SLNhaHang));
-        //    doc.AddCustomProperty(new CustomProperty("SoChoPhongHop", DanhGiaGolfDTO.SoChoPhongHop));
-        //    doc.AddCustomProperty(new CustomProperty("ViTri", DanhGiaGolfDTO.ViTri));
-        //    doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaGolfDTO.DaCoKhaoSatThucTe == true ? "Có" : "Không"));
-        //    doc.AddCustomProperty(new CustomProperty("DatYeuCau", DanhGiaGolfDTO.KqDat == true ? "Có" : ""));
-        //    doc.AddCustomProperty(new CustomProperty("KhaoSatThem", !string.IsNullOrWhiteSpace(DanhGiaGolfDTO.KqKhaoSatThem) ? "Có" : ""));
-        //    doc.AddCustomProperty(new CustomProperty("TaiKy", DanhGiaGolfDTO.TaiKy == true ? "Có" : ""));
-        //    doc.AddCustomProperty(new CustomProperty("TiemNang", DanhGiaGolfDTO.TiemNang == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TieuChuanSao", DanhGiaGolfDTO.TieuChuanSao.Value.ToString()));
+            doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", DanhGiaGolfDTO.Gpkd == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("VAT", DanhGiaGolfDTO.Vat == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("ViTri", DanhGiaGolfDTO.ViTri));
+            doc.AddCustomProperty(new CustomProperty("SoLuongSanGolf", DanhGiaGolfDTO.SoLuongSanGolf.Value.ToString()));
+            doc.AddCustomProperty(new CustomProperty("DienTichSanGolf", DanhGiaGolfDTO.DienTichSanGolf)); // ?
+            doc.AddCustomProperty(new CustomProperty("MucGiaPhi", DanhGiaGolfDTO.MucGiaPhi));
+            doc.AddCustomProperty(new CustomProperty("CoNhaHang", DanhGiaGolfDTO.CoNhaHang ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("CoXeDien", DanhGiaGolfDTO.CoXeDien ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("CoHoTroTot", DanhGiaGolfDTO.CoHoTroTot ? "Có" : "Không"));
 
-        //    doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
-        //    doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaGolfDTO.KhaoSatThucTe ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("DatYeuCau", DanhGiaGolfDTO.KqDat == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThem", DanhGiaGolfDTO.KqKhaoSatThem ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TaiKy", DanhGiaGolfDTO.TaiKy ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TiemNang", DanhGiaGolfDTO.TiemNang ? "Có" : ""));
 
-        //    doc.AddList("First Item", 0, ListItemType.Numbered);
+            doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
+            doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
 
-        //    MemoryStream stream = new MemoryStream();
+            doc.AddList("First Item", 0, ListItemType.Numbered);
 
-        //    // Saves the Word document to MemoryStream
-        //    doc.SaveAs(stream);
-        //    stream.Position = 0;
-        //    // Download Word document in the browser
-        //    return File(stream, "application/msword", "khachsan_" + user.Username + "_" + DateTime.Now + ".docx");
-        //}
+            MemoryStream stream = new MemoryStream();
+
+            // Saves the Word document to MemoryStream
+            doc.SaveAs(stream);
+            stream.Position = 0;
+            // Download Word document in the browser
+            return File(stream, "application/msword", "golf_" + user.Username + "_" + DateTime.Now + ".docx");
+        }
     }
 }

@@ -53,11 +53,11 @@ var indexController = {
             $('#tabDichVu').show(500);
         });
     },
-    Load_DichVu1Partial: function (id, page) {
+    Load_DichVu1Partial: function (id, page, searchString) {
         //strUrl = $('#hidStrUrl').val();
         var url = '/DichVu1/DichVu1Partial';
 
-        $.get(url, { supplierId: id, page: page }, function (response) {
+        $.get(url, { supplierId: id, page: page, searchString: searchString }, function (response) {
             $('#dichVu1_Tbl').html(response);
             $('#dichVu1_Tbl').show(500);
         });
@@ -65,8 +65,10 @@ var indexController = {
     TdVal_Click: function (id) {
         // page
         var page = $('.active span').text();
+        // hidSearchString
+        var searchString = $('#hidSearchString').val();
 
-        indexController.Load_DichVu1Partial(id, page);
+        indexController.Load_DichVu1Partial(id, page, searchString);
         indexController.Load_DichVuPartial(id); // danhgia DV
     },
     GetThanhPhoByTinh: function (tinhTPId) {

@@ -292,7 +292,8 @@
         });
     });
 
-    $('#ddlTinhTP').off('change').on('change', function(){
+    //$('#ddlTinhTP').off('change').on('change', function(){
+    $('#ddlTinhTP').change(function(){
         var tinhTPId = $(this).val();
 
         indexController.GetThanhPhoByTinh(tinhTPId);

@@ -75,6 +75,7 @@
                 <input type="hidden" asp-for="DichVu1DTO.NgayTao" />
                 <input type="hidden" asp-for="DichVu1DTO.SupplierId" />
                 <input type="hidden" asp-for="Page" />
+                <input type="hidden" asp-for="SearchString" />
                 <input type="hidden" asp-for="DichVu1DTO.StringImageUrls" />
                 @*<input type="hidden" asp-for="StrUrl" />*@
                 <!--Thông tin về tài chánh-->
@@ -235,6 +236,11 @@
                             format: 'DD/MM/YYYY'
                             }
                  })
+    //             // summernote
+    //$('#txtNoiDung').summernote({
+    //    height: 100,
+    //    toolbar: false
+    //});
 </script>
 
 <!-- select2 and multi select2 (bootstrap4)-->

@@ -214,6 +214,8 @@
 <div id="tabDichVu">
 </div>
 
+<input type="hidden" id="hidSearchString" value="@Model.SearchString" />
+
 @section Scripts{
 
     <script src="~/js/Admin/Supplier/indexController.js"></script>
@@ -234,7 +236,7 @@
             id_Redirect_Class.addClass("hoverClass");
         }
 
-        indexController.Load_DichVu1Partial(id_Redirect, '@Model.Page');
+        indexController.Load_DichVu1Partial(id_Redirect, '@Model.Page', '@Model.SearchString');
         indexController.Load_DichVuPartial(id_Redirect);
     }
     // giữ trạng thái

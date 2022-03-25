@@ -40,7 +40,7 @@ namespace IntranetFolder.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DichVu1Partial(string supplierId, int page)
+        public async Task<IActionResult> DichVu1Partial(string supplierId, int page, string searchString)
         {
             //await _dichVu1Service.DeleteHinhanh(41);
             var supplierDTO = await _dichVu1Service.GetSupplierByIdAsync(supplierId);
@@ -50,13 +50,14 @@ namespace IntranetFolder.Controllers
                 return Content("Supplier này không tồn tại.");
             }
             DichVu1VM.Page = page;
+            DichVu1VM.SearchString = searchString;
             DichVu1VM.SupplierDTO = supplierDTO;
             DichVu1VM.DichVu1DTOs = await _dichVu1Service.GetDichVu1By_SupplierId(supplierId);
 
             return PartialView(DichVu1VM);
         }
 
-        public async Task<IActionResult> EditDichVu1(string id, string supplierId, int page, string failMessage, DichVu1DTO dichVu1DTO)
+        public async Task<IActionResult> EditDichVu1(string id, string supplierId, int page, string failMessage, DichVu1DTO dichVu1DTO, string searchString)
         {
             string stringImageUrls = "";
             if (TempData["stringImageUrls"] != null)
@@ -66,6 +67,7 @@ namespace IntranetFolder.Controllers
 
             //int page = 0;
             DichVu1VM.Page = page;
+            DichVu1VM.SearchString = searchString;
             if (TempData["page"] != null)
             {
                 DichVu1VM.Page = (int)TempData["page"];
@@ -252,7 +254,17 @@ namespace IntranetFolder.Controllers
 
                 if (t.LoaiDvid != DichVu1VM.DichVu1DTO.LoaiDvid)
                 {
-                    temp += String.Format("- LoaiDvid thay đổi: {0}->{1}", t.Website, DichVu1VM.DichVu1DTO.LoaiDvid);
+                    temp += String.Format("- LoaiDvid thay đổi: {0}->{1}", t.LoaiDvid, DichVu1VM.DichVu1DTO.LoaiDvid);
+                }
+
+                if (t.NguoiTrinhKy != DichVu1VM.DichVu1DTO.NguoiTrinhKy)
+                {
+                    temp += String.Format("- NguoiTrinhKy thay đổi: {0}->{1}", t.NguoiTrinhKy, DichVu1VM.DichVu1DTO.NguoiTrinhKy);
+                }
+
+                if (t.NgayTrinhKy != DichVu1VM.DichVu1DTO.NgayTrinhKy)
+                {
+                    temp += String.Format("- NguoiTrinhKy thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NguoiTrinhKy, DichVu1VM.DichVu1DTO.NguoiTrinhKy);
                 }
 
                 #endregion log file
@@ -300,7 +312,8 @@ namespace IntranetFolder.Controllers
                     return RedirectToAction(nameof(Index), "Supplier", new
                     {
                         id = DichVu1VM.DichVu1DTO.SupplierId,
-                        page = DichVu1VM.Page
+                        page = DichVu1VM.Page,
+                        searchString = DichVu1VM.SearchString
                     });
                 }
                 catch (Exception ex)
@@ -321,9 +334,10 @@ namespace IntranetFolder.Controllers
 
         //public DichVu1DTO dichVu1DTO;
 
-        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, string failMessage, DichVu1DTO dichVu1DTO, int page)
+        public async Task<IActionResult> ThemMoiDichVu1(string supplierId, string failMessage, DichVu1DTO dichVu1DTO, int page, string searchString)
         {
             DichVu1VM.Page = page;
+            DichVu1VM.SearchString = searchString;
             string stringImageUrls = "";
             if (TempData["stringImageUrls"] != null)
             {
@@ -545,7 +559,8 @@ namespace IntranetFolder.Controllers
             return RedirectToAction(nameof(Index), "Supplier", new
             {
                 id = DichVu1VM.DichVu1DTO.SupplierId,
-                page = DichVu1VM.Page
+                page = DichVu1VM.Page,
+                searchString = DichVu1VM.SearchString
             });
         }
 

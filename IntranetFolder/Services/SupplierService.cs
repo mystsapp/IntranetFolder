@@ -259,7 +259,7 @@ namespace IntranetFolder.Services
 
         public async Task<IEnumerable<SupplierDTO>> FindAsync(string searchString)
         {
-            var suppliers = await _unitOfWork.supplierRepository.FindAsync(x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+            var suppliers = await _unitOfWork.supplierRepository.FindIncludeOneAsync(y => y.TapDoan, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
                                             (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.ToLower().Contains(searchString.ToLower())) ||
                                             (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
                                             (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||

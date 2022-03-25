@@ -19,7 +19,7 @@
                     @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                     {
                         <a class="btn btn-success btn-sm btn-block"
-                           asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-page="@Model.Page" title="Thêm mới"
+                           asp-action="ThemMoiDichVu1" asp-controller="DichVu1" asp-route-supplierId="@Model.SupplierDTO.Code" asp-route-searchString="@Model.SearchString" asp-route-page="@Model.Page" title="Thêm mới"
                            id="btnThemMoiDichVu1" data-supplierid="@Model.SupplierDTO.Code">
                             <i class="fas fa-plus"></i>
                         </a>
@@ -64,7 +64,7 @@
 
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
-                                    <a class="text-primary btnEditDichVu1" asp-action="EditDichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.MaDv" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
+                                    <a class="text-primary btnEditDichVu1" asp-action="EditDichVu1" asp-controller="DichVu1" title="Cập nhật" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.MaDv" asp-route-searchString="@Model.SearchString" asp-route-page="@Model.Page"><i class="fas fa-edit"></i></a>
 
                                     @*<span class="text-dark"> | </span>*@
 
@@ -105,7 +105,7 @@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DiaChi)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Email)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DienThoai)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NoiDung)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NoiDung)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NguoiLienHe)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Website)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DaKy)</td>
