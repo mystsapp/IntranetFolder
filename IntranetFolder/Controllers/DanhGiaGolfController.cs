@@ -218,7 +218,7 @@ namespace IntranetFolder.Controllers
 
             if (id == 0)
             {
-                ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
+                ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             var supplierDTO = await _danhGiaGolfService.GetSupplierByIdAsync(supplierId);
@@ -233,7 +233,7 @@ namespace IntranetFolder.Controllers
 
             if (DanhGiaGolfDTO == null)
             {
-                ViewBag.ErrorMessage = "Khách sạn này không tồn tại.";
+                ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             var loaiDvDTO = _danhGiaGolfService.GetAllLoaiDv().Where(x => x.Id == DanhGiaGolfDTO.LoaiDvid).FirstOrDefault();

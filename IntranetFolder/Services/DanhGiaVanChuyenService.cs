@@ -37,6 +37,8 @@ namespace IntranetFolder.Services
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
 
         Task<IEnumerable<DanhGiaVanChuyenDTO>> GetDanhGiaVanChuyenBy_SupplierId(string supplierId);
+
+        Task<TapDoanDTO> GetTapDoanByIdAsync(int tapDoanId);
     }
 
     public class DanhGiaVanChuyenService : IDanhGiaVanChuyenService
@@ -238,6 +240,11 @@ namespace IntranetFolder.Services
         {
             return _mapper.Map<IEnumerable<DanhGiaVanChuyen>, IEnumerable<DanhGiaVanChuyenDTO>>
                 (await _unitOfWork.danhGiaVanChuyenRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == supplierId));
+        }
+
+        public async Task<TapDoanDTO> GetTapDoanByIdAsync(int tapDoanId)
+        {
+            return _mapper.Map<TapDoan, TapDoanDTO>(_unitOfWork.tapDoanRepository.GetById(tapDoanId));
         }
     }
 }

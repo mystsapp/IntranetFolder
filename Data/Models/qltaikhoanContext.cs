@@ -632,11 +632,15 @@ namespace Data.Models
             {
                 entity.ToTable("DanhGiaVanChuyen");
 
+                entity.Property(e => e.DanhSachDoiTac).HasMaxLength(250);
+
                 entity.Property(e => e.DiaChi).HasMaxLength(250);
 
                 entity.Property(e => e.DienThoai)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.DoiXeCuNhatMoiNhat).HasMaxLength(150);
 
                 entity.Property(e => e.DoiXeOrLoaiXe).HasMaxLength(150);
 
@@ -650,11 +654,15 @@ namespace Data.Models
 
                 entity.Property(e => e.Gia).HasColumnType("decimal(18, 0)");
 
+                entity.Property(e => e.Gpkd).HasColumnName("GPKD");
+
                 entity.Property(e => e.KhaNangHuyDong).HasMaxLength(150);
 
                 entity.Property(e => e.KinhNghiem).HasMaxLength(50);
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
+                entity.Property(e => e.LoaiXeCoNhieuNhat).HasMaxLength(150);
 
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
@@ -684,6 +692,8 @@ namespace Data.Models
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
                     .HasColumnName("TenNCU");
+
+                entity.Property(e => e.Vat).HasColumnName("VAT");
 
                 entity.Property(e => e.Website)
                     .HasMaxLength(150)
@@ -1562,6 +1572,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
