@@ -22,6 +22,7 @@ namespace Data.Models
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<City> Citys { get; set; }
         public virtual DbSet<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
+        public virtual DbSet<DanhGiaCruise> DanhGiaCruises { get; set; }
         public virtual DbSet<DanhGiaDiemThamQuan> DanhGiaDiemThamQuans { get; set; }
         public virtual DbSet<DanhGiaGolf> DanhGiaGolves { get; set; }
         public virtual DbSet<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
@@ -237,6 +238,77 @@ namespace Data.Models
                     .WithMany(p => p.DanhGiaCamLaos)
                     .HasForeignKey(d => d.SupplierId)
                     .HasConstraintName("FK_DanhGiaCamLao_supplier");
+            });
+
+            modelBuilder.Entity<DanhGiaCruise>(entity =>
+            {
+                entity.ToTable("DanhGiaCruise");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CangDonKhach).HasMaxLength(150);
+
+                entity.Property(e => e.DiaChi).HasMaxLength(250);
+
+                entity.Property(e => e.DienThoai)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Gpkd).HasColumnName("GPKD");
+
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
+                entity.Property(e => e.LoaiTau).HasMaxLength(150);
+
+                entity.Property(e => e.NgaySua).HasColumnType("datetime");
+
+                entity.Property(e => e.NgayTao).HasColumnType("datetime");
+
+                entity.Property(e => e.NguoiDanhGia).HasMaxLength(150);
+
+                entity.Property(e => e.NguoiSua)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NguoiTao)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SoLuongTauTqngay).HasColumnName("SoLuongTauTQNgay");
+
+                entity.Property(e => e.SucChuaTauNguDem).HasMaxLength(150);
+
+                entity.Property(e => e.SucChuaTauTqngay)
+                    .HasMaxLength(150)
+                    .HasColumnName("SucChuaTauTQNgay");
+
+                entity.Property(e => e.SupplierId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("supplierId");
+
+                entity.Property(e => e.TenNcu)
+                    .HasMaxLength(150)
+                    .HasColumnName("TenNCU");
+
+                entity.Property(e => e.Vat).HasColumnName("VAT");
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.DanhGiaCruises)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_DanhGiaCruise_supplier");
             });
 
             modelBuilder.Entity<DanhGiaDiemThamQuan>(entity =>
@@ -1572,6 +1644,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

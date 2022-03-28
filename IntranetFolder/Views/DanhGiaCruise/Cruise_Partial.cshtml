@@ -1,0 +1,220 @@
+﻿@model DanhGiaCruiseViewModel
+@using Data.Models
+@using IntranetFolder.Models
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
+
+<div @*class="pr-2 pl-2"*@ style="overflow-x:auto; overflow-y:auto; min-height: 300px" id="tblCruise">
+    <table class="table mytable text-nowrap text-sm" id="danhGiaCruiseTbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>
+                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                    {
+                        <button type="button" class="btn btn-success btn-sm btn-block"
+                            asp-action="ThemMoiCruise_Partial" title="Thêm mới"
+                            id="btnThemMoiCruise" data-supplierid="@Model.SupplierDTO.Code">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    }
+
+                </th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().TenNcu)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().DiaChi)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().DienThoai)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().Fax)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().Email)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().Website)</th>*@
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().TieuChuanSao)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().Gpkd)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().Vat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().SoLuongTauNguDem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().SucChuaTauNguDem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().LoaiTau)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().SoLuongTauTqngay)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().SucChuaTauTqngay)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().GiaCaHopLy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().CabineCoBanCong)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().CangDonKhach)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().CoHoTroTot)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().KhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().KqDat)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().KqKhaoSatThem)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().TaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().TiemNang)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCruiseDTOs.FirstOrDefault().NguoiDanhGia)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DanhGiaCruiseDTOs != null)
+            {
+                @foreach (var item in Model.DanhGiaCruiseDTOs)
+                {
+
+                    <tr class="Cruise-cursor-pointer @item.Id">
+
+                        <td>
+                            <div class="btn-group text-white" role="group">
+                                <a class="text-blue btnExWordCruise" title="Export to word" asp-action="ExportToWord_Cruise" asp-controller="DanhGiaCruise" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
+
+                                <span class="text-dark"> | </span>
+
+                                @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                {
+                                    <a class="text-primary btnCapNhatGolf" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    @*<span class="text-dark"> | </span>
+
+                                        <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
+                                    <!-- ko cho xóa -->
+                                    <span class="text-dark"> | </span>
+                                }
+
+                                <form asp-action="Delete" asp-controller="DanhGiaCruise" method="post">
+
+                                    <span id="confirmDeleteCruise_@item.Id" style="display: none">
+
+
+                                        <span class="text-dark ">Xoá?</span>
+
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                                        <button type="button" class="btn btn-danger btn-xs btnXoaCruise" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteCruise('@item.Id', false)">No</button>
+                                    </span>
+                                </form>
+                                <span id="deleteSpan_@item.Id">
+                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                    {
+                                        <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteCruise('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                    }
+
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Gpkd == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">
+                            @if (item.Vat == true)
+                            {
+                                <span class="badge badge-success">Có</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Không</span>
+                            }
+                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuongTauNguDem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SucChuaTauNguDem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.LoaiTau)</td> <!--Tàu sắt – nội thất gỗ Bái Tử Long – Hạ Long -->
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuongTauTqngay)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SucChuaTauTqngay)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.GiaCaHopLy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CabineCoBanCong)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CangDonKhach)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoHoTroTot)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhaoSatThucTe)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqDat)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+                
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // delete
+    function confirmDeleteCruise(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteCruiseSpan = 'confirmDeleteCruise_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteCruiseSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteCruiseSpan).hide();
+        }
+    }
+
+    // btnThemMoiCruise --> khachsan_partial
+    $('#btnThemMoiCruise').off('click').on('click', function () {
+        $('#divGolf').hide(500);
+        $('#CapNhatGolf_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        $.get('/DanhGiaCruise/ThemMoiCruise_Partial', { supplierId: supplierId }, function (response) {
+            $('#ThemMoiCruise_Partial').html(response);
+            $('#ThemMoiCruise_Partial').show(500);
+
+        });
+    })
+
+    // btnCapNhatGolf
+    $('.btnCapNhatGolf').click(function (e) {
+        e.preventDefault();
+
+        $('#divGolf').hide(500);
+        $('#ThemMoiCruise_Partial').hide(500);
+
+        var supplierId = $(this).data('supplierid');
+        var id = $(this).data('id');
+        $.get('/DanhGiaCruise/CapNhatGolf_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatGolf_Partial').html(response);
+            $('#CapNhatGolf_Partial').show(500);
+
+        });
+    })
+
+    // btnXoaCruise
+    $('.btnXoaCruise').off('click').on('click',function () {
+
+        var page = @Model.Page;
+        var supplierid = '@Model.SupplierDTO.Code';
+        var id = $(this).data('id');
+
+        id = $(this).data('id');
+
+        var url = '/DanhGiaCruise/Delete';
+        $.post(url, { id: id }, function (response) {
+
+            if (response) {
+                toastr.success('Xoá thành công', 'Xoá!');
+                GolfTbl(supplierid);
+            }
+        });
+
+    });
+    // btnXoaNhaHang
+</script>

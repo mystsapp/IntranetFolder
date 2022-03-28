@@ -39,6 +39,7 @@ namespace Data.Models
         public bool? TiemNang { get; set; }
         public bool? TaiKy { get; set; }
         public string NguoiDanhGia { get; set; }
+        public string LogFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }
     }

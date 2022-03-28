@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Model
 {
-    public class DanhGiaGolfDTO
+    public class DanhGiaCruiseDTO
     {
         public long Id { get; set; }
 
         [Display(Name = "Tên NCU")]
-        [Remote("IsStringNameAvailable", "DanhGiaGolf", ErrorMessage = "Tên này đã tồn tại.", AdditionalFields = "Id")]
+        [Remote("IsStringNameAvailable", "DanhGiaCruise", ErrorMessage = "Tên này đã tồn tại.", AdditionalFields = "Id")]
         [Required(ErrorMessage = "Tên không được để trống.")]
         public string TenNcu { get; set; }
 
@@ -34,28 +34,34 @@ namespace Model
         [Display(Name = "VAT")]
         public bool Vat { get; set; }
 
-        [Display(Name = "Vị trí")]
-        public string ViTri { get; set; }
+        [Display(Name = "SL tàu ngủ đêm")]
+        public int SoLuongTauNguDem { get; set; }
 
-        [Display(Name = "SL sân Golf")]
-        public int? SoLuongSanGolf { get; set; }
+        [Display(Name = "Sức chứa tàu ngủ đêm")]
+        public string SucChuaTauNguDem { get; set; }
 
-        [Display(Name = "DT sân Golf")]
-        public string DienTichSanGolf { get; set; }
+        [Display(Name = "Loại tàu")]
+        public string LoaiTau { get; set; }
 
-        [Display(Name = "Mức giá phí")]
-        public string MucGiaPhi { get; set; }
+        [Display(Name = "SL tau TQ ngày")]
+        public int SoLuongTauTqngay { get; set; }
 
-        [Display(Name = "Có nhà hàng")]
-        public bool CoNhaHang { get; set; }
+        [Display(Name = "Sức chứa tàu TQ ngày")]
+        public string SucChuaTauTqngay { get; set; }
 
-        [Display(Name = "Có xe điện")]
-        public bool CoXeDien { get; set; }
+        [Display(Name = "Giá cả hợp lý")]
+        public bool GiaCaHopLy { get; set; }
+
+        [Display(Name = "Cabine có ban công")]
+        public bool CabineCoBanCong { get; set; }
+
+        [Display(Name = "Cảng đón khách")]
+        public string CangDonKhach { get; set; }
 
         [Display(Name = "Có hổ trợ tốt")]
         public bool CoHoTroTot { get; set; }
 
-        [Display(Name = "Khảo sát thực tế")]
+        [Display(Name = "Khảo sát thự tế")]
         public bool KhaoSatThucTe { get; set; }
 
         [Display(Name = "KQ đạt")]
@@ -69,8 +75,8 @@ namespace Model
         public DateTime? NgaySua { get; set; }
         public string NguoiSua { get; set; }
 
-        [Display(Name = "Loại dv")]
-        public int? LoaiDvid { get; set; }
+        [Display(Name = "Loai dv")]
+        public int LoaiDvid { get; set; }
 
         [Display(Name = "Supplier")]
         public string SupplierId { get; set; }
@@ -83,6 +89,8 @@ namespace Model
 
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
+
+        public string LogFile { get; set; }
 
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }

@@ -37,6 +37,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="golf-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_golf" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Golf</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="cruise-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_cruise" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cruise</a>
+                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -289,7 +292,7 @@
                 </div>
                 <!-- tab_vanChuyen -->
 
-                <!-- tab_vanChuyen -->
+                <!-- tab_golf -->
                 <div class="tab-pane fade" id="tab_golf" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
                     <div id="divGolf">
                     </div>
@@ -300,7 +303,20 @@
                     <div id="CapNhatGolf_Partial">
                     </div>
                 </div>
-                <!-- tab_vanChuyen -->
+                <!-- tab_golf -->
+
+                <!-- tab_cruise -->
+                <div class="tab-pane fade" id="tab_cruise" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                    <div id="divCruise">
+                    </div>
+
+                    <div id="ThemMoiCruise_Partial">
+                    </div>
+
+                    <div id="CapNhatCruise_Partial">
+                    </div>
+                </div>
+                <!-- tab_golf -->
             </div>
         </div>
         <!-- /.card -->
@@ -499,6 +515,27 @@
             $('#divGolf').show(500);
             $('#CapNhatGolf_Partial').hide(500);
             $('#ThemMoiGolf_Partial').hide(500);
+
+        });
+
+    }
+    
+    // cruise-tab
+    $('#cruise-tab').off('click').on('click', function () {
+
+        var supplierId = $(this).data('supplierid');
+        CruiseTbl(supplierId);
+    });
+
+
+    function CruiseTbl(supplierId) {
+
+        $.get('/DanhGiaCruise/Cruise_Partial', { supplierId: supplierId }, function (response) {
+
+            $('#divCruise').html(response);
+            $('#divCruise').show(500);
+            $('#CapNhatCruise_Partial').hide(500);
+            $('#ThemMoiCruise_Partial').hide(500);
 
         });
 

@@ -268,7 +268,7 @@ namespace IntranetFolder.Controllers
 
             doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
             doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
-            doc.AddCustomProperty(new CustomProperty("Name", DateTime.Now.Year));
+            doc.AddCustomProperty(new CustomProperty("Nam", DateTime.Now.Year));
 
             doc.AddList("First Item", 0, ListItemType.Numbered);
 

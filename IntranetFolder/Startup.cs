@@ -52,6 +52,7 @@ namespace IntranetFolder
             services.AddTransient<IDanhGiaCamLaoRepository, DanhGiaCamLaoRepository>();
             services.AddTransient<IDanhGiaVanChuyenRepository, DanhGiaVanChuyenRepository>();
             services.AddTransient<IDanhGiaGolfRepository, DanhGiaGolfRepository>();
+            services.AddTransient<IDanhGiaCruiseRepository, DanhGiaCruiseRepository>();
             services.AddTransient<IDichVu1Repository, DichVu1Repository>();
             services.AddTransient<IVungMienRepository, VungMienRepository>();
             services.AddTransient<IHinhAnhRepository, HinhAnhRepository>();
@@ -76,6 +77,7 @@ namespace IntranetFolder
             services.AddTransient<IDanhGiaCamLaoService, DanhGiaCamLaoService>();
             services.AddTransient<IDanhGiaVanChuyenService, DanhGiaVanChuyenService>();
             services.AddTransient<IDanhGiaGolfService, DanhGiaGolfService>();
+            services.AddTransient<IDanhGiaCruiseService, DanhGiaCruiseService>();
             services.AddTransient<IDichVu1Service, DichVu1Service>();
             services.AddTransient<IHinhAnhService, HinhAnhService>();
             services.AddTransient<ITapDoanService, TapDoanService>();

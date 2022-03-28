@@ -23,6 +23,7 @@ namespace Data.Repository
         IDanhGiaCamLaoRepository danhGiaCamLaoRepository { get; }
         IDanhGiaVanChuyenRepository danhGiaVanChuyenRepository { get; }
         IDanhGiaGolfRepository danhGiaGolfRepository { get; }
+        IDanhGiaCruiseRepository danhGiaCruiseRepository { get; }
         IDichVu1Repository dichVu1Repository { get; }
         IVungMienRepository vungMienRepository { get; }
         IHinhAnhRepository hinhAnhRepository { get; }
@@ -61,6 +62,7 @@ namespace Data.Repository
             danhGiaCamLaoRepository = new DanhGiaCamLaoRepository(_context);
             danhGiaVanChuyenRepository = new DanhGiaVanChuyenRepository(_context);
             danhGiaGolfRepository = new DanhGiaGolfRepository(_context);
+            danhGiaCruiseRepository = new DanhGiaCruiseRepository(_context);
             dichVu1Repository = new DichVu1Repository(_context);
             vungMienRepository = new VungMienRepository(_context);
             hinhAnhRepository = new HinhAnhRepository(_context);
@@ -113,6 +115,8 @@ namespace Data.Repository
         public ITapDoanRepository tapDoanRepository { get; }
 
         public IDanhGiaGolfRepository danhGiaGolfRepository { get; }
+
+        public IDanhGiaCruiseRepository danhGiaCruiseRepository { get; }
 
         public async Task<int> Complete()
         {

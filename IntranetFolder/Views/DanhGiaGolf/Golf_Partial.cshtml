@@ -58,11 +58,11 @@
                 @foreach (var item in Model.DanhGiaGolfDTOs)
                 {
 
-                            <tr class="khachsan-cursor-pointer @item.Id">
+                            <tr class="golf-cursor-pointer @item.Id">
 
                                 <td>
                                     <div class="btn-group text-white" role="group">
-                                        <a class="text-blue btnExWordGold" title="Export to word" asp-action="ExportToWord_Golf" asp-controller="DanhGiaGolf" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
+                                        <a class="text-blue btnExWordGolf" title="Export to word" asp-action="ExportToWord_Golf" asp-controller="DanhGiaGolf" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
 
                                         <span class="text-dark"> | </span>
 

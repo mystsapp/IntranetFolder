@@ -1,0 +1,187 @@
+﻿@model DanhGiaCruiseViewModel
+
+<form method="post" autocomplete="off" id="frmThemMoiGolfPartial" enctype="multipart/form-data">
+    <div class="pr-4 pl-4 text-sm">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for=DanhGiaCruiseDTO.SupplierId />
+
+        <div class="form-group row">
+
+            <div class="col-md-5">
+                <label asp-for="DanhGiaCruiseDTO.TenNcu" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly />
+                <span asp-validation-for="DanhGiaCruiseDTO.TenNcu" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.TieuChuanSao" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                <select asp-for="DanhGiaCruiseDTO.TieuChuanSao" class="form-control form-control-sm input-sm "
+                        asp-items="@(new SelectList(Model.LoaiSaos))" id="ddlTieuChuanSao">
+                </select>
+                <span asp-validation-for="DanhGiaCruiseDTO.TieuChuanSao" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
+                <label asp-for="DanhGiaCruiseDTO.Gpkd" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.Gpkd" class="form-control form-control-sm " id="txtGpkd" />
+                <span asp-validation-for="DanhGiaCruiseDTO.Gpkd" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
+                <label asp-for="DanhGiaCruiseDTO.Vat" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.Vat" class="form-control form-control-sm " id="txtVat" />
+                <span asp-validation-for="DanhGiaCruiseDTO.Vat" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.SoLuongTauNguDem" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.SoLuongTauNguDem" class="form-control form-control-sm " id="txtSoLuongTauNguDem" />
+                <span asp-validation-for="DanhGiaCruiseDTO.SoLuongTauNguDem" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.SucChuaTauNguDem" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.SucChuaTauNguDem" class="form-control form-control-sm " id="txtSucChuaTauNguDem" />
+                <span asp-validation-for="DanhGiaCruiseDTO.SucChuaTauNguDem" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.LoaiTau" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.LoaiTau" class="form-control form-control-sm " id="txtLoaiTau" />
+                <span asp-validation-for="DanhGiaCruiseDTO.LoaiTau" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.SoLuongTauTqngay" class="control-label" for="txtSoLuongTauTqngay"></label>
+                <input asp-for="DanhGiaCruiseDTO.SoLuongTauTqngay" class="form-control form-control-sm " id="txtSoLuongTauTqngay" />
+                <span asp-validation-for="DanhGiaCruiseDTO.SoLuongTauTqngay" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.SucChuaTauTqngay" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.SucChuaTauTqngay" class="form-control form-control-sm " id="txtSucChuaTauTqngay" />
+                <span asp-validation-for="DanhGiaCruiseDTO.SucChuaTauTqngay" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.GiaCaHopLy" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.GiaCaHopLy" class="form-control form-control-sm " id="ckGiaCaHopLy" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.GiaCaHopLy" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.CabineCoBanCong" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.CabineCoBanCong" class="form-control form-control-sm " id="ckCabineCoBanCong" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.CabineCoBanCong" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.CangDonKhach" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.CangDonKhach" class="form-control form-control-sm " id="txtCangDonKhach" />
+                <span asp-validation-for="DanhGiaCruiseDTO.CangDonKhach" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.CoHoTroTot" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.CoHoTroTot" class="form-control form-control-sm " id="ckCoHoTroTot" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.CoHoTroTot" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.KhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.KhaoSatThucTe" class="form-control form-control-sm " id="txtKhaoSatThucTe" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.KhaoSatThucTe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
+                <label asp-for="DanhGiaCruiseDTO.KqDat" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.KqDat" class="form-control form-control-sm float-left" id="ckKqDat" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.KqDat" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.KqKhaoSatThem" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.KqKhaoSatThem" class="form-control form-control-sm float-left" id="ckKqKhaoSatThem" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.KqKhaoSatThem" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.TaiKy" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.TaiKy" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaCruiseDTO.TiemNang" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
+                <span asp-validation-for="DanhGiaCruiseDTO.TiemNang" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="DanhGiaCruiseDTO.NguoiDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaCruiseDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
+                <span asp-validation-for="DanhGiaCruiseDTO.NguoiDanhGia" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiGolfPartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnThemMoiGolfPartial_Back"><i class="fas fa-backward "></i> Back</button>
+        </div>
+    </div>
+</form>
+
+<script src="~/js/Admin/Supplier/indexController"></script>
+
+<script>
+
+    $('#btnThemMoiGolfPartial_Back').off('click').on('click', function(){
+        $('#divGolf').show(500);
+        $('#ThemMoiGolf_Partial').hide(500);
+        $('#CapNhatGolf_Partial').hide(500);
+    })
+
+    $('#btnThemMoiGolfPartial_Save').off('click').on('click', function () {
+
+        if ($('#frmThemMoiGolfPartial').valid()) {
+            var golf = $('#frmThemMoiGolfPartial').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhGiaGolf/ThemMoiGolf_Partial",
+                data: golf,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status) {
+
+                        toastr.success('Tạo mới thành công!'); // toastr in admin/tour/indexController.js
+
+                        $('#ThemMoiGolf_Partial').hide(500);
+                        $('#CapNhatGolf_Partial').hide(500);
+
+                        var supplierId = '@Model.SupplierDTO.Code';
+
+                        GolfTbl(supplierId);
+                    }
+                    else {
+                        toastr.error(response.message);
+
+                    }
+                }
+            });
+        }
+
+    });
+</script>

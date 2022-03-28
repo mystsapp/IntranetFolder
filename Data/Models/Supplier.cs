@@ -10,6 +10,7 @@ namespace Data.Models
         public Supplier()
         {
             DanhGiaCamLaos = new HashSet<DanhGiaCamLao>();
+            DanhGiaCruises = new HashSet<DanhGiaCruise>();
             DanhGiaDiemThamQuans = new HashSet<DanhGiaDiemThamQuan>();
             DanhGiaGolves = new HashSet<DanhGiaGolf>();
             DanhGiaKhachSans = new HashSet<DanhGiaKhachSan>();
@@ -52,6 +53,7 @@ namespace Data.Models
 
         public virtual TapDoan TapDoan { get; set; }
         public virtual ICollection<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
+        public virtual ICollection<DanhGiaCruise> DanhGiaCruises { get; set; }
         public virtual ICollection<DanhGiaDiemThamQuan> DanhGiaDiemThamQuans { get; set; }
         public virtual ICollection<DanhGiaGolf> DanhGiaGolves { get; set; }
         public virtual ICollection<DanhGiaKhachSan> DanhGiaKhachSans { get; set; }
