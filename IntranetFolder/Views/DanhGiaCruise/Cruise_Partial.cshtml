@@ -70,7 +70,7 @@
 
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
-                                    <a class="text-primary btnCapNhatGolf" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    <a class="text-primary btnCapNhatCruise" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
                                     @*<span class="text-dark"> | </span>
 
                                         <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
@@ -168,10 +168,10 @@
         }
     }
 
-    // btnThemMoiCruise --> khachsan_partial
+    // btnThemMoiCruise
     $('#btnThemMoiCruise').off('click').on('click', function () {
-        $('#divGolf').hide(500);
-        $('#CapNhatGolf_Partial').hide(500);
+        $('#divCruise').hide(500);
+        $('#CapNhatCruise_Partial').hide(500);
 
         var supplierId = $(this).data('supplierid');
         $.get('/DanhGiaCruise/ThemMoiCruise_Partial', { supplierId: supplierId }, function (response) {
@@ -181,18 +181,18 @@
         });
     })
 
-    // btnCapNhatGolf
-    $('.btnCapNhatGolf').click(function (e) {
+    // btnCapNhatCruise
+    $('.btnCapNhatCruise').click(function (e) {
         e.preventDefault();
 
-        $('#divGolf').hide(500);
+        $('#divCruise').hide(500);
         $('#ThemMoiCruise_Partial').hide(500);
 
         var supplierId = $(this).data('supplierid');
         var id = $(this).data('id');
-        $.get('/DanhGiaCruise/CapNhatGolf_Partial', { supplierId: supplierId, id: id }, function (response) {
-            $('#CapNhatGolf_Partial').html(response);
-            $('#CapNhatGolf_Partial').show(500);
+        $.get('/DanhGiaCruise/CapNhatCruise_Partial', { supplierId: supplierId, id: id }, function (response) {
+            $('#CapNhatCruise_Partial').html(response);
+            $('#CapNhatCruise_Partial').show(500);
 
         });
     })
@@ -211,10 +211,10 @@
 
             if (response) {
                 toastr.success('Xoá thành công', 'Xoá!');
-                GolfTbl(supplierid);
+                CruiseTbl(supplierid);
             }
         });
 
     });
-    // btnXoaNhaHang
+    // btnXoaCruise
 </script>

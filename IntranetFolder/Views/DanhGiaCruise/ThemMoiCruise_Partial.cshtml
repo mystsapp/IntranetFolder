@@ -1,6 +1,6 @@
 ﻿@model DanhGiaCruiseViewModel
 
-<form method="post" autocomplete="off" id="frmThemMoiGolfPartial" enctype="multipart/form-data">
+<form method="post" autocomplete="off" id="frmThemMoiCruisePartial" enctype="multipart/form-data">
     <div class="pr-4 pl-4 text-sm">
 
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -138,29 +138,30 @@
         </div>
 
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiGolfPartial_Save"><i class="fas fa-save"></i> Save</button>
-            <button type="button" class="btn btn-success btn-sm" id="btnThemMoiGolfPartial_Back"><i class="fas fa-backward "></i> Back</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiCruisePartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnThemMoiCruisePartial_Back"><i class="fas fa-backward "></i> Back</button>
         </div>
     </div>
 </form>
 
 <script src="~/js/Admin/Supplier/indexController"></script>
 
+
 <script>
 
-    $('#btnThemMoiGolfPartial_Back').off('click').on('click', function(){
-        $('#divGolf').show(500);
-        $('#ThemMoiGolf_Partial').hide(500);
-        $('#CapNhatGolf_Partial').hide(500);
+    $('#btnThemMoiCruisePartial_Back').off('click').on('click', function(){
+        $('#divCruise').show(500);
+        $('#ThemMoiCruise_Partial').hide(500);
+        $('#CapNhatCruise_Partial').hide(500);
     })
 
-    $('#btnThemMoiGolfPartial_Save').off('click').on('click', function () {
+    $('#btnThemMoiCruisePartial_Save').off('click').on('click', function () {
 
-        if ($('#frmThemMoiGolfPartial').valid()) {
-            var golf = $('#frmThemMoiGolfPartial').serialize();
+        if ($('#frmThemMoiCruisePartial').valid()) {
+            var golf = $('#frmThemMoiCruisePartial').serialize();
             $.ajax({
                 type: "POST",
-                url: "/DanhGiaGolf/ThemMoiGolf_Partial",
+                url: "/DanhGiaCruise/ThemMoiCruise_Partial",
                 data: golf,
                 dataType: "json",
                 success: function (response) {
@@ -168,12 +169,12 @@
 
                         toastr.success('Tạo mới thành công!'); // toastr in admin/tour/indexController.js
 
-                        $('#ThemMoiGolf_Partial').hide(500);
-                        $('#CapNhatGolf_Partial').hide(500);
+                        $('#ThemMoiCruise_Partial').hide(500);
+                        $('#CapNhatCruise_Partial').hide(500);
 
                         var supplierId = '@Model.SupplierDTO.Code';
 
-                        GolfTbl(supplierId);
+                        CruiseTbl(supplierId);
                     }
                     else {
                         toastr.error(response.message);
