@@ -81,15 +81,15 @@
                 <!--Thông tin về tài chánh-->
                 @*<fieldset class="groupbox-border ">
                     <legend class="groupbox-border">Thông tin về tài chánh </legend>*@
-                    
+
                 <div class=" row">
-                    
+
                     <div class="col-md-8">
                         <label asp-for="DichVu1DTO.TenHd" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
                         <input asp-for="DichVu1DTO.TenHd" class="form-control form-control-sm " id="txtTenHd" />
                         <span asp-validation-for="DichVu1DTO.TenHd" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label asp-for="DichVu1DTO.NguoiTrinhKy" class="control-label"></label>
                         <select asp-for="DichVu1DTO.NguoiTrinhKy" class="form-control form-control-sm select2"
@@ -97,13 +97,13 @@
                         </select>
                         <span asp-validation-for="DichVu1DTO.NguoiTrinhKy" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label asp-for="DichVu1DTO.NgayTrinhKy" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
                         <input asp-for="DichVu1DTO.NgayTrinhKy" class="form-control form-control-sm maskInput" asp-format="{0:dd/MM/yyyy}" type="text" id="txtNgayTrinhKy" />
                         <span asp-validation-for="DichVu1DTO.NgayTrinhKy" class="text-danger"></span>
                     </div>
-                    
+
                 </div>
 
                 <div class=" row">
@@ -120,7 +120,7 @@
 
 
                 @*</fieldset>*@
-                
+
                 <div class=" row">
 
                     <div class="col-md-2">
@@ -134,7 +134,7 @@
                         <input asp-for="DichVu1DTO.Tuyen" class="form-control form-control-sm" id="txtTuyen" />
                         <span asp-validation-for="DichVu1DTO.Tuyen" class="text-danger"></span>
                     </div>
-                
+
                     <div class="col-md-3">
                         <label asp-for="DichVu1DTO.LoaiTau" class="control-label"></label>
                         <input asp-for="DichVu1DTO.LoaiTau" class="form-control form-control-sm" id="txtLoaiTau" />
@@ -146,7 +146,7 @@
                         <input asp-for="DichVu1DTO.LoaiXe" class="form-control form-control-sm" id="txtLoaiXe" />
                         <span asp-validation-for="DichVu1DTO.LoaiXe" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <label asp-for="DichVu1DTO.LoaiDvid" class="control-label"></label>
                         <!--select2-->
@@ -157,21 +157,21 @@
                     </div>
 
                 </div>
-                
+
                 <div class=" row">
-                    
+
                     <div class="col-md-3">
                         <label asp-for="DichVu1DTO.ThoiGianHd" class="control-label"></label>
                         <input asp-for="DichVu1DTO.ThoiGianHd" class="form-control form-control-sm " type="text" id="txtThoiGianHd" />
                         <span asp-validation-for="DichVu1DTO.ThoiGianHd" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="col-md-1">
                         <label asp-for="DichVu1DTO.HotDeal" class="control-label"></label>
                         <input asp-for="DichVu1DTO.HotDeal" class="form-control form-control-sm " type="checkbox" id="ckHotDeal" />
                         <span asp-validation-for="DichVu1DTO.HotDeal" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="col-md-8">
                         <label asp-for="DichVu1DTO.GhiChu" class="control-label"></label>
                         <input asp-for="DichVu1DTO.GhiChu" class="form-control form-control-sm" id="txtGhiChu" />
@@ -194,17 +194,17 @@
                                 int serial = 1;
                                 foreach (var roomImage in Model.DichVu1DTO.ImageUrls)
                                 {
-                                    <div class="col-md-2 mt-3">
-                                        <!--class="room-image" in site.css-->
+                                            <div class="col-md-2 mt-3">
+                                                <!--class="room-image" in site.css-->
                                 <div class="room-image" style="background: url('@roomImage') 50% 50%">
-                                            <!--class="room-image-title" in site.css-->
+                                                    <!--class="room-image-title" in site.css-->
                                     <span class="room-image-title">@serial</span>
-                                        </div>
+                                                </div>
 
-                                        <button type="button" class="btn btn-outline-danger btn-block mt-4 btnDeleteHinhAnh" data-imageurl="@roomImage">
-                                            Delete
-                                        </button>
-                                    </div>
+                                                <button type="button" class="btn btn-outline-danger btn-block mt-4 btnDeleteHinhAnh" data-imageurl="@roomImage">
+                                                    Delete
+                                                </button>
+                                            </div>
                                     serial++;
 
                                 }
@@ -248,7 +248,7 @@
     $('.btnDeleteHinhAnh').off('click').on('click', function(e){
         imageUrl = $(this).data('imageurl');
         dichVu1Id = '@Model.DichVu1DTO.MaDv';
-        
+
         $('#hidHinhAnh').val(imageUrl);
         $('#hidDichVu1Id').val(dichVu1Id);
         $('#btnDeleteHinhAnh_Hide').click();

@@ -36,7 +36,7 @@
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DiaChi)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Email)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DienThoai)</th>
-                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NoiDung)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NoiDung)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NguoiLienHe)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Website)</th>
                 <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DaKy)</th>
@@ -105,7 +105,7 @@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DiaChi)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Email)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DienThoai)</td>
-                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NoiDung)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NoiDung)</td>*@
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NguoiLienHe)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Website)</td>
                         <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DaKy)</td>
