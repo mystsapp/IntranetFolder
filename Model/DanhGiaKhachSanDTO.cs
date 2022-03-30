@@ -26,7 +26,7 @@ namespace Model
         public string Website { get; set; }
 
         [Display(Name = "Tiêu chuẩn sao")]
-        public int TieuChuanSao { get; set; }
+        public string TieuChuanSao { get; set; }
 
         [Display(Name = "Có GPKD")]
         public bool Gpkd { get; set; }

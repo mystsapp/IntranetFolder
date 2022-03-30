@@ -1,11 +1,15 @@
 ﻿@model DanhGiaCruiseViewModel
 
-<form method="post" autocomplete="off" id="frmThemMoiCruisePartial" enctype="multipart/form-data">
+<form method="post" autocomplete="off" id="frmCapNhatCruisePartial" enctype="multipart/form-data">
     <div class="pr-4 pl-4 text-sm">
 
         <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" asp-for=DanhGiaCruiseDTO.SupplierId />
-
+        <input type="hidden" asp-for=DanhGiaCruiseDTO.Id />
+        <input type="hidden" asp-for=DanhGiaCruiseDTO.LoaiDvid />
+        <input type="hidden" asp-for=DanhGiaCruiseDTO.NgayTao />
+        <input type="hidden" asp-for=DanhGiaCruiseDTO.NguoiTao />
+        
         <div class="form-group row">
 
             <div class="col-md-5">
@@ -138,38 +142,34 @@
         </div>
 
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-sm" id="btnThemMoiCruisePartial_Save"><i class="fas fa-save"></i> Save</button>
-            <button type="button" class="btn btn-success btn-sm" id="btnThemMoiCruisePartial_Back"><i class="fas fa-backward "></i> Back</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnCapNhatCruisePartial_Save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnCapNhatCruisePartial_Back"><i class="fas fa-backward "></i> Back</button>
         </div>
     </div>
 </form>
 
-<script src="~/js/Admin/Supplier/indexController"></script>
-
+@*<script src="~/js/Admin/Supplier/indexController"></script>*@
 
 <script>
-
-    $('#btnThemMoiCruisePartial_Back').off('click').on('click', function(){
+    $('#btnCapNhatCruisePartial_Back').off('click').on('click', function(){
         $('#divCruise').show(500);
         $('#ThemMoiCruise_Partial').hide(500);
         $('#CapNhatCruise_Partial').hide(500);
     })
 
-    $('#btnThemMoiCruisePartial_Save').off('click').on('click', function () {
+    $('#btnCapNhatCruisePartial_Save').off('click').on('click', function () {
 
-        if ($('#frmThemMoiCruisePartial').valid()) {
-            var cruise = $('#frmThemMoiCruisePartial').serialize();
-            var tieuChuanSao = $('#ddlTieuChuanSao').val();
-            
+        if ($('#frmCapNhatCruisePartial').valid()) {
+            var cruise = $('#frmCapNhatCruisePartial').serialize();
             $.ajax({
                 type: "POST",
-                url: "/DanhGiaCruise/ThemMoiCruise_Partial",
+                url: "/DanhGiaCruise/CapNhatCruise_Partial",
                 data: cruise,
                 dataType: "json",
                 success: function (response) {
                     if (response.status) {
 
-                        toastr.success('Tạo mới thành công!'); // toastr in admin/tour/indexController.js
+                        toastr.success('Cập nhật thành công!'); // toastr in admin/tour/indexController.js
 
                         $('#ThemMoiCruise_Partial').hide(500);
                         $('#CapNhatCruise_Partial').hide(500);

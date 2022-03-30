@@ -91,7 +91,8 @@ namespace IntranetFolder.Services
                                            (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Masothue) && x.Masothue.ToLower().Contains(searchString.ToLower())) ||
-                                           (!string.IsNullOrEmpty(x.Tapdoan) && x.Tapdoan.ToLower().Contains(searchString.ToLower())));
+                                           (!string.IsNullOrEmpty(x.Diachi) && x.Diachi.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.TapDoan.Ten) && x.TapDoan.Ten.ToLower().Contains(searchString.ToLower())));
                 suppliers1 = suppliers.ToList();
             }
             else
@@ -259,12 +260,23 @@ namespace IntranetFolder.Services
 
         public async Task<IEnumerable<SupplierDTO>> FindAsync(string searchString)
         {
-            var suppliers = await _unitOfWork.supplierRepository.FindIncludeOneAsync(y => y.TapDoan, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+            var suppliers = new List<Supplier>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var suppliers1 = await _unitOfWork.supplierRepository.FindIncludeOneAsync(y => y.TapDoan, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
                                             (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.ToLower().Contains(searchString.ToLower())) ||
                                             (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
                                             (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||
                                             (!string.IsNullOrEmpty(x.Masothue) && x.Masothue.ToLower().Contains(searchString.ToLower())) ||
                                             (!string.IsNullOrEmpty(x.Tapdoan) && x.Tapdoan.ToLower().Contains(searchString.ToLower())));
+                suppliers = suppliers1.ToList();
+            }
+            else
+            {
+                var suppliers1 = await _unitOfWork.supplierRepository.GetAllIncludeOneAsync(x => x.TapDoan);
+                suppliers = suppliers1.ToList();
+            }
+
             return _mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierDTO>>(suppliers);
         }
 

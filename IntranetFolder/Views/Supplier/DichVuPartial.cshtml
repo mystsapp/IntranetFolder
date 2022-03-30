@@ -29,7 +29,7 @@
                     <a class="nav-link" id="diemtq-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_diemTQ" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Điểm TQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="camlao-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Cam - Lao</a>
+                    <a class="nav-link" id="camlao-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_camLao" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Landtour nước ngoài</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="vanchuyen-tab" data-toggle="pill" data-supplierid="@Model.SupplierDTO.Code" href="#tab_vanChuyen" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Vận chuyển</a>
@@ -129,7 +129,7 @@
                                                         </span>
                                                     </form>
                                                     <span id="deleteSpan_@item.Id">
-                                                        @if (user.RoleId != SD.sales)
+                                                        @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                                         {
                                                             <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
                                                         }

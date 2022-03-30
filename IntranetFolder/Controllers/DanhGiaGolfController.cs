@@ -240,7 +240,7 @@ namespace IntranetFolder.Controllers
 
             DocX doc = null;
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string fileName = webRootPath + @"\WordTemplates\M01g -DGNCU-GOLF.docx";
+            string fileName = webRootPath + @"\WordTemplates\M01g-DGNCU-GOLF.docx";
             doc = DocX.Load(fileName);
 
             doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));

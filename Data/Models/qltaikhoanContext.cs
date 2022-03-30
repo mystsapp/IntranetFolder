@@ -36,6 +36,7 @@ namespace Data.Models
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<FolderUser> FolderUsers { get; set; }
         public virtual DbSet<HinhAnh> HinhAnhs { get; set; }
+        public virtual DbSet<Httt> Httts { get; set; }
         public virtual DbSet<LoaiDv> LoaiDvs { get; set; }
         public virtual DbSet<LoginModel> LoginModels { get; set; }
         public virtual DbSet<Mien> Miens { get; set; }
@@ -299,6 +300,8 @@ namespace Data.Models
                     .HasMaxLength(150)
                     .HasColumnName("TenNCU");
 
+                entity.Property(e => e.TieuChuanSao).HasMaxLength(50);
+
                 entity.Property(e => e.Vat).HasColumnName("VAT");
 
                 entity.Property(e => e.Website)
@@ -521,6 +524,8 @@ namespace Data.Models
                 entity.Property(e => e.ThaiDoPvcuaNv)
                     .HasMaxLength(150)
                     .HasColumnName("ThaiDoPVCuaNV");
+
+                entity.Property(e => e.TieuChuanSao).HasMaxLength(50);
 
                 entity.Property(e => e.Vat).HasColumnName("VAT");
 
@@ -1005,6 +1010,19 @@ namespace Data.Models
                     .WithMany(p => p.HinhAnhs)
                     .HasForeignKey(d => d.DichVuId)
                     .HasConstraintName("FK_HinhAnhs_DichVus");
+            });
+
+            modelBuilder.Entity<Httt>(entity =>
+            {
+                entity.HasKey(e => e.Idhttt);
+
+                entity.ToTable("httt");
+
+                entity.Property(e => e.Idhttt)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Diengiai).HasMaxLength(50);
             });
 
             modelBuilder.Entity<LoaiDv>(entity =>
@@ -1644,6 +1662,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

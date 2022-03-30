@@ -14,7 +14,7 @@ namespace Data.Models
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public int? TieuChuanSao { get; set; }
+        public string TieuChuanSao { get; set; }
         public bool Gpkd { get; set; }
         public bool Vat { get; set; }
         public int SoLuongTauNguDem { get; set; }

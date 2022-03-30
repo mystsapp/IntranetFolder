@@ -442,7 +442,7 @@ namespace IntranetFolder.Controllers
                     ExcelTool.TrSetCellBorder(xlSheet, dong, 6, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Left, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
                     // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
-                    xlSheet.Cells[dong, 7].Value = string.IsNullOrEmpty(item.TapDoanDTO.Ten) ? "" : item.TapDoanDTO.Ten;
+                    xlSheet.Cells[dong, 7].Value = item.TapDoanDTO == null ? "" : item.TapDoanDTO.Ten;
                     ExcelTool.TrSetCellBorder(xlSheet, dong, 7, ExcelBorderStyle.Thin, ExcelHorizontalAlignment.Center, Color.Silver, "Times New Roman", 12, FontStyle.Regular);
                     // xlSheet.Cells[dong, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
