@@ -51,7 +51,7 @@ namespace Model
         public bool CoTieuChuanNoiBo { get; set; }
 
         [Display(Name = "Bãi đỗ xe")]
-        public string BaiDoXe { get; set; }
+        public bool BaiDoXe { get; set; }
 
         [Display(Name = "Đã có KS thực tế")]
         public bool CoKhaoSatThucTe { get; set; }
@@ -86,6 +86,8 @@ namespace Model
         public DateTime? NgayDanhGia { get; set; }
 
         public string Menu { get; set; }
+
+        [Display(Name = "Phòng KV riêng")]
         public bool PhongKVRieng { get; set; }
 
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay

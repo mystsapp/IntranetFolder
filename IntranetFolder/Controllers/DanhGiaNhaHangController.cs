@@ -204,7 +204,7 @@ namespace IntranetFolder.Controllers
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.SupplierId = supplierId;
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.TenNcu = DanhGiaNhaHangVM.SupplierDTO.Tengiaodich;
             DanhGiaNhaHangVM.LoaiMenus = SD.LoaiMenu();
-            DanhGiaNhaHangVM.ChatLuongMonAns = SD.LoaiMenu();
+            DanhGiaNhaHangVM.ChatLuongMonAns = SD.ChatLuongMonAn();
             return PartialView(DanhGiaNhaHangVM);
         }
 
@@ -277,6 +277,8 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             //DanhGiaNhaHangVM.LoaiDvDTOs = _danhGiaNhaHangService.GetAllLoaiDv();
+            DanhGiaNhaHangVM.LoaiMenus = SD.LoaiMenu();
+            DanhGiaNhaHangVM.ChatLuongMonAns = SD.ChatLuongMonAn();
 
             return PartialView(DanhGiaNhaHangVM);
         }
@@ -395,8 +397,8 @@ namespace IntranetFolder.Controllers
 
             doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", danhGiaNhaHangDTO.CoGpkd == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("VAT", danhGiaNhaHangDTO.CoHdvat == true ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("DinhLuongMonAn", danhGiaNhaHangDTO.DinhLuongMonAn));
-            doc.AddCustomProperty(new CustomProperty("BaiDoXe", !string.IsNullOrEmpty(danhGiaNhaHangDTO.BaiDoXe) ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("DinhLuongMonAn", danhGiaNhaHangDTO.DinhLuongMonAn == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("BaiDoXe", danhGiaNhaHangDTO.BaiDoXe ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("CoTChuanNoiBo", danhGiaNhaHangDTO.CoTieuChuanNoiBo == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("CoPhongKhuVucRieng", danhGiaNhaHangDTO.PhongKVRieng ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("ViTri", danhGiaNhaHangDTO.ViTri));

@@ -78,7 +78,7 @@
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoKhaoSatThucTe)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqDat)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqKhaoSatThem)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+                                    
                                     @*<th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DiaChi)</th>
                                         <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DienThoai)</th>
                                         <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Fax)</th>
@@ -87,7 +87,7 @@
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TiemNang)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TaiKy)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().NguoiDanhGia)</th>
-
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
 
                                 </tr>
                             </thead>
@@ -139,26 +139,8 @@
                                             </td>
 
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
-                                            <td class="tdVal" data-id="@item.Id">
-                                                @if (item.CoGpkd == true)
-                                                {
-                                                    <span class="badge badge-success">Có</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-danger">Không</span>
-                                                }
-                                            </td>
-                                            <td class="tdVal" data-id="@item.Id">
-                                                @if (item.CoHdvat == true)
-                                                {
-                                                    <span class="badge badge-success">Có</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-danger">Không</span>
-                                                }
-                                            </td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoGpkd)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoHdvat)</td>                                            
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoChoToiDa)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DinhLuongMonAn)</td>
@@ -167,46 +149,9 @@
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ThaiDoPvcuaNv)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoTieuChuanNoiBo)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.BaiDoXe)</td>
-                                            <td class="tdVal" data-id="@item.Id">
-                                                @if (item.CoKhaoSatThucTe == true)
-                                                {
-                                                    <span class="badge badge-success">Có</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-danger">Chưa</span>
-                                                }
-                                            </td>
-                                            <td class="tdVal" data-id="@item.Id">
-                                                @if (item.KqDat == true)
-                                                {
-                                                    <span class="badge badge-success">Đạt</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-danger">Chưa</span>
-                                                }
-                                            </td>
-                                            <td class="tdVal" data-id="@item.Id">
-                                                @if (item.KqKhaoSatThem == true)
-                                                {
-                                                    <span class="badge badge-success">Có</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-danger">Không</span>
-                                                }
-                                            </td>
-                                            <td class="tdVal" data-id="@item.Id">
-                                                @if (item.DongYduaVaoDsncu == true)
-                                                {
-                                                    <span class="badge badge-success">Có</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-danger">Không</span>
-                                                }
-                                            </td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoKhaoSatThucTe)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqDat)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>                                           
                                             @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
                                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
                                                 <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
@@ -215,6 +160,7 @@
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DongYduaVaoDsncu)</td>
 
                                         </tr>
 
