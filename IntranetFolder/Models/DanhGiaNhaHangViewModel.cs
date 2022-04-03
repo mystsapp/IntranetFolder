@@ -16,7 +16,8 @@ namespace IntranetFolder.Models
         public IPagedList<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
         public DanhGiaNhaHangDTO DanhGiaNhaHangDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
-
+        public List<string> LoaiMenus { get; set; }
+        public List<string> ChatLuongMonAns;
         public int Page { get; set; }
         public string StrUrl { get; set; }
 

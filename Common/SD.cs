@@ -22,6 +22,22 @@ namespace Common
             };
         }
 
+        public static List<string> LoaiMenu()
+        {
+            return new List<string>()
+            {
+                "Âu", "Việt", "Buffet"
+            };
+        }
+
+        public static List<string> ChatLuongMonAn()
+        {
+            return new List<string>()
+            {
+                "Tốt", "Khá", "TB"
+            };
+        }
+
         //public static List<string> DonViKyKet()
         //{
         //    return new List<string>()

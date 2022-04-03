@@ -32,14 +32,14 @@ namespace Model
         [Display(Name = "Vị trí")]
         public string ViTri { get; set; }
 
-        [Display(Name = "Sức chứa tối đa")]
-        public string SucChuaToiDa { get; set; }
+        [Display(Name = "Số chổ tối đa")]
+        public string SoChoToiDa { get; set; }
 
-        [Display(Name = "Định lượng")]
-        public string DinhLuong { get; set; }
+        [Display(Name = "Định lượng món ăn")]
+        public bool DinhLuongMonAn { get; set; }
 
-        [Display(Name = "Chất lượng")]
-        public string ChatLuong { get; set; }
+        [Display(Name = "Chất lượng món ăn")]
+        public string ChatLuongMonAn { get; set; }
 
         [Display(Name = "Nhà vệ sinh")]
         public string NhaVeSinh { get; set; }
@@ -47,14 +47,14 @@ namespace Model
         [Display(Name = "Thái độ pv của nv")]
         public string ThaiDoPvcuaNv { get; set; }
 
-        [Display(Name = "PV miễn phí NB")]
-        public string CoPvmienPhiNoiBo { get; set; }
+        [Display(Name = "Có T/C nội bộ")]
+        public bool CoTieuChuanNoiBo { get; set; }
 
-        [Display(Name = "Có bãi đỗ xe")]
-        public string CoBaiDoXe { get; set; }
+        [Display(Name = "Bãi đỗ xe")]
+        public string BaiDoXe { get; set; }
 
         [Display(Name = "Đã có KS thực tế")]
-        public bool DaCoKhaoSatThucTe { get; set; }
+        public bool CoKhaoSatThucTe { get; set; }
 
         [Display(Name = "Kq đạt")]
         public bool KqDat { get; set; }
@@ -82,11 +82,11 @@ namespace Model
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
 
-        
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
+
         public string Menu { get; set; }
         public bool PhongKVRieng { get; set; }
-
-
 
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }

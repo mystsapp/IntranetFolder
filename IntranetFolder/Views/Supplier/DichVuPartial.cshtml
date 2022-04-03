@@ -68,14 +68,14 @@
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoGpkd)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoHdvat)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ViTri)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().SucChuaToiDa)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DinhLuong)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ChatLuong)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().SoChoToiDa)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DinhLuongMonAn)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ChatLuongMonAn)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().NhaVeSinh)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ThaiDoPvcuaNv)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoPvmienPhiNoiBo)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoBaiDoXe)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoTieuChuanNoiBo)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().BaiDoXe)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoKhaoSatThucTe)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqDat)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqKhaoSatThem)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
@@ -160,15 +160,15 @@
                                                 }
                                             </td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SucChuaToiDa)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DinhLuong)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChatLuong)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoChoToiDa)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DinhLuongMonAn)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChatLuongMonAn)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NhaVeSinh)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ThaiDoPvcuaNv)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoPvmienPhiNoiBo)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoBaiDoXe)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoTieuChuanNoiBo)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.BaiDoXe)</td>
                                             <td class="tdVal" data-id="@item.Id">
-                                                @if (item.DaCoKhaoSatThucTe == true)
+                                                @if (item.CoKhaoSatThucTe == true)
                                                 {
                                                     <span class="badge badge-success">Có</span>
                                                 }
