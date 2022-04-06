@@ -19,14 +19,15 @@ namespace Data.Models
         public bool Vat { get; set; }
         public string SucChuaToiDa { get; set; }
         public string ViTri { get; set; }
-        public string CoNhaHang { get; set; }
-        public bool CoHoBoi { get; set; }
-        public bool CoBien { get; set; }
-        public string CoPhongHop { get; set; }
+        public int? SlnhaHang { get; set; }
+        public int? Slphong { get; set; }
+        public bool HoBoi { get; set; }
+        public bool BaiBienRieng { get; set; }
+        public string SoChoPhongHop { get; set; }
         public string ThaiDoPvcuaNv { get; set; }
-        public string CoBoTriPhongChoNb { get; set; }
-        public string CoBaiDoXe { get; set; }
-        public bool DaCoKhaoSatThucTe { get; set; }
+        public bool PhongNoiBo { get; set; }
+        public bool BaiDoXe { get; set; }
+        public bool KhaoSatThucTe { get; set; }
         public bool KqDat { get; set; }
         public string KqKhaoSatThem { get; set; }
         public bool DongYduaVaoDsncu { get; set; }
@@ -39,6 +40,7 @@ namespace Data.Models
         public bool? TiemNang { get; set; }
         public bool? TaiKy { get; set; }
         public string NguoiDanhGia { get; set; }
+        public DateTime? NgayDanhGia { get; set; }
         public string LogFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }

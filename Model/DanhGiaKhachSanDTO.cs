@@ -43,31 +43,31 @@ namespace Model
         [Display(Name = "Có nhà hàng")]
         public string CoNhaHang { get; set; }
 
-        [Display(Name = "Có hồ bơi")]
-        public bool CoHoBoi { get; set; }
+        [Display(Name = "Hồ bơi")]
+        public bool HoBoi { get; set; }
 
-        [Display(Name = "Có biển")]
-        public bool CoBien { get; set; }
+        [Display(Name = "Bãi biển riêng")]
+        public bool BaiBienRieng { get; set; }
 
-        [Display(Name = "Có phòng họp")]
-        public string CoPhongHop { get; set; }
+        [Display(Name = "Số chỗ phòng họp")]
+        public string SoChoPhongHop { get; set; }
 
         [Display(Name = "Thái độ NV")]
         public string ThaiDoPvcuaNv { get; set; }
 
-        [Display(Name = "Có bố trí phòng NB")]
-        public string CoBoTriPhongChoNb { get; set; }
+        [Display(Name = "Phòng nội bộ")]
+        public bool PhongNoiBo { get; set; }
 
-        [Display(Name = "Có bãi đỗ xe")]
-        public string CoBaiDoXe { get; set; }
+        [Display(Name = "Bãi đỗ xe")]
+        public string BaiDoXe { get; set; }
 
-        [Display(Name = "Đã có KS thực tế")]
-        public bool DaCoKhaoSatThucTe { get; set; }
+        [Display(Name = "Khao sát thực tế")]
+        public bool KhaoSatThucTe { get; set; }
 
         [Display(Name = "KQ đạt")]
         public bool KqDat { get; set; }
 
-        [Display(Name = "KQ khảo sát thêm")]
+        [Display(Name = "Khảo sát thêm")]
         public string KqKhaoSatThem { get; set; }
 
         [Display(Name = "Đồng ý đưa vào DS NCU")]
@@ -89,14 +89,14 @@ namespace Model
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
 
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
+
         [Display(Name = "SL phòng")]
-        public int SoLuongPHong { get; set; }
+        public int SLPhong { get; set; }
 
         [Display(Name = "SL nhà hàng")]
         public int SLNhaHang { get; set; }
-
-        [Display(Name = "Số chỗ phòng họp")]
-        public int SoChoPhongHop { get; set; }
 
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }

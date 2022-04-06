@@ -464,16 +464,6 @@ namespace Data.Models
             {
                 entity.ToTable("DanhGiaKhachSan");
 
-                entity.Property(e => e.CoBaiDoXe).HasMaxLength(150);
-
-                entity.Property(e => e.CoBoTriPhongChoNb)
-                    .HasMaxLength(150)
-                    .HasColumnName("CoBoTriPhongChoNB");
-
-                entity.Property(e => e.CoNhaHang).HasMaxLength(150);
-
-                entity.Property(e => e.CoPhongHop).HasMaxLength(150);
-
                 entity.Property(e => e.DiaChi).HasMaxLength(250);
 
                 entity.Property(e => e.DienThoai)
@@ -496,6 +486,8 @@ namespace Data.Models
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
+                entity.Property(e => e.NgayDanhGia).HasColumnType("date");
+
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
                 entity.Property(e => e.NgayTao).HasColumnType("datetime");
@@ -509,6 +501,12 @@ namespace Data.Models
                 entity.Property(e => e.NguoiTao)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.SlnhaHang).HasColumnName("SLNhaHang");
+
+                entity.Property(e => e.Slphong).HasColumnName("SLPhong");
+
+                entity.Property(e => e.SoChoPhongHop).HasMaxLength(150);
 
                 entity.Property(e => e.SucChuaToiDa).HasMaxLength(150);
 

@@ -253,15 +253,15 @@ namespace IntranetFolder.Controllers
             doc.AddCustomProperty(new CustomProperty("TieuChuanSao", danhGiaKhachSanDTO.TieuChuanSao));
             doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", danhGiaKhachSanDTO.Gpkd == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("VAT", danhGiaKhachSanDTO.Vat == true ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("HoBoi", danhGiaKhachSanDTO.CoHoBoi == true ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("BaiBienRieng", danhGiaKhachSanDTO.CoBien == true ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("BaiDoXe", !string.IsNullOrEmpty(danhGiaKhachSanDTO.CoBaiDoXe) ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("PhongNoiBo", danhGiaKhachSanDTO.CoBoTriPhongChoNb));
-            doc.AddCustomProperty(new CustomProperty("SoLuongPhong", danhGiaKhachSanDTO.SoLuongPHong));
+            doc.AddCustomProperty(new CustomProperty("HoBoi", danhGiaKhachSanDTO.HoBoi == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("BaiBienRieng", danhGiaKhachSanDTO.BaiBienRieng == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("BaiDoXe", !string.IsNullOrEmpty(danhGiaKhachSanDTO.BaiDoXe) ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("PhongNoiBo", danhGiaKhachSanDTO.PhongNoiBo));
+            doc.AddCustomProperty(new CustomProperty("SoLuongPhong", danhGiaKhachSanDTO.SLPhong));
             doc.AddCustomProperty(new CustomProperty("SoLuongNhaHang", danhGiaKhachSanDTO.SLNhaHang));
             doc.AddCustomProperty(new CustomProperty("SoChoPhongHop", danhGiaKhachSanDTO.SoChoPhongHop));
             doc.AddCustomProperty(new CustomProperty("ViTri", danhGiaKhachSanDTO.ViTri));
-            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", danhGiaKhachSanDTO.DaCoKhaoSatThucTe == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", danhGiaKhachSanDTO.KhaoSatThucTe == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("DatYeuCau", danhGiaKhachSanDTO.KqDat == true ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("KhaoSatThem", !string.IsNullOrWhiteSpace(danhGiaKhachSanDTO.KqKhaoSatThem) ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("TaiKy", danhGiaKhachSanDTO.TaiKy == true ? "Có" : ""));
@@ -269,6 +269,7 @@ namespace IntranetFolder.Controllers
 
             doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
             doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
+            doc.AddCustomProperty(new CustomProperty("Nam", DateTime.Now.Year));
 
             doc.AddList("First Item", 0, ListItemType.Numbered);
 

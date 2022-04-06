@@ -9,16 +9,16 @@
         <input type="hidden" asp-for=DanhGiaKhachSanDTO.LoaiDvid />
         <input type="hidden" asp-for=DanhGiaKhachSanDTO.NgayTao />
         <input type="hidden" asp-for=DanhGiaKhachSanDTO.NguoiTao />
-
+        
         <div class="form-group row">
 
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <label asp-for="DanhGiaKhachSanDTO.TenNcu" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly/>
+                <input asp-for="DanhGiaKhachSanDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly />
                 <span asp-validation-for="DanhGiaKhachSanDTO.TenNcu" class="text-danger"></span>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
                 <select asp-for="DanhGiaKhachSanDTO.TieuChuanSao" class="form-control form-control-sm input-sm "
                         asp-items="@(new SelectList(Model.LoaiSaos))" id="ddlTieuChuanSao">
@@ -26,27 +26,29 @@
                 <span asp-validation-for="DanhGiaKhachSanDTO.TieuChuanSao" class="text-danger"></span>
             </div>
 
-            <div class="col-md-4">
-                <label asp-for="DanhGiaKhachSanDTO.Gpkd" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.Gpkd" class="form-control form-control-sm " id="txtGpkd" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.Gpkd" class="text-danger"></span>
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.SLNhaHang" class="control-label" for="txtCoNhaHang"></label>
+                <input asp-for="DanhGiaKhachSanDTO.SLNhaHang" class="form-control form-control-sm " id="txtSLNhaHang" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.SLNhaHang" class="text-danger"></span>
             </div>
+
         </div>
 
         <div class="form-group row">
 
-            <div class="col-md-2">
-                <label asp-for="DanhGiaKhachSanDTO.Vat" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.Vat" class="form-control form-control-sm " id="txtVat" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.Vat" class="text-danger"></span>
-            </div>
 
             <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.SLPhong" class="control-label" for="txtCoNhaHang"></label>
+                <input asp-for="DanhGiaKhachSanDTO.SLPhong" class="form-control form-control-sm " id="txtSLNhaHang" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.SLPhong" class="text-danger"></span>
+            </div>
+            @*
+                <div class="col-md-2">
                 <label asp-for="DanhGiaKhachSanDTO.SucChuaToiDa" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.SucChuaToiDa" class="form-control form-control-sm " id="txtSucChuaToiDa" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.SucChuaToiDa" class="text-danger"></span>
-            </div>
-
+                </div>
+            *@
             <div class="col-md-2">
                 <label asp-for="DanhGiaKhachSanDTO.ViTri" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.ViTri" class="form-control form-control-sm " id="txtViTri" />
@@ -54,101 +56,103 @@
             </div>
 
             <div class="col-md-2">
-                <label asp-for="DanhGiaKhachSanDTO.CoNhaHang" class="control-label" for="txtDaCoKhaoSatThucTe"></label>
-                <input asp-for="DanhGiaKhachSanDTO.CoNhaHang" class="form-control form-control-sm " id="txtCoNhaHang" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.CoNhaHang" class="text-danger"></span>
+                <label asp-for="DanhGiaKhachSanDTO.SoChoPhongHop" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.SoChoPhongHop" class="form-control form-control-sm " id="txtSoChoPhongHop" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.SoChoPhongHop" class="text-danger"></span>
             </div>
 
             <div class="col-md-2">
-                <label asp-for="DanhGiaKhachSanDTO.CoHoBoi" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.CoHoBoi" class="form-control form-control-sm " id="txtCoHoBoi" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.CoHoBoi" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-2">
-                <label asp-for="DanhGiaKhachSanDTO.CoBien" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.CoBien" class="form-control form-control-sm " id="txtCoBien" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.CoBien" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-2">
-                <label asp-for="DanhGiaKhachSanDTO.CoPhongHop" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.CoPhongHop" class="form-control form-control-sm " id="txtCoPhongHop" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.CoPhongHop" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-10">
                 <label asp-for="DanhGiaKhachSanDTO.ThaiDoPvcuaNv" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.ThaiDoPvcuaNv" class="form-control form-control-sm " id="txtThaiDoPvcuaNv" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.ThaiDoPvcuaNv" class="text-danger"></span>
             </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.NguoiDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.NguoiDanhGia" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.NgayDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.NgayDanhGia" class="form-control form-control-sm " id="txtNgaiDanhGia" type="date" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.NgayDanhGia" class="text-danger"></span>
+            </div>
+
         </div>
 
         <div class="form-group row">
+            <!--checkbox-->
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaKhachSanDTO.CoBoTriPhongChoNb" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.CoBoTriPhongChoNb" class="form-control form-control-sm " id="txtCoBoTriPhongChoNb" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.CoBoTriPhongChoNb" class="text-danger"></span>
+            <div class="col-md-1">
+                <label asp-for="DanhGiaKhachSanDTO.Gpkd" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Gpkd" class="form-control form-control-sm " id="txtGpkd" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.Gpkd" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaKhachSanDTO.CoBaiDoXe" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.CoBaiDoXe" class="form-control form-control-sm float-left" id="txtCoBaiDoXe" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.CoBaiDoXe" class="text-danger"></span>
+            <div class="col-md-1">
+                <label asp-for="DanhGiaKhachSanDTO.Vat" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.Vat" class="form-control form-control-sm " id="txtVat" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.Vat" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaKhachSanDTO.DaCoKhaoSatThucTe" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.DaCoKhaoSatThucTe" class="form-control form-control-sm " id="txtDaCoKhaoSatThucTe" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.DaCoKhaoSatThucTe" class="text-danger"></span>
+            <div class="col-md-1">
+                <label asp-for="DanhGiaKhachSanDTO.HoBoi" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.HoBoi" class="form-control form-control-sm " id="ckHoBoi" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.HoBoi" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.BaiBienRieng" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.BaiBienRieng" class="form-control form-control-sm " id="ckBaiBienRieng" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.BaiBienRieng" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.PhongNoiBo" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.PhongNoiBo" class="form-control form-control-sm " id="ckPhongNoiBo" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.PhongNoiBo" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.BaiDoXe" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.BaiDoXe" class="form-control form-control-sm float-left" id="ckBaiDoXe" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.BaiDoXe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaKhachSanDTO.KhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaKhachSanDTO.KhaoSatThucTe" class="form-control form-control-sm " id="ckKhaoSatThucTe" type="checkbox" />
+                <span asp-validation-for="DanhGiaKhachSanDTO.KhaoSatThucTe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
                 <label asp-for="DanhGiaKhachSanDTO.KqDat" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.KqDat" class="form-control form-control-sm " id="txtKqDat" type="checkbox" />
+                <input asp-for="DanhGiaKhachSanDTO.KqDat" class="form-control form-control-sm " id="txtKqDat" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.KqDat" class="text-danger"></span>
             </div>
+
         </div>
 
         <div class="form-group row">
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label asp-for="DanhGiaKhachSanDTO.KqKhaoSatThem" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.KqKhaoSatThem" class="form-control form-control-sm " id="txtKqKhaoSatThem" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.KqKhaoSatThem" class="text-danger"></span>
             </div>
-
-            <div class="col-md-3">
-                <label asp-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="txtDongYduaVaoDsncu" type="checkbox" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.DongYduaVaoDsncu" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <label asp-for="DanhGiaKhachSanDTO.TiemNang" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.TiemNang" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <label asp-for="DanhGiaKhachSanDTO.TaiKy" class="control-label"></label>
                 <input asp-for="DanhGiaKhachSanDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
                 <span asp-validation-for="DanhGiaKhachSanDTO.TaiKy" class="text-danger"></span>
             </div>
 
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-3">
-                <label asp-for="DanhGiaKhachSanDTO.NguoiDanhGia" class="control-label"></label>
-                <input asp-for="DanhGiaKhachSanDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
-                <span asp-validation-for="DanhGiaKhachSanDTO.NguoiDanhGia" class="text-danger"></span>
-            </div>
         </div>
 
         <div class="form-group">
