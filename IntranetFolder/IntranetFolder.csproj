@@ -47,6 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\ekko-lightbox\ekko-lightbox.js" />
+    <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\ekko-lightbox\ekko-lightbox.js.map" />
+    <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\ekko-lightbox\ekko-lightbox.min.js" />
+    <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\ekko-lightbox\ekko-lightbox.min.js.map" />
     <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\summernote\font\summernote.woff2" />
     <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\summernote\lang\summernote-ar-AR.js" />
     <None Include="wwwroot\lib\AdminLTE-3.1.0\plugins\summernote\lang\summernote-ar-AR.min.js" />

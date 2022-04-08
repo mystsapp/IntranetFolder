@@ -19,29 +19,44 @@
             </tr>
         </thead>
         <tbody>
+            @*<div class="" style="background: url('@item.Url') 50% 50%">
+                <!--class="room-image-title" in site.css-->
+
+                </div>
+                <img src="@item.Url" alt="@item.DichVuId" class="center">
+            *@
             @if (Model.HinhAnhDTOs != null)
             {
-                @foreach (var item in Model.HinhAnhDTOs)
-                {
+                <tr class="hinhanh-cursor-pointer ">
+                    <td>
+                        @foreach (var item in Model.HinhAnhDTOs)
+                        {
+                            @*
+                                <tr class="hinhanh-cursor-pointer ">
 
-                    <tr class="hinhanh-cursor-pointer ">
+                                <td class="tdVal_HinhAnh" data-id="@item.Id">
+                                <div class="row ">
 
-                        <td class="tdVal_HinhAnh" data-id="@item.Id">
-                            <div class="row ">
-                                <!--class="room-image" in site.css-->
-                                @*<div class="" style="background: url('@item.Url') 50% 50%">
-                                            <!--class="room-image-title" in site.css-->
-                                    
+                                <img src="@item.Url" alt="@item.DichVuId" class="center">
+
                                 </div>
-                                *@
-                               <img src="@item.Url" alt="@item.DichVuId" class="center">
-                                
+                                </td>
+
+                                </tr>
+                            *@
+
+
+                            <div class="col-md-6 float-left">
+
+                                <img src="@item.Url" alt="@item.DichVuId" class="center" width="100%">
+
+
                             </div>
-                        </td>
 
-                    </tr>
 
-                }
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -120,11 +135,11 @@
     });
     </script>  *@
 
-    <style>
-        .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /*width: 100%;*/
-}
-    </style>
+<style>
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        /*width: 100%;*/
+    }
+</style>

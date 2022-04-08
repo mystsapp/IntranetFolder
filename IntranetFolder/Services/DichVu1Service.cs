@@ -443,7 +443,7 @@ namespace IntranetFolder.Services
             var hinhAnhs = await GetHinhanhByDichVu1Id(dichvu1Id);
             var list = hinhAnhs.ToList();
             // page the list
-            const int pageSize = 1;
+            const int pageSize = 4;
             decimal aa = (decimal)list.Count() / (decimal)pageSize;
             var bb = Math.Ceiling(aa);
             if (page > bb)
