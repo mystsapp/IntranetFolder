@@ -256,7 +256,7 @@ namespace IntranetFolder.Controllers
             doc.AddCustomProperty(new CustomProperty("HoBoi", danhGiaKhachSanDTO.HoBoi == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("BaiBienRieng", danhGiaKhachSanDTO.BaiBienRieng == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("BaiDoXe", !string.IsNullOrEmpty(danhGiaKhachSanDTO.BaiDoXe) ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("PhongNoiBo", danhGiaKhachSanDTO.PhongNoiBo));
+            doc.AddCustomProperty(new CustomProperty("PhongNoiBo", danhGiaKhachSanDTO.PhongNoiBo ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("SoLuongPhong", danhGiaKhachSanDTO.SLPhong));
             doc.AddCustomProperty(new CustomProperty("SoLuongNhaHang", danhGiaKhachSanDTO.SLNhaHang));
             doc.AddCustomProperty(new CustomProperty("SoChoPhongHop", danhGiaKhachSanDTO.SoChoPhongHop));

@@ -545,13 +545,9 @@ namespace Data.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.CldvvaHdv)
-                    .HasMaxLength(150)
-                    .HasColumnName("CLDVVaHDV");
+                entity.Property(e => e.CacDoiTacLon).HasMaxLength(250);
 
-                entity.Property(e => e.CoGpkd).HasColumnName("CoGPKD");
-
-                entity.Property(e => e.CoHdvat).HasColumnName("CoHDVAT");
+                entity.Property(e => e.ChatLuongDichVu).HasMaxLength(50);
 
                 entity.Property(e => e.DiaChi).HasMaxLength(250);
 
@@ -571,17 +567,13 @@ namespace Data.Models
 
                 entity.Property(e => e.GiaCa).HasMaxLength(50);
 
+                entity.Property(e => e.Gpkd).HasColumnName("GPKD");
+
                 entity.Property(e => e.KinhNghiemThiTruongNd)
                     .HasMaxLength(150)
                     .HasColumnName("KinhNghiemThiTruongND");
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
-
-                entity.Property(e => e.MucDoHoTroXuLySuCo).HasMaxLength(50);
-
-                entity.Property(e => e.MucDoKipThoiTrongGd)
-                    .HasMaxLength(50)
-                    .HasColumnName("MucDoKipThoiTrongGD");
 
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
@@ -611,6 +603,12 @@ namespace Data.Models
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
                     .HasColumnName("TenNCU");
+
+                entity.Property(e => e.ThoiGianHoatDong).HasMaxLength(150);
+
+                entity.Property(e => e.Tuyen).HasMaxLength(250);
+
+                entity.Property(e => e.Vat).HasColumnName("VAT");
 
                 entity.Property(e => e.Website)
                     .HasMaxLength(150)
@@ -1654,6 +1652,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

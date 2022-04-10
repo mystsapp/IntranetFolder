@@ -38,6 +38,30 @@ namespace Common
             };
         }
 
+        public static List<string> ChatLuongDV()
+        {
+            return new List<string>()
+            {
+                "Tốt", "Khá", "TB"
+            };
+        }
+
+        public static List<string> SanPham()
+        {
+            return new List<string>()
+            {
+                "Tốt", "Khá", "TB"
+            };
+        }
+
+        public static List<string> GiaCa()
+        {
+            return new List<string>()
+            {
+                "Cao", "Thấp", "TB"
+            };
+        }
+
         //public static List<string> DonViKyKet()
         //{
         //    return new List<string>()

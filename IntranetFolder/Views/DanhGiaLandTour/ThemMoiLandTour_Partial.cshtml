@@ -8,122 +8,97 @@
 
         <div class="form-group row">
 
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <label asp-for="DanhGiaLandTourDTO.TenNcu" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly/>
+                <input asp-for="DanhGiaLandTourDTO.TenNcu" class="form-control form-control-sm " id="txtTenNcu" readonly />
                 <span asp-validation-for="DanhGiaLandTourDTO.TenNcu" class="text-danger"></span>
             </div>
 
-            <div class="col-md-4">
-                <label asp-for="DanhGiaLandTourDTO.CoGpkd" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
-                <input asp-for="DanhGiaLandTourDTO.CoGpkd" class="form-control form-control-sm " id="ckCoGpkd" type="checkbox" />
-                <span asp-validation-for="DanhGiaLandTourDTO.CoGpkd" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-4">
-                <label asp-for="DanhGiaLandTourDTO.CoHdvat" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.CoHdvat" class="form-control form-control-sm " id="ckCoHdvat" type="checkbox" />
-                <span asp-validation-for="DanhGiaLandTourDTO.CoHdvat" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-2">
-                <label asp-for="DanhGiaLandTourDTO.KinhNghiemThiTruongNd" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.KinhNghiemThiTruongNd" class="form-control form-control-sm " id="txtKinhNghiemThiTruongNd" />
-                <span asp-validation-for="DanhGiaLandTourDTO.KinhNghiemThiTruongNd" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-2">
-                <label asp-for="DanhGiaLandTourDTO.NlkhaiThacDvdiaPhuong" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.NlkhaiThacDvdiaPhuong" class="form-control form-control-sm " id="txtNlkhaiThacDvdiaPhuong" />
-                <span asp-validation-for="DanhGiaLandTourDTO.NlkhaiThacDvdiaPhuong" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-2">
-                <label asp-for="DanhGiaLandTourDTO.CldvvaHdv" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.CldvvaHdv" class="form-control form-control-sm " id="txtCldvvaHdv" />
-                <span asp-validation-for="DanhGiaLandTourDTO.CldvvaHdv" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.SanPham" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.SanPham" class="form-control form-control-sm " id="txtSanPham" />
+                <select asp-for="DanhGiaLandTourDTO.SanPham" class="form-control form-control-sm input-sm "
+                        asp-items="@(new SelectList(Model.SanPhams))" id="ddlSanPham">
+                </select>
                 <span asp-validation-for="DanhGiaLandTourDTO.SanPham" class="text-danger"></span>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.GiaCa" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.GiaCa" class="form-control form-control-sm " id="txtGiaCa" />
+                <select asp-for="DanhGiaLandTourDTO.GiaCa" class="form-control form-control-sm input-sm "
+                        asp-items="@(new SelectList(Model.GiaCas))" id="ddlGiaCa">
+                </select>
                 <span asp-validation-for="DanhGiaLandTourDTO.GiaCa" class="text-danger"></span>
             </div>
 
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.NguoiDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
+                <span asp-validation-for="DanhGiaLandTourDTO.NguoiDanhGia" class="text-danger"></span>
+            </div>
         </div>
 
         <div class="form-group row">
+            <!-- checkbox -->
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaLandTourDTO.MucDoKipThoiTrongGd" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.MucDoKipThoiTrongGd" class="form-control form-control-sm " id="txtMucDoKipThoiTrongGd" />
-                <span asp-validation-for="DanhGiaLandTourDTO.MucDoKipThoiTrongGd" class="text-danger"></span>
+            <div class="col-md-1">
+                <label asp-for="DanhGiaLandTourDTO.Gpkd" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
+                <input asp-for="DanhGiaLandTourDTO.Gpkd" class="form-control form-control-sm " id="ckGpkd" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.Gpkd" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaLandTourDTO.MucDoHoTroXuLySuCo" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.MucDoHoTroXuLySuCo" class="form-control form-control-sm " id="txtMucDoHoTroXuLySuCo" />
-                <span asp-validation-for="DanhGiaLandTourDTO.MucDoHoTroXuLySuCo" class="text-danger"></span>
+            <div class="col-md-1">
+                <label asp-for="DanhGiaLandTourDTO.Vat" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.Vat" class="form-control form-control-sm " id="ckCoHdvat" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.Vat" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaLandTourDTO.DaCoKhaoSatThucTe" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.DaCoKhaoSatThucTe" class="form-control form-control-sm " id="ckDaCoKhaoSatThucTe" type="checkbox" />
-                <span asp-validation-for="DanhGiaLandTourDTO.DaCoKhaoSatThucTe" class="text-danger"></span>
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.CoHoTroXuLySuCo" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.CoHoTroXuLySuCo" class="form-control form-control-sm " id="ckCoHoTroXuLySuCo" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.CoHoTroXuLySuCo" class="text-danger"></span>
             </div>
-            
-            <div class="col-md-3">
+
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.KhaoSatThucTe" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.KhaoSatThucTe" class="form-control form-control-sm " id="ckKhaoSatThucTe" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.KhaoSatThucTe" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.KqDat" class="control-label"></label>
                 <input asp-for="DanhGiaLandTourDTO.KqDat" class="form-control form-control-sm " id="ckKqDat" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.KqDat" class="text-danger"></span>
             </div>
 
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label asp-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="control-label"></label>
                 <input asp-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="form-control form-control-sm float-left" id="ckKqKhaoSatThem" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="ckDongYduaVaoDsncu" type="checkbox" />
-                <span asp-validation-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="text-danger"></span>
-            </div>
-            
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.TiemNang" class="control-label"></label>
                 <input asp-for="DanhGiaLandTourDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.TiemNang" class="text-danger"></span>
-            </div>
 
-            <div class="col-md-3">
+            </div>
+            
+            <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.TaiKy" class="control-label"></label>
                 <input asp-for="DanhGiaLandTourDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.TaiKy" class="text-danger"></span>
             </div>
-            
+
         </div>
 
         <div class="form-group row">
 
-            <div class="col-md-3">
-                <label asp-for="DanhGiaLandTourDTO.NguoiDanhGia" class="control-label"></label>
-                <input asp-for="DanhGiaLandTourDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
-                <span asp-validation-for="DanhGiaLandTourDTO.NguoiDanhGia" class="text-danger"></span>
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="form-control form-control-sm float-left" id="ckDongYduaVaoDsncu" type="checkbox" />
+                <span asp-validation-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="text-danger"></span>
             </div>
+
         </div>
 
         <div class="form-group">

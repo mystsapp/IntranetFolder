@@ -37,6 +37,8 @@ namespace IntranetFolder.Services
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
 
         Task<IEnumerable<DanhGiaLandTourDTO>> GetDanhGiaLandTourBy_SupplierId(string supplierId);
+
+        Task<TapDoanDTO> GetTapDoanByIdAsync(int tapDoanId);
     }
 
     public class DanhGiaLandTourService : IDanhGiaLandTourService
@@ -237,6 +239,11 @@ namespace IntranetFolder.Services
         {
             return _mapper.Map<IEnumerable<DanhGiaLandtour>, IEnumerable<DanhGiaLandTourDTO>>
                 (await _unitOfWork.danhGiaLandTourRepository.FindIncludeOneAsync(x => x.Supplier, y => y.SupplierId == supplierId));
+        }
+
+        public async Task<TapDoanDTO> GetTapDoanByIdAsync(int tapDoanId)
+        {
+            return _mapper.Map<TapDoan, TapDoanDTO>(_unitOfWork.tapDoanRepository.GetById(tapDoanId));
         }
     }
 }

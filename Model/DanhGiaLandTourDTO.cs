@@ -25,11 +25,11 @@ namespace Model
         public string Email { get; set; }
         public string Website { get; set; }
 
-        [Display(Name = "Có GPKD")]
-        public bool CoGpkd { get; set; }
+        [Display(Name = "GPKD")]
+        public bool Gpkd { get; set; }
 
-        [Display(Name = "Có HDVAT")]
-        public bool CoHdvat { get; set; }
+        [Display(Name = "VAT")]
+        public bool Vat { get; set; }
 
         [Display(Name = "KM thi trường ND")]
         public string KinhNghiemThiTruongNd { get; set; }
@@ -37,8 +37,26 @@ namespace Model
         [Display(Name = "NL khai thác DV DP")]
         public string NlkhaiThacDvdiaPhuong { get; set; }
 
-        [Display(Name = "Chất lượng DV HDV")]
-        public string CldvvaHdv { get; set; }
+        [Display(Name = "Có Khả năng huy động")]
+        public bool CoKhaNangHuyDong { get; set; }
+
+        [Display(Name = "Co HT xử lý sự cố")]
+        public bool CoHoTroXuLySuCo { get; set; }
+
+        [Display(Name = "Khảo sát thực tế")]
+        public bool KhaoSatThucTe { get; set; }
+
+        [Display(Name = "Tuyến")]
+        public string Tuyen { get; set; }
+
+        [Display(Name = "T/G hoạt động")]
+        public string ThoiGianHoatDong { get; set; }
+
+        [Display(Name = "Các đối tác lớn")]
+        public string CacDoiTacLon { get; set; }
+
+        [Display(Name = "Chất lượng DV")]
+        public string ChatLuongDichVu { get; set; }
 
         [Display(Name = "Sản phẩm")]
         public string SanPham { get; set; }
@@ -46,19 +64,10 @@ namespace Model
         [Display(Name = "Giá cả")]
         public string GiaCa { get; set; }
 
-        [Display(Name = "Mức độ kip thời trong GD")]
-        public string MucDoKipThoiTrongGd { get; set; }
-
-        [Display(Name = "Mức độ hổ trợ XL sự cố")]
-        public string MucDoHoTroXuLySuCo { get; set; }
-
-        [Display(Name = "Đã có KS thực tế")]
-        public bool DaCoKhaoSatThucTe { get; set; }
-
         [Display(Name = "KQ đạt")]
         public bool KqDat { get; set; }
 
-        [Display(Name = "KQ khảo sát thêm")]
+        [Display(Name = "Khảo sát thêm")]
         public bool KqKhaoSatThem { get; set; }
 
         [Display(Name = "Đồng ý đưa vào DS NCU")]
