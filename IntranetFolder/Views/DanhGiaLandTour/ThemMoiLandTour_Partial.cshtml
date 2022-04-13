@@ -35,10 +35,17 @@
                 <input asp-for="DanhGiaLandTourDTO.NguoiDanhGia" class="form-control form-control-sm " id="txtNguoiDanhGia" />
                 <span asp-validation-for="DanhGiaLandTourDTO.NguoiDanhGia" class="text-danger"></span>
             </div>
+        
         </div>
 
         <div class="form-group row">
             <!-- checkbox -->
+            
+            <div class="col-md-2">
+                <label asp-for="DanhGiaLandTourDTO.NgayDanhGia" class="control-label"></label>
+                <input asp-for="DanhGiaLandTourDTO.NgayDanhGia" class="form-control form-control-sm " id="txtDanhGiaLandTourDTO" type="date" />
+                <span asp-validation-for="DanhGiaLandTourDTO.NgayDanhGia" class="text-danger"></span>
+            </div>
 
             <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.Gpkd" class="control-label"></label>@*(<strong class="text-red">*</strong>)*@
@@ -76,6 +83,10 @@
                 <span asp-validation-for="DanhGiaLandTourDTO.KqKhaoSatThem" class="text-danger"></span>
             </div>
 
+        </div>
+
+        <div class="form-group row">
+            
             <div class="col-md-1">
                 <label asp-for="DanhGiaLandTourDTO.TiemNang" class="control-label"></label>
                 <input asp-for="DanhGiaLandTourDTO.TiemNang" class="form-control form-control-sm float-left" id="ckTiemNang" type="checkbox" />
@@ -88,10 +99,6 @@
                 <input asp-for="DanhGiaLandTourDTO.TaiKy" class="form-control form-control-sm float-left" id="ckTaiKy" type="checkbox" />
                 <span asp-validation-for="DanhGiaLandTourDTO.TaiKy" class="text-danger"></span>
             </div>
-
-        </div>
-
-        <div class="form-group row">
 
             <div class="col-md-2">
                 <label asp-for="DanhGiaLandTourDTO.DongYduaVaoDsncu" class="control-label"></label>

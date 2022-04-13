@@ -9,15 +9,15 @@ namespace Data.Models
     {
         public long Id { get; set; }
         public string TenNcu { get; set; }
-        public string KnngheNghiep { get; set; }
-        public string KntaiThiTruongVn { get; set; }
-        public string NlkhaiThacDvtaiDiaPhuong { get; set; }
+        public string ThoiGianHoatDong { get; set; }
+        public string CacDoiTacVn { get; set; }
         public string CldvvaHdvtiengViet { get; set; }
+        public string Tuyen { get; set; }
+        public string CldvvaHdv { get; set; }
         public string SanPham { get; set; }
         public string GiaCa { get; set; }
-        public string MucDoKipThoiTrongGd { get; set; }
-        public string MucDoHtxuLySuCo { get; set; }
-        public string DaCoKhaoSatThucTe { get; set; }
+        public bool CoHtxuLySuCo { get; set; }
+        public bool KhaoSatThucTe { get; set; }
         public bool Kqdat { get; set; }
         public bool KqkhaoSatThem { get; set; }
         public bool DongYduaVaoDsncu { get; set; }
@@ -30,6 +30,7 @@ namespace Data.Models
         public bool? TiemNang { get; set; }
         public bool? TaiKy { get; set; }
         public string NguoiDanhGia { get; set; }
+        public DateTime? NgayDanhGia { get; set; }
         public string LogFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }

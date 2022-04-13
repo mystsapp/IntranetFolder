@@ -15,17 +15,17 @@ namespace Model
         [Required(ErrorMessage = "Tên không được để trống.")]
         public string TenNcu { get; set; }
 
-        [Display(Name = "KN nghề nghiệp")]
-        public string KnngheNghiep { get; set; }
+        [Display(Name = "T/G hoạt động")]
+        public string ThoiGianHoatDong { get; set; }
 
-        [Display(Name = "KN Tai thị trường VN")]
-        public string KntaiThiTruongVn { get; set; }
+        [Display(Name = "Cac đối tác VN")]
+        public string CacDoiTacVn { get; set; }
 
-        [Display(Name = "NL khai thác DV địa phương")]
-        public string NlkhaiThacDvtaiDiaPhuong { get; set; }
+        [Display(Name = "Tuyến")]
+        public string Tuyen { get; set; }
 
-        [Display(Name = "CL DV và HDV tiếng việt")]
-        public string CldvvaHdvtiengViet { get; set; }
+        [Display(Name = "CL DV và HDV")]
+        public string CldvvaHdv { get; set; }
 
         [Display(Name = "Sản phẩm")]
         public string SanPham { get; set; }
@@ -33,14 +33,11 @@ namespace Model
         [Display(Name = "Giá cả")]
         public string GiaCa { get; set; }
 
-        [Display(Name = "Mức độ kịp thời trong GD")]
-        public string MucDoKipThoiTrongGd { get; set; }
+        [Display(Name = "HT xử lý sự cố")]
+        public bool CoHtxuLySuCo { get; set; }
 
-        [Display(Name = "Mức độ HT xử lý sự cố")]
-        public string MucDoHtxuLySuCo { get; set; }
-
-        [Display(Name = "Đã có KS thực tế")]
-        public string DaCoKhaoSatThucTe { get; set; }
+        [Display(Name = "KS thực tế")]
+        public bool KhaoSatThucTe { get; set; }
 
         [Display(Name = "KQ đạt")]
         public bool Kqdat { get; set; }
@@ -68,6 +65,9 @@ namespace Model
 
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
+
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
 
         public SupplierDTO SupplierDTO { get; set; }
     }

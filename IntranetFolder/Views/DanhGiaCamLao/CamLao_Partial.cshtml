@@ -26,21 +26,21 @@
 
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().TenNcu)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KnngheNghiep)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KntaiThiTruongVn)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().NlkhaiThacDvtaiDiaPhuong)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().CldvvaHdvtiengViet)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().ThoiGianHoatDong)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().CacDoiTacVn)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().Tuyen)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().CldvvaHdv)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().SanPham)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().GiaCa)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().MucDoKipThoiTrongGd)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().MucDoHtxuLySuCo)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().DaCoKhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().CoHtxuLySuCo)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KhaoSatThucTe)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().Kqdat)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().KqkhaoSatThem)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().TiemNang)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().TaiKy)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().NguoiDanhGia)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaCamLaoDTOs.FirstOrDefault().NgayDanhGia)</th>
 
             </tr>
         </thead>
@@ -54,6 +54,9 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
+                                <a class="text-blue btnExWordLandTourNN" title="Export to word" asp-action="ExportToWord_LandTourNN" asp-controller="DanhGiaKhachSan" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
+
+                                <span class="text-dark"> | </span>
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
                                     <a class="text-primary btnCapNhatCamLao" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
@@ -87,48 +90,21 @@
                         </td>
 
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KnngheNghiep)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KntaiThiTruongVn)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NlkhaiThacDvtaiDiaPhuong)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CldvvaHdvtiengViet)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ThoiGianHoatDong)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CacDoiTacVn)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Tuyen)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CldvvaHdv)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SanPham)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.Raw(string.IsNullOrEmpty(item.GiaCa) ? "0" : decimal.Parse(item.GiaCa).ToString("N0"))</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoKipThoiTrongGd)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucDoHtxuLySuCo)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DaCoKhaoSatThucTe)</td>
-                        <td class="tdVal" data-id="@item.Id">
-                            @if (item.Kqdat == true)
-                            {
-                                <span class="badge badge-success">Đạt</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">Chưa</span>
-                            }
-                        </td>
-                        <td class="tdVal" data-id="@item.Id">
-                            @if (item.KqkhaoSatThem == true)
-                            {
-                                <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">Không</span>
-                            }
-                        </td>
-                        <td class="tdVal" data-id="@item.Id">
-                            @if (item.DongYduaVaoDsncu == true)
-                            {
-                                <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">Không</span>
-                            }
-                        </td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.GiaCa)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoHtxuLySuCo)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhaoSatThucTe)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Kqdat)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqkhaoSatThem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DongYduaVaoDsncu)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.Value.ToString("dd/MM/yyyy"))</td>
 
                     </tr>
 
