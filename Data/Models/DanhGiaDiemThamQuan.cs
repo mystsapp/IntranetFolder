@@ -14,17 +14,19 @@ namespace Data.Models
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public bool CoGpkd { get; set; }
-        public bool CoHdvat { get; set; }
-        public string ViTri { get; set; }
-        public string SucChuaToiDa { get; set; }
-        public string MucDoHapDan { get; set; }
-        public string CoNhaHang { get; set; }
-        public string CoNhaVeSinh { get; set; }
+        public bool Gpkd { get; set; }
+        public bool Vat { get; set; }
+        public string NhaVeSinh { get; set; }
         public string ThaiDoPvcuaNv { get; set; }
         public string PhuongTienPvvuiChoi { get; set; }
-        public string CoBaiDoXe { get; set; }
-        public bool DaCoKhaoSatThucTe { get; set; }
+        public bool BaiDoXe { get; set; }
+        public bool CoCheDoHdv { get; set; }
+        public bool KhaoSatThucTe { get; set; }
+        public int SoChoToiDa { get; set; }
+        public string MucDoHapDan { get; set; }
+        public int SoLuongNhaHang { get; set; }
+        public string DoiTuongKhachPhuHop { get; set; }
+        public string ViTri { get; set; }
         public bool KqDat { get; set; }
         public bool KqKhaoSatThem { get; set; }
         public bool DongYduaVaoDsncu { get; set; }
@@ -37,6 +39,7 @@ namespace Data.Models
         public bool? TiemNang { get; set; }
         public bool? TaiKy { get; set; }
         public string NguoiDanhGia { get; set; }
+        public DateTime? NgayDanhGia { get; set; }
         public string LogFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }

@@ -25,26 +25,14 @@ namespace Model
         public string Email { get; set; }
         public string Website { get; set; }
 
-        [Display(Name = "Có GPKD")]
-        public bool CoGpkd { get; set; }
+        [Display(Name = "GPKD")]
+        public bool Gpkd { get; set; }
 
-        [Display(Name = "Có HDVAT")]
-        public bool CoHdvat { get; set; }
+        [Display(Name = "VAT")]
+        public bool Vat { get; set; }
 
-        [Display(Name = "Vị trí")]
-        public string ViTri { get; set; }
-
-        [Display(Name = "Sức chứa tối đa")]
-        public string SucChuaToiDa { get; set; }
-
-        [Display(Name = "Múc độ đáp ứng")]
-        public string MucDoHapDan { get; set; }
-
-        [Display(Name = "Có nhà hàng")]
-        public string CoNhaHang { get; set; }
-
-        [Display(Name = "Có nhà vệ sinh")]
-        public string CoNhaVeSinh { get; set; }
+        [Display(Name = "Nhà vệ sinh")]
+        public string NhaVeSinh { get; set; }
 
         [Display(Name = "Thái độ PV của NV")]
         public string ThaiDoPvcuaNv { get; set; }
@@ -52,11 +40,29 @@ namespace Model
         [Display(Name = "Phương tiện PV vui chơi")]
         public string PhuongTienPvvuiChoi { get; set; }
 
-        [Display(Name = "Có bãi xe")]
-        public string CoBaiDoXe { get; set; }
+        [Display(Name = "Bãi đổ xe")]
+        public bool BaiDoXe { get; set; }
 
-        [Display(Name = "Đã có KS thực tế")]
-        public bool DaCoKhaoSatThucTe { get; set; }
+        [Display(Name = "Chế độ HDV")]
+        public bool CoCheDoHdv { get; set; }
+
+        [Display(Name = "KS thực tế")]
+        public bool KhaoSatThucTe { get; set; }
+
+        [Display(Name = "Số chỗ tối đa")]
+        public int SoChoToiDa { get; set; }
+
+        [Display(Name = "Mức độ hấp dẫn")]
+        public string MucDoHapDan { get; set; }
+
+        [Display(Name = "SL nhà hàng")]
+        public int SoLuongNhaHang { get; set; }
+
+        [Display(Name = "Đ/T khách phù hợp")]
+        public string DoiTuongKhachPhuHop { get; set; }
+
+        [Display(Name = "Vị trí")]
+        public string ViTri { get; set; }
 
         [Display(Name = "KQ đạt")]
         public bool KqDat { get; set; }
@@ -82,6 +88,9 @@ namespace Model
 
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
+
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
 
         public SupplierDTO SupplierDTO { get; set; }
     }

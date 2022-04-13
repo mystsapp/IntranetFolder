@@ -11,7 +11,8 @@
     if (user.RoleId == SD.Intranets ||
        user.RoleId == SD.admin ||
        user.RoleId == SD.superadmin ||
-       user.RoleId == SD.sales) // them salse -> readonly /
+       user.RoleId == SD.sales ||
+    user.Maphong == "DH") 
     {
         Layout = "_Layout";
     }

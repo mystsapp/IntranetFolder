@@ -62,6 +62,30 @@ namespace Common
             };
         }
 
+        public static List<string> MucDoHapDan()
+        {
+            return new List<string>()
+            {
+                "Cao", "Thấp", "TB"
+            };
+        }
+
+        public static List<string> NhaVeSinh()
+        {
+            return new List<string>()
+            {
+                "Tốt", "Khá", "TB", "Xấu"
+            };
+        }
+
+        public static List<string> DoiTuongKhachPhuHop()
+        {
+            return new List<string>()
+            {
+                "Nội địa", "Quốc tế"
+            };
+        }
+
         //public static List<string> DonViKyKet()
         //{
         //    return new List<string>()
