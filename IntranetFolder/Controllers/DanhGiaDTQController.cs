@@ -249,7 +249,7 @@ namespace IntranetFolder.Controllers
             string fileName = webRootPath + @"\WordTemplates\M01e-DGNCU-DiemTQ.docx";
             doc = DocX.Load(fileName);
 
-            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
+            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Code + " - " + supplierDTO.Tengiaodich));
             doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
             doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
             doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));

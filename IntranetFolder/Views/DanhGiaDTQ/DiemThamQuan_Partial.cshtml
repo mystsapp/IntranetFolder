@@ -120,7 +120,7 @@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NguoiDanhGia)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.HasValue ? item.NgayDanhGia.Value.ToString("dd/MM/yyyy") : "")</td>
 
                     </tr>
 

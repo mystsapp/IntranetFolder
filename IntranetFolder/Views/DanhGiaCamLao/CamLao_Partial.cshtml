@@ -54,7 +54,7 @@
 
                         <td>
                             <div class="btn-group text-white" role="group">
-                                <a class="text-blue btnExWordLandTourNN" title="Export to word" asp-action="ExportToWord_LandTourNN" asp-controller="DanhGiaKhachSan" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
+                                <a class="text-blue btnExWordLandTourNN" title="Export to word" asp-action="ExportToWord_LandTourNN" asp-controller="DanhGiaCamLao" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
 
                                 <span class="text-dark"> | </span>
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
@@ -104,7 +104,7 @@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
-                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.Value.ToString("dd/MM/yyyy"))</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.HasValue ? item.NgayDanhGia.Value.ToString("dd/MM/yyyy") : "")</td>
 
                     </tr>
 
