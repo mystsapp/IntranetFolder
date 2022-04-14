@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Common;
+using Data.Models;
 using Data.Utilities;
 using IntranetFolder.Models;
 using IntranetFolder.Services;
@@ -57,6 +58,7 @@ namespace IntranetFolder.Controllers
             DanhGiaVanChuyenVM.SupplierDTO = await _danhGiaVanChuyenService.GetSupplierByIdAsync(supplierId);
             DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.TenNcu = DanhGiaVanChuyenVM.SupplierDTO.Tengiaodich;
             DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.SupplierId = supplierId;
+            DanhGiaVanChuyenVM.KhaNangHuyDongs = SD.KhaNangHuyDong();
             return PartialView(DanhGiaVanChuyenVM);
         }
 
@@ -131,6 +133,7 @@ namespace IntranetFolder.Controllers
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
+            DanhGiaVanChuyenVM.KhaNangHuyDongs = SD.KhaNangHuyDong();
 
             return PartialView(DanhGiaVanChuyenVM);
         }
@@ -242,25 +245,25 @@ namespace IntranetFolder.Controllers
             string fileName = webRootPath + @"\WordTemplates\M01f-DGNCU-VAN CHUYEN.docx";
             doc = DocX.Load(fileName);
 
-            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
+            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Code + " - " + supplierDTO.Tengiaodich));
             doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
             doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
             doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));
             doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
             doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
 
-            doc.AddCustomProperty(new CustomProperty("HopTacLanDau", DanhGiaVanChuyenDTO.LanDauOrTaiKy == true ? "Có" : "Không"));
+            //doc.AddCustomProperty(new CustomProperty("HopTacLanDau", DanhGiaVanChuyenDTO.LanDauOrTaiKy == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", DanhGiaVanChuyenDTO.Gpkd == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("VAT", DanhGiaVanChuyenDTO.Vat == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("GiaCaPhuHop", DanhGiaVanChuyenDTO.GiaCaPhuHop ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaVanChuyenDTO.KhaoSatThucTe ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("SoXeChinhThuc", DanhGiaVanChuyenDTO.SoXeChinhThuc));
             doc.AddCustomProperty(new CustomProperty("KhaNangHuyDong", DanhGiaVanChuyenDTO.KhaNangHuyDong));
             doc.AddCustomProperty(new CustomProperty("DoiXeCuNhat/MoiNhat", DanhGiaVanChuyenDTO.DoiXeCuNhatMoiNhat)); // ?
             doc.AddCustomProperty(new CustomProperty("LoaiXeCoNhieuNhat", DanhGiaVanChuyenDTO.LoaiXeCoNhieuNhat));
-            doc.AddCustomProperty(new CustomProperty("GiaCaPhuHop", DanhGiaVanChuyenDTO.GiaCaPhuHop ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("KinhNghiem", DanhGiaVanChuyenDTO.KinhNghiem));
             doc.AddCustomProperty(new CustomProperty("DanhSachDoiTac", DanhGiaVanChuyenDTO.DanhSachDoiTac));
 
-            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaVanChuyenDTO.KhaoSatThucTe ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("DatYeuCau", DanhGiaVanChuyenDTO.KqDat == true ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("KhaoSatThem", DanhGiaVanChuyenDTO.KqKhaoSatThem ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("TaiKy", DanhGiaVanChuyenDTO.TaiKy ? "Có" : ""));

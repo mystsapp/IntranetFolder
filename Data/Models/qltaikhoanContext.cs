@@ -727,6 +727,8 @@ namespace Data.Models
 
                 entity.Property(e => e.LoaiXeCoNhieuNhat).HasMaxLength(150);
 
+                entity.Property(e => e.NgayDanhGia).HasColumnType("date");
+
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
                 entity.Property(e => e.NgayTao).HasColumnType("datetime");

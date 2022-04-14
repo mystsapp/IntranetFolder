@@ -89,6 +89,9 @@ namespace Model
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
 
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
+
         public SupplierDTO SupplierDTO { get; set; }
     }
 }
