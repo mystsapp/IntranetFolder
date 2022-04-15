@@ -313,12 +313,12 @@ namespace IntranetFolder.Controllers
 
                 if (t.DinhLuongMonAn != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.DinhLuongMonAn)
                 {
-                    temp += String.Format("- DinhLuongMonAn thay đổi: {0}->{1}", t.Fax, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.DinhLuongMonAn);
+                    temp += String.Format("- DinhLuongMonAn thay đổi: {0}->{1}", t.DinhLuongMonAn, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.DinhLuongMonAn);
                 }
 
                 if (t.BaiDoXe != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.BaiDoXe)
                 {
-                    temp += String.Format("- BaiDoXe thay đổi: {0}->{1}", t.Fax, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.BaiDoXe);
+                    temp += String.Format("- BaiDoXe thay đổi: {0}->{1}", t.BaiDoXe, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.BaiDoXe);
                 }
 
                 if (t.CoTieuChuanNoiBo != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoTieuChuanNoiBo)
@@ -353,7 +353,7 @@ namespace IntranetFolder.Controllers
 
                 if (t.CoKhaoSatThucTe != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoKhaoSatThucTe)
                 {
-                    temp += String.Format("- CoKhaoSatThucTe thay đổi: {0}->{1}", t.KqDat, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoKhaoSatThucTe);
+                    temp += String.Format("- CoKhaoSatThucTe thay đổi: {0}->{1}", t.CoKhaoSatThucTe, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoKhaoSatThucTe);
                 }
 
                 if (t.KqDat != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.KqDat)

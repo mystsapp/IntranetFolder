@@ -98,6 +98,7 @@ namespace Model
         [Display(Name = "SL nhà hàng")]
         public int SLNhaHang { get; set; }
 
+        public string LogFile { get; set; }
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }
 }
