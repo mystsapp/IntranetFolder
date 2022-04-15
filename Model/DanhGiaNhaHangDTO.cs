@@ -53,7 +53,7 @@ namespace Model
         [Display(Name = "Bãi đỗ xe")]
         public bool BaiDoXe { get; set; }
 
-        [Display(Name = "Đã có KS thực tế")]
+        [Display(Name = "KS thực tế")]
         public bool CoKhaoSatThucTe { get; set; }
 
         [Display(Name = "Kq đạt")]
@@ -90,6 +90,7 @@ namespace Model
         [Display(Name = "Phòng KV riêng")]
         public bool PhongKVRieng { get; set; }
 
+        public string LogFile { get; set; }
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }
 }

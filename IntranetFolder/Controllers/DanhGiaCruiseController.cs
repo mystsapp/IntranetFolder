@@ -160,29 +160,14 @@ namespace IntranetFolder.Controllers
                     temp += String.Format("- TieuChuanSao thay đổi: {0}->{1}", t.TieuChuanSao, DanhGiaCruiseVM.DanhGiaCruiseDTO.TieuChuanSao);
                 }
 
-                if (t.Gpkd != DanhGiaCruiseVM.DanhGiaCruiseDTO.Gpkd)
-                {
-                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaCruiseVM.DanhGiaCruiseDTO.Gpkd);
-                }
-
-                if (t.Vat != DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat)
-                {
-                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Email, DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat);
-                }
-
                 if (t.SoLuongTauNguDem != DanhGiaCruiseVM.DanhGiaCruiseDTO.SoLuongTauNguDem)
                 {
-                    temp += String.Format("- SoLuongTauNguDem thay đổi: {0}->{1}", t.Fax, DanhGiaCruiseVM.DanhGiaCruiseDTO.SoLuongTauNguDem);
+                    temp += String.Format("- SoLuongTauNguDem thay đổi: {0}->{1}", t.SoLuongTauNguDem, DanhGiaCruiseVM.DanhGiaCruiseDTO.SoLuongTauNguDem);
                 }
 
-                if (t.SucChuaTauNguDem != DanhGiaCruiseVM.DanhGiaCruiseDTO.SucChuaTauNguDem)
+                if (t.ChuongTrinh != DanhGiaCruiseVM.DanhGiaCruiseDTO.ChuongTrinh)
                 {
-                    temp += String.Format("- SucChuaTauNguDem thay đổi: {0}->{1}", t.SucChuaTauNguDem, DanhGiaCruiseVM.DanhGiaCruiseDTO.SucChuaTauNguDem);
-                }
-
-                if (t.LoaiTau != DanhGiaCruiseVM.DanhGiaCruiseDTO.LoaiTau)
-                {
-                    temp += String.Format("- LoaiTau thay đổi: {0}->{1}", t.LoaiTau, DanhGiaCruiseVM.DanhGiaCruiseDTO.LoaiTau);
+                    temp += String.Format("- ChuongTrinh thay đổi: {0}->{1}", t.ChuongTrinh, DanhGiaCruiseVM.DanhGiaCruiseDTO.ChuongTrinh);
                 }
 
                 if (t.SoLuongTauTqngay != DanhGiaCruiseVM.DanhGiaCruiseDTO.SoLuongTauTqngay)
@@ -190,19 +175,9 @@ namespace IntranetFolder.Controllers
                     temp += String.Format("- SoLuongTauTqngay thay đổi: {0}->{1}", t.SoLuongTauTqngay, DanhGiaCruiseVM.DanhGiaCruiseDTO.SoLuongTauTqngay);
                 }
 
-                if (t.SucChuaTauTqngay != DanhGiaCruiseVM.DanhGiaCruiseDTO.SucChuaTauTqngay)
-                {
-                    temp += String.Format("- SucChuaTauTqngay thay đổi: {0}->{1}", t.SucChuaTauTqngay, DanhGiaCruiseVM.DanhGiaCruiseDTO.SucChuaTauTqngay);
-                }
-
                 if (t.GiaCa != DanhGiaCruiseVM.DanhGiaCruiseDTO.GiaCa)
                 {
                     temp += String.Format("- GiaCa thay đổi: {0}->{1}", t.GiaCa, DanhGiaCruiseVM.DanhGiaCruiseDTO.GiaCa);
-                }
-
-                if (t.CabineCoBanCong != DanhGiaCruiseVM.DanhGiaCruiseDTO.CabineCoBanCong)
-                {
-                    temp += String.Format("- CabineCoBanCong thay đổi: {0}->{1}", t.CabineCoBanCong, DanhGiaCruiseVM.DanhGiaCruiseDTO.CabineCoBanCong);
                 }
 
                 if (t.CangDonKhach != DanhGiaCruiseVM.DanhGiaCruiseDTO.CangDonKhach)
@@ -213,6 +188,21 @@ namespace IntranetFolder.Controllers
                 if (t.CoHoTroTot != DanhGiaCruiseVM.DanhGiaCruiseDTO.CoHoTroTot)
                 {
                     temp += String.Format("- CoHoTroTot thay đổi: {0}->{1}", t.CoHoTroTot, DanhGiaCruiseVM.DanhGiaCruiseDTO.CoHoTroTot);
+                }
+
+                if (t.Gpkd != DanhGiaCruiseVM.DanhGiaCruiseDTO.Gpkd)
+                {
+                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaCruiseVM.DanhGiaCruiseDTO.Gpkd);
+                }
+
+                if (t.Vat != DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat)
+                {
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Email, DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat);
+                }
+
+                if (t.CabineCoBanCong != DanhGiaCruiseVM.DanhGiaCruiseDTO.CabineCoBanCong)
+                {
+                    temp += String.Format("- CabineCoBanCong thay đổi: {0}->{1}", t.CabineCoBanCong, DanhGiaCruiseVM.DanhGiaCruiseDTO.CabineCoBanCong);
                 }
 
                 if (t.KhaoSatThucTe != DanhGiaCruiseVM.DanhGiaCruiseDTO.KhaoSatThucTe)
@@ -230,16 +220,6 @@ namespace IntranetFolder.Controllers
                     temp += String.Format("- KqKhaoSatThem thay đổi: {0}->{1}", t.KqKhaoSatThem, DanhGiaCruiseVM.DanhGiaCruiseDTO.KqKhaoSatThem);
                 }
 
-                if (t.LoaiDvid != DanhGiaCruiseVM.DanhGiaCruiseDTO.LoaiDvid)
-                {
-                    temp += String.Format("- LoaiDvid thay đổi: {0}->{1}", t.LoaiDvid, DanhGiaCruiseVM.DanhGiaCruiseDTO.LoaiDvid);
-                }
-
-                if (t.SupplierId != DanhGiaCruiseVM.DanhGiaCruiseDTO.SupplierId)
-                {
-                    temp += String.Format("- SupplierId thay đổi: {0}->{1}", t.SupplierId, DanhGiaCruiseVM.DanhGiaCruiseDTO.SupplierId);
-                }
-
                 if (t.TiemNang != DanhGiaCruiseVM.DanhGiaCruiseDTO.TiemNang)
                 {
                     temp += String.Format("- TiemNang thay đổi: {0}->{1}", t.TiemNang, DanhGiaCruiseVM.DanhGiaCruiseDTO.TiemNang);
@@ -252,7 +232,12 @@ namespace IntranetFolder.Controllers
 
                 if (t.NguoiDanhGia != DanhGiaCruiseVM.DanhGiaCruiseDTO.NguoiDanhGia)
                 {
-                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.TaiKy, DanhGiaCruiseVM.DanhGiaCruiseDTO.NguoiDanhGia);
+                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.NguoiDanhGia, DanhGiaCruiseVM.DanhGiaCruiseDTO.NguoiDanhGia);
+                }
+
+                if (t.NgayDanhGia != DanhGiaCruiseVM.DanhGiaCruiseDTO.NgayDanhGia)
+                {
+                    temp += String.Format("- NgayDanhGia thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayDanhGia, DanhGiaCruiseVM.DanhGiaCruiseDTO.NgayDanhGia);
                 }
 
                 #endregion log file
@@ -287,7 +272,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "Cập nhật không thành công!"
                     });
                 }
             }
