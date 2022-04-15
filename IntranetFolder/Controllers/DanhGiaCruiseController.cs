@@ -59,6 +59,7 @@ namespace IntranetFolder.Controllers
             DanhGiaCruiseVM.DanhGiaCruiseDTO.SupplierId = supplierId;
             DanhGiaCruiseVM.DanhGiaCruiseDTO.TenNcu = DanhGiaCruiseVM.SupplierDTO.Tengiaodich;
             DanhGiaCruiseVM.LoaiSaos = SD.LoaiSao();
+            DanhGiaCruiseVM.GiaCas = SD.GiaCa();
             return PartialView(DanhGiaCruiseVM);
         }
 
@@ -131,6 +132,7 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             DanhGiaCruiseVM.LoaiSaos = SD.LoaiSao();
+            DanhGiaCruiseVM.GiaCas = SD.GiaCa();
 
             return PartialView(DanhGiaCruiseVM);
         }
@@ -193,9 +195,9 @@ namespace IntranetFolder.Controllers
                     temp += String.Format("- SucChuaTauTqngay thay đổi: {0}->{1}", t.SucChuaTauTqngay, DanhGiaCruiseVM.DanhGiaCruiseDTO.SucChuaTauTqngay);
                 }
 
-                if (t.GiaCaHopLy != DanhGiaCruiseVM.DanhGiaCruiseDTO.GiaCaHopLy)
+                if (t.GiaCa != DanhGiaCruiseVM.DanhGiaCruiseDTO.GiaCa)
                 {
-                    temp += String.Format("- GiaCaHopLy thay đổi: {0}->{1}", t.GiaCaHopLy, DanhGiaCruiseVM.DanhGiaCruiseDTO.GiaCaHopLy);
+                    temp += String.Format("- GiaCa thay đổi: {0}->{1}", t.GiaCa, DanhGiaCruiseVM.DanhGiaCruiseDTO.GiaCa);
                 }
 
                 if (t.CabineCoBanCong != DanhGiaCruiseVM.DanhGiaCruiseDTO.CabineCoBanCong)
@@ -362,25 +364,23 @@ namespace IntranetFolder.Controllers
             string fileName = webRootPath + @"\WordTemplates\M01h-DGNCU-CRUISES.docx";
             doc = DocX.Load(fileName);
 
-            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
+            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Code + " - " + supplierDTO.Tengiaodich));
             doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
             doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
             doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));
             doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
-            doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
+            doc.AddCustomProperty(new CustomProperty("LoaiHinhDichVu", loaiDvDTO.TenLoai));
 
             doc.AddCustomProperty(new CustomProperty("TieuChuanSao", DanhGiaCruiseDTO.TieuChuanSao));
-            doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", DanhGiaCruiseDTO.Gpkd == true ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("VAT", DanhGiaCruiseDTO.Vat == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("SoLuongTauNguDem", DanhGiaCruiseDTO.SoLuongTauNguDem));
-            doc.AddCustomProperty(new CustomProperty("SucChuaTauNguDem", DanhGiaCruiseDTO.SucChuaTauNguDem));
-            doc.AddCustomProperty(new CustomProperty("LoaiTau", DanhGiaCruiseDTO.LoaiTau));
-            doc.AddCustomProperty(new CustomProperty("SoLuongTauThamQuanNgay", DanhGiaCruiseDTO.SoLuongTauTqngay)); // ?
-            doc.AddCustomProperty(new CustomProperty("SucChuaTauThamQuanNgay", DanhGiaCruiseDTO.SucChuaTauTqngay));
-            doc.AddCustomProperty(new CustomProperty("GiaCaHopLy", DanhGiaCruiseDTO.GiaCaHopLy ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("CabineCoBanCong", DanhGiaCruiseDTO.CabineCoBanCong ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("ChuongTrinh", DanhGiaCruiseDTO.ChuongTrinh));
+            doc.AddCustomProperty(new CustomProperty("SoLuongTauThamQuanNgay", DanhGiaCruiseDTO.SoLuongTauTqngay));
+            doc.AddCustomProperty(new CustomProperty("GiaCa", DanhGiaCruiseDTO.GiaCa));
             doc.AddCustomProperty(new CustomProperty("CangDonKhach", DanhGiaCruiseDTO.CangDonKhach));
             doc.AddCustomProperty(new CustomProperty("CoHoTroTot", DanhGiaCruiseDTO.CoHoTroTot ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", DanhGiaCruiseDTO.Gpkd ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("VAT", DanhGiaCruiseDTO.Vat ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("CabineCoBanCong", DanhGiaCruiseDTO.CabineCoBanCong ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaCruiseDTO.KhaoSatThucTe ? "Có" : "Không"));
 
             doc.AddCustomProperty(new CustomProperty("DatYeuCau", DanhGiaCruiseDTO.KqDat == true ? "Có" : ""));

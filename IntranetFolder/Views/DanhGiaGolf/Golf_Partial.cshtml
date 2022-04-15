@@ -19,36 +19,37 @@
                 <th>
                     @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                     {
-                            <button type="button" class="btn btn-success btn-sm btn-block"
+                        <button type="button" class="btn btn-success btn-sm btn-block"
                             asp-action="ThemMoiGolf_Partial" title="Thêm mới"
                             id="btnThemMoiGolf" data-supplierid="@Model.SupplierDTO.Code">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                            <i class="fas fa-plus"></i>
+                        </button>
                     }
 
                 </th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TenNcu)</th>
                 @*<th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().DiaChi)</th>
-                        <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().DienThoai)</th>
-                        <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Fax)</th>
-                        <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Email)</th>
-                        <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Website)</th>*@
-                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TieuChuanSao)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().DienThoai)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Fax)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Email)</th>
+                    <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Website)</th>*@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Gpkd)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().Vat)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().ViTri)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().SoLuongSanGolf)</th>
-                <th>DT sân Golf(m&sup2;)</th>
-                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().MucGiaPhi)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().CoNhaHang)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().CoXeDien)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().CoHoTroTot)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().KhaoSatThucTe)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TieuChuanSao)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().ViTri)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().SoLuongSanGolf)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().DienTichSanGolf)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().MucGiaPhi)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().KqDat)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().KqKhaoSatThem)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TiemNang)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().TaiKy)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().NguoiDanhGia)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaGolfDTOs.FirstOrDefault().NgayDanhGia)</th>
 
             </tr>
         </thead>
@@ -57,135 +58,71 @@
             {
                 @foreach (var item in Model.DanhGiaGolfDTOs)
                 {
+                    <tr class="golf-cursor-pointer @item.Id">
 
-                            <tr class="golf-cursor-pointer @item.Id">
+                        <td>
+                            <div class="btn-group text-white" role="group">
+                                <a class="text-blue btnExWordGolf" title="Export to word" asp-action="ExportToWord_Golf" asp-controller="DanhGiaGolf" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
 
-                                <td>
-                                    <div class="btn-group text-white" role="group">
-                                        <a class="text-blue btnExWordGolf" title="Export to word" asp-action="ExportToWord_Golf" asp-controller="DanhGiaGolf" asp-route-supplierId="@item.SupplierId" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-file-word"></i></a>
-
-                                        <span class="text-dark"> | </span>
+                                <span class="text-dark"> | </span>
 
                                 @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                 {
-                                                <a class="text-primary btnCapNhatGolf" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    <a class="text-primary btnCapNhatGolf" title="Cập nhật" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id"><i class="fas fa-edit"></i></a>
                                     @*<span class="text-dark"> | </span>
 
                                         <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
-                                                <!-- ko cho xóa -->
-                                                <span class="text-dark"> | </span>
+                                    <!-- ko cho xóa -->
+                                    <span class="text-dark"> | </span>
                                 }
 
-                                        <form asp-action="Delete" asp-controller="DanhGiaGolf" method="post">
+                                <form asp-action="Delete" asp-controller="DanhGiaGolf" method="post">
 
-                                            <span id="confirmDeleteGolf_@item.Id" style="display: none">
+                                    <span id="confirmDeleteGolf_@item.Id" style="display: none">
 
 
-                         <span class="text-dark ">Xoá?</span>
+                                        <span class="text-dark ">Xoá?</span>
 
-                                                <input type="hidden" name="id" value="@item.Id" />
-                                                <input type="hidden" name="strUrl" value="@Model.StrUrl" />
-                                                <button type="button" class="btn btn-danger btn-xs btnXoaGolf" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
-                                                <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteGolf('@item.Id', false)">No</button>
-                                            </span>
-                                        </form>
-                                        <span id="deleteSpan_@item.Id">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="strUrl" value="@Model.StrUrl" />
+                                        <button type="button" class="btn btn-danger btn-xs btnXoaGolf" data-supplierid="@Model.SupplierDTO.Code" data-id="@item.Id">Yes</button>
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="confirmDeleteGolf('@item.Id', false)">No</button>
+                                    </span>
+                                </form>
+                                <span id="deleteSpan_@item.Id">
                                     @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                     {
-                                                    <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteGolf('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" data-id="@item.Id" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDeleteGolf('@item.Id', true)"><i class="fas fa-trash-alt"></i></button>
                                     }
 
-                                        </span>
-                                    </div>
-                                </td>
+                                </span>
+                            </div>
+                        </td>
 
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
                         @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
-                                <td class="tdVal" data-id="@item.Id">
-                            @if (item.Gpkd == true)
-                            {
-                                            <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Không</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">
-                            @if (item.Vat == true)
-                            {
-                                            <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Không</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuongSanGolf)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienTichSanGolf)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucGiaPhi)</td> <!--cao thap gi do-->
-                <td class="tdVal" data-id="@item.Id">
-                            @if (item.CoNhaHang == true)
-                            {
-                                            <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Không</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">
-                            @if (item.CoXeDien == true)
-                            {
-                                            <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Không</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">
-                            @if (item.CoHoTroTot == true)
-                            {
-                                            <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Không</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">
-                            @if (item.KhaoSatThucTe == true)
-                            {
-                                            <span class="badge badge-success">Có</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Không</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">
-                            @if (item.KqDat == true)
-                            {
-                                            <span class="badge badge-success">Đạt</span>
-                            }
-                            else
-                            {
-                                            <span class="badge badge-danger">Chưa</span>
-                            }
-                                </td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
-                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
-
-                            </tr>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
+                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Gpkd)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Vat)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoNhaHang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoXeDien)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoHoTroTot)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KhaoSatThucTe)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TieuChuanSao)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoLuongSanGolf)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienTichSanGolf)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.MucGiaPhi)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqDat)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.HasValue ? item.NgayDanhGia.Value.ToString("dd/MM/yyyy") : "")</td>
+                    </tr>
 
                 }
             }

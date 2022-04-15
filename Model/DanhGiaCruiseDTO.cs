@@ -35,7 +35,10 @@ namespace Model
         public bool Vat { get; set; }
 
         [Display(Name = "SL tàu ngủ đêm")]
-        public int SoLuongTauNguDem { get; set; }
+        public string SoLuongTauNguDem { get; set; }
+
+        [Display(Name = "Chương trình / hành trình / hải trình")]
+        public string ChuongTrinh { get; set; }
 
         [Display(Name = "Sức chứa tàu ngủ đêm")]
         public string SucChuaTauNguDem { get; set; }
@@ -44,13 +47,13 @@ namespace Model
         public string LoaiTau { get; set; }
 
         [Display(Name = "SL tau TQ ngày")]
-        public int SoLuongTauTqngay { get; set; }
+        public string SoLuongTauTqngay { get; set; }
 
         [Display(Name = "Sức chứa tàu TQ ngày")]
         public string SucChuaTauTqngay { get; set; }
 
-        [Display(Name = "Giá cả hợp lý")]
-        public bool GiaCaHopLy { get; set; }
+        [Display(Name = "Giá cả")]
+        public string GiaCa { get; set; }
 
         [Display(Name = "Cabine có ban công")]
         public bool CabineCoBanCong { get; set; }
@@ -58,7 +61,7 @@ namespace Model
         [Display(Name = "Cảng đón khách")]
         public string CangDonKhach { get; set; }
 
-        [Display(Name = "Có hổ trợ tốt")]
+        [Display(Name = "Có HT tốt")]
         public bool CoHoTroTot { get; set; }
 
         [Display(Name = "Khảo sát thự tế")]
@@ -67,7 +70,7 @@ namespace Model
         [Display(Name = "KQ đạt")]
         public bool KqDat { get; set; }
 
-        [Display(Name = "KQ khảo sát thêm")]
+        [Display(Name = "KQ KS thêm")]
         public bool KqKhaoSatThem { get; set; }
 
         public DateTime? NgayTao { get; set; }
@@ -89,6 +92,9 @@ namespace Model
 
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
+
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
 
         public string LogFile { get; set; }
 

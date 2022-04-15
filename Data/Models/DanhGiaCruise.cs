@@ -17,12 +17,13 @@ namespace Data.Models
         public string TieuChuanSao { get; set; }
         public bool Gpkd { get; set; }
         public bool Vat { get; set; }
-        public int SoLuongTauNguDem { get; set; }
+        public string SoLuongTauNguDem { get; set; }
         public string SucChuaTauNguDem { get; set; }
+        public string ChuongTrinh { get; set; }
         public string LoaiTau { get; set; }
-        public int SoLuongTauTqngay { get; set; }
+        public string SoLuongTauTqngay { get; set; }
         public string SucChuaTauTqngay { get; set; }
-        public bool GiaCaHopLy { get; set; }
+        public string GiaCa { get; set; }
         public bool CabineCoBanCong { get; set; }
         public string CangDonKhach { get; set; }
         public bool CoHoTroTot { get; set; }
@@ -38,6 +39,7 @@ namespace Data.Models
         public bool TiemNang { get; set; }
         public bool TaiKy { get; set; }
         public string NguoiDanhGia { get; set; }
+        public DateTime? NgayDanhGia { get; set; }
         public string LogFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }

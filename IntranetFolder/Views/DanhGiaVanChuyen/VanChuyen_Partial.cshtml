@@ -45,6 +45,8 @@
                 <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().KqKhaoSatThem)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().TiemNang)</th>
                 <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().TaiKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().NguoiDanhGia)</th>
+                <th>@Html.DisplayNameFor(m => m.DanhGiaVanChuyenDTOs.FirstOrDefault().NgayDanhGia)</th>
 
 
             </tr>
@@ -114,6 +116,8 @@
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
                         <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
+                        <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.HasValue ? item.NgayDanhGia.Value.ToString("dd/MM/yyyy") : "")</td>
 
                     </tr>
 

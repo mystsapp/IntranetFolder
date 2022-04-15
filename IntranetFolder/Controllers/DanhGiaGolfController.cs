@@ -59,6 +59,7 @@ namespace IntranetFolder.Controllers
             DanhGiaGolfVM.DanhGiaGolfDTO.SupplierId = supplierId;
             DanhGiaGolfVM.DanhGiaGolfDTO.TenNcu = DanhGiaGolfVM.SupplierDTO.Tengiaodich;
             DanhGiaGolfVM.LoaiSaos = SD.LoaiSao();
+            DanhGiaGolfVM.MucGiaPhis = SD.MucGiaPhi();
             return PartialView(DanhGiaGolfVM);
         }
 
@@ -131,6 +132,7 @@ namespace IntranetFolder.Controllers
                 return View("~/Views/Shared/NotFound.cshtml");
             }
             DanhGiaGolfVM.LoaiSaos = SD.LoaiSao();
+            DanhGiaGolfVM.MucGiaPhis = SD.MucGiaPhi();
 
             return PartialView(DanhGiaGolfVM);
         }
@@ -243,25 +245,24 @@ namespace IntranetFolder.Controllers
             string fileName = webRootPath + @"\WordTemplates\M01g-DGNCU-GOLF.docx";
             doc = DocX.Load(fileName);
 
-            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Tengiaodich));
+            doc.AddCustomProperty(new CustomProperty("TenGiaoDich", supplierDTO.Code + " - " + supplierDTO.Tengiaodich));
             doc.AddCustomProperty(new CustomProperty("TenThuongMai", supplierDTO.Tenthuongmai));
             doc.AddCustomProperty(new CustomProperty("TapDoan", tapDoanDTO == null ? "" : tapDoanDTO.Ten));
             doc.AddCustomProperty(new CustomProperty("DiaChi", supplierDTO.Diachi));
             doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
-            doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
+            doc.AddCustomProperty(new CustomProperty("LoaiHinhDichVu", loaiDvDTO.TenLoai));
 
-            doc.AddCustomProperty(new CustomProperty("TieuChuanSao", DanhGiaGolfDTO.TieuChuanSao.Value.ToString()));
             doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", DanhGiaGolfDTO.Gpkd == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("VAT", DanhGiaGolfDTO.Vat == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("CoNhaHang", DanhGiaGolfDTO.CoNhaHang ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("CoXeDien", DanhGiaGolfDTO.CoXeDien ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("CoHoTroTot", DanhGiaGolfDTO.CoHoTroTot ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaGolfDTO.KhaoSatThucTe ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("TieuChuanSao", DanhGiaGolfDTO.TieuChuanSao));
             doc.AddCustomProperty(new CustomProperty("ViTri", DanhGiaGolfDTO.ViTri));
             doc.AddCustomProperty(new CustomProperty("SoLuongSanGolf", DanhGiaGolfDTO.SoLuongSanGolf.Value.ToString()));
             doc.AddCustomProperty(new CustomProperty("DienTichSanGolf", DanhGiaGolfDTO.DienTichSanGolf)); // ?
             doc.AddCustomProperty(new CustomProperty("MucGiaPhi", DanhGiaGolfDTO.MucGiaPhi));
-            doc.AddCustomProperty(new CustomProperty("CoNhaHang", DanhGiaGolfDTO.CoNhaHang ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("CoXeDien", DanhGiaGolfDTO.CoXeDien ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("CoHoTroTot", DanhGiaGolfDTO.CoHoTroTot ? "Có" : "Không"));
-
-            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaGolfDTO.KhaoSatThucTe ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("DatYeuCau", DanhGiaGolfDTO.KqDat == true ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("KhaoSatThem", DanhGiaGolfDTO.KqKhaoSatThem ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("TaiKy", DanhGiaGolfDTO.TaiKy ? "Có" : ""));
@@ -269,6 +270,7 @@ namespace IntranetFolder.Controllers
 
             doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
             doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
+            doc.AddCustomProperty(new CustomProperty("Nam", DateTime.Now.Year));
 
             doc.AddList("First Item", 0, ListItemType.Numbered);
 

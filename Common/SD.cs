@@ -94,6 +94,14 @@ namespace Common
             };
         }
 
+        public static List<string> MucGiaPhi()
+        {
+            return new List<string>()
+            {
+                "Cao", "Thấp", "TB"
+            };
+        }
+
         //public static List<string> DonViKyKet()
         //{
         //    return new List<string>()

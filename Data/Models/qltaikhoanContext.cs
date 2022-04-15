@@ -243,6 +243,8 @@ namespace Data.Models
 
                 entity.Property(e => e.CangDonKhach).HasMaxLength(150);
 
+                entity.Property(e => e.ChuongTrinh).HasMaxLength(250);
+
                 entity.Property(e => e.DiaChi).HasMaxLength(250);
 
                 entity.Property(e => e.DienThoai)
@@ -257,11 +259,17 @@ namespace Data.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.GiaCa)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.Gpkd).HasColumnName("GPKD");
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
                 entity.Property(e => e.LoaiTau).HasMaxLength(150);
+
+                entity.Property(e => e.NgayDanhGia).HasColumnType("date");
 
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
@@ -277,7 +285,14 @@ namespace Data.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.SoLuongTauTqngay).HasColumnName("SoLuongTauTQNgay");
+                entity.Property(e => e.SoLuongTauNguDem)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.SoLuongTauTqngay)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .HasColumnName("SoLuongTauTQNgay");
 
                 entity.Property(e => e.SucChuaTauNguDem).HasMaxLength(150);
 
@@ -417,6 +432,8 @@ namespace Data.Models
 
                 entity.Property(e => e.MucGiaPhi).HasMaxLength(50);
 
+                entity.Property(e => e.NgayDanhGia).HasColumnType("date");
+
                 entity.Property(e => e.NgaySua).HasColumnType("datetime");
 
                 entity.Property(e => e.NgayTao).HasColumnType("datetime");
@@ -439,6 +456,8 @@ namespace Data.Models
                 entity.Property(e => e.TenNcu)
                     .HasMaxLength(150)
                     .HasColumnName("TenNCU");
+
+                entity.Property(e => e.TieuChuanSao).HasMaxLength(50);
 
                 entity.Property(e => e.Vat).HasColumnName("VAT");
 

@@ -26,7 +26,7 @@ namespace Model
         public string Website { get; set; }
 
         [Display(Name = "Tiêu chuẩn sao")]
-        public int? TieuChuanSao { get; set; }
+        public string TieuChuanSao { get; set; }
 
         [Display(Name = "GPKD")]
         public bool Gpkd { get; set; }
@@ -40,7 +40,7 @@ namespace Model
         [Display(Name = "SL sân Golf")]
         public int? SoLuongSanGolf { get; set; }
 
-        [Display(Name = "DT sân Golf")]
+        [Display(Name = "DT sân Golf(ha)")]
         public string DienTichSanGolf { get; set; }
 
         [Display(Name = "Mức giá phí")]
@@ -52,16 +52,16 @@ namespace Model
         [Display(Name = "Có xe điện")]
         public bool CoXeDien { get; set; }
 
-        [Display(Name = "Có hổ trợ tốt")]
+        [Display(Name = "Có H/T tốt")]
         public bool CoHoTroTot { get; set; }
 
-        [Display(Name = "Khảo sát thực tế")]
+        [Display(Name = "K/S thực tế")]
         public bool KhaoSatThucTe { get; set; }
 
         [Display(Name = "KQ đạt")]
         public bool KqDat { get; set; }
 
-        [Display(Name = "KQ khảo sát thêm")]
+        [Display(Name = "KQ k/s thêm")]
         public bool KqKhaoSatThem { get; set; }
 
         public DateTime? NgayTao { get; set; }
@@ -83,6 +83,9 @@ namespace Model
 
         [Display(Name = "Người đánh giá")]
         public string NguoiDanhGia { get; set; }
+
+        [Display(Name = "Ngày đánh giá")]
+        public DateTime? NgayDanhGia { get; set; }
 
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }

@@ -17,6 +17,7 @@ namespace IntranetFolder.Models
         public DanhGiaCruiseDTO DanhGiaCruiseDTO { get; set; }
         public SupplierDTO SupplierDTO { get; set; }
         public List<string> LoaiSaos { get; set; }
+        public List<string> GiaCas { get; set; }
 
         public int Page { get; set; }
         public string StrUrl { get; set; }

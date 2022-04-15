@@ -14,7 +14,7 @@ namespace Data.Models
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public int? TieuChuanSao { get; set; }
+        public string TieuChuanSao { get; set; }
         public bool Gpkd { get; set; }
         public bool Vat { get; set; }
         public string ViTri { get; set; }
@@ -36,6 +36,7 @@ namespace Data.Models
         public bool TiemNang { get; set; }
         public bool TaiKy { get; set; }
         public string NguoiDanhGia { get; set; }
+        public DateTime? NgayDanhGia { get; set; }
         public string LogFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }
