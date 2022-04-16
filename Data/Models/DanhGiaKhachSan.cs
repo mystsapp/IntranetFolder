@@ -29,7 +29,7 @@ namespace Data.Models
         public bool BaiDoXe { get; set; }
         public bool KhaoSatThucTe { get; set; }
         public bool KqDat { get; set; }
-        public string KqKhaoSatThem { get; set; }
+        public bool KqKhaoSatThem { get; set; }
         public bool DongYduaVaoDsncu { get; set; }
         public DateTime? NgayTao { get; set; }
         public string NguoiTao { get; set; }

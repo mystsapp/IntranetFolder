@@ -92,6 +92,7 @@ namespace Model
         [Display(Name = "Ngày đánh giá")]
         public DateTime? NgayDanhGia { get; set; }
 
+        public string LogFile { get; set; }
         public SupplierDTO SupplierDTO { get; set; } // chi can cho nay
     }
 }

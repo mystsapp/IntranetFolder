@@ -84,6 +84,9 @@ namespace IntranetFolder.Controllers
             DanhGiaKhachSanVM.DanhGiaKhachSanDTO.NgayTao = DateTime.Now;
             DanhGiaKhachSanVM.DanhGiaKhachSanDTO.LoaiDvid = 1; // MaLoai = HTL
 
+            // ghi log
+            DanhGiaKhachSanVM.DanhGiaKhachSanDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaKhachSanService.CreateAsync(DanhGiaKhachSanVM.DanhGiaKhachSanDTO); // save
@@ -165,7 +168,7 @@ namespace IntranetFolder.Controllers
 
                 if (t.Vat != DanhGiaKhachSanVM.DanhGiaKhachSanDTO.Vat)
                 {
-                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Fax, DanhGiaKhachSanVM.DanhGiaKhachSanDTO.Vat);
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaKhachSanVM.DanhGiaKhachSanDTO.Vat);
                 }
 
                 if (t.HoBoi != DanhGiaKhachSanVM.DanhGiaKhachSanDTO.HoBoi)
@@ -275,7 +278,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "Cập nhật không thành công!"
                     });
                 }
             }
@@ -372,7 +375,7 @@ namespace IntranetFolder.Controllers
             doc.AddCustomProperty(new CustomProperty("ViTri", danhGiaKhachSanDTO.ViTri));
             doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", danhGiaKhachSanDTO.KhaoSatThucTe == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("DatYeuCau", danhGiaKhachSanDTO.KqDat == true ? "Có" : ""));
-            doc.AddCustomProperty(new CustomProperty("KhaoSatThem", !string.IsNullOrWhiteSpace(danhGiaKhachSanDTO.KqKhaoSatThem) ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThem", danhGiaKhachSanDTO.KqKhaoSatThem == true ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("TaiKy", danhGiaKhachSanDTO.TaiKy == true ? "Có" : ""));
             doc.AddCustomProperty(new CustomProperty("TiemNang", danhGiaKhachSanDTO.TiemNang == true ? "Có" : ""));
 

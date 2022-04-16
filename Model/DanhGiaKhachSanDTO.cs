@@ -68,7 +68,7 @@ namespace Model
         public bool KqDat { get; set; }
 
         [Display(Name = "Khảo sát thêm")]
-        public string KqKhaoSatThem { get; set; }
+        public bool KqKhaoSatThem { get; set; }
 
         [Display(Name = "Đồng ý đưa vào DS NCU")]
         public bool DongYduaVaoDsncu { get; set; }

@@ -14,14 +14,16 @@ namespace Data.Models
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
-        public bool? CoGpkd { get; set; }
-        public bool? CoHdvat { get; set; }
+        public bool? Gpkd { get; set; }
+        public bool? Vat { get; set; }
         public string ViTri { get; set; }
         public string SoChoToiDa { get; set; }
+        public string Menu { get; set; }
         public bool DinhLuongMonAn { get; set; }
         public string ChatLuongMonAn { get; set; }
         public string NhaVeSinh { get; set; }
         public string ThaiDoPvcuaNv { get; set; }
+        public bool PhongKvrieng { get; set; }
         public bool CoTieuChuanNoiBo { get; set; }
         public bool BaiDoXe { get; set; }
         public bool? CoKhaoSatThucTe { get; set; }

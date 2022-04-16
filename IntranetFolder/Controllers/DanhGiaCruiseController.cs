@@ -85,6 +85,9 @@ namespace IntranetFolder.Controllers
             DanhGiaCruiseVM.DanhGiaCruiseDTO.NgayTao = DateTime.Now;
             DanhGiaCruiseVM.DanhGiaCruiseDTO.LoaiDvid = 4; // MaLoai = CRU
 
+            // ghi log
+            DanhGiaCruiseVM.DanhGiaCruiseDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaCruiseService.CreateAsync(DanhGiaCruiseVM.DanhGiaCruiseDTO); // save
@@ -197,7 +200,7 @@ namespace IntranetFolder.Controllers
 
                 if (t.Vat != DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat)
                 {
-                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Email, DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat);
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaCruiseVM.DanhGiaCruiseDTO.Vat);
                 }
 
                 if (t.CabineCoBanCong != DanhGiaCruiseVM.DanhGiaCruiseDTO.CabineCoBanCong)

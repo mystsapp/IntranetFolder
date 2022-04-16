@@ -230,6 +230,9 @@ namespace IntranetFolder.Controllers
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.NgayTao = DateTime.Now;
             DanhGiaNhaHangVM.DanhGiaNhaHangDTO.LoaiDvid = 2; // MaLoai = RST
 
+            // ghi log
+            DanhGiaNhaHangVM.DanhGiaNhaHangDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaNhaHangService.CreateAsync(DanhGiaNhaHangVM.DanhGiaNhaHangDTO); // save
@@ -301,14 +304,14 @@ namespace IntranetFolder.Controllers
 
                 var t = _danhGiaNhaHangService.GetByIdAsNoTracking(DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Id);
 
-                if (t.CoGpkd != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoGpkd)
+                if (t.Gpkd != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Gpkd)
                 {
-                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.CoGpkd, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoGpkd);
+                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Gpkd);
                 }
 
-                if (t.CoHdvat != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoHdvat)
+                if (t.Vat != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Vat)
                 {
-                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.CoHdvat, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.CoHdvat);
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaNhaHangVM.DanhGiaNhaHangDTO.Vat);
                 }
 
                 if (t.DinhLuongMonAn != DanhGiaNhaHangVM.DanhGiaNhaHangDTO.DinhLuongMonAn)
@@ -499,8 +502,8 @@ namespace IntranetFolder.Controllers
             doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
             doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
 
-            doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", danhGiaNhaHangDTO.CoGpkd == true ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("VAT", danhGiaNhaHangDTO.CoHdvat == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("GiayPhepKinhDoanh", danhGiaNhaHangDTO.Gpkd == true ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("VAT", danhGiaNhaHangDTO.Vat == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("DinhLuongMonAn", danhGiaNhaHangDTO.DinhLuongMonAn == true ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("BaiDoXe", danhGiaNhaHangDTO.BaiDoXe ? "Có" : "Không"));
             doc.AddCustomProperty(new CustomProperty("CoTChuanNoiBo", danhGiaNhaHangDTO.CoTieuChuanNoiBo == true ? "Có" : "Không"));

@@ -87,6 +87,9 @@ namespace IntranetFolder.Controllers
             DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NgayTao = DateTime.Now;
             DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.LoaiDvid = 7; // MaLoai = CAR
 
+            // ghi log
+            DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaVanChuyenService.CreateAsync(DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO); // save
@@ -150,6 +153,105 @@ namespace IntranetFolder.Controllers
                 DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NgaySua = DateTime.Now;
                 DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NguoiSua = user.Username;
 
+                #region log file
+
+                string temp = "", log = "";
+
+                var t = _danhGiaVanChuyenService.GetByIdAsNoTracking(DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.Id);
+
+                if (t.Gpkd != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.Gpkd)
+                {
+                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.Gpkd);
+                }
+
+                if (t.Vat != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.Vat)
+                {
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.Vat);
+                }
+
+                if (t.GiaCaPhuHop != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.GiaCaPhuHop)
+                {
+                    temp += String.Format("- GiaCaPhuHop thay đổi: {0}->{1}", t.GiaCaPhuHop, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.GiaCaPhuHop);
+                }
+
+                if (t.KhaoSatThucTe != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KhaoSatThucTe)
+                {
+                    temp += String.Format("- KhaoSatThucTe thay đổi: {0}->{1}", t.KhaoSatThucTe, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KhaoSatThucTe);
+                }
+
+                if (t.SoXeChinhThuc != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.SoXeChinhThuc)
+                {
+                    temp += String.Format("- SoXeChinhThuc thay đổi: {0}->{1}", t.SoXeChinhThuc, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.SoXeChinhThuc);
+                }
+
+                if (t.KhaNangHuyDong != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KhaNangHuyDong)
+                {
+                    temp += String.Format("- KhaNangHuyDong thay đổi: {0}->{1}", t.KhaNangHuyDong, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KhaNangHuyDong);
+                }
+
+                if (t.DoiXeCuNhatMoiNhat != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.DoiXeCuNhatMoiNhat)
+                {
+                    temp += String.Format("- DoiXeCuNhatMoiNhat thay đổi: {0}->{1}", t.DoiXeCuNhatMoiNhat, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.DoiXeCuNhatMoiNhat);
+                }
+
+                if (t.LoaiXeCoNhieuNhat != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.LoaiXeCoNhieuNhat)
+                {
+                    temp += String.Format("- LoaiXeCoNhieuNhat thay đổi: {0}->{1}", t.LoaiXeCoNhieuNhat, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.LoaiXeCoNhieuNhat);
+                }
+
+                if (t.KinhNghiem != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KinhNghiem)
+                {
+                    temp += String.Format("- KinhNghiem thay đổi: {0}->{1}", t.KinhNghiem, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KinhNghiem);
+                }
+
+                if (t.DanhSachDoiTac != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.DanhSachDoiTac)
+                {
+                    temp += String.Format("- DanhSachDoiTac thay đổi: {0}->{1}", t.DanhSachDoiTac, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.DanhSachDoiTac);
+                }
+
+                if (t.KqDat != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KqDat)
+                {
+                    temp += String.Format("- KqDat thay đổi: {0}->{1}", t.KqDat, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KqDat);
+                }
+
+                if (t.KqKhaoSatThem != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KqKhaoSatThem)
+                {
+                    temp += String.Format("- KqKhaoSatThem thay đổi: {0}->{1}", t.KqKhaoSatThem, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.KqKhaoSatThem);
+                }
+
+                if (t.TiemNang != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.TiemNang)
+                {
+                    temp += String.Format("- TiemNang thay đổi: {0}->{1}", t.TiemNang, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.TiemNang);
+                }
+
+                if (t.TaiKy != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.TaiKy)
+                {
+                    temp += String.Format("- TaiKy thay đổi: {0}->{1}", t.TaiKy, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.TaiKy);
+                }
+
+                if (t.NguoiDanhGia != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NguoiDanhGia)
+                {
+                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.NguoiDanhGia, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NguoiDanhGia);
+                }
+
+                if (t.NgayDanhGia != DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NgayDanhGia)
+                {
+                    temp += String.Format("- NgayDanhGia thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayDanhGia, DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.NgayDanhGia);
+                }
+
+                #endregion log file
+
+                // kiem tra thay doi
+                if (temp.Length > 0)
+                {
+                    log = System.Environment.NewLine;
+                    log += "=============";
+                    log += System.Environment.NewLine;
+                    log += temp + " -User cập nhật tour: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                    t.LogFile = t.LogFile + log;
+                    DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO.LogFile = t.LogFile;
+                }
+
                 try
                 {
                     await _danhGiaVanChuyenService.UpdateAsync(DanhGiaVanChuyenVM.DanhGiaVanChuyenDTO);
@@ -169,7 +271,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "Cập nhật không thành công!"
                     });
                 }
             }

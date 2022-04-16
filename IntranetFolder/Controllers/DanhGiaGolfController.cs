@@ -85,6 +85,9 @@ namespace IntranetFolder.Controllers
             DanhGiaGolfVM.DanhGiaGolfDTO.NgayTao = DateTime.Now;
             DanhGiaGolfVM.DanhGiaGolfDTO.LoaiDvid = 8; // MaLoai = GLF
 
+            // ghi log
+            DanhGiaGolfVM.DanhGiaGolfDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaGolfService.CreateAsync(DanhGiaGolfVM.DanhGiaGolfDTO); // save
@@ -149,6 +152,110 @@ namespace IntranetFolder.Controllers
                 DanhGiaGolfVM.DanhGiaGolfDTO.NgaySua = DateTime.Now;
                 DanhGiaGolfVM.DanhGiaGolfDTO.NguoiSua = user.Username;
 
+                #region log file
+
+                string temp = "", log = "";
+
+                var t = _danhGiaGolfService.GetByIdAsNoTracking(DanhGiaGolfVM.DanhGiaGolfDTO.Id);
+
+                if (t.Gpkd != DanhGiaGolfVM.DanhGiaGolfDTO.Gpkd)
+                {
+                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaGolfVM.DanhGiaGolfDTO.Gpkd);
+                }
+
+                if (t.Vat != DanhGiaGolfVM.DanhGiaGolfDTO.Vat)
+                {
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaGolfVM.DanhGiaGolfDTO.Vat);
+                }
+
+                if (t.CoNhaHang != DanhGiaGolfVM.DanhGiaGolfDTO.CoNhaHang)
+                {
+                    temp += String.Format("- CoNhaHang thay đổi: {0}->{1}", t.CoNhaHang, DanhGiaGolfVM.DanhGiaGolfDTO.CoNhaHang);
+                }
+
+                if (t.CoXeDien != DanhGiaGolfVM.DanhGiaGolfDTO.CoXeDien)
+                {
+                    temp += String.Format("- CoXeDien thay đổi: {0}->{1}", t.CoXeDien, DanhGiaGolfVM.DanhGiaGolfDTO.CoXeDien);
+                }
+
+                if (t.CoHoTroTot != DanhGiaGolfVM.DanhGiaGolfDTO.CoHoTroTot)
+                {
+                    temp += String.Format("- CoHoTroTot thay đổi: {0}->{1}", t.CoHoTroTot, DanhGiaGolfVM.DanhGiaGolfDTO.CoHoTroTot);
+                }
+
+                if (t.KhaoSatThucTe != DanhGiaGolfVM.DanhGiaGolfDTO.KhaoSatThucTe)
+                {
+                    temp += String.Format("- KhaoSatThucTe thay đổi: {0}->{1}", t.KhaoSatThucTe, DanhGiaGolfVM.DanhGiaGolfDTO.KhaoSatThucTe);
+                }
+
+                if (t.TieuChuanSao != DanhGiaGolfVM.DanhGiaGolfDTO.TieuChuanSao)
+                {
+                    temp += String.Format("- TieuChuanSao thay đổi: {0}->{1}", t.TieuChuanSao, DanhGiaGolfVM.DanhGiaGolfDTO.TieuChuanSao);
+                }
+
+                if (t.ViTri != DanhGiaGolfVM.DanhGiaGolfDTO.ViTri)
+                {
+                    temp += String.Format("- ViTri thay đổi: {0}->{1}", t.ViTri, DanhGiaGolfVM.DanhGiaGolfDTO.ViTri);
+                }
+
+                if (t.SoLuongSanGolf != DanhGiaGolfVM.DanhGiaGolfDTO.SoLuongSanGolf)
+                {
+                    temp += String.Format("- SoLuongSanGolf thay đổi: {0}->{1}", t.SoLuongSanGolf, DanhGiaGolfVM.DanhGiaGolfDTO.SoLuongSanGolf);
+                }
+
+                if (t.DienTichSanGolf != DanhGiaGolfVM.DanhGiaGolfDTO.DienTichSanGolf)
+                {
+                    temp += String.Format("- DienTichSanGolf thay đổi: {0}->{1}", t.DienTichSanGolf, DanhGiaGolfVM.DanhGiaGolfDTO.DienTichSanGolf);
+                }
+
+                if (t.MucGiaPhi != DanhGiaGolfVM.DanhGiaGolfDTO.MucGiaPhi)
+                {
+                    temp += String.Format("- MucGiaPhi thay đổi: {0}->{1}", t.MucGiaPhi, DanhGiaGolfVM.DanhGiaGolfDTO.MucGiaPhi);
+                }
+
+                if (t.KqDat != DanhGiaGolfVM.DanhGiaGolfDTO.KqDat)
+                {
+                    temp += String.Format("- KqDat thay đổi: {0}->{1}", t.KqDat, DanhGiaGolfVM.DanhGiaGolfDTO.KqDat);
+                }
+
+                if (t.KqKhaoSatThem != DanhGiaGolfVM.DanhGiaGolfDTO.KqKhaoSatThem)
+                {
+                    temp += String.Format("- KqKhaoSatThem thay đổi: {0}->{1}", t.KqKhaoSatThem, DanhGiaGolfVM.DanhGiaGolfDTO.KqKhaoSatThem);
+                }
+
+                if (t.TiemNang != DanhGiaGolfVM.DanhGiaGolfDTO.TiemNang)
+                {
+                    temp += String.Format("- TiemNang thay đổi: {0}->{1}", t.TiemNang, DanhGiaGolfVM.DanhGiaGolfDTO.TiemNang);
+                }
+
+                if (t.TaiKy != DanhGiaGolfVM.DanhGiaGolfDTO.TaiKy)
+                {
+                    temp += String.Format("- TaiKy thay đổi: {0}->{1}", t.TaiKy, DanhGiaGolfVM.DanhGiaGolfDTO.TaiKy);
+                }
+
+                if (t.NguoiDanhGia != DanhGiaGolfVM.DanhGiaGolfDTO.NguoiDanhGia)
+                {
+                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.NguoiDanhGia, DanhGiaGolfVM.DanhGiaGolfDTO.NguoiDanhGia);
+                }
+
+                if (t.NgayDanhGia != DanhGiaGolfVM.DanhGiaGolfDTO.NgayDanhGia)
+                {
+                    temp += String.Format("- NgayDanhGia thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayDanhGia, DanhGiaGolfVM.DanhGiaGolfDTO.NgayDanhGia);
+                }
+
+                #endregion log file
+
+                // kiem tra thay doi
+                if (temp.Length > 0)
+                {
+                    log = System.Environment.NewLine;
+                    log += "=============";
+                    log += System.Environment.NewLine;
+                    log += temp + " -User cập nhật tour: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                    t.LogFile = t.LogFile + log;
+                    DanhGiaGolfVM.DanhGiaGolfDTO.LogFile = t.LogFile;
+                }
+
                 try
                 {
                     await _danhGiaGolfService.UpdateAsync(DanhGiaGolfVM.DanhGiaGolfDTO);
@@ -168,7 +275,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "Cập nhật không thành công!"
                     });
                 }
             }

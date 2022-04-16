@@ -89,6 +89,9 @@ namespace IntranetFolder.Controllers
             DanhGiaLandTourVM.DanhGiaLandTourDTO.NgayTao = DateTime.Now;
             DanhGiaLandTourVM.DanhGiaLandTourDTO.LoaiDvid = 6; // MaLoai = LCT
 
+            // ghi log
+            DanhGiaLandTourVM.DanhGiaLandTourDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaLandTourService.CreateAsync(DanhGiaLandTourVM.DanhGiaLandTourDTO); // save
@@ -154,6 +157,110 @@ namespace IntranetFolder.Controllers
                 DanhGiaLandTourVM.DanhGiaLandTourDTO.NgaySua = DateTime.Now;
                 DanhGiaLandTourVM.DanhGiaLandTourDTO.NguoiSua = user.Username;
 
+                #region log file
+
+                string temp = "", log = "";
+
+                var t = _danhGiaLandTourService.GetByIdAsNoTracking(DanhGiaLandTourVM.DanhGiaLandTourDTO.Id);
+
+                if (t.Gpkd != DanhGiaLandTourVM.DanhGiaLandTourDTO.Gpkd)
+                {
+                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaLandTourVM.DanhGiaLandTourDTO.Gpkd);
+                }
+
+                if (t.Vat != DanhGiaLandTourVM.DanhGiaLandTourDTO.Vat)
+                {
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaLandTourVM.DanhGiaLandTourDTO.Vat);
+                }
+
+                if (t.CoHoTroXuLySuCo != DanhGiaLandTourVM.DanhGiaLandTourDTO.CoHoTroXuLySuCo)
+                {
+                    temp += String.Format("- CoHoTroXuLySuCo thay đổi: {0}->{1}", t.CoHoTroXuLySuCo, DanhGiaLandTourVM.DanhGiaLandTourDTO.CoHoTroXuLySuCo);
+                }
+
+                if (t.CoKhaNangHuyDong != DanhGiaLandTourVM.DanhGiaLandTourDTO.CoKhaNangHuyDong)
+                {
+                    temp += String.Format("- CoKhaNangHuyDong thay đổi: {0}->{1}", t.CoKhaNangHuyDong, DanhGiaLandTourVM.DanhGiaLandTourDTO.CoKhaNangHuyDong);
+                }
+
+                if (t.KhaoSatThucTe != DanhGiaLandTourVM.DanhGiaLandTourDTO.KhaoSatThucTe)
+                {
+                    temp += String.Format("- KhaoSatThucTe thay đổi: {0}->{1}", t.KhaoSatThucTe, DanhGiaLandTourVM.DanhGiaLandTourDTO.KhaoSatThucTe);
+                }
+
+                if (t.Tuyen != DanhGiaLandTourVM.DanhGiaLandTourDTO.Tuyen)
+                {
+                    temp += String.Format("- Tuyen thay đổi: {0}->{1}", t.Tuyen, DanhGiaLandTourVM.DanhGiaLandTourDTO.Tuyen);
+                }
+
+                if (t.ThoiGianHoatDong != DanhGiaLandTourVM.DanhGiaLandTourDTO.ThoiGianHoatDong)
+                {
+                    temp += String.Format("- ThoiGianHoatDong thay đổi: {0}->{1}", t.ThoiGianHoatDong, DanhGiaLandTourVM.DanhGiaLandTourDTO.ThoiGianHoatDong);
+                }
+
+                if (t.CacDoiTacLon != DanhGiaLandTourVM.DanhGiaLandTourDTO.CacDoiTacLon)
+                {
+                    temp += String.Format("- CacDoiTacLon thay đổi: {0}->{1}", t.CacDoiTacLon, DanhGiaLandTourVM.DanhGiaLandTourDTO.CacDoiTacLon);
+                }
+
+                if (t.ChatLuongDichVu != DanhGiaLandTourVM.DanhGiaLandTourDTO.ChatLuongDichVu)
+                {
+                    temp += String.Format("- ChatLuongDichVu thay đổi: {0}->{1}", t.ChatLuongDichVu, DanhGiaLandTourVM.DanhGiaLandTourDTO.ChatLuongDichVu);
+                }
+
+                if (t.SanPham != DanhGiaLandTourVM.DanhGiaLandTourDTO.SanPham)
+                {
+                    temp += String.Format("- SanPham thay đổi: {0}->{1}", t.SanPham, DanhGiaLandTourVM.DanhGiaLandTourDTO.SanPham);
+                }
+
+                if (t.GiaCa != DanhGiaLandTourVM.DanhGiaLandTourDTO.GiaCa)
+                {
+                    temp += String.Format("- GiaCa thay đổi: {0}->{1}", t.GiaCa, DanhGiaLandTourVM.DanhGiaLandTourDTO.GiaCa);
+                }
+
+                if (t.KqDat != DanhGiaLandTourVM.DanhGiaLandTourDTO.KqDat)
+                {
+                    temp += String.Format("- KqDat thay đổi: {0}->{1}", t.KqDat, DanhGiaLandTourVM.DanhGiaLandTourDTO.KqDat);
+                }
+
+                if (t.KqKhaoSatThem != DanhGiaLandTourVM.DanhGiaLandTourDTO.KqKhaoSatThem)
+                {
+                    temp += String.Format("- KqKhaoSatThem thay đổi: {0}->{1}", t.KqKhaoSatThem, DanhGiaLandTourVM.DanhGiaLandTourDTO.KqKhaoSatThem);
+                }
+
+                if (t.TiemNang != DanhGiaLandTourVM.DanhGiaLandTourDTO.TiemNang)
+                {
+                    temp += String.Format("- TiemNang thay đổi: {0}->{1}", t.TiemNang, DanhGiaLandTourVM.DanhGiaLandTourDTO.TiemNang);
+                }
+
+                if (t.TaiKy != DanhGiaLandTourVM.DanhGiaLandTourDTO.TaiKy)
+                {
+                    temp += String.Format("- TaiKy thay đổi: {0}->{1}", t.TaiKy, DanhGiaLandTourVM.DanhGiaLandTourDTO.TaiKy);
+                }
+
+                if (t.NguoiDanhGia != DanhGiaLandTourVM.DanhGiaLandTourDTO.NguoiDanhGia)
+                {
+                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.NguoiDanhGia, DanhGiaLandTourVM.DanhGiaLandTourDTO.NguoiDanhGia);
+                }
+
+                if (t.NgayDanhGia != DanhGiaLandTourVM.DanhGiaLandTourDTO.NgayDanhGia)
+                {
+                    temp += String.Format("- NgayDanhGia thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayDanhGia, DanhGiaLandTourVM.DanhGiaLandTourDTO.NgayDanhGia);
+                }
+
+                #endregion log file
+
+                // kiem tra thay doi
+                if (temp.Length > 0)
+                {
+                    log = System.Environment.NewLine;
+                    log += "=============";
+                    log += System.Environment.NewLine;
+                    log += temp + " -User cập nhật tour: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                    t.LogFile = t.LogFile + log;
+                    DanhGiaLandTourVM.DanhGiaLandTourDTO.LogFile = t.LogFile;
+                }
+
                 try
                 {
                     await _danhGiaLandTourService.UpdateAsync(DanhGiaLandTourVM.DanhGiaLandTourDTO);
@@ -173,7 +280,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "cập nhật không thành công!"
                     });
                 }
             }

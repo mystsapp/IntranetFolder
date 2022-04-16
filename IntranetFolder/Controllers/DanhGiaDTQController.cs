@@ -90,6 +90,9 @@ namespace IntranetFolder.Controllers
             DanhGiaDTQVM.DanhGiaDTQDTO.NgayTao = DateTime.Now;
             DanhGiaDTQVM.DanhGiaDTQDTO.LoaiDvid = 5; // MaLoai = SSE
 
+            // ghi log
+            DanhGiaDTQVM.DanhGiaDTQDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaDTQService.CreateAsync(DanhGiaDTQVM.DanhGiaDTQDTO); // save
@@ -154,6 +157,110 @@ namespace IntranetFolder.Controllers
                 DanhGiaDTQVM.DanhGiaDTQDTO.NgaySua = DateTime.Now;
                 DanhGiaDTQVM.DanhGiaDTQDTO.NguoiSua = user.Username;
 
+                #region log file
+
+                string temp = "", log = "";
+
+                var t = _danhGiaDTQService.GetByIdAsNoTracking(DanhGiaDTQVM.DanhGiaDTQDTO.Id);
+
+                if (t.Gpkd != DanhGiaDTQVM.DanhGiaDTQDTO.Gpkd)
+                {
+                    temp += String.Format("- Gpkd thay đổi: {0}->{1}", t.Gpkd, DanhGiaDTQVM.DanhGiaDTQDTO.Gpkd);
+                }
+
+                if (t.Vat != DanhGiaDTQVM.DanhGiaDTQDTO.Vat)
+                {
+                    temp += String.Format("- Vat thay đổi: {0}->{1}", t.Vat, DanhGiaDTQVM.DanhGiaDTQDTO.Vat);
+                }
+
+                if (t.BaiDoXe != DanhGiaDTQVM.DanhGiaDTQDTO.BaiDoXe)
+                {
+                    temp += String.Format("- BaiDoXe thay đổi: {0}->{1}", t.BaiDoXe, DanhGiaDTQVM.DanhGiaDTQDTO.BaiDoXe);
+                }
+
+                if (t.CoCheDoHdv != DanhGiaDTQVM.DanhGiaDTQDTO.CoCheDoHdv)
+                {
+                    temp += String.Format("- CoCheDoHdv thay đổi: {0}->{1}", t.CoCheDoHdv, DanhGiaDTQVM.DanhGiaDTQDTO.CoCheDoHdv);
+                }
+
+                if (t.KhaoSatThucTe != DanhGiaDTQVM.DanhGiaDTQDTO.KhaoSatThucTe)
+                {
+                    temp += String.Format("- KhaoSatThucTe thay đổi: {0}->{1}", t.KhaoSatThucTe, DanhGiaDTQVM.DanhGiaDTQDTO.KhaoSatThucTe);
+                }
+
+                if (t.SoChoToiDa != DanhGiaDTQVM.DanhGiaDTQDTO.SoChoToiDa)
+                {
+                    temp += String.Format("- SoChoToiDa thay đổi: {0}->{1}", t.SoChoToiDa, DanhGiaDTQVM.DanhGiaDTQDTO.SoChoToiDa);
+                }
+
+                if (t.MucDoHapDan != DanhGiaDTQVM.DanhGiaDTQDTO.MucDoHapDan)
+                {
+                    temp += String.Format("- MucDoHapDan thay đổi: {0}->{1}", t.MucDoHapDan, DanhGiaDTQVM.DanhGiaDTQDTO.MucDoHapDan);
+                }
+
+                if (t.SoLuongNhaHang != DanhGiaDTQVM.DanhGiaDTQDTO.SoLuongNhaHang)
+                {
+                    temp += String.Format("- SoLuongNhaHang thay đổi: {0}->{1}", t.SoLuongNhaHang, DanhGiaDTQVM.DanhGiaDTQDTO.SoLuongNhaHang);
+                }
+
+                if (t.NhaVeSinh != DanhGiaDTQVM.DanhGiaDTQDTO.NhaVeSinh)
+                {
+                    temp += String.Format("- NhaVeSinh thay đổi: {0}->{1}", t.NhaVeSinh, DanhGiaDTQVM.DanhGiaDTQDTO.NhaVeSinh);
+                }
+
+                if (t.DoiTuongKhachPhuHop != DanhGiaDTQVM.DanhGiaDTQDTO.DoiTuongKhachPhuHop)
+                {
+                    temp += String.Format("- DoiTuongKhachPhuHop thay đổi: {0}->{1}", t.DoiTuongKhachPhuHop, DanhGiaDTQVM.DanhGiaDTQDTO.DoiTuongKhachPhuHop);
+                }
+
+                if (t.ViTri != DanhGiaDTQVM.DanhGiaDTQDTO.ViTri)
+                {
+                    temp += String.Format("- ViTri thay đổi: {0}->{1}", t.ViTri, DanhGiaDTQVM.DanhGiaDTQDTO.ViTri);
+                }
+
+                if (t.KqDat != DanhGiaDTQVM.DanhGiaDTQDTO.KqDat)
+                {
+                    temp += String.Format("- KqDat thay đổi: {0}->{1}", t.KqDat, DanhGiaDTQVM.DanhGiaDTQDTO.KqDat);
+                }
+
+                if (t.KqKhaoSatThem != DanhGiaDTQVM.DanhGiaDTQDTO.KqKhaoSatThem)
+                {
+                    temp += String.Format("- KqKhaoSatThem thay đổi: {0}->{1}", t.KqKhaoSatThem, DanhGiaDTQVM.DanhGiaDTQDTO.KqKhaoSatThem);
+                }
+
+                if (t.TiemNang != DanhGiaDTQVM.DanhGiaDTQDTO.TiemNang)
+                {
+                    temp += String.Format("- TiemNang thay đổi: {0}->{1}", t.TiemNang, DanhGiaDTQVM.DanhGiaDTQDTO.TiemNang);
+                }
+
+                if (t.TaiKy != DanhGiaDTQVM.DanhGiaDTQDTO.TaiKy)
+                {
+                    temp += String.Format("- TaiKy thay đổi: {0}->{1}", t.TaiKy, DanhGiaDTQVM.DanhGiaDTQDTO.TaiKy);
+                }
+
+                if (t.NguoiDanhGia != DanhGiaDTQVM.DanhGiaDTQDTO.NguoiDanhGia)
+                {
+                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.NguoiDanhGia, DanhGiaDTQVM.DanhGiaDTQDTO.NguoiDanhGia);
+                }
+
+                if (t.NgayDanhGia != DanhGiaDTQVM.DanhGiaDTQDTO.NgayDanhGia)
+                {
+                    temp += String.Format("- NgayDanhGia thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayDanhGia, DanhGiaDTQVM.DanhGiaDTQDTO.NgayDanhGia);
+                }
+
+                #endregion log file
+
+                // kiem tra thay doi
+                if (temp.Length > 0)
+                {
+                    log = System.Environment.NewLine;
+                    log += "=============";
+                    log += System.Environment.NewLine;
+                    log += temp + " -User cập nhật tour: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                    t.LogFile = t.LogFile + log;
+                    DanhGiaDTQVM.DanhGiaDTQDTO.LogFile = t.LogFile;
+                }
+
                 try
                 {
                     await _danhGiaDTQService.UpdateAsync(DanhGiaDTQVM.DanhGiaDTQDTO);
@@ -173,7 +280,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "Cập nhật không thành công!"
                     });
                 }
             }

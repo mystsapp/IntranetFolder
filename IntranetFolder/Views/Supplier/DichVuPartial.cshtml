@@ -11,7 +11,8 @@
 
 <!--tour programe-->
 <div class="pl-2 "><h3><strong>Đánh giá nhà cung ứng - @Model.SupplierDTO.Tengiaodich</strong></h3></div>
-<div class="ml-2 mr-2"> <!--row ml-2 mr-2-->
+<div class="ml-2 mr-2">
+    <!--row ml-2 mr-2-->
 
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
@@ -65,29 +66,23 @@
 
                                     </th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TenNcu)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoGpkd)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoHdvat)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Gpkd)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Vat)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DinhLuongMonAn)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().BaiDoXe)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoTieuChuanNoiBo)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().PhongKVRieng)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ViTri)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().SoChoToiDa)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DinhLuongMonAn)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Menu)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ChatLuongMonAn)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().NhaVeSinh)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().ThaiDoPvcuaNv)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoTieuChuanNoiBo)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().BaiDoXe)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().CoKhaoSatThucTe)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqDat)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().KqKhaoSatThem)</th>
-                                    
-                                    @*<th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DiaChi)</th>
-                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DienThoai)</th>
-                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Fax)</th>
-                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Email)</th>
-                                        <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().Website)</th>*@
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TiemNang)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().TaiKy)</th>
                                     <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().NguoiDanhGia)</th>
-                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().DongYduaVaoDsncu)</th>
+                                    <th>@Html.DisplayNameFor(m => m.DanhGiaNhaHangDTOs.FirstOrDefault().NgayDanhGia)</th>
 
                                 </tr>
                             </thead>
@@ -116,7 +111,7 @@
                                                         <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
                                                     <!-- ko cho xóa -->
 
-                                            <form asp-action="Delete" asp-controller="DanhGiaNhaHang" method="post">
+                                                    <form asp-action="Delete" asp-controller="DanhGiaNhaHang" method="post">
 
                                                         <span id="confirmDeleteSpan_@item.Id" style="display: none">
                                                             <!--ajax check invoices-->
@@ -139,28 +134,23 @@
                                             </td>
 
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TenNcu)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoGpkd)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoHdvat)</td>                                            
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Gpkd)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Vat)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DinhLuongMonAn)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.BaiDoXe)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoTieuChuanNoiBo)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.PhongKVRieng)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ViTri)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.SoChoToiDa)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DinhLuongMonAn)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChatLuongMonAn)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NhaVeSinh)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ThaiDoPvcuaNv)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoTieuChuanNoiBo)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.BaiDoXe)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Menu)</td>                                            
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.ChatLuongMonAn)</td>                                            
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.CoKhaoSatThucTe)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqDat)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>                                           
-                                            @*<td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DiaChi)</td>
-                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DienThoai)</td>
-                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Fax)</td>
-                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Email)</td>
-                                                <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.Website)</td>*@
+                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.KqKhaoSatThem)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TiemNang)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.TaiKy)</td>
                                             <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.NguoiDanhGia)</td>
-                                            <td class="tdVal" data-id="@item.Id">@Html.DisplayFor(m => item.DongYduaVaoDsncu)</td>
+                                            <td class="tdVal" data-id="@item.Id">@Html.Raw(item.NgayDanhGia.HasValue ? item.NgayDanhGia.Value.ToString("dd/MM/yyyy") : "")</td>
 
                                         </tr>
 
@@ -237,7 +227,6 @@
                     </div>
                 </div>
                 <!-- tab_vanChuyen -->
-
                 <!-- tab_golf -->
                 <div class="tab-pane fade" id="tab_golf" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
                     <div id="divGolf">
@@ -250,7 +239,6 @@
                     </div>
                 </div>
                 <!-- tab_golf -->
-
                 <!-- tab_cruise -->
                 <div class="tab-pane fade" id="tab_cruise" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
                     <div id="divCruise">
@@ -444,7 +432,7 @@
         });
 
     }
-    
+
     // golf-tab
     $('#golf-tab').off('click').on('click', function () {
 
@@ -465,7 +453,7 @@
         });
 
     }
-    
+
     // cruise-tab
     $('#cruise-tab').off('click').on('click', function () {
 

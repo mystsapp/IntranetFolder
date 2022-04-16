@@ -24,10 +24,10 @@ namespace Model
         public string Website { get; set; }
 
         [Display(Name = "Có GPKD")]
-        public bool CoGpkd { get; set; }
+        public bool Gpkd { get; set; }
 
         [Display(Name = "Có HDVAT")]
-        public bool CoHdvat { get; set; }
+        public bool Vat { get; set; }
 
         [Display(Name = "Vị trí")]
         public string ViTri { get; set; }

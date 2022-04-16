@@ -89,6 +89,9 @@ namespace IntranetFolder.Controllers
             DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NgayTao = DateTime.Now;
             DanhGiaCamLaoVM.DanhGiaCamLaoDTO.LoaiDvid = 5; // MaLoai = SSE
 
+            // ghi log
+            DanhGiaCamLaoVM.DanhGiaCamLaoDTO.LogFile = "-User tạo: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // user.Username
+
             try
             {
                 await _danhGiaCamLaoService.CreateAsync(DanhGiaCamLaoVM.DanhGiaCamLaoDTO); // save
@@ -155,6 +158,95 @@ namespace IntranetFolder.Controllers
                 DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NgaySua = DateTime.Now;
                 DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NguoiSua = user.Username;
 
+                #region log file
+
+                string temp = "", log = "";
+
+                var t = _danhGiaCamLaoService.GetByIdAsNoTracking(DanhGiaCamLaoVM.DanhGiaCamLaoDTO.Id);
+
+                if (t.ThoiGianHoatDong != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.ThoiGianHoatDong)
+                {
+                    temp += String.Format("- ThoiGianHoatDong thay đổi: {0}->{1}", t.ThoiGianHoatDong, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.ThoiGianHoatDong);
+                }
+
+                if (t.CacDoiTacVn != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.CacDoiTacVn)
+                {
+                    temp += String.Format("- CacDoiTacVn thay đổi: {0}->{1}", t.CacDoiTacVn, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.CacDoiTacVn);
+                }
+
+                if (t.Tuyen != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.Tuyen)
+                {
+                    temp += String.Format("- Tuyen thay đổi: {0}->{1}", t.Tuyen, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.Tuyen);
+                }
+
+                if (t.CldvvaHdv != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.CldvvaHdv)
+                {
+                    temp += String.Format("- CldvvaHdv thay đổi: {0}->{1}", t.CldvvaHdv, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.CldvvaHdv);
+                }
+
+                if (t.SanPham != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.SanPham)
+                {
+                    temp += String.Format("- SanPham thay đổi: {0}->{1}", t.SanPham, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.SanPham);
+                }
+
+                if (t.GiaCa != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.GiaCa)
+                {
+                    temp += String.Format("- GiaCa thay đổi: {0}->{1}", t.GiaCa, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.GiaCa);
+                }
+
+                if (t.CoHtxuLySuCo != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.CoHtxuLySuCo)
+                {
+                    temp += String.Format("- CoHtxuLySuCo thay đổi: {0}->{1}", t.CoHtxuLySuCo, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.CoHtxuLySuCo);
+                }
+
+                if (t.KhaoSatThucTe != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.KhaoSatThucTe)
+                {
+                    temp += String.Format("- KhaoSatThucTe thay đổi: {0}->{1}", t.KhaoSatThucTe, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.KhaoSatThucTe);
+                }
+
+                if (t.Kqdat != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.Kqdat)
+                {
+                    temp += String.Format("- Kqdat thay đổi: {0}->{1}", t.Kqdat, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.Kqdat);
+                }
+
+                if (t.KqkhaoSatThem != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.KqkhaoSatThem)
+                {
+                    temp += String.Format("- KqkhaoSatThem thay đổi: {0}->{1}", t.KqkhaoSatThem, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.KqkhaoSatThem);
+                }
+
+                if (t.TiemNang != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.TiemNang)
+                {
+                    temp += String.Format("- TiemNang thay đổi: {0}->{1}", t.TiemNang, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.TiemNang);
+                }
+
+                if (t.TaiKy != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.TaiKy)
+                {
+                    temp += String.Format("- TaiKy thay đổi: {0}->{1}", t.TaiKy, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.TaiKy);
+                }
+
+                if (t.NguoiDanhGia != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NguoiDanhGia)
+                {
+                    temp += String.Format("- NguoiDanhGia thay đổi: {0}->{1}", t.NguoiDanhGia, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NguoiDanhGia);
+                }
+
+                if (t.NgayDanhGia != DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NgayDanhGia)
+                {
+                    temp += String.Format("- NgayDanhGia thay đổi: {0:dd/MM/yyyy}->{1:dd/MM/yyyy}", t.NgayDanhGia, DanhGiaCamLaoVM.DanhGiaCamLaoDTO.NgayDanhGia);
+                }
+
+                #endregion log file
+
+                // kiem tra thay doi
+                if (temp.Length > 0)
+                {
+                    log = System.Environment.NewLine;
+                    log += "=============";
+                    log += System.Environment.NewLine;
+                    log += temp + " -User cập nhật tour: " + user.Username + " vào lúc: " + System.DateTime.Now.ToString(); // username
+                    t.LogFile = t.LogFile + log;
+                    DanhGiaCamLaoVM.DanhGiaCamLaoDTO.LogFile = t.LogFile;
+                }
+
                 try
                 {
                     await _danhGiaCamLaoService.UpdateAsync(DanhGiaCamLaoVM.DanhGiaCamLaoDTO);
@@ -174,7 +266,7 @@ namespace IntranetFolder.Controllers
                     return Json(new
                     {
                         status = false,
-                        message = "Thêm mới không thành công!"
+                        message = "Cập nhật không thành công!"
                     });
                 }
             }
@@ -236,14 +328,14 @@ namespace IntranetFolder.Controllers
             }
 
             TapDoanDTO tapDoanDTO = await _danhGiaCamLaoService.GetTapDoanByIdAsync(supplierDTO.TapDoanId);
-            var danhGiaDTQDTO = await _danhGiaCamLaoService.GetByIdAsync(id);
+            var DanhGiaCamLaoDTO = await _danhGiaCamLaoService.GetByIdAsync(id);
 
-            if (danhGiaDTQDTO == null)
+            if (DanhGiaCamLaoDTO == null)
             {
                 ViewBag.ErrorMessage = "Item này không tồn tại.";
                 return View("~/Views/Shared/NotFound.cshtml");
             }
-            var loaiDvDTO = _danhGiaCamLaoService.GetAllLoaiDv().Where(x => x.Id == danhGiaDTQDTO.LoaiDvid).FirstOrDefault();
+            var loaiDvDTO = _danhGiaCamLaoService.GetAllLoaiDv().Where(x => x.Id == DanhGiaCamLaoDTO.LoaiDvid).FirstOrDefault();
 
             DocX doc = null;
             string webRootPath = _webHostEnvironment.WebRootPath;
@@ -257,18 +349,18 @@ namespace IntranetFolder.Controllers
             doc.AddCustomProperty(new CustomProperty("DienThoai/Email", supplierDTO.Dienthoai + "/" + supplierDTO.Email));
             doc.AddCustomProperty(new CustomProperty("LoaiHinhDV", loaiDvDTO.TenLoai));
 
-            doc.AddCustomProperty(new CustomProperty("ThoiGianHoatDong", danhGiaDTQDTO.ThoiGianHoatDong));
-            doc.AddCustomProperty(new CustomProperty("CacDoiTacVN", danhGiaDTQDTO.CacDoiTacVn));
-            doc.AddCustomProperty(new CustomProperty("Tuyen", danhGiaDTQDTO.Tuyen));
-            doc.AddCustomProperty(new CustomProperty("CLDVVaHDV", danhGiaDTQDTO.CldvvaHdv));
-            doc.AddCustomProperty(new CustomProperty("SanPham", danhGiaDTQDTO.SanPham));
-            doc.AddCustomProperty(new CustomProperty("GiaCa", danhGiaDTQDTO.GiaCa));
-            doc.AddCustomProperty(new CustomProperty("CoHTXuLySuCo", danhGiaDTQDTO.CoHtxuLySuCo ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", danhGiaDTQDTO.KhaoSatThucTe ? "Có" : "Không"));
-            doc.AddCustomProperty(new CustomProperty("DatYeuCau", danhGiaDTQDTO.Kqdat == true ? "Có" : ""));
-            doc.AddCustomProperty(new CustomProperty("KhaoSatThem", danhGiaDTQDTO.KqkhaoSatThem == true ? "Có" : ""));
-            doc.AddCustomProperty(new CustomProperty("TaiKy", danhGiaDTQDTO.TaiKy == true ? "Có" : ""));
-            doc.AddCustomProperty(new CustomProperty("TiemNang", danhGiaDTQDTO.TiemNang == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("ThoiGianHoatDong", DanhGiaCamLaoDTO.ThoiGianHoatDong));
+            doc.AddCustomProperty(new CustomProperty("CacDoiTacVN", DanhGiaCamLaoDTO.CacDoiTacVn));
+            doc.AddCustomProperty(new CustomProperty("Tuyen", DanhGiaCamLaoDTO.Tuyen));
+            doc.AddCustomProperty(new CustomProperty("CLDVVaHDV", DanhGiaCamLaoDTO.CldvvaHdv));
+            doc.AddCustomProperty(new CustomProperty("SanPham", DanhGiaCamLaoDTO.SanPham));
+            doc.AddCustomProperty(new CustomProperty("GiaCa", DanhGiaCamLaoDTO.GiaCa));
+            doc.AddCustomProperty(new CustomProperty("CoHTXuLySuCo", DanhGiaCamLaoDTO.CoHtxuLySuCo ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThucTe", DanhGiaCamLaoDTO.KhaoSatThucTe ? "Có" : "Không"));
+            doc.AddCustomProperty(new CustomProperty("DatYeuCau", DanhGiaCamLaoDTO.Kqdat == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("KhaoSatThem", DanhGiaCamLaoDTO.KqkhaoSatThem == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TaiKy", DanhGiaCamLaoDTO.TaiKy == true ? "Có" : ""));
+            doc.AddCustomProperty(new CustomProperty("TiemNang", DanhGiaCamLaoDTO.TiemNang == true ? "Có" : ""));
 
             doc.AddCustomProperty(new CustomProperty("Ngay", DateTime.Now.Day));
             doc.AddCustomProperty(new CustomProperty("Thang", DateTime.Now.Month));
