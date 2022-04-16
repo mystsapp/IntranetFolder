@@ -16,18 +16,13 @@
     ViewData["Title"] = "Index";
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //if (user.RoleId == SD.Intranets)
-    //{
-    //    Layout = "~/Views/Shared/_Layout.cshtml";
-    //}
-    //else
-    //{
-    //    Layout = "~/Views/Shared/_Layout_1.cshtml";
-    //}
+
 
 }
 
 <input type="hidden" id="hidStrUrl" value="@Model.StrUrl" />
+<input type="hidden" id="hidUserMaPhong" value="@user.Maphong" />
+<input type="hidden" id="hidUsername" value="thumai" />
 
 <!-- Main content -->
 <section class="content" style="padding: 15px 0.5rem">
@@ -59,16 +54,16 @@
                                 @*@Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control", @value="@ViewData["currentFilter"]" } })*@
                                 <input class="form-control form-control-sm" name="searchString" value="@ViewBag.searchString" />
                             </div>
-                            
-                                <div class="col-md-3 text-sm">
-                                    <label>Từ ngày</label>
-                                    <input class="form-control form-control-sm maskInput" name="searchFromDate" id="searchFromDate" value="@ViewBag.searchFromDate" />
-                                </div>
 
-                                <div class="col-md-3 text-sm">
-                                    <label>Đến ngày</label>
-                                    <input class="form-control form-control-sm maskInput" name="searchToDate" id="searchToDate" value="@ViewBag.searchToDate" />
-                                </div>
+                            <div class="col-md-3 text-sm">
+                                <label>Từ ngày</label>
+                                <input class="form-control form-control-sm maskInput" name="searchFromDate" id="searchFromDate" value="@ViewBag.searchFromDate" />
+                            </div>
+
+                            <div class="col-md-3 text-sm">
+                                <label>Đến ngày</label>
+                                <input class="form-control form-control-sm maskInput" name="searchToDate" id="searchToDate" value="@ViewBag.searchToDate" />
+                            </div>
 
                             <div class="col-md-3 text-sm">
                                 <label>&nbsp;</label>
@@ -96,6 +91,7 @@
 
                             <th>#</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Code)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().LoaiSao)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tengiaodich)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Diachi)</th>
                             <th>Tỉnh / Thành phố</th>
@@ -103,7 +99,7 @@
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().TapDoanId)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().LoaiSao)</th>
+                            
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().NguoiTrinhKyHd)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().KhuyenNghi)</th>
                         </tr>
@@ -120,7 +116,7 @@
                                         <div class="btn-group text-white" role="group">
                                             @if (user.Maphong == SD.CUDV || user.Username == "thumai")
                                             {
-                                                
+
                                                 <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Code" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
 
                                                 @*<span class="text-dark"> | </span>
@@ -133,7 +129,7 @@
 
                                                 <span id="confirmDeleteSpan_@item.Code" style="display: none">
                                                     <!--ajax check invoices-->
-                                                    <span class="text-dark invoiceTrue">Xoá?</span>
+                                            <span class="text-dark invoiceTrue">Xoá?</span>
 
                                                     <input type="hidden" name="id" value="@item.Code" />
                                                     <input type="hidden" name="strUrl" value="@Model.StrUrl" />
@@ -151,7 +147,8 @@
                                     </td>
 
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Code)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Tengiaodich)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.LoaiSao)</td>
+                                    <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tengiaodich)</td>
                                     <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Diachi)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TinhtpName)</td>
                                     <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tenthuongmai)</td>
@@ -167,7 +164,7 @@
                                             <span class="badge badge-danger">Khoá</span>
                                         }
                                     </td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.LoaiSao)</td>
+                                    
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.NguoiTrinhKyHd)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.KhuyenNghi)</td>
                                 </tr>
@@ -218,8 +215,8 @@
 
 @section Scripts{
 
-    <script src="~/js/Admin/Supplier/indexController.js"></script>
-    <script>
+<script src="~/js/Admin/Supplier/indexController.js"></script>
+<script>
 
     var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
 
@@ -237,7 +234,10 @@
         }
 
         indexController.Load_DichVu1Partial(id_Redirect, '@Model.Page', '@Model.SearchString');
-        indexController.Load_DichVuPartial(id_Redirect);
+        if ('@user.Maphong' === '@SD.CUDV' || '@user.Username' == 'thumai'){
+            indexController.Load_DichVuPartial(id_Redirect);
+        }
+
     }
     // giữ trạng thái
 
@@ -277,8 +277,23 @@
     });
     // giu trang thai phieu click
 
+    $('tr .tdVal').click(function () {
+        id = $(this).data('id');
+
+        // page
+        var page = $('.active span').text();
+        // hidSearchString
+        var searchString = $('#hidSearchString').val();
+
+        indexController.Load_DichVu1Partial(id, page, searchString);
+        if ('@user.Maphong' === '@SD.CUDV' || '@user.Username' === 'thumai'){
+            indexController.Load_DichVuPartial(id); // danhgia DV
+
+        }
+    });
+
     function TabDichVu() { // tab href
         location.href = "#tabDichVu";
     }
-    </script>
+</script>
 }

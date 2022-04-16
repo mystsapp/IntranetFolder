@@ -1,0 +1,101 @@
+﻿@using Common;
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
+}
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <a href="/" class="nav-link">Home</a>
+    </li>
+    @*<li class="nav-item">
+        <a href="#" class="nav-link">Contact</a>
+        </li>*@
+    <li class="nav-item dropdown">
+        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Danh Mục</a>
+        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+            <li>
+                <a asp-controller="Supplier" asp-action="Index" class="dropdown-item">
+                    Supplier
+                </a>
+            </li>
+            @if (user.Maphong == SD.CUDV || user.Username == "thumai")
+            {
+                <li class="dropdown-divider"></li>
+                <li>
+                    <a asp-controller="TinhTP" asp-action="Index" class="dropdown-item">
+                        Tỉnh / Thành phố
+                    </a>
+                </li>
+
+                <li class="dropdown-divider"></li>
+
+                <li>
+                    <a asp-controller="TinhDiemTQ" asp-action="Index" class="dropdown-item">
+                        Điểm TQ
+                    </a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                    <a asp-controller="TapDoan" asp-action="Index" class="dropdown-item">
+                        Tập đoàn
+                    </a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                    <a asp-controller="LoaiDV" asp-action="Index" class="dropdown-item">
+                        Loại hình DV
+                    </a>
+
+                </li>
+            }
+
+            @*
+                @if (user.Username == "hieuthao" || user.Username == "hongvt")
+                {
+                <li><a asp-action="Index" asp-controller="TamUngs" class="dropdown-item">Danh mục tạm ứng</a></li>
+
+                }*@
+            <!-- Level two dropdown-->
+            @*<li class="dropdown-submenu dropdown-hover">
+                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
+                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                <li>
+                <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                </li>
+
+                <li class="dropdown-submenu">
+                <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
+                <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+                <li><a href="#" class="dropdown-item">3rd level</a></li>
+                <li><a href="#" class="dropdown-item">3rd level</a></li>
+                </ul>
+                </li>
+
+                <li><a href="#" class="dropdown-item">level 2</a></li>
+                <li><a href="#" class="dropdown-item">level 2</a></li>
+                </ul>
+                </li>*@
+            <!-- End Level two -->
+        </ul>
+    </li>
+    @*<li class="nav-item" id="liThuHo">
+        <a href="/KVCTPTCs/ThuHo" class="nav-link">Thu hộ</a>
+        </li>*@
+</ul>
+
+
+<script>
+
+    //$(document).ready(function () {
+    //    var maCn = 'user.Macn';
+    //    if (maCn === 'STS' || maCn === 'STN') {
+    //        $('#liThuHo').show();
+    //    }
+    //    else {
+    //        $('#liThuHo').hide();
+    //    }
+    //});
+
+</script>

@@ -1,15 +1,16 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"]</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- daterangepicker -->
+    <link href="~/lib/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
     <!-- DataTables -->
     <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -25,60 +26,43 @@
     <link rel="stylesheet" href="~/lib/AdminLTE-3.1.0/plugins/toastr/toastr.min.css">
     <!-- pace-progress -->
     <link href="~/lib/AdminLTE-3.1.0/plugins/pace-progress/themes/orange/pace-theme-flat-top.css" rel="stylesheet" />
+    <!-- include summernote css/js-->
+    <link href="~/lib/AdminLTE-3.1.0/plugins/summernote/summernote-bs4.css" rel="stylesheet" />
+    
     <!--<script src="~/lib/shortcut.js"></script> -->
     <script src="~/lib/shortcut.js"></script>
 
     <link href="~/images/LogoLeft.ico" rel="shortcut icon" />
     <link href="~/css/MyCss.css" rel="stylesheet" />
-
 </head>
-@*
-@using Common;
-@using Microsoft.AspNetCore.Http
-@using Data.Utilities
-@inject IHttpContextAccessor HttpContextAccessor
-@{
-    var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
-}*@
-<body class="hold-transition layout-top-nav">
-
+<body class="hold-transition sidebar-mini text-sm sidebar-collapse" style="height: auto;">
+    <!--sidebar-open-->
+    @*<body class="sidebar-mini control-sidebar-slide-open text-sm" style="height: auto;">*@
+    <!-- Site wrapper -->
     <div class="wrapper">
-
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-sm navbar-dark text-sm" style="background-color:#3c8dbc; padding:0.2rem 0.2rem">
-            <div class="container">
-                <a href="~/lib/AdminLTE-3.1.0/index3.html" class="navbar-brand">
-                    @*<img src="~/lib/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">*@
-                    <img src="~/images/logo1.png" alt="AdminLTE Logo" class="brand-image " style="opacity: .8">
-                    @*<span class="brand-text font-weight-light ">Saigontourist</span>*@
-                </a>
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-dark" style="background-color: #3c8dbc; padding: 0.5rem 0.5rem;">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                @*<li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>*@
+            </ul>
 
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-                    <!-- Left navbar links -->
-                    <partial name="_TopMenu.cshtml" />
-
-                    <!-- SEARCH FORM -->
-                    @*<form class="form-inline ml-0 ml-md-3">
-                        <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                        </button>
-                        </div>
-                        </div>
-                        </form>*@
-                </div>
-            </div>
             <partial name="_LoginPartial.cshtml" />
         </nav>
         <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <partial name="_Leftmenu.cshtml" />
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="min-height: 1602px;">
+        <div class="content-wrapper" style="min-height: 1522.52px;">
             @if (TempData["AlertMessage"] != null)
             {
                 <div id="AlertBox" class="alert @TempData["AlertType"] hide">
@@ -88,20 +72,15 @@
             @RenderBody()
         </div>
         <!-- /.content-wrapper -->
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Main Footer -->
+
         <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Intranet folder
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 1.0
             </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2021 <a href="/">Saigontourist</a>.</strong> All rights reserved.
+            <strong>@*Copyright © 2014-2021*@ <a href="/">Saigontourist</a>.</strong> All rights reserved.
         </footer>
+
+        <div id="sidebar-overlay"></div>
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
@@ -131,12 +110,16 @@
     <script src="~/lib/AdminLTE-3.1.0/plugins/select2/js/select2.full.js"></script>
     <!-- AdminLTE App -->
     <script src="~/lib/jquery.maskedinput/jquery.maskedinput.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/lib/AdminLTE-3.1.0/plugins/moment/moment.min.js"></script>
+    <script src="~/lib/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="~/lib/AdminLTE-3.1.0/dist/js/adminlte.min.js"></script>
     <!-- Toastr -->
     <script src="~/lib/AdminLTE-3.1.0/plugins/toastr/toastr.min.js"></script>
     <!-- pace-progress -->
     <script src="~/lib/AdminLTE-3.1.0/plugins/pace-progress/pace.min.js"></script>
-
+    <script src="~/lib/AdminLTE-3.1.0/plugins/summernote/summernote-bs4.js"></script>
+    
     @RenderSection("Scripts", required: false)
 
     <script>
@@ -144,23 +127,26 @@
             $(".maskInput").mask("99/99/9999");
 
             $('#AlertBox').removeClass('hide');
-            $('#AlertBox').delay(1000).slideUp(1000);
-        });
+            $('#AlertBox').delay(2000).slideUp(2000);
 
+        });
     </script>
+
     <style>
         .error {
             color: red;
         }
 
         .mytable tr:hover {
-            background-color: #ECF5F5;
+            /*background-color: #ECF5F5;*/
+            background-color: #e5f3ff;
             cursor: pointer;
         }
 
         .hoverClass {
-            /*background-color: #3C8DBC;*/
             background-color: #cce8ff;
+            /*background-color: #17a2b8;*/
+            /*background-color: #3C8DBC;*/
             /*color: white;*/
         }
 
@@ -170,6 +156,19 @@
 
         .mytable {
             box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #search {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        /*select2 small input and small text*/
+        .select2-search input {
+            height: calc(1.8125rem + 2px);
+        }
+
+        .select2-results li {
+            font-size: 0.875rem !important;
         }
     </style>
 </body>

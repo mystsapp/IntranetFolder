@@ -38,11 +38,11 @@ var indexController = {
             });
         });
 
-        $('tr .tdVal').click(function () {
-            id = $(this).data('id');
+        //$('tr .tdVal').click(function () {
+        //    id = $(this).data('id');
 
-            indexController.TdVal_Click(id);
-        });
+        //    indexController.TdVal_Click(id);
+        //});
     },
     Load_DichVuPartial: function (id) { // danhgia DV
         strUrl = $('#hidStrUrl').val();
@@ -62,15 +62,15 @@ var indexController = {
             $('#dichVu1_Tbl').show(500);
         });
     },
-    TdVal_Click: function (id) {
-        // page
-        var page = $('.active span').text();
-        // hidSearchString
-        var searchString = $('#hidSearchString').val();
+    //TdVal_Click: function (id) {
+    //    // page
+    //    var page = $('.active span').text();
+    //    // hidSearchString
+    //    var searchString = $('#hidSearchString').val();
 
-        indexController.Load_DichVu1Partial(id, page, searchString);
-        indexController.Load_DichVuPartial(id); // danhgia DV
-    },
+    //    indexController.Load_DichVu1Partial(id, page, searchString);
+    //    indexController.Load_DichVuPartial(id); // danhgia DV
+    //},
     GetThanhPhoByTinh: function (tinhTPId) {
         $('#ddlThanhPho').html('');
         var option = '';
