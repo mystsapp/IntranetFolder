@@ -92,6 +92,12 @@ namespace Model
         [Display(Name = "Thời gian HĐ")]
         public string ThoiGianHd { get; set; }
 
+        [Display(Name = "Bắt đầu HĐ")]
+        public DateTime? BatDauHd { get; set; }
+
+        [Display(Name = "Kết thúc HĐ")]
+        public DateTime? KetThucHd { get; set; }
+
         [Display(Name = "Hot deal")]
         public bool HotDeal { get; set; }
 

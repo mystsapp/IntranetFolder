@@ -39,6 +39,8 @@ namespace Data.Models
         public string NguoiSua { get; set; }
         public string LogFile { get; set; }
         public string ThoiGianHd { get; set; }
+        public DateTime? BatDauHd { get; set; }
+        public DateTime? KetThucHd { get; set; }
         public bool HotDeal { get; set; }
         public string NguoiTrinhKy { get; set; }
         public DateTime? NgayTrinhKy { get; set; }

@@ -22,7 +22,9 @@ namespace IntranetFolder.Services
 
         Task<DichVu1DTO> CreateAsync(DichVu1DTO dichVu1DTO);
 
-        Task<DichVu1DTO> UpdateAsync(DichVu1DTO ichVu1DTO);
+        Task<DichVu1DTO> UpdateAsync(DichVu1DTO dichVu1DTO);
+
+        Task UpdateRangeAsync(List<DichVu1DTO> dichVu1DTOs);
 
         Task Delete(DichVu1DTO dichVu1DTO);
 
@@ -37,6 +39,8 @@ namespace IntranetFolder.Services
         Task<bool> CheckNameExist(string id, string name);
 
         Task<SupplierDTO> GetSupplierByIdAsync(string supplierId);
+
+        IEnumerable<DichVu1DTO> GetAll_AsNoTracked();
 
         Task<ErrorLog> CreateErroLogAsync(ErrorLog errorLog);
 
@@ -471,6 +475,17 @@ namespace IntranetFolder.Services
                                                                  x.Username == "thuyoanh" ||
                                                                  x.Username == "tuyetnga" ||
                                                                  x.Username == "kimhoa"));
+        }
+
+        public async Task UpdateRangeAsync(List<DichVu1DTO> dichVu1DTOs)
+        {
+            var dichVu1s = _mapper.Map<List<DichVu1DTO>, List<DichVu1>>(dichVu1DTOs);
+            await _unitOfWork.dichVu1Repository.UpdateRange(dichVu1s);
+        }
+
+        public IEnumerable<DichVu1DTO> GetAll_AsNoTracked()
+        {
+            return _mapper.Map<IEnumerable<DichVu1>, IEnumerable<DichVu1DTO>>(_unitOfWork.dichVu1Repository.GetAllAsNoTracking());
         }
     }
 }

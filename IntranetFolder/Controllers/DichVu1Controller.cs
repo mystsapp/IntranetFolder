@@ -35,8 +35,33 @@ namespace IntranetFolder.Controllers
             _dichVu1Service = dichVu1Service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            //IEnumerable<DichVu1DTO> dichVu1DTO = _dichVu1Service.GetAll_AsNoTracked();
+
+            //List<DichVu1DTO> dichVu1DTOs = new List<DichVu1DTO>();
+            //foreach (var item in dichVu1DTO)
+            //{
+            //    if (!string.IsNullOrEmpty(item.ThoiGianHd))
+            //    {
+            //        var thoiHanHD = item.ThoiGianHd.Split(" - ");
+            //        var batDau = thoiHanHD[0];
+            //        var ketThuc = "";
+            //        if (thoiHanHD.Count() > 1)
+            //        {
+            //            ketThuc = thoiHanHD[1];
+            //            item.KetThucHd = DateTime.Parse(ketThuc);
+            //        }
+
+            //        item.BatDauHd = DateTime.Parse(batDau);
+
+            //        await _dichVu1Service.UpdateAsync(item);
+            //    }
+            //}
+            //if (dichVu1DTOs.Count > 0)
+            //{
+            //    await _dichVu1Service.UpdateRangeAsync(dichVu1DTOs);
+            //}
             return View();
         }
 
@@ -134,6 +159,7 @@ namespace IntranetFolder.Controllers
             DichVu1VM.LoaiSaos = SD.LoaiSao();
             DichVu1VM.LoaiDvs = _dichVu1Service.GetAllLoaiDv();
             DichVu1VM.UserDTOs = await _dichVu1Service.GetAllUsers_Intranet();
+
             return View(DichVu1VM);
         }
 

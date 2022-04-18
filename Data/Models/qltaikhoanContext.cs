@@ -802,6 +802,10 @@ namespace Data.Models
                     .IsUnicode(false)
                     .HasColumnName("MaDV");
 
+                entity.Property(e => e.BatDauHd)
+                    .HasColumnType("date")
+                    .HasColumnName("BatDauHD");
+
                 entity.Property(e => e.DiaChi).HasMaxLength(250);
 
                 entity.Property(e => e.DienThoai).HasMaxLength(50);
@@ -815,6 +819,10 @@ namespace Data.Models
                 entity.Property(e => e.GiaHd)
                     .HasColumnType("decimal(18, 0)")
                     .HasColumnName("GiaHD");
+
+                entity.Property(e => e.KetThucHd)
+                    .HasColumnType("date")
+                    .HasColumnName("KetThucHD");
 
                 entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
 
@@ -1675,6 +1683,6 @@ namespace Data.Models
             //OnModelCreatingPartial(modelBuilder);
         }
 
-        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
