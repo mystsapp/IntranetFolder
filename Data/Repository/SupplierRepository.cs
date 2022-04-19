@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace Data.Repository
         Task<IEnumerable<Thanhpho1>> GetThanhpho1s();
 
         Task<IEnumerable<Quocgium>> GetQuocgias();
+
+        Task<IEnumerable<Supplier>> FindIncludeTwoAsync(Expression<Func<Supplier, object>> expressObj, Expression<Func<Supplier, object>> expressObj2, Expression<Func<Supplier, bool>> expression);
     }
 
     public class SupplierRepository : Repository<Supplier>, ISupplierRepository
@@ -38,6 +41,11 @@ namespace Data.Repository
         public async Task<IEnumerable<VTinh>> GetTinhs()
         {
             return await _context.VTinhs.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Supplier>> FindIncludeTwoAsync(Expression<Func<Supplier, object>> expressObj, Expression<Func<Supplier, object>> expressObj2, Expression<Func<Supplier, bool>> expression)
+        {
+            return await _context.Set<Supplier>().Include(expressObj).Include(expressObj2).Where(expression).ToListAsync();
         }
     }
 }

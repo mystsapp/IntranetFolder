@@ -553,6 +553,7 @@ namespace IntranetFolder.Controllers
             //HotelRoomModel.Details = await QuillHtml.GetHTML();
             DichVu1VM.DichVu1DTO.NguoiTao = user.Username;
             DichVu1VM.DichVu1DTO.NgayTao = DateTime.Now;
+            DichVu1VM.DichVu1DTO.LoaiDvid = DichVu1VM.SupplierDTO.LoaiDvid;
 
             // NextID
             var loaiDvDTO = _dichVu1Service.GetAllLoaiDv().Where(x => x.Id == DichVu1VM.DichVu1DTO.LoaiDvid).FirstOrDefault();
@@ -708,6 +709,25 @@ namespace IntranetFolder.Controllers
             DichVu1VM.Dichvu1Id = dichvu1Id;
             DichVu1VM.DichVu1DTO = await _dichVu1Service.GetByIdAsync(dichvu1Id);
             DichVu1VM.HinhAnhDTOs = await _dichVu1Service.GetAnhHDByDVId_PagedList(dichvu1Id, page);
+            return PartialView(DichVu1VM);
+        }
+
+        ////// User
+        ///
+        public async Task<IActionResult> DichVu1Partial_User(string supplierId, int page, string searchString)
+        {
+            //await _dichVu1Service.DeleteHinhanh(41);
+            var supplierDTO = await _dichVu1Service.GetSupplierByIdAsync(supplierId);
+            if (supplierDTO == null)
+            {
+                //ViewBag.ErrorMessage = "Supplier này không tồn tại.";
+                return Content("Supplier này không tồn tại.");
+            }
+            DichVu1VM.Page = page;
+            DichVu1VM.SearchString = searchString;
+            DichVu1VM.SupplierDTO = supplierDTO;
+            DichVu1VM.DichVu1DTOs = await _dichVu1Service.GetDichVu1By_SupplierId(supplierId);
+
             return PartialView(DichVu1VM);
         }
     }

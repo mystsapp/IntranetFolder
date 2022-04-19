@@ -81,7 +81,7 @@ namespace Model
         public string LoaiHd { get; set; }
 
         [Display(Name = "Loại DV")]
-        public int LoaiDvid { get; set; }
+        public int? LoaiDvid { get; set; }
 
         public DateTime? NgayTao { get; set; }
         public string NguoiTao { get; set; }

@@ -84,7 +84,7 @@
 
                     <div class="form-group row">
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label asp-for="SupplierDTO.LoaiSao" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
                             <select asp-for="SupplierDTO.LoaiSao" class="form-control form-control-sm input-sm "
@@ -92,8 +92,17 @@
                             </select>
                             <span asp-validation-for="SupplierDTO.LoaiSao" class="text-danger"></span>
                         </div>
+                        
+                    <div class="col-md-2">
+                        <label asp-for="SupplierDTO.LoaiDvid" class="control-label"></label>
+                        <!--select2-->
+                        <select asp-for="SupplierDTO.LoaiDvid" class="form-control form-control-sm select2"
+                                asp-items="@(new SelectList(Model.LoaiDvs, "Id", "TenLoai"))" id="ddlLoaiDv">
+                        </select>
+                        <span asp-validation-for="SupplierDTO.LoaiDvid" class="text-danger"></span>
+                    </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label asp-for="SupplierDTO.Tinhtp" class="control-label"></label>
                             @*<input asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm " id="txtTinhTP" />*@
                             <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2"

@@ -1,0 +1,151 @@
+﻿@model DichVu1ViewModel
+
+@using Microsoft.AspNetCore.Http
+@using Data.Utilities
+@using Common;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+
+    var user = HttpContextAccessor.HttpContext.Session.GetSingle<User>("loginUser");
+}
+<div class="pl-2 "><h3><strong>Hợp đồng nhà cung ứng - @Model.SupplierDTO.Tengiaodich</strong></h3></div>
+<div class="pr-2 pl-2" style="overflow-x:auto; overflow-y:auto">
+    <table class="table mytable text-nowrap text-sm" id="dichVu1Tbl">
+        <thead>
+            <tr class="table-info">
+
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().TenHd)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DonViKyKet)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().QuocGia)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Mien)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Tinh)</th>
+                    <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThanhPho)</th>*@
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiSao)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().ThongTinLienHe)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DiaChi)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DienThoai)</th>*@
+                @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NoiDung)</th>*@
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().NguoiLienHe)</th>
+                @*<th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().Website)</th>*@
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DaKy)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().HoatDong)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiTau)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().DauXe)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().GhiChu)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().GiaHd)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiHd)</th>
+                <th>@Html.DisplayNameFor(m => m.DichVu1DTOs.FirstOrDefault().LoaiDvid)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.DichVu1DTOs != null)
+            {
+                @foreach (var item in Model.DichVu1DTOs)
+                {
+
+                    <tr class="dichvu1-cursor-pointer " @*data-sotudatt="@item.SoTT_DaTao"*@>
+
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.TenHd)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DonViKyKet)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.QuocGia)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Mien)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Tinh)</td>
+                            <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThanhPho)</td>*@
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiSao)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.ThongTinLienHe)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DiaChi)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Email)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DienThoai)</td>*@
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NoiDung)</td>*@
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.NguoiLienHe)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.Website)</td>*@
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DaKy)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.HoatDong)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiTau)</td>
+                        @*<td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.NgayCTGoc.HasValue ? item.NgayCTGoc.Value.ToString("dd/MM/yyyy") : "")</td>*@
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.DauXe)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.GhiChu)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.Raw(item.GiaHd.ToString("N0"))</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiHd)</td>
+                        <td class="tdVal_KVCTPCT" data-id="@item.MaDv">@Html.DisplayFor(m => item.LoaiDvDTO.TenLoai)</td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<!-- anhHd_Modal-->
+<div class="modal fade" id="anhHd_Modal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content ">
+            <div class="modal-header bg-secondary">
+                <h6 class="modal-title"><i class="fas fa-file text-info"></i> Ảnh hợp đồng</h6>
+                <button type="button" class="close pr-4 pt-3" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body anhHd_Modal_Body " id="anhHd_Modal_Body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark " data-dismiss="modal" title="Thoát"><i class="fas fa-power-off fa-2x"></i></button>
+                @*<button type="submit" class="btn btn-outline-primary"><i class="fas fa-save"></i></button>*@
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- anhHd_Modal-->
+
+<script src="~/js/Admin/Supplier/indexController.js"></script>
+<script>
+
+    function confirmDelete(uniqueId, isDeleteClicked) {
+
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+
+    //// btnXoaDichVu1
+    //$('.btnXoaDichVu1').off('click').on('click',function () {
+
+    //    var page = @Model.Page;
+    //    var supplierId = '@Model.SupplierDTO.Code';
+
+    //    id = $(this).data('id');
+
+    //    var url = '/DichVu1/Delete';
+    //    $.post(url, { id: id }, function (response) {
+
+    //        if (response) {
+    //            toastr.success('Xoá thành công', 'Xoá!');
+    //            indexController.Load_DichVu1Partial(supplierId, page);
+    //        }
+    //    });
+
+    //});
+    //    // btnXoaDichVu1
+
+        $('.btnAnhHD').off('click').on('click', function(){
+            var dichvu1Id = $(this).data('id');
+
+            $.get('/DichVu1/GetAnhHDByDVId', { dichvu1Id: dichvu1Id }, function (data) {
+
+            $('#anhHd_Modal').modal('show');
+            $('.anhHd_Modal_Body').html(data);
+            $('#anhHd_Modal').draggable();
+        });
+        })
+</script>

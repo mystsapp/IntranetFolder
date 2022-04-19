@@ -74,6 +74,7 @@ namespace IntranetFolder.Controllers
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
             SupplierVM.LoaiSaos = SD.LoaiSao();
             SupplierVM.TapDoanDTOs = _supplierService.GetAll_TapDoan();
+            SupplierVM.LoaiDvs = _supplierService.GetAllLoaiDv();
             //var quocgia = SupplierVM.Quocgias.Where(x => x.Id == 230).FirstOrDefault(); // VIETNAM
 
             // next Id
@@ -149,6 +150,7 @@ namespace IntranetFolder.Controllers
             SupplierVM.Quocgias = await _supplierService.GetQuocgias();
             SupplierVM.LoaiSaos = SD.LoaiSao();
             SupplierVM.TapDoanDTOs = _supplierService.GetAll_TapDoan();
+            SupplierVM.LoaiDvs = _supplierService.GetAllLoaiDv();
 
             return View(SupplierVM);
         }
@@ -765,6 +767,38 @@ namespace IntranetFolder.Controllers
             }
 
             return Json(thanhphos);
+        }
+
+        //// IndexUser
+        public async Task<IActionResult> IndexUser(string searchString, string searchFromDate, string searchToDate, string loaiDV, string id, int page = 1)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.id = "";
+            }
+
+            SupplierVM.StrUrl = UriHelper.GetDisplayUrl(Request);
+            SupplierVM.Page = page;
+            SupplierVM.SearchString = searchString;
+
+            ViewBag.searchString = searchString;
+            ViewBag.searchFromDate = searchFromDate;
+            ViewBag.searchToDate = searchToDate;
+            ViewBag.loaiDV = loaiDV;
+
+            if (!string.IsNullOrEmpty(id)) // for redirect with id
+            {
+                SupplierVM.SupplierDTO = await _supplierService.GetByIdAsync(id);
+                ViewBag.id = SupplierVM.SupplierDTO.Code;
+            }
+            else
+            {
+                SupplierVM.SupplierDTO = new SupplierDTO();
+            }
+            SupplierVM.SupplierDTOs = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
+            SupplierVM.LoaiDvs = _supplierService.GetAllLoaiDv();
+            SupplierVM.VTinhs = await _supplierService.GetTinhs();
+            return View(SupplierVM);
         }
     }
 }

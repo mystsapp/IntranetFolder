@@ -27,5 +27,6 @@ namespace Model
         public string NguoiSua { get; set; }
         public string LogFile { get; set; }
         public virtual ICollection<DichVu1DTO> DichVu1DTOs { get; set; }
+        public virtual ICollection<SupplierDTO> SupplierDTOs { get; set; }
     }
 }

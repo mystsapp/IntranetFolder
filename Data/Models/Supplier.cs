@@ -50,7 +50,9 @@ namespace Data.Models
         public bool KhuyenNghi { get; set; }
         public string LoaiSao { get; set; }
         public int? TapDoanId { get; set; }
+        public int? LoaiDvid { get; set; }
 
+        public virtual LoaiDv LoaiDv { get; set; }
         public virtual TapDoan TapDoan { get; set; }
         public virtual ICollection<DanhGiaCamLao> DanhGiaCamLaos { get; set; }
         public virtual ICollection<DanhGiaCruise> DanhGiaCruises { get; set; }

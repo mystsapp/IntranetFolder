@@ -874,7 +874,6 @@ namespace Data.Models
                 entity.HasOne(d => d.LoaiDv)
                     .WithMany(p => p.DichVu1s)
                     .HasForeignKey(d => d.LoaiDvid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DichVus_LoaiDVs");
 
                 entity.HasOne(d => d.Supplier)
@@ -1263,6 +1262,8 @@ namespace Data.Models
 
                 entity.Property(e => e.Fax).HasMaxLength(50);
 
+                entity.Property(e => e.LoaiDvid).HasColumnName("LoaiDVId");
+
                 entity.Property(e => e.LoaiSao)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -1315,6 +1316,11 @@ namespace Data.Models
                     .HasColumnName("tour");
 
                 entity.Property(e => e.Website).HasMaxLength(200);
+
+                entity.HasOne(d => d.LoaiDv)
+                    .WithMany(p => p.Suppliers)
+                    .HasForeignKey(d => d.LoaiDvid)
+                    .HasConstraintName("FK_supplier_LoaiDVs");
 
                 entity.HasOne(d => d.TapDoan)
                     .WithMany(p => p.Suppliers)

@@ -22,6 +22,7 @@ namespace Data.Mapper
 
             CreateMap<Models.Supplier, SupplierDTO>()
                 .ForMember(dest => dest.TapDoanDTO, opt => opt.MapFrom(src => src.TapDoan))
+                .ForMember(dest => dest.LoaiDvDTO, opt => opt.MapFrom(src => src.LoaiDv))
                 .ForMember(dest => dest.DichVu1DTOs, opt => opt.MapFrom(src => src.DichVu1s))
                 .ForMember(dest => dest.DanhGiaVanChuyenDTOs, opt => opt.MapFrom(src => src.DanhGiaVanChuyens))
                 .ForMember(dest => dest.DanhGiaCamLaoDTOs, opt => opt.MapFrom(src => src.DanhGiaCamLaos))
@@ -58,10 +59,10 @@ namespace Data.Mapper
                 .ForMember(dest => dest.HinhAnhDTOs, opt => opt.MapFrom(src => src.HinhAnhs))
                 .ReverseMap();
 
-            CreateMap<LoaiDv, LoaiDvDTO>().ReverseMap();
+            CreateMap<LoaiDv, LoaiDvDTO>().ForMember(dest => dest.SupplierDTOs, opt => opt.MapFrom(src => src.Suppliers)).ReverseMap();
             CreateMap<HinhAnh, HinhAnhDTO>().ReverseMap();
 
-            CreateMap<TapDoan, TapDoanDTO>().ForMember(dest => dest.SupplierDTOs, opt => opt.MapFrom(src => src.Suppliers)).ReverseMap(); ;
+            CreateMap<TapDoan, TapDoanDTO>().ForMember(dest => dest.SupplierDTOs, opt => opt.MapFrom(src => src.Suppliers)).ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
         }
     }

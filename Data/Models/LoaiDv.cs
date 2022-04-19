@@ -10,6 +10,7 @@ namespace Data.Models
         public LoaiDv()
         {
             DichVu1s = new HashSet<DichVu1>();
+            Suppliers = new HashSet<Supplier>();
         }
 
         public int Id { get; set; }
@@ -23,5 +24,6 @@ namespace Data.Models
         public string LogFile { get; set; }
 
         public virtual ICollection<DichVu1> DichVu1s { get; set; }
+        public virtual ICollection<Supplier> Suppliers { get; set; }
     }
 }

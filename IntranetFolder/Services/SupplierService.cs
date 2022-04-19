@@ -55,6 +55,8 @@ namespace IntranetFolder.Services
         int huyCapcodeSupplier(Data.Models_QLTour.CodeSupplier model);
 
         IEnumerable<TapDoanDTO> GetAll_TapDoan();
+
+        IEnumerable<LoaiDvDTO> GetAllLoaiDv();
     }
 
     public class SupplierService : ISupplierService
@@ -86,7 +88,7 @@ namespace IntranetFolder.Services
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var suppliers = await _unitOfWork.supplierRepository.FindIncludeOneAsync(y => y.TapDoan, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+                var suppliers = await _unitOfWork.supplierRepository.FindIncludeTwoAsync(y => y.TapDoan, z => z.LoaiDv, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
                                            (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
                                            (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||
@@ -330,6 +332,11 @@ namespace IntranetFolder.Services
         {
             return _mapper.Map<IEnumerable<TapDoan>, IEnumerable<TapDoanDTO>>
                 (_unitOfWork.tapDoanRepository.GetAll());
+        }
+
+        public IEnumerable<LoaiDvDTO> GetAllLoaiDv()
+        {
+            return _mapper.Map<IEnumerable<LoaiDv>, IEnumerable<LoaiDvDTO>>(_unitOfWork.loaiDvRepository.GetAll());
         }
     }
 }

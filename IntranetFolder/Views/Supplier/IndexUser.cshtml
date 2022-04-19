@@ -13,7 +13,7 @@
 @{
     var user = HttpContextAccessor.HttpContext.Session.GetSingle<Data.Models.User>("loginUser");
 
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh Muc";
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -54,15 +54,22 @@
                                 @*@Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control", @value="@ViewData["currentFilter"]" } })*@
                                 <input class="form-control form-control-sm" name="searchString" value="@ViewBag.searchString" />
                             </div>
-
-                            <div class="col-md-3 text-sm">
+                            @*
+                                <div class="col-md-3 text-sm">
                                 <label>Từ ngày</label>
                                 <input class="form-control form-control-sm maskInput" name="searchFromDate" id="searchFromDate" value="@ViewBag.searchFromDate" />
-                            </div>
+                                </div>
 
-                            <div class="col-md-3 text-sm">
+                                <div class="col-md-3 text-sm">
                                 <label>Đến ngày</label>
                                 <input class="form-control form-control-sm maskInput" name="searchToDate" id="searchToDate" value="@ViewBag.searchToDate" />
+                                </div>
+                            *@
+                            <div class="col-md-3 text-sm">
+                                <label>Tỉnh / Thành phố</label>
+                                <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2" value="@ViewBag.loaiDV"
+                                        asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
+                                </select>
                             </div>
 
                             <div class="col-md-3 text-sm">
@@ -71,12 +78,12 @@
                                     <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                    @if (user.Maphong == SD.CUDV || user.Username == "thumai")
-                                    {
+                                    @*@if (user.Maphong == SD.CUDV || user.Username == "thumai")
+                                        {
                                         <a class="btn btn-outline-info btn-sm" asp-action="Create" asp-route-strUrl="@Model.StrUrl" title="Thêm mới"><i class="fas fa-plus"></i></a>
 
                                         <button type="submit" formaction="/Supplier/ExportExcel" formmethod="post" class="btn btn-outline-success btn-sm" id="btnExportExcel" title="Export excel"><i class="fas fa-file-excel"></i> Excel</button>
-                                    }
+                                        }*@
                                 </div>
                             </div>
                         </div>
@@ -89,73 +96,40 @@
                     <thead>
                         <tr class="table-info">
 
-                            <th>#</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Code)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().LoaiSao)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().LoaiDvid)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tengiaodich)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Diachi)</th>
+                            @*<th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Diachi)</th>*@
                             <th>Tỉnh / Thành phố</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Tenthuongmai)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>
+                            @*<th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Masothue)</th>*@
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().TapDoanId)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>
-                            
+                            @*<th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Trangthai)</th>*@
+@*
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().NguoiTrinhKyHd)</th>
                             <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().KhuyenNghi)</th>
-                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Ngaytao)</th>
+                            <th>@Html.DisplayNameFor(m => m.SupplierDTOs.FirstOrDefault().Ngaytao)</th>*@
                         </tr>
                     </thead>
                     <tbody>
                         @if (Model.SupplierDTOs != null)
                         {
-                            @foreach (var item in Model.SupplierDTOs)
+                            @foreach (var item in Model.SupplierDTOs.Where(x => x.Trangthai))
                             {
 
                                 <tr class="supplier-cursor-pointer @item.Code" onclick="TabDichVu()">
 
-                                    <td>
-                                        <div class="btn-group text-white" role="group">
-                                            @if (user.Maphong == SD.CUDV || user.Username == "thumai")
-                                            {
-
-                                                <a class="text-primary" title="Cập nhật" asp-action="Edit" asp-route-id="@item.Code" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-
-                                                @*<span class="text-dark"> | </span>
-
-                                                    <a class="text-success" title="Chi tiết" asp-action="Details" asp-route-id="@item.SoCT" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>*@
-                                                <!-- ko cho xóa -->
-                                                <span class="text-dark"> | </span>
-                                            }
-                                            <form asp-action="Delete" method="post">
-
-                                                <span id="confirmDeleteSpan_@item.Code" style="display: none">
-                                                    <!--ajax check invoices-->
-                                            <span class="text-dark invoiceTrue">Xoá?</span>
-
-                                                    <input type="hidden" name="id" value="@item.Code" />
-                                                    <input type="hidden" name="strUrl" value="@Model.StrUrl" />
-                                                    <button type="submit" class="btn btn-danger btn-xs ">Yes</button>
-                                                    <button type="button" class="btn btn-primary btn-xs" onclick="confirmDelete('@item.Code', false)">No</button>
-                                                </span>
-                                            </form>
-                                            <span id="deleteSpan_@item.Code">
-                                                @if (user.Maphong == SD.CUDV || user.Username == "thumai")
-                                                {
-                                                    <button type="button" data-id="@item.Code" class="text-danger border-0 bg-transparent " title="Xoá" onclick="confirmDelete('@item.Code', true)"><i class="fas fa-trash-alt"></i></button>
-                                                }
-                                            </span>
-                                        </div>
-                                    </td>
-
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Code)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.LoaiSao)</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.Raw(item.LoaiDvDTO == null ? "" : item.LoaiDvDTO.TenLoai)</td>
                                     <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tengiaodich)</td>
-                                    <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Diachi)</td>
+                                    @*<td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Diachi)</td>*@
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.TinhtpName)</td>
                                     <td class="tdVal" data-id="@item.Code" style="max-width:300px; resize:horizontal; overflow-y:auto;">@Html.DisplayFor(m => item.Tenthuongmai)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>
+                                    @*<td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.Masothue)</td>*@
                                     <td class="tdVal" data-id="@item.Code">@(item.TapDoanDTO == null ? "" : item.TapDoanDTO.Ten)</td>
-                                    <td class="tdVal" data-id="@item.Code">
+                                    @*<td class="tdVal" data-id="@item.Code">
                                         @if (item.Trangthai)
                                         {
                                             <span class="badge badge-success">Kích hoạt</span>
@@ -164,11 +138,11 @@
                                         {
                                             <span class="badge badge-danger">Khoá</span>
                                         }
-                                    </td>
-                                    
+                                    </td>*@
+@*
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.NguoiTrinhKyHd)</td>
                                     <td class="tdVal" data-id="@item.Code">@Html.DisplayFor(m => item.KhuyenNghi)</td>
-                                    <td class="tdVal" data-id="@item.Code">@Html.Raw(item.Ngaytao.ToString("dd/MM/yyyy"))</td>
+                                    <td class="tdVal" data-id="@item.Code">@Html.Raw(item.Ngaytao.ToString("dd/MM/yyyy"))</td>*@
                                 </tr>
 
                             }
@@ -179,13 +153,14 @@
             <div class="p-2" style="background-color: aliceblue;">
                 @if (Model.SupplierDTOs != null)
                 {
-                    @Html.PagedListPager((IPagedList)Model.SupplierDTOs, page => Url.Action("Index", new
+                    @Html.PagedListPager((IPagedList)Model.SupplierDTOs, page => Url.Action("IndexUser", new
                 {
                 page = page,
                 option = Context.Request.Query["option"],
                 searchString = @ViewBag.searchString,
                 searchFromDate = @ViewBag.searchFromDate,
-                searchToDate = @ViewBag.searchToDate
+                searchToDate = @ViewBag.searchToDate,
+                loaiDV = @ViewBag.loaiDV
                 }),
                 PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
                 {
@@ -210,14 +185,14 @@
     <!-- /.card -->
 </section>
 <!-- /.content DichVuPartial-->
-<div id="tabDichVu">
-</div>
+@*<div id="tabDichVu">
+</div>*@
 
 <input type="hidden" id="hidSearchString" value="@Model.SearchString" />
 
 @section Scripts{
 
-<script src="~/js/Admin/Supplier/indexController.js"></script>
+<script src="~/js/Admin/Supplier/indexUserController.js"></script>
 <script>
 
     var id_Redirect = '@ViewBag.id'; //Id sau khi redirect ve //////////////////////////////////////////////
@@ -236,9 +211,9 @@
         }
 
         indexController.Load_DichVu1Partial(id_Redirect, '@Model.Page', '@Model.SearchString');
-        if ('@user.Maphong' === '@SD.CUDV' || '@user.Username' == 'thumai'){
-            indexController.Load_DichVuPartial(id_Redirect);
-        }
+        //if ('user.Maphong' === 'SD.CUDV' || '@user.Username' == 'thumai'){
+        //    indexController.Load_DichVuPartial(id_Redirect);
+        //}
 
     }
     // giữ trạng thái
@@ -287,11 +262,11 @@
         // hidSearchString
         var searchString = $('#hidSearchString').val();
 
-        indexController.Load_DichVu1Partial(id, page, searchString);
-        if ('@user.Maphong' === '@SD.CUDV' || '@user.Username' === 'thumai'){
-            indexController.Load_DichVuPartial(id); // danhgia DV
+        //indexController.Load_DichVu1Partial(id, page, searchString);
+        //if ('user.Maphong' === 'SD.CUDV' || 'user.Username' === 'thumai'){
+        //    indexController.Load_DichVuPartial(id); // danhgia DV
 
-        }
+        //}
     });
 
     function TabDichVu() { // tab href

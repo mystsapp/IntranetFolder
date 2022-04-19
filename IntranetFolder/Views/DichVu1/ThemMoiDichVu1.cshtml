@@ -71,6 +71,7 @@
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="DichVu1DTO.SupplierId" />
+                <input type="hidden" asp-for="SupplierDTO.LoaiDvid" />
                 <input type="hidden" asp-for="Page" />
                 <input type="hidden" asp-for="SearchString" />
                 <input type="hidden" asp-for="DichVu1DTO.StringImageUrls" />
@@ -119,13 +120,13 @@
 
                 <div class=" row">
 
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <label asp-for="DichVu1DTO.HoatDong" class="control-label"></label>
                         <input asp-for="DichVu1DTO.HoatDong" class="form-control form-control-sm" id="ckHoatDong" type="checkbox" />
                         <span asp-validation-for="DichVu1DTO.HoatDong" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-5">
                         <label asp-for="DichVu1DTO.Tuyen" class="control-label"></label>
                         <input asp-for="DichVu1DTO.Tuyen" class="form-control form-control-sm" id="txtTuyen" />
                         <span asp-validation-for="DichVu1DTO.Tuyen" class="text-danger"></span>
@@ -142,7 +143,7 @@
                         <input asp-for="DichVu1DTO.LoaiXe" class="form-control form-control-sm" id="txtLoaiXe" />
                         <span asp-validation-for="DichVu1DTO.LoaiXe" class="text-danger"></span>
                     </div>
-                    
+                    @*
                     <div class="col-md-2">
                         <label asp-for="DichVu1DTO.LoaiDvid" class="control-label"></label>
                         <!--select2-->
@@ -151,7 +152,7 @@
                         </select>
                         <span asp-validation-for="DichVu1DTO.LoaiDvid" class="text-danger"></span>
                     </div>
-
+*@
                 </div>
 
                 <div class=" row">

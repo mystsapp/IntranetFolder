@@ -100,5 +100,10 @@ namespace Model
         public int TapDoanId { get; set; }
 
         public TapDoanDTO TapDoanDTO { get; set; }
+
+        [Display(Name = "Loại DV")]
+        public int LoaiDvid { get; set; }
+
+        public LoaiDvDTO LoaiDvDTO { get; set; }
     }
 }
