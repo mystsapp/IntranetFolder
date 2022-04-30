@@ -14,6 +14,8 @@ namespace IntranetFolder.Services
     {
         Task<IPagedList<SupplierDTO>> ListSupplier(string searchString, string searchFromDate, string searchToDate, int? page);
 
+        Task<IPagedList<SupplierDTO>> ListSupplierUser(string searchString, int? page);
+
         Task<SupplierDTO> GetByIdAsync(string id);
 
         Task<SupplierDTO> CreateAsync(SupplierDTO supplierDTO);
@@ -337,6 +339,72 @@ namespace IntranetFolder.Services
         public IEnumerable<LoaiDvDTO> GetAllLoaiDv()
         {
             return _mapper.Map<IEnumerable<LoaiDv>, IEnumerable<LoaiDvDTO>>(_unitOfWork.loaiDvRepository.GetAll());
+        }
+
+        public async Task<IPagedList<SupplierDTO>> ListSupplierUser(string searchString, int? page)
+        {
+            // return a 404 if user browses to before the first page
+            if (page.HasValue && page < 1)
+                return null;
+
+            // retrieve list from database/whereverand
+
+            List<SupplierDTO> list = new List<SupplierDTO>();
+            List<Supplier> suppliers1 = new List<Supplier>();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var suppliers = await _unitOfWork.supplierRepository.FindIncludeTwoAsync(y => y.TapDoan, z => z.LoaiDv, x => x.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+                                           (!string.IsNullOrEmpty(x.LoaiSao) && x.LoaiSao.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.LoaiDv.TenLoai) && x.LoaiDv.TenLoai.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Tengiaodich) && x.Tengiaodich.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Tenthuongmai) && x.Tenthuongmai.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.Tinhtp) && x.Tinhtp.ToLower().Contains(searchString.ToLower())) ||
+                                           (!string.IsNullOrEmpty(x.TapDoan.Ten) && x.TapDoan.Ten.ToLower().Contains(searchString.ToLower())));
+                suppliers1 = suppliers.ToList();
+            }
+            else
+            {
+                var suppliers = await _unitOfWork.supplierRepository.GetAllIncludeAsync(x => x.TapDoan, y => y.LoaiDv);
+                suppliers1 = suppliers.ToList();
+
+                if (suppliers1 == null)
+                {
+                    return null;
+                }
+            }
+
+            suppliers1 = suppliers1.OrderByDescending(x => x.Ngaytao).ToList();
+            suppliers1 = suppliers1.OrderByDescending(x => x.KhuyenNghi).ToList();
+
+            list = _mapper.Map<List<Supplier>, List<SupplierDTO>>(suppliers1);
+            var vTinhs = await GetTinhs();
+            foreach (var item in list)
+            {
+                if (!string.IsNullOrEmpty(item.Tinhtp) && item.Tinhtp != "-- Select --")
+                {
+                    var vTinh = vTinhs.Where(x => x.Matinh == item.Tinhtp).FirstOrDefault();
+                    item.TinhtpName = vTinh == null ? "" : vTinh.Tentinh;
+                }
+            }
+
+            // page the list
+            const int pageSize = 10;
+            decimal aa = (decimal)list.Count() / (decimal)pageSize;
+            var bb = Math.Ceiling(aa);
+            if (page > bb)
+            {
+                page--;
+            }
+            page = (page == 0) ? 1 : page;
+            var listPaged = list.ToPagedList(page ?? 1, pageSize);
+            //if (page > listPaged.PageCount)
+            //    page--;
+            // return a 404 if user browses to pages beyond last page. special case first page if no items exist
+            if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
+                return null;
+
+            return listPaged;
         }
     }
 }

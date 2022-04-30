@@ -770,7 +770,7 @@ namespace IntranetFolder.Controllers
         }
 
         //// IndexUser
-        public async Task<IActionResult> IndexUser(string searchString, string searchFromDate, string searchToDate, string loaiDV, string id, int page = 1)
+        public async Task<IActionResult> IndexUser(string searchString, string loaiDV, string id, int page = 1)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -782,8 +782,6 @@ namespace IntranetFolder.Controllers
             SupplierVM.SearchString = searchString;
 
             ViewBag.searchString = searchString;
-            ViewBag.searchFromDate = searchFromDate;
-            ViewBag.searchToDate = searchToDate;
             ViewBag.loaiDV = loaiDV;
 
             if (!string.IsNullOrEmpty(id)) // for redirect with id
@@ -795,7 +793,7 @@ namespace IntranetFolder.Controllers
             {
                 SupplierVM.SupplierDTO = new SupplierDTO();
             }
-            SupplierVM.SupplierDTOs = await _supplierService.ListSupplier(searchString, searchFromDate, searchToDate, page);
+            SupplierVM.SupplierDTOs = await _supplierService.ListSupplierUser(searchString, page);
             SupplierVM.LoaiDvs = _supplierService.GetAllLoaiDv();
             SupplierVM.VTinhs = await _supplierService.GetTinhs();
             return View(SupplierVM);

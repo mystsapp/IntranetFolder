@@ -1,0 +1,27 @@
+﻿using Data.Models;
+using GleamTech.FileUltimate.AspNet.UI;
+using Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using X.PagedList;
+
+namespace IntranetFolder.Models
+{
+    public class SupplierUserViewModel
+    {
+        public IPagedList<SupplierDTO> SupplierDTOs { get; set; }
+        public IEnumerable<DanhGiaNhaHangDTO> DanhGiaNhaHangDTOs { get; set; }
+        public SupplierDTO SupplierDTO { get; set; }
+        public IEnumerable<VTinh> VTinhs { get; set; }
+        public IEnumerable<Thanhpho1> Thanhpho1s { get; set; }
+        public IEnumerable<Quocgium> Quocgias { get; set; }
+        public IEnumerable<TapDoanDTO> TapDoanDTOs { get; set; }
+        public IEnumerable<LoaiDvDTO> LoaiDvs { get; set; }
+        public int Page { get; set; }
+        public string StrUrl { get; set; }
+        public string SearchString { get; set; }
+        public List<string> LoaiSaos { get; set; }
+    }
+}

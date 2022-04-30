@@ -1,4 +1,4 @@
-﻿@model SupplierViewModel
+﻿@model IntranetFolder.Models.SupplierUserViewModel
 
 @using X.PagedList;
 @using X.PagedList.Mvc.Core
@@ -67,7 +67,7 @@
                             *@
                             <div class="col-md-3 text-sm">
                                 <label>Tỉnh / Thành phố</label>
-                                <select asp-for="SupplierDTO.Tinhtp" class="form-control form-control-sm input-sm select2" value="@ViewBag.loaiDV"
+                                <select name="loaiDV" class="form-control form-control-sm input-sm select2" value="@ViewBag.loaiDV"
                                         asp-items="@(new SelectList(Model.VTinhs, "Matinh", "Tentinh"))" id="ddlTinhTP">
                                 </select>
                             </div>
